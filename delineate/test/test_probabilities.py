@@ -137,7 +137,7 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
         species_conversion_rate = model.GammaDistributedParameter(rng=rng, shape=0.1, scale=0.01, initial_value=0.02)
         self.tree.build(rng=rng, species_conversion_rate=species_conversion_rate)
 
-    def testProbabilities(self):
+    def testValidProbabilities(self):
         test_cases = {
                 "ab": 0.020668831269136167,
                 "cde": 0.02022241120317388,
