@@ -143,12 +143,13 @@ class LineageNode(dendropy.Node):
                         ch_g = ch1
                     else:
                         raise ValueError
-                    Z += ch_f.algvar_z * ch_f.edge.probability_of_any_speciation
+                    Z += (ch_f.algvar_z * ch_f.edge.probability_of_any_speciation)
                     ch_g.algvar_t = ch_g.edge.probability_of_any_speciation + (ch_g.edge.probability_of_no_speciation * ch_g.algvar_x)
                     ch_f.algvar_t = ch_f.edge.probability_of_no_speciation * ch_f.algvar_z
                     self.algvar_z = ch_f.algvar_t * ch_g.algvar_t
             else:
                 raise ValueError
+        print(Z)
         return Z
 
 class LineageTree(dendropy.Tree):
