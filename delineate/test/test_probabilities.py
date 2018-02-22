@@ -137,10 +137,14 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
         species_conversion_rate = model.GammaDistributedParameter(rng=rng, shape=0.1, scale=0.01, initial_value=0.02)
         self.tree.build(rng=rng, species_conversion_rate=species_conversion_rate)
 
-    def testEdgeProbs(self):
-        taxa = self.tree.taxon_namespace.get_taxa(labels="ab")
-        print(self.tree.probability_of_good_species_clade(taxa))
-
+    def testProbabilities(self):
+        test_cases = {
+                "ab": 0.020668831269136167,
+        }
+        for tax_labels in test_cases:
+            taxa = self.tree.taxon_namespace.get_taxa(labels=tax_labels)
+            assert len(taxa) == len(tax_labels)
+            self.assertAlmostEqual(self.tree.probability_of_good_species_clade(taxa), test_cases[tax_labels], 8)
 
 if __name__ == "__main__":
     unittest.main()
