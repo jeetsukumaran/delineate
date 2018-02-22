@@ -138,7 +138,7 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
         self.tree.build(rng=rng, species_conversion_rate=species_conversion_rate)
 
     def testEdgeProbs(self):
-        taxa = self.tree.taxon_namespace.get_taxa(labels="ac")
+        taxa = self.tree.taxon_namespace.get_taxa(labels="ab")
         print(self.tree.probability_of_good_species_clade(taxa))
 
 
