@@ -136,17 +136,30 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
         rng = random.Random()
         species_conversion_rate = model.GammaDistributedParameter(rng=rng, shape=0.1, scale=0.01, initial_value=0.02)
         self.tree.build(rng=rng, species_conversion_rate=species_conversion_rate)
-
-    def testValidProbabilities(self):
-        test_cases = {
+        self.monophyletic_multitaxon_clade_test_cases = {
                 "ab": 0.020668831269136167,
                 "cde": 0.02022241120317388,
                 "de": 0.005151702704502191,
         }
-        for tax_labels in test_cases:
+        self.single_taxon_clade_test_cases = {
+                "a": 0.00399201065601,
+                "b": 0.00399201065601,
+                "c": 0.0109397212246,
+                "d": 0.00598203594606,
+                "e": 0.00598203594606,
+        }
+
+    def testValidMonophyleticMultitaxonCladeProbabilities(self):
+        for tax_labels in self.monophyletic_multitaxon_clade_test_cases:
             taxa = self.tree.taxon_namespace.get_taxa(labels=tax_labels)
             assert len(taxa) == len(tax_labels)
-            self.assertAlmostEqual(self.tree.probability_of_good_species_clade(taxa), test_cases[tax_labels], 8)
+            self.assertAlmostEqual(self.tree.probability_of_monophyletic_multitaxon_clade_good_species(taxa), self.monophyletic_multitaxon_clade_test_cases[tax_labels], 8)
+
+    def testValidSingleTaxonCladeProbabilities(self):
+        for tax_label in self.single_taxon_clade_test_cases:
+            taxon = self.tree.taxon_namespace.get_taxon(label=tax_label)
+            assert taxon is not None
+            self.assertAlmostEqual(self.tree.probability_of_single_taxon_good_species(taxon), self.single_taxon_clade_test_cases[tax_label], 8)
 
 if __name__ == "__main__":
     unittest.main()

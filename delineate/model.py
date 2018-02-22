@@ -87,7 +87,7 @@ class LineageNode(dendropy.Node):
     def edge_factory(self, **kwargs):
         return LineageEdge(tree=self.tree, **kwargs)
 
-    def calc_probability_of_good_species_clade(self, taxa):
+    def calc_probability_of_monophyletic_multitaxon_clade_good_species(self, taxa):
         Z = 0.0
         if not self._child_nodes:
             self.algvar_x = 0.0
@@ -155,6 +155,7 @@ class LineageTree(dendropy.Tree):
 
     def __init__(self, *args, **kwargs):
         dendropy.Tree.__init__(self, *args, **kwargs)
+        self.taxon_split_bitmask_map = {}
 
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
@@ -171,7 +172,15 @@ class LineageTree(dendropy.Tree):
                     scale=0.1)
         self.encode_bipartitions()
 
-    def probability_of_good_species_clade(self, taxa):
+    def taxon_split_bitmask(self, taxon):
+        try:
+            return self.taxon_split_bitmask_map[taxon]
+        except KeyError:
+            split_bitmask = self.taxon_namespace.taxon_bitmask(taxon)
+            self.taxon_split_bitmask_map[taxon] = split_bitmask
+            return split_bitmask
+
+    def probability_of_monophyletic_multitaxon_clade_good_species(self, taxa):
         ### Prep
         if not isinstance(taxa, set):
             taxa = set(taxa)
@@ -186,7 +195,7 @@ class LineageTree(dendropy.Tree):
         #         leaf.algvar_s = 2
         ### Sweep
         for ndi in self.postorder_node_iter():
-            Z += ndi.calc_probability_of_good_species_clade(taxa)
+            Z += ndi.calc_probability_of_monophyletic_multitaxon_clade_good_species(taxa)
         ### Finalization
         if self.seed_node.algvar_s == 1:
             Z = self.seed_node.algvar_y
@@ -195,4 +204,9 @@ class LineageTree(dendropy.Tree):
         else:
             raise ValueError
         return Z
+
+    def probability_of_single_taxon_good_species(self, taxon):
+        split_bitmask = self.taxon_split_bitmask(taxon)
+        edge = self.split_bitmask_edge_map[split_bitmask]
+        return edge.probability_of_any_speciation
 
