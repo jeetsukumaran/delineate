@@ -140,6 +140,7 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
     def testProbabilities(self):
         test_cases = {
                 "ab": 0.020668831269136167,
+                "cde": 0.02022241120317388,
         }
         for tax_labels in test_cases:
             taxa = self.tree.taxon_namespace.get_taxa(labels=tax_labels)
