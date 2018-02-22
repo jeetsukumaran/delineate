@@ -137,7 +137,7 @@ class LineageNode(dendropy.Node):
                         assert ch2.algvar_s != 3
                         ch_f = ch1
                         ch_g = ch2
-                    elif ch1.algvar_s == 3:
+                    elif ch2.algvar_s == 3:
                         assert ch1.algvar_s != 3
                         ch_f = ch2
                         ch_g = ch1
