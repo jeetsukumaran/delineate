@@ -87,13 +87,14 @@ class LineageNode(dendropy.Node):
     def edge_factory(self, **kwargs):
         return LineageEdge(tree=self.tree, **kwargs)
 
-    def calc_probability_of_good_species_clade(self):
+    def calc_probability_of_good_species_clade(self, taxa):
+        Z = 0.0
         if not self._child_nodes:
             self.algvar_x = 0.0
             self.algvar_y = 0.0
             if self.taxon in taxa:
                 self.algvar_s = 1
-            else
+            else:
                 self.algvar_s = 2
         else:
             assert len(self._child_nodes) == 2
@@ -111,14 +112,15 @@ class LineageNode(dendropy.Node):
                 assert ch1.algvar_t == ch1.edge.probability_of_any_speciation + (1 - ch1.edge.probability_of_any_speciation) * ch1.algvar_x # debug
                 ch2.algvar_t = ch2.edge.probability_of_any_speciation + (ch2.edge.probability_of_no_speciation) * ch2.algvar_x
                 assert ch2.algvar_t == ch2.edge.probability_of_any_speciation + (1 - ch2.edge.probability_of_any_speciation) * ch2.algvar_x # debug
-            elif self.algvar_s == 3
+                self.algvar_x = ch1.algvar_t * ch2.algvar_t
+            elif self.algvar_s == 3:
                 if ch1.algvar_s != 3 and ch2.algvar_s != 3:
                     if ch1.algvar_s == 1:
-                        assert ch1.aglvar_s != 1
+                        assert ch2.algvar_s != 1
                         ch_f = ch1
                         ch_g = ch2
                     elif ch2.algvar_s2 == 1:
-                        assert ch1.aglvar_s != 1
+                        assert ch1.algvar_s != 1
                         ch_f = ch2
                         ch_g = ch1
                     else:
@@ -131,9 +133,23 @@ class LineageNode(dendropy.Node):
                     raise ValueError
                 else:
                     assert (ch1.algvar_s == 3 or ch2.algvar_s == 3) and not (ch1.algvar_s == 3 and ch2.algvar_s == 3) # debug
-                    pass
+                    if ch1.algvar_s == 3:
+                        assert ch2.algvar_s != 3
+                        ch_f = ch1
+                        ch_g = ch2
+                    elif ch1.algvar_s == 3:
+                        assert ch1.algvar_s != 3
+                        ch_f = ch2
+                        ch_g = ch1
+                    else:
+                        raise ValueError
+                    Z += ch_f.algvar_z * ch_f.edge.probability_of_any_speciation
+                    ch_g.algvar_t = ch_g.edge.probability_of_any_speciation + (ch_g.edge.probability_of_no_speciation * ch_g.algvar_x)
+                    ch_f.algvar_t = ch_f.edge.probability_of_no_speciation * ch_f.algvar_z
+                    self.algvar_z = ch_f.algvar_t * ch_g.algvar_t
             else:
                 raise ValueError
+        return Z
 
 class LineageTree(dendropy.Tree):
 
@@ -160,7 +176,7 @@ class LineageTree(dendropy.Tree):
         if not isinstance(taxa, set):
             taxa = set(taxa)
         ### Initialization
-        Z = None
+        Z = 0.0
         # for leaf in self.leaf_node_iter():
         #     leaf.algvar_x = 0.0
         #     leaf.algvar_y = 0.0
@@ -169,6 +185,14 @@ class LineageTree(dendropy.Tree):
         #     else
         #         leaf.algvar_s = 2
         ### Sweep
-        for ndi in tree.postorder_node_iter():
-            ndi.calc_probability_of_good_species_clade()
+        for ndi in self.postorder_node_iter():
+            Z += ndi.calc_probability_of_good_species_clade(taxa)
+        ### Finalization
+        if self.seed_node.algvar_s == 1:
+            Z = self.seed_node.algvar_y
+        elif self.seed_node.algvar_s == 3:
+            Z += self.seed_node.algvar_z
+        else:
+            raise ValueError
+        return Z
 
