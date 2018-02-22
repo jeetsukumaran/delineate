@@ -91,7 +91,7 @@ class LineageNode(dendropy.Node):
         Z = 0.0
         if not self._child_nodes:
             self.algvar_x = 0.0
-            self.algvar_y = 0.0
+            self.algvar_y = 1.0
             if self.taxon in taxa:
                 self.algvar_s = 1
             else:
@@ -149,7 +149,6 @@ class LineageNode(dendropy.Node):
                     self.algvar_z = ch_f.algvar_t * ch_g.algvar_t
             else:
                 raise ValueError
-        print(Z)
         return Z
 
 class LineageTree(dendropy.Tree):
