@@ -87,12 +87,12 @@ class LineageNode(dendropy.Node):
     def edge_factory(self, **kwargs):
         return LineageEdge(tree=self.tree, **kwargs)
 
-    def calc_probability_of_monophyletic_multitaxon_clade_good_species(self, taxa):
+    def calc_probability_of_monophyletic_multitaxon_clade_good_species(self, taxa_split_bitmask):
         Z = 0.0
         if not self._child_nodes:
             self.algvar_x = 0.0
             self.algvar_y = 1.0
-            if self.taxon in taxa:
+            if self.tree.taxon_split_bitmask(self.taxon) & taxa_split_bitmask:
                 self.algvar_s = 1
             else:
                 self.algvar_s = 2
@@ -151,11 +151,25 @@ class LineageNode(dendropy.Node):
                 raise ValueError
         return Z
 
+    def calc_probability_of_nonmonophyletic_multitaxon_clade_good_species(self, taxa):
+        Z = 0.0
+        if not self._child_nodes:
+            self.algvar_x = 0.0
+            self.algvar_y = 1.0
+            if self.taxon in taxa:
+                self.algvar_s = 1
+            else:
+                self.algvar_s = 2
+        else:
+            assert len(self._child_nodes) == 2
+
+
 class LineageTree(dendropy.Tree):
 
     def __init__(self, *args, **kwargs):
         dendropy.Tree.__init__(self, *args, **kwargs)
         self.taxon_split_bitmask_map = {}
+        self.taxa_split_bitmask_map  = {}
 
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
@@ -180,22 +194,37 @@ class LineageTree(dendropy.Tree):
             self.taxon_split_bitmask_map[taxon] = split_bitmask
             return split_bitmask
 
+    def taxa_split_bitmask(self, taxa):
+        if not isinstance(taxa, frozenset):
+            taxa = frozenset(taxa)
+        try:
+            return self.taxa_split_bitmask_map[taxa]
+        except KeyError:
+            split_bitmask = self.taxon_namespace.taxa_bitmask(taxa=taxa)
+            self.taxa_split_bitmask_map[taxa] = split_bitmask
+            return split_bitmask
+
     def probability_of_monophyletic_multitaxon_clade_good_species(self, taxa):
-        ### Prep
-        if not isinstance(taxa, set):
-            taxa = set(taxa)
         ### Initialization
         Z = 0.0
-        # for leaf in self.leaf_node_iter():
-        #     leaf.algvar_x = 0.0
-        #     leaf.algvar_y = 0.0
-        #     if leaf.taxon in taxa:
-        #         leaf.algvar_s = 1
-        #     else
-        #         leaf.algvar_s = 2
         ### Sweep
         for ndi in self.postorder_node_iter():
-            Z += ndi.calc_probability_of_monophyletic_multitaxon_clade_good_species(taxa)
+            Z += ndi.calc_probability_of_monophyletic_multitaxon_clade_good_species(self.taxa_split_bitmask(taxa))
+        ### Finalization
+        if self.seed_node.algvar_s == 1:
+            Z = self.seed_node.algvar_y
+        elif self.seed_node.algvar_s == 3:
+            Z += self.seed_node.algvar_z
+        else:
+            raise ValueError
+        return Z
+
+    def probability_of_nonmonophyletic_multitaxon_clade_good_species(self, taxa):
+        ### Initialization
+        Z = 0.0
+        ### Sweep
+        for ndi in self.postorder_node_iter():
+            Z += ndi.calc_probability_of_nonmonophyletic_multitaxon_clade_good_species(self.taxa_split_bitmask(taxa))
         ### Finalization
         if self.seed_node.algvar_s == 1:
             Z = self.seed_node.algvar_y
