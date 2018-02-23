@@ -148,6 +148,11 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
                 "d": 0.00598203594606,
                 "e": 0.00598203594606,
         }
+        self.nonmonophyletic_multitaxon_clade_test_cases = {
+                "abc": 0.020668831269136167,
+                "ce": 0.02022241120317388,
+                "cd": 0.005151702704502191,
+        }
 
     def testValidMonophyleticMultitaxonCladeProbabilities(self):
         for tax_labels in self.monophyletic_multitaxon_clade_test_cases:
@@ -160,6 +165,12 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
             taxon = self.tree.taxon_namespace.get_taxon(label=tax_label)
             assert taxon is not None
             self.assertAlmostEqual(self.tree.probability_of_single_taxon_good_species(taxon), self.single_taxon_clade_test_cases[tax_label], 8)
+
+    def testValidNonMonophyleticMultitaxonCladeProbabilities(self):
+        for tax_labels in self.nonmonophyletic_multitaxon_clade_test_cases:
+            taxa = self.tree.taxon_namespace.get_taxa(labels=tax_labels)
+            assert len(taxa) == len(tax_labels)
+            self.assertAlmostEqual(self.tree.probability_of_nonmonophyletic_multitaxon_clade_good_species(taxa), self.nonmonophyletic_multitaxon_clade_test_cases[tax_labels], 8)
 
 if __name__ == "__main__":
     unittest.main()

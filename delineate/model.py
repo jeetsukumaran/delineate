@@ -87,12 +87,13 @@ class LineageNode(dendropy.Node):
     def edge_factory(self, **kwargs):
         return LineageEdge(tree=self.tree, **kwargs)
 
-    def calc_probability_of_monophyletic_multitaxon_clade_good_species(self, taxa_split_bitmask):
+    def calc_probability_of_monophyletic_multitaxon_clade_good_species(self, taxa):
         Z = 0.0
         if not self._child_nodes:
             self.algvar_x = 0.0
             self.algvar_y = 1.0
-            if self.tree.taxon_split_bitmask(self.taxon) & taxa_split_bitmask:
+            # if self.tree.taxon_split_bitmask(self.taxon) & taxa_split_bitmask:
+            if self.taxon in taxa:
                 self.algvar_s = 1
             else:
                 self.algvar_s = 2
@@ -156,12 +157,14 @@ class LineageNode(dendropy.Node):
         if not self._child_nodes:
             self.algvar_x = 0.0
             self.algvar_y = 1.0
+            # if self.tree.taxon_split_bitmask(self.taxon) & taxa_split_bitmask:
             if self.taxon in taxa:
                 self.algvar_s = 1
             else:
                 self.algvar_s = 2
         else:
             assert len(self._child_nodes) == 2
+        return Z
 
 
 class LineageTree(dendropy.Tree):
@@ -207,9 +210,11 @@ class LineageTree(dendropy.Tree):
     def probability_of_monophyletic_multitaxon_clade_good_species(self, taxa):
         ### Initialization
         Z = 0.0
+        if not isinstance(taxa, frozenset):
+            taxa = frozenset(taxa)
         ### Sweep
         for ndi in self.postorder_node_iter():
-            Z += ndi.calc_probability_of_monophyletic_multitaxon_clade_good_species(self.taxa_split_bitmask(taxa))
+            Z += ndi.calc_probability_of_monophyletic_multitaxon_clade_good_species(taxa)
         ### Finalization
         if self.seed_node.algvar_s == 1:
             Z = self.seed_node.algvar_y
@@ -221,10 +226,12 @@ class LineageTree(dendropy.Tree):
 
     def probability_of_nonmonophyletic_multitaxon_clade_good_species(self, taxa):
         ### Initialization
+        if not isinstance(taxa, frozenset):
+            taxa = frozenset(taxa)
         Z = 0.0
         ### Sweep
         for ndi in self.postorder_node_iter():
-            Z += ndi.calc_probability_of_nonmonophyletic_multitaxon_clade_good_species(self.taxa_split_bitmask(taxa))
+            Z += ndi.calc_probability_of_nonmonophyletic_multitaxon_clade_good_species(taxa)
         ### Finalization
         if self.seed_node.algvar_s == 1:
             Z = self.seed_node.algvar_y
