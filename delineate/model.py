@@ -64,7 +64,7 @@ class LineageNode(dendropy.Node):
         # The probability that all of the tips that are descendants of this node have
         # had at least one "good" speciation event between themselves and this
         # node.
-        self.algvar_x = None
+        self.algvar_x = 0.0 # None
         # The probability that none of the tips that are descendants of
         # this node have had a good speciation event separating them from this
         # node.
@@ -107,12 +107,9 @@ class LineageNode(dendropy.Node):
             if self.algvar_s == 1:
                 # Set: yi = yr(i)yl(i)  (1 - pr(i))   (1 - pl(i))
                 self.algvar_y = ch1.algvar_y * ch2.algvar_y * ch1.edge.probability_of_no_speciation * ch2.edge.probability_of_no_speciation
-                assert self.algvar_y == ch1.algvar_y * ch2.algvar_y * (1 - ch1.edge.probability_of_any_speciation) * (1 - ch2.edge.probability_of_any_speciation) ## debug
             elif self.algvar_s == 2:
                 ch1.algvar_t = ch1.edge.probability_of_any_speciation + (ch1.edge.probability_of_no_speciation) * ch1.algvar_x
-                assert ch1.algvar_t == ch1.edge.probability_of_any_speciation + (1 - ch1.edge.probability_of_any_speciation) * ch1.algvar_x # debug
                 ch2.algvar_t = ch2.edge.probability_of_any_speciation + (ch2.edge.probability_of_no_speciation) * ch2.algvar_x
-                assert ch2.algvar_t == ch2.edge.probability_of_any_speciation + (1 - ch2.edge.probability_of_any_speciation) * ch2.algvar_x # debug
                 self.algvar_x = ch1.algvar_t * ch2.algvar_t
             elif self.algvar_s == 3:
                 if ch1.algvar_s != 3 and ch2.algvar_s != 3:
@@ -133,7 +130,6 @@ class LineageNode(dendropy.Node):
                 elif ch1.algvar_s == 3 and ch2.algvar_s == 3:
                     raise ValueError
                 else:
-                    assert (ch1.algvar_s == 3 or ch2.algvar_s == 3) and not (ch1.algvar_s == 3 and ch2.algvar_s == 3) # debug
                     if ch1.algvar_s == 3:
                         assert ch2.algvar_s != 3
                         ch_f = ch1
@@ -164,15 +160,86 @@ class LineageNode(dendropy.Node):
                 self.algvar_s = 2
         else:
             assert len(self._child_nodes) == 2
+            ch1, ch2 = self._child_nodes
+            taxa_bipartition = self.tree.taxa_bipartition(taxa)
+            if taxa_bipartition.is_nested_within(self.edge.bipartition):
+                self.algvar_s = 4
+            elif ch1.algvar_s == ch2.algvar_s:
+                self.algvar_s = ch1.algvar_s
+            else:
+                self.algvar_s = 3
+            if self.algvar_s == 1:
+                self.algvar_y = ch1.algvar_y * ch2.algvar_y * ch1.edge.probability_of_no_speciation * ch2.edge.probability_of_no_speciation
+            elif self.algvar_s == 2:
+                ch1.algvar_t = ch1.edge.probability_of_any_speciation + (ch1.edge.probability_of_no_speciation) * ch1.algvar_x
+                ch2.algvar_t = ch2.edge.probability_of_any_speciation + (ch2.edge.probability_of_no_speciation) * ch2.algvar_x
+                self.algvar_x = ch1.algvar_t * ch2.algvar_t
+            elif self.algvar_s == 3:
+                if ch1.algvar_s != 3 and ch2.algvar_s != 3:
+                    if ch1.algvar_s == 1:
+                        assert ch2.algvar_s != 1
+                        ch_f = ch1
+                        ch_g = ch2
+                    elif ch2.algvar_s == 1:
+                        assert ch1.algvar_s != 1
+                        ch_f = ch2
+                        ch_g = ch1
+                    else:
+                        raise ValueError
+                    ch_g.algvar_t = ch_g.edge.probability_of_any_speciation + ch_g.edge.probability_of_no_speciation * ch_g.algvar_x
+                    ch_f.algvar_t = ch_f.edge.probability_of_no_speciation * ch_f.algvar_y
+                    self.algvar_z = ch_f.algvar_t * ch_g.algvar_t
+                elif ch1.algvar_s == 3 and ch2.algvar_s == 3:
+                    self.algvar_z = ch1.algvar_z * ch1.edge.probability_of_no_speciation * ch2.algvar_z * ch2.edge.probability_of_no_speciation
+                # elif (ch1.algvar_s == 3 and ch2.algvar_s != 3) or (ch1.algvar_s != 3 and ch2.clgvar_s == 3):
+                else:
+                    if ch1.algvar_s == 3:
+                        assert ch2.algvar_s != 3
+                        ch_f = ch1
+                        ch_g = ch2
+                    elif ch2.algvar_s == 3:
+                        assert ch1.algvar_s != 3
+                        ch_f = ch2
+                        ch_g = ch1
+                    else:
+                        raise ValueError
+                    ch_g.algvar_t = ch_g.edge.probability_of_any_speciation + (ch_g.edge.probability_of_no_speciation * ch_g.algvar_x)
+                    ch_f.algvar_t = ch_f.edge.probability_of_no_speciation * ch_f.algvar_z
+                    self.algvar_z = ch_f.algvar_t * ch_g.algvar_t
+            elif self.algvar_s == 4:
+                if ch1.algvar_s != 4 and ch2.algvar_s != 4:
+                    # if ch1.algvar_s == 1:
+                    if ch1.algvar_s == 1 or ch1.algvar_z is None:
+                        ch1.algvar_z = ch1.algvar_y
+                    # if ch2.algvar_s == 1:
+                    if ch2.algvar_s == 1 or ch2.algvar_z is None:
+                        ch2.algvar_z = ch2.algvar_y
+                    self.algvar_z = ch1.algvar_z * ch1.edge.probability_of_no_speciation * ch2.algvar_z * ch2.edge.probability_of_no_speciation
+                # elif (ch1.algvar_s == 4 and ch2.algvar_s != 4) or (ch1.algvar_s != 4 and ch2.algvar_s == 4):
+                else:
+                    if ch1.algvar_s == 4:
+                        assert ch2.algvar_s != 4
+                        ch_f = ch1
+                        ch_g = ch2
+                    elif ch2.algvar_s == 4:
+                        assert ch1.algvar_s != 4
+                        ch_f = ch2
+                        ch_g = ch1
+                    else:
+                        raise ValueError
+                    Z += (ch_f.algvar_z * ch_f.edge.probability_of_any_speciation)
+                    ch_g.algvar_t = ch_g.edge.probability_of_any_speciation + (ch_g.edge.probability_of_no_speciation * ch_g.algvar_x)
+                    ch_f.algvar_t = ch_f.edge.probability_of_no_speciation * ch_f.algvar_z
+                    self.algvar_z = ch_f.algvar_t * ch_g.algvar_t
         return Z
-
 
 class LineageTree(dendropy.Tree):
 
     def __init__(self, *args, **kwargs):
         dendropy.Tree.__init__(self, *args, **kwargs)
-        self.taxon_split_bitmask_map = {}
-        self.taxa_split_bitmask_map  = {}
+        self._taxon_split_bitmask_map = {}
+        self._taxa_split_bitmask_map  = {}
+        self._taxa_bipartition_map  = {}
 
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
@@ -191,21 +258,31 @@ class LineageTree(dendropy.Tree):
 
     def taxon_split_bitmask(self, taxon):
         try:
-            return self.taxon_split_bitmask_map[taxon]
+            return self._taxon_split_bitmask_map[taxon]
         except KeyError:
             split_bitmask = self.taxon_namespace.taxon_bitmask(taxon)
-            self.taxon_split_bitmask_map[taxon] = split_bitmask
+            self._taxon_split_bitmask_map[taxon] = split_bitmask
             return split_bitmask
 
     def taxa_split_bitmask(self, taxa):
         if not isinstance(taxa, frozenset):
             taxa = frozenset(taxa)
         try:
-            return self.taxa_split_bitmask_map[taxa]
+            return self._taxa_split_bitmask_map[taxa]
         except KeyError:
             split_bitmask = self.taxon_namespace.taxa_bitmask(taxa=taxa)
-            self.taxa_split_bitmask_map[taxa] = split_bitmask
+            self._taxa_split_bitmask_map[taxa] = split_bitmask
             return split_bitmask
+
+    def taxa_bipartition(self, taxa):
+        if not isinstance(taxa, frozenset):
+            taxa = frozenset(taxa)
+        try:
+            return self._taxa_bipartition_map[taxa]
+        except KeyError:
+            bipartition = self.taxon_namespace.taxa_bipartition(taxa=taxa)
+            self._taxa_bipartition_map[taxa] = bipartition
+            return bipartition
 
     def probability_of_monophyletic_multitaxon_clade_good_species(self, taxa):
         ### Initialization
@@ -233,12 +310,7 @@ class LineageTree(dendropy.Tree):
         for ndi in self.postorder_node_iter():
             Z += ndi.calc_probability_of_nonmonophyletic_multitaxon_clade_good_species(taxa)
         ### Finalization
-        if self.seed_node.algvar_s == 1:
-            Z = self.seed_node.algvar_y
-        elif self.seed_node.algvar_s == 3:
-            Z += self.seed_node.algvar_z
-        else:
-            raise ValueError
+        Z += self.seed_node.algvar_z
         return Z
 
     def probability_of_single_taxon_good_species(self, taxon):
