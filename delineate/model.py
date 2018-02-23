@@ -191,8 +191,8 @@ class LineageNode(dendropy.Node):
                     self.algvar_z = ch_f.algvar_t * ch_g.algvar_t
                 elif ch1.algvar_s == 3 and ch2.algvar_s == 3:
                     self.algvar_z = ch1.algvar_z * ch1.edge.probability_of_no_speciation * ch2.algvar_z * ch2.edge.probability_of_no_speciation
-                # elif (ch1.algvar_s == 3 and ch2.algvar_s != 3) or (ch1.algvar_s != 3 and ch2.clgvar_s == 3):
-                else:
+                elif (ch1.algvar_s == 3 and ch2.algvar_s != 3) or (ch1.algvar_s != 3 and ch2.clgvar_s == 3):
+                # else:
                     if ch1.algvar_s == 3:
                         assert ch2.algvar_s != 3
                         ch_f = ch1
@@ -215,8 +215,8 @@ class LineageNode(dendropy.Node):
                     if ch2.algvar_s == 1 or ch2.algvar_z is None:
                         ch2.algvar_z = ch2.algvar_y
                     self.algvar_z = ch1.algvar_z * ch1.edge.probability_of_no_speciation * ch2.algvar_z * ch2.edge.probability_of_no_speciation
-                # elif (ch1.algvar_s == 4 and ch2.algvar_s != 4) or (ch1.algvar_s != 4 and ch2.algvar_s == 4):
-                else:
+                elif (ch1.algvar_s == 4 and ch2.algvar_s != 4) or (ch1.algvar_s != 4 and ch2.algvar_s == 4):
+                # else:
                     if ch1.algvar_s == 4:
                         assert ch2.algvar_s != 4
                         ch_f = ch1

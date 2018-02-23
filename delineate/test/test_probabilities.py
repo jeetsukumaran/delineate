@@ -149,9 +149,7 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
                 "e": 0.00598203594606,
         }
         self.nonmonophyletic_multitaxon_clade_test_cases = {
-                "abc": 0.020668831269136167,
-                "ce": 0.02022241120317388,
-                "cd": 0.005151702704502191,
+                "ce": 0.00012169919972082542,
         }
 
     def testValidMonophyleticMultitaxonCladeProbabilities(self):
