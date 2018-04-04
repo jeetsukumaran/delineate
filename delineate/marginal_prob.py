@@ -101,15 +101,13 @@ def accum_prob(nd, good_sp_rate):
         prob_sp = 1.0 - prob_no_sp
         if child.anc_status & SF.SEL_DES:
             if child.anc_status & SF.MONO_MRCA_BIT:
-                contrib = prob_sp * child.accum_prob
-                ret = contrib
-            else:
-                contrib = prob_no_sp * child.accum_prob
+                ret = prob_sp * child.accum_prob
+            contrib = prob_no_sp * child.accum_prob
         else:
             contrib = prob_sp + prob_no_sp * child.accum_prob
         ap *= contrib
-        fmt = 'child {} flag= {} brlen = {} prob_sp = {} child.accum_prob ={} par.accum_prob = {} ret={}'
-        print(fmt.format(child.label, child.anc_status, c_brlen, prob_sp, child.accum_prob, ap, ret))
+        # fmt = 'child {} flag= {} brlen = {} prob_sp = {} child.accum_prob ={} par.accum_prob = {} ret={}'
+        # print(fmt.format(child.label, child.anc_status, c_brlen, prob_sp, child.accum_prob, ap, ret))
 
     nd.label = '({})'.format(','.join(cl))
     nd.accum_prob = ap
