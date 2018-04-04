@@ -8,3 +8,4 @@ build/*
 dist/*
 setup.cfg
 setuptools-*.egg
+.from_joint.txt
