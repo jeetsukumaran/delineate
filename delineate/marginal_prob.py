@@ -3,6 +3,7 @@ from __future__ import print_function
 import dendropy
 import math
 
+
 def format_partition(p):
     return ''.join(['{', '}{'.join([','.join(sub) for sub in p]), '}'])
 
@@ -26,24 +27,15 @@ def format_partition(p):
 #       monophyletic, this could be the MRCA of the selected node or it ancestor.
 class SF(object):
     # Flags. 6 is impossible.
-    SEL_DES = 1         # has some selected des
+    SEL_DES = 1  # has some selected des
     UNSEL_DES = 2
     MIXED_DES = 3
     MONO_MRCA_BIT = 4
     SEL_MRCA = 5
     COMM_ANC_MIXED = 7
 
-# def calc_prob_good_species_mono(tree, selected_tips, good_sp_rate, flagged=False):
-#     if not flagged:
-#         assert flag_nodes(tree, selected_tips)
-#     raise NotImplementedError('monophyletic form')
 
-def calc_prob_good_species(tree, selected_tips, good_sp_rate, flagged=False):
-#     if not flagged:
-#         if flag_nodes(tree, selected_tips):
-#             return calc_prob_good_species_mono(tree, selected_tips, good_sp_rate, True)
-#
-# def flag_nodes(tree, selected_tips):
+def calc_prob_good_species(tree, selected_tips, good_sp_rate):
     # Add an attribute to each tip for the number of tips "selected" and "unselected" at
     #   or below this node.
     for tip in tree.leaf_node_iter():
@@ -86,6 +78,7 @@ def calc_prob_good_species(tree, selected_tips, good_sp_rate, flagged=False):
     total_prob += tree.seed_node.accum_prob
     return total_prob
 
+
 def accum_prob(nd, good_sp_rate):
     # Calculate prob...
     ap = 1.0
@@ -114,8 +107,30 @@ def accum_prob(nd, good_sp_rate):
     return ret
 
 
+def main(tree_filename, good_sp_rate, selected_tip_labels):
+    tree = dendropy.Tree.get(path=tree_filename, schema="newick")
+    selected_nodes = []
+    labels_found = set()
+    for tip in tree.leaf_node_iter():
+        tl = tip.taxon.label
+        if tl in selected_tip_labels:
+            if tl in labels_found:
+                sys.exit('Tip label "{}" occurred twice in the tree!\n'.format(tl))
+            labels_found.add(tl)
+            selected_nodes.append(tip)
+    if labels_found != selected_tip_labels:
+        d = selected_tip_labels - labels_found
+        sys.exit('Not all tips were found. Missing: "{}"\n'.format('", "'.join(list(d))))
+    prob_good = calc_prob_good_species(tree, selected_nodes, good_sp_rate)
+    stn = list(selected_tip_labels)
+    stn.sort()
+    stl = ','.join(stn)
+    print('Pr({' + stl + '}) = ' + str(prob_good))
+
+
 if __name__ == '__main__':
     import sys
+
     try:
         rate = 1.0
         filename = sys.argv[1]
@@ -132,21 +147,4 @@ if __name__ == '__main__':
     2. a rate of good speciation events (branch length multiplier), and
     3. a series of taxa labels that designate the possible conspecific lineages.
 ''')
-    tree = dendropy.Tree.get(path=filename, schema="newick")
-    selected_nodes = []
-    labels_found = set()
-    for tip in tree.leaf_node_iter():
-        tl = tip.taxon.label
-        if tl in selected_tip_label_set:
-            if tl in labels_found:
-                sys.exit('Tip label "{}" occurred twice in the tree!\n'.format(tl))
-            labels_found.add(tl)
-            selected_nodes.append(tip)
-    if labels_found != selected_tip_label_set:
-        d = selected_tip_label_set - labels_found
-        sys.exit('Not all tips were found. Missing: "{}"\n'.format('", "'.join(list(d))))
-    prob_good = calc_prob_good_species(tree, selected_nodes, rate)
-    stn = list(selected_tip_label_set)
-    stn.sort()
-    stl = ','.join(stn)
-    print('Pr({' + stl + '}) = ' + str(prob_good))
+    main(filename, rate, selected_tip_label_set)

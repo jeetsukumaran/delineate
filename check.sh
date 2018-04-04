@@ -8,6 +8,7 @@ bash "${d}/marginal_from_joint.sh" "${fn}" "${r}" > "${tfn}"
 # compare each line to the calc from the marginal script...
 linenum=1
 nl=$(wc -l "${tfn}" | awk '{print $1}')
+nl=$(expr 1 + $nl)
 while test $linenum -lt $nl ; do
     line="$(head -n$linenum $tfn | tail -n1)" || exit
     taxa=$(echo $line | sed 's/.*[{]//' | sed 's/[}].*//' | sed 's/,/ /g')
