@@ -8,31 +8,11 @@ def format_partition(p):
     return ''.join(['{', '}{'.join([','.join(sub) for sub in p]), '}'])
 
 
-# Note: node flagging somewhat different from notes to unite mono and non-mono:
-#  anc_status flag is a union of bits which mean:
-#   1 = Some Des are Selected nodes
-#   2 = Some Des are Unselected nodes
-#   4 = All Selected nodes are descendants.
-# So in the monophyletic case the statuses will be: 1, 2, 5 (selected MRCA) and 7 (anc of MRCA)
-# While in the non-monophyletic form, so statuses of 3 will also be encountered
-# So the meaning of entire flags:
-#   1 (SEL_DES) => anc of some (but not all) selected nodes
-#   2 (UNSEL_DES) => anc of only unselected nodes
-#   3 (MIXED_DES) => anc of some (but not all) selected nodes and some unselected nodes
-#   4 (MONO_MRCA_BIT) IMPOSSIBLE as flag value
-#   5 (SEL_MRCA) => MRCA of all of the selected nodes and no unselected nodes.
-#   6 IMPOSSIBLE as a flag value
-#   7 (COMM_ANC_MIXED) => ancestor (not necessarily MR anc) of all selected nodes and some unselected
-#       if the selected nodes are monophyletic, this is an ancestor of SEL_MRCA. If they are not
-#       monophyletic, this could be the MRCA of the selected node or it ancestor.
 class SF(object):
-    # Flags. 6 is impossible.
+    UNSET = 0
     SEL_DES = 1  # has some selected des
-    UNSEL_DES = 2
-    MIXED_DES = 3
-    MONO_MRCA_BIT = 4
-    SEL_MRCA = 5
-    COMM_ANC_MIXED = 7
+    CA_BIT = 2
+    CA_FLAG = 3
 
 
 def calc_prob_good_species(tree, selected_tips, good_sp_rate):
@@ -40,40 +20,28 @@ def calc_prob_good_species(tree, selected_tips, good_sp_rate):
     #   or below this node.
     for tip in tree.leaf_node_iter():
         tip.num_sel = 0
-        tip.num_unsel = 1
-        tip.anc_status = SF.UNSEL_DES
+        tip.anc_status = SF.UNSET
         tip.accum_prob = 0.0
     one_tip_sel = len(selected_tips) == 1
-    sel_as_flag = SF.SEL_MRCA if one_tip_sel else SF.SEL_DES
+    sel_as_flag = SF.CA_FLAG if one_tip_sel else SF.SEL_DES
     for tip in selected_tips:
         tip.num_sel = 1
-        tip.num_unsel = 0
         tip.anc_status = sel_as_flag
         tip.accum_prob = 1.0
     num_sel = len(selected_tips)
-    is_mono = False
     total_prob = 0.0
     for nd in tree.postorder_node_iter():
         if nd.is_leaf():
             continue
-        nd.num_sel, nd.num_unsel = 0, 0
+        nd.num_sel = 0
         for c in nd.child_nodes():
-            nd.num_unsel += c.num_unsel
             nd.num_sel += c.num_sel
         if nd.num_sel == 0:
-            assert nd.num_unsel > 0
-            nd.anc_status = SF.UNSEL_DES
-        elif nd.num_unsel == 0:
-            if nd.num_sel == num_sel:
-                is_mono = True
-                nd.anc_status = SF.SEL_MRCA
-            else:
-                nd.anc_status = SF.SEL_DES
+            nd.anc_status = SF.UNSET
         elif nd.num_sel == num_sel:
-            nd.anc_status = SF.COMM_ANC_MIXED
+            nd.anc_status = SF.CA_FLAG
         else:
-            assert not is_mono
-            nd.anc_status = SF.MIXED_DES
+            nd.anc_status = SF.SEL_DES
         total_prob += accum_prob(nd, good_sp_rate)
     total_prob += tree.seed_node.accum_prob
     return total_prob
@@ -93,7 +61,7 @@ def accum_prob(nd, good_sp_rate):
         prob_no_sp = math.exp(-scaled_brlen)
         prob_sp = 1.0 - prob_no_sp
         if child.anc_status & SF.SEL_DES:
-            if child.anc_status & SF.MONO_MRCA_BIT:
+            if child.anc_status & SF.CA_BIT:
                 ret = prob_sp * child.accum_prob
             contrib = prob_no_sp * child.accum_prob
         else:
