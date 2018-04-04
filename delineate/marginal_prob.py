@@ -4,10 +4,6 @@ import dendropy
 import math
 
 
-def format_partition(p):
-    return ''.join(['{', '}{'.join([','.join(sub) for sub in p]), '}'])
-
-
 class SF(object):
     UNSET = 0
     SEL_DES = 1  # has some selected des
