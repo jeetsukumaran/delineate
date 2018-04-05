@@ -5,7 +5,7 @@ import math
 
 
 class SF(object):
-    '''Enum class to name bits associated with being anc of none, some and all selected tips.'''
+    """Enum class to name bits associated with being anc of none, some and all selected tips."""
     UNSET = 0    # has no descendants that are selected
     SEL_DES = 1  # anc to some selected tips
     CA_BIT = 2   # bit representing "is a common anc to all of the selected tips"
@@ -13,9 +13,9 @@ class SF(object):
 
 
 def calc_prob_good_species(tree, selected_tip_labels, good_sp_rate):
-    '''Calculates the marginal probability that there is a "good" species with the tip labels
+    """Calculates the marginal probability that there is a "good" species with the tip labels
     that correspond to the set `selected_tip_labels`.
-    '''
+    """
     num_sel = len(selected_tip_labels)
     sel_as_flag = SF.CA_FLAG if num_sel == 1 else SF.SEL_DES
     total_prob = 0.0
@@ -45,9 +45,9 @@ def calc_prob_good_species(tree, selected_tip_labels, good_sp_rate):
 
 
 def accum_prob(nd, good_sp_rate):
-    '''Fills in the accum_prob slot for nd, and returns any contribution to the probability of
+    """Fills in the accum_prob slot for nd, and returns any contribution to the probability of
     the selected taxa being a good species.
-    '''
+    """
     ap = 1.0
     ret = 0.0
     for child in nd.child_nodes():
