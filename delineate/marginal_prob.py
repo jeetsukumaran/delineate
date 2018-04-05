@@ -5,53 +5,52 @@ import math
 
 
 class SF(object):
-    UNSET = 0
-    SEL_DES = 1  # has some selected des
-    CA_BIT = 2
-    CA_FLAG = 3
+    '''Enum class to name bits associated with being anc of none, some and all selected tips.'''
+    UNSET = 0    # has no descendants that are selected
+    SEL_DES = 1  # anc to some selected tips
+    CA_BIT = 2   # bit representing "is a common anc to all of the selected tips"
+    CA_FLAG = 3  # flag for a common ancestor of all selected tips
 
 
-def calc_prob_good_species(tree, selected_tips, good_sp_rate):
-    # Add an attribute to each tip for the number of tips "selected" and "unselected" at
-    #   or below this node.
-    for tip in tree.leaf_node_iter():
-        tip.num_sel = 0
-        tip.anc_status = SF.UNSET
-        tip.accum_prob = 0.0
-    one_tip_sel = len(selected_tips) == 1
-    sel_as_flag = SF.CA_FLAG if one_tip_sel else SF.SEL_DES
-    for tip in selected_tips:
-        tip.num_sel = 1
-        tip.anc_status = sel_as_flag
-        tip.accum_prob = 1.0
-    num_sel = len(selected_tips)
+def calc_prob_good_species(tree, selected_tip_labels, good_sp_rate):
+    '''Calculates the marginal probability that there is a "good" species with the tip labels
+    that correspond to the set `selected_tip_labels`.
+    '''
+    num_sel = len(selected_tip_labels)
+    sel_as_flag = SF.CA_FLAG if num_sel == 1 else SF.SEL_DES
     total_prob = 0.0
     for nd in tree.postorder_node_iter():
         if nd.is_leaf():
-            continue
-        nd.num_sel = 0
-        for c in nd.child_nodes():
-            nd.num_sel += c.num_sel
-        if nd.num_sel == 0:
-            nd.anc_status = SF.UNSET
-        elif nd.num_sel == num_sel:
-            nd.anc_status = SF.CA_FLAG
+            if nd.taxon.label in selected_tip_labels:
+                nd.num_sel = 1
+                nd.anc_status = sel_as_flag
+                nd.accum_prob = 1.0
+            else:
+                nd.num_sel = 0
+                nd.anc_status = SF.UNSET
+                nd.accum_prob = 0.0
         else:
-            nd.anc_status = SF.SEL_DES
-        total_prob += accum_prob(nd, good_sp_rate)
+            nd.num_sel = 0
+            for c in nd.child_nodes():
+                nd.num_sel += c.num_sel
+            if nd.num_sel == 0:
+                nd.anc_status = SF.UNSET
+            elif nd.num_sel == num_sel:
+                nd.anc_status = SF.CA_FLAG
+            else:
+                nd.anc_status = SF.SEL_DES
+            total_prob += accum_prob(nd, good_sp_rate)
     total_prob += tree.seed_node.accum_prob
     return total_prob
 
 
 def accum_prob(nd, good_sp_rate):
-    # Calculate prob...
+    '''Fills in the accum_prob slot for nd, and returns any contribution to the probability of
+    the selected taxa being a good species.
+    '''
     ap = 1.0
     ret = 0.0
-    cl = []
     for child in nd.child_nodes():
-        if not child.label:
-            child.label = child.taxon.label
-        cl.append(child.label)
         c_brlen = child.edge.length
         scaled_brlen = c_brlen * good_sp_rate
         prob_no_sp = math.exp(-scaled_brlen)
@@ -63,10 +62,6 @@ def accum_prob(nd, good_sp_rate):
         else:
             contrib = prob_sp + prob_no_sp * child.accum_prob
         ap *= contrib
-        # fmt = 'child {} flag= {} brlen = {} prob_sp = {} child.accum_prob ={} par.accum_prob = {} ret={}'
-        # print(fmt.format(child.label, child.anc_status, c_brlen, prob_sp, child.accum_prob, ap, ret))
-
-    nd.label = '({})'.format(','.join(cl))
     nd.accum_prob = ap
     return ret
 
@@ -85,7 +80,7 @@ def main(tree_filename, good_sp_rate, selected_tip_labels):
     if labels_found != selected_tip_labels:
         d = selected_tip_labels - labels_found
         sys.exit('Not all tips were found. Missing: "{}"\n'.format('", "'.join(list(d))))
-    prob_good = calc_prob_good_species(tree, selected_nodes, good_sp_rate)
+    prob_good = calc_prob_good_species(tree, selected_tip_labels, good_sp_rate)
     stn = list(selected_tip_labels)
     stn.sort()
     stl = ','.join(stn)
