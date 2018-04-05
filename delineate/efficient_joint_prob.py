@@ -21,29 +21,36 @@ class Partition(object):
             for i in as_l:
                 i.sort()
             as_l.sort()
-            d = [len(subsets), open_index, tuple([tuple(i) for i in as_l])]
+            d = [open_index, tuple([tuple(i) for i in as_l])]
             self._data = tuple(d)
         #print(self._data)
 
+    @property
+    def index_of_open_el(self):
+        return self._data[0]
+
+    @property
+    def subsets(self):
+        return self._data[1]
+
     def create_closed(self):
         asl = list(self._data)
-        asl[1] = -1
+        asl[0] = -1
         return Partition(data=tuple(asl))
 
     def create_extension(self, other):
-        # o_sz, o_opind, o_subs = other._data
         new_sub = []
         new_ot = None
-        s_subs = self._data[2]
-        o_subs = other._data[2]
+        s_subs = self.subsets
+        o_subs = other.subsets
         if self.is_open:
-            s_opind = self._data[1]
+            s_opind = self.index_of_open_el
             s_op_el = s_subs[s_opind]
             if other.is_open:
                 for el in s_subs:
                     if el is not s_op_el:
                         new_sub.append(el)
-                o_opind = other._data[1]
+                o_opind = other.index_of_open_el
                 o_op_el = o_subs[o_opind]
                 for el in o_subs:
                     if el is not o_op_el:
@@ -61,10 +68,9 @@ class Partition(object):
         new_sub.extend(o_subs)
         return _gen_from_sub_list(new_sub, new_ot)
 
-
     @property
     def is_open(self):
-        return self._data[1] >= 0
+        return self.index_of_open_el >= 0
 
     def __eq__(self, other):
         return self._data == other._data
@@ -73,14 +79,14 @@ class Partition(object):
         return hash(self._data)
 
     def __str__(self):
-        as_str_l = [str(i) for i in self._data[2]]
+        as_str_l = [str(i) for i in self.subsets]
         if self.is_open:
-            as_str_l[self._data[1]] = as_str_l[self._data[1]] + '*'
-        return 'Partition[{}: {}]'.format(self._data[0], ' | '.join(as_str_l))
+            as_str_l[self.index_of_open_el] = as_str_l[self.index_of_open_el] + '*'
+        return 'Partition[{}]'.format(' | '.join(as_str_l))
 
     @property
     def set_notation(self):
-        as_l = [','.join(i) for i in self._data[2]]
+        as_l = [','.join(i) for i in self.subsets]
         return ''.join(['{',  '}{'.join(as_l), '}'])
 
 def _gen_from_sub_list(sub_list, open_el):
@@ -88,7 +94,7 @@ def _gen_from_sub_list(sub_list, open_el):
     sub_list.sort()
     sub_list = tuple(sub_list)
     new_ot_ind = -1 if open_el is None else sub_list.index(open_el)
-    return Partition(data=(len(sub_list), new_ot_ind, sub_list))
+    return Partition(data=(new_ot_ind, sub_list))
 
 
 def del_part_maps(nd):
