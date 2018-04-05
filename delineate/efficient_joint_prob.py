@@ -23,7 +23,6 @@ class Partition(object):
             as_l.sort()
             d = [open_index, tuple([tuple(i) for i in as_l])]
             self._data = tuple(d)
-        #print(self._data)
 
     @property
     def index_of_open_el(self):
@@ -87,7 +86,8 @@ class Partition(object):
     @property
     def set_notation(self):
         as_l = [','.join(i) for i in self.subsets]
-        return ''.join(['{',  '}{'.join(as_l), '}'])
+        return ''.join(['{', '}{'.join(as_l), '}'])
+
 
 def _gen_from_sub_list(sub_list, open_el):
     # print('sub_list={}'.format(sub_list))
