@@ -32,6 +32,35 @@ class Partition(object):
     def subsets(self):
         return self._data[1]
 
+    def violates_constraints(self, consp_constraints, not_consp_constraints):
+        s_t = self.subsets
+        for cc in consp_constraints:
+            first, second = cc
+            ff, sf = False, False
+            for sub in s_t:
+                if first in sub:
+                    ff = True
+                    if second in sub:
+                        break
+                    elif sf:
+                        return True
+                    if sf:
+                        break
+                if second in sub:
+                    sf = True
+                    if ff:
+                        return True
+        for cc in not_consp_constraints:
+            first, second = cc
+            for sub in s_t:
+                if first in sub:
+                    if second in sub:
+                        return True
+                    break
+                elif second in sub:
+                    break
+        return False
+
     def create_closed(self):
         asl = list(self._data)
         asl[0] = -1
@@ -98,8 +127,14 @@ def _gen_from_sub_list(sub_list, open_el):
 
 
 def del_part_maps(nd):
-    delattr(nd, 'tipward_part_map')
-    delattr(nd, 'rootward_part_map')
+    try:
+        delattr(nd, 'tipward_part_map')
+    except AttributeError:
+        pass
+    try:
+        delattr(nd, 'rootward_part_map')
+    except AttributeError:
+        pass
 
 
 def merge_into_first(src_and_dest_dict, second):
@@ -126,6 +161,17 @@ def create_closed_map(map_with_open, remain_open_prob):
     return ret
 
 
+def enforce_constraints(partition_table, constraints):
+    consp_constraints = constraints.get('conspecific')
+    not_consp_constraints = constraints.get('not_conspecific')
+    to_del = []
+    for k in partition_table.keys():
+        if k.violates_constraints(consp_constraints, not_consp_constraints):
+            to_del.append(k)
+    for k in to_del:
+        del partition_table[k]
+    return len(to_del)
+
 def calc_all_joint_sp_probs(tree, good_sp_rate):
     """Calculates the marginal probability that there is a "good" species with the tip labels
     that correspond to the set `selected_tip_labels`.
@@ -138,9 +184,12 @@ def calc_all_joint_sp_probs(tree, good_sp_rate):
             children = nd.child_nodes()
             nd.tipward_part_map = children[0].rootward_part_map
             del_part_maps(children[0])
+            constraints = getattr(nd, 'sp_constraints', None)
             for c in children[1:]:
                 merge_into_first(nd.tipward_part_map, c.rootward_part_map)
                 del_part_maps(c)
+                if constraints is not None:
+                    enforce_constraints(nd.tipward_part_map, constraints)
         if nd is tree.seed_node:
             break
         c_brlen = nd.edge.length
@@ -151,7 +200,9 @@ def calc_all_joint_sp_probs(tree, good_sp_rate):
     for part, prob in tree.seed_node.tipward_part_map.items():
         k = part.create_closed() if part.is_open else part
         final_part_map[k] += prob
+    del_part_maps(tree.seed_node)
     return final_part_map
+
 
 
 def main(tree_filename, good_sp_rate):
