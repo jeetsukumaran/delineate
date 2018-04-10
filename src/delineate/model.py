@@ -162,7 +162,6 @@ class LineageNode(dendropy.Node):
             assert len(self._child_nodes) == 2
             ch1, ch2 = self._child_nodes
             taxa_bipartition = self.tree.taxa_bipartition(taxa)
-            print('--\ntaxa {} taxa_bipartition = {} self.edge.bipartition = {} ({})'.format(taxa, taxa_bipartition, self.edge.bipartition, taxa_bipartition.is_nested_within(self.edge.bipartition)))
             if taxa_bipartition.is_nested_within(self.edge.bipartition):
                 self.algvar_s = 4
             elif ch1.algvar_s == ch2.algvar_s:
@@ -234,7 +233,6 @@ class LineageNode(dendropy.Node):
                     self.algvar_z = ch_f.algvar_t * ch_g.algvar_t
             import sys
             self._write_newick(sys.stdout)
-            print(': s={} x={} y={} z={}'.format(self.algvar_s, self.algvar_x, self.algvar_y, self.algvar_z))
         return Z
 
 class LineageTree(dendropy.Tree):
@@ -285,7 +283,6 @@ class LineageTree(dendropy.Tree):
             return self._taxa_bipartition_map[taxa]
         except KeyError:
             bipartition = self.taxon_namespace.taxa_bipartition(taxa=taxa, is_rooted=self.is_rooted)
-            print('bipartition for {} is {}'.format(taxa, bipartition))
             self._taxa_bipartition_map[taxa] = bipartition
             return bipartition
 
