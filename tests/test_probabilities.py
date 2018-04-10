@@ -5,7 +5,6 @@ import random
 import unittest
 from delineate import model
 
-'''
 class LineageTreeSpeciationProbabilities(unittest.TestCase):
 
     def setUp(self):
@@ -93,7 +92,7 @@ class LineageTreeSpeciationProbabilities(unittest.TestCase):
             if nd.edge.label is None:
                 continue
             exp_probability_of_no_speciation, exp_probability_of_any_speciation = self.expected_probs[nd.edge.label]
-            exp_logch1_probability_of_no_speciation, exp_log_probability_of_any_speciation = [math.log(i) for i in self.expected_probs[nd.edge.label]]
+            exp_log_probability_of_no_speciation, exp_log_probability_of_any_speciation = [math.log(i) for i in self.expected_probs[nd.edge.label]]
             self.assertAlmostEqual(exp_log_probability_of_no_speciation, nd.edge.log_probability_of_no_speciation, 8)
             self.assertAlmostEqual(exp_log_probability_of_any_speciation, nd.edge.log_probability_of_any_speciation, 8)
             self.assertAlmostEqual(exp_probability_of_no_speciation, nd.edge.probability_of_no_speciation, 8)
@@ -109,7 +108,7 @@ class LineageTreeSpeciationProbabilities(unittest.TestCase):
             self.assertAlmostEqual(exp_probability_of_any_speciation, nd.edge.probability_of_any_speciation, 8)
             self.assertAlmostEqual(exp_log_probability_of_no_speciation, nd.edge.log_probability_of_no_speciation, 8)
             self.assertAlmostEqual(exp_log_probability_of_any_speciation, nd.edge.log_probability_of_any_speciation, 8)
-'''
+
 class LineageTreeSpeciesProbabilities(unittest.TestCase):
 
     def setUp(self):
