@@ -30,14 +30,8 @@
 ##############################################################################
 
 import os
-try:
-    import pkg_resources
-    TESTS_DIR = pkg_resources.resource_filename("delineate", "test")
-    TESTS_DATA_DIR = pkg_resources.resource_filename("delineate", os.path.join("test", "data",))
-    APPLICATIONS_DIR = pkg_resources.resource_filename("delineate", os.path.join(os.pardir, "applications"))
-except:
-    LOCAL_DIR = os.path.dirname(__file__)
-    TESTS_DIR = os.path.join(LOCAL_DIR, os.path.pardir)
-    TESTS_DATA_DIR = os.path.join(TESTS_DIR, "data")
-    PACKAGE_DIR = os.path.join(TESTS_DIR, os.path.pardir)
-    APPLICATIONS_DIR = os.path.join(PACKAGE_DIR, os.path.pardir, "applications")
+LOCAL_DIR = os.path.dirname(__file__)
+TESTS_DIR = os.path.join(LOCAL_DIR, os.path.pardir)
+TESTS_DATA_DIR = os.path.join(TESTS_DIR, "data")
+PACKAGE_DIR = os.path.join(TESTS_DIR, os.path.pardir)
+APPLICATIONS_DIR = os.path.join(PACKAGE_DIR, os.path.pardir, "applications")
