@@ -3,11 +3,11 @@ nfails=0
 ntests=0
 fn="$1"
 r="$2"
-d="$(dirname $0)"
+scriptdir="$(dirname $0)"
 ffn=.full_joint.txt
 # generate test output from joint script
 echo "generating test output. overwriting ${ffn} if it exists..."
-python delineate/joint_from_all_scenarios.py "${fn}" "${r}" > "${ffn}"
+python $scriptdir/joint_from_all_scenarios.py "${fn}" "${r}" > "${ffn}"
 
 sjfn=.sorted_joint_from_joint.txt
 echo "generating sorted test output. overwriting ${sjfn} if it exists..."
@@ -15,7 +15,7 @@ cat "${ffn}" | grep '^Pr[(] ' | sort > ${sjfn}
 
 osjfn=".eff-${sjfn}"
 echo "testing efficient_joint_prob.py . overwriting ${osjfn} if it exists..."
-python delineate/efficient_joint_prob.py "${fn}" "${r}" | sort > "${osjfn}" || exit 1
+python $scriptdir/efficient_joint_prob.py "${fn}" "${r}" | sort > "${osjfn}" || exit 1
 linenum=1
 nl=$(wc -l "${sjfn}" | awk '{print $1}')
 nl=$(expr 1 + $nl)
@@ -54,7 +54,7 @@ while test $linenum -lt $nl ; do
     taxa=$(echo $line | sed 's/.*[{]//' | sed 's/[}].*//' | sed 's/,/ /g')
     jprob=$(echo $line | sed 's/.*[=] //')
     linenum=`expr 1 + $linenum`
-    margout=$(python delineate/marginal_prob.py "${fn}" "${r}" $taxa) || exit
+    margout=$(python $scriptdir/marginal_prob.py "${fn}" "${r}" $taxa) || exit
     mprob=$(echo $margout | sed 's/.*[=] //')
     if python -c "assert(abs(${mprob} - ${jprob})/${jprob} < 1e-08)" 2>/dev/null ; then
         echo "  correct         $taxa     $mprob   $jprob"
