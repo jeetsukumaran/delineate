@@ -5,7 +5,10 @@ import random
 import unittest
 from delineate import model
 
-class LineageTreeSpeciesProbabilities(unittest.TestCase):
+class LineageTreeBasicMarginalSpeciesProbabilities(unittest.TestCase):
+
+    # Expected results have been independently calculated by JS and MTH, manually
+    # and by script.
 
     def setUp(self):
         s = "[&R]((a:0.20,b:0.20)i7:0.70,(c:0.55,(d:0.30,e:0.30)i6:0.25)i8:0.35);"
@@ -71,6 +74,12 @@ class LineageTreeSpeciesProbabilities(unittest.TestCase):
         for tax_labels in self.non_root_spanning_nonmonophyletic_multitaxon_clade_test_cases:
             self.assertAlmostEqual(self.tree.calc_prob_good_species(tax_labels, self.speciation_completion_rate),
                     self.non_root_spanning_nonmonophyletic_multitaxon_clade_test_cases[tax_labels], 8)
+
+class LineageTreeMultiMarginalSpeciesProbabilities(unittest.TestCase):
+
+    # Tests to see if changing the branch lengths and/or speciation rate will
+    # result in correct probs
+
 
 if __name__ == "__main__":
     unittest.main()
