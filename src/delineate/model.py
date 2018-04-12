@@ -16,10 +16,29 @@ class SF(object):
     CA_BIT  = 2   # bit representing "is a common anc to all of the selected tips"
     CA_FLAG = 3   # flag for a common ancestor of all selected tips
 
+class LineageEdge(dendropy.Edge):
+
+    def __init__(self, tree, **kwargs):
+        self.tree = tree
+        dendropy.Edge.__init__(self, **kwargs)
+
+class LineageNode(dendropy.Node):
+
+    def __init__(self, tree, **kwargs):
+        self.tree = tree
+        self.marginal_prob_calc = {}
+        dendropy.Node.__init__(self, **kwargs)
+
+    def edge_factory(self, **kwargs):
+        return LineageEdge(tree=self.tree, **kwargs)
+
 class LineageTree(dendropy.Tree):
 
     def __init__(self, *args, **kwargs):
         dendropy.Tree.__init__(self, *args, **kwargs)
+
+    def node_factory(self, *args, **kwargs):
+        return LineageNode(tree=self, **kwargs)
 
     def calc_prob_good_species(self, selected_tip_labels, good_sp_rate):
         """
@@ -32,25 +51,25 @@ class LineageTree(dendropy.Tree):
         for nd in self.postorder_node_iter():
             if nd.is_leaf():
                 if nd.taxon.label in selected_tip_labels:
-                    nd.num_sel = 1
-                    nd.anc_status = sel_as_flag
-                    nd.accum_prob = 1.0
+                    nd.marginal_prob_calc["num_sel"] = 1
+                    nd.marginal_prob_calc["anc_status"] = sel_as_flag
+                    nd.marginal_prob_calc["accum_prob"] = 1.0
                 else:
-                    nd.num_sel = 0
-                    nd.anc_status = SF.UNSET
-                    nd.accum_prob = 0.0
+                    nd.marginal_prob_calc["num_sel"] = 0
+                    nd.marginal_prob_calc["anc_status"] = SF.UNSET
+                    nd.marginal_prob_calc["accum_prob"] = 0.0
             else:
-                nd.num_sel = 0
+                nd.marginal_prob_calc["num_sel"] = 0
                 for c in nd.child_nodes():
-                    nd.num_sel += c.num_sel
-                if nd.num_sel == 0:
-                    nd.anc_status = SF.UNSET
-                elif nd.num_sel == num_sel:
-                    nd.anc_status = SF.CA_FLAG
+                    nd.marginal_prob_calc["num_sel"] += c.marginal_prob_calc["num_sel"]
+                if nd.marginal_prob_calc["num_sel"] == 0:
+                    nd.marginal_prob_calc["anc_status"] = SF.UNSET
+                elif nd.marginal_prob_calc["num_sel"] == num_sel:
+                    nd.marginal_prob_calc["anc_status"] = SF.CA_FLAG
                 else:
-                    nd.anc_status = SF.SEL_DES
+                    nd.marginal_prob_calc["anc_status"] = SF.SEL_DES
                 total_prob += self._marginal_species_prob_accum_prob(nd, good_sp_rate)
-        total_prob += self.seed_node.accum_prob
+        total_prob += self.seed_node.marginal_prob_calc["accum_prob"]
         return total_prob
 
     def _marginal_species_prob_accum_prob(self, nd, good_sp_rate):
@@ -65,12 +84,12 @@ class LineageTree(dendropy.Tree):
             scaled_brlen = c_brlen * good_sp_rate
             prob_no_sp = math.exp(-scaled_brlen)
             prob_sp = 1.0 - prob_no_sp
-            if child.anc_status & SF.SEL_DES:
-                if child.anc_status & SF.CA_BIT:
-                    ret = prob_sp * child.accum_prob
-                contrib = prob_no_sp * child.accum_prob
+            if child.marginal_prob_calc["anc_status"] & SF.SEL_DES:
+                if child.marginal_prob_calc["anc_status"] & SF.CA_BIT:
+                    ret = prob_sp * child.marginal_prob_calc["accum_prob"]
+                contrib = prob_no_sp * child.marginal_prob_calc["accum_prob"]
             else:
-                contrib = prob_sp + prob_no_sp * child.accum_prob
+                contrib = prob_sp + prob_no_sp * child.marginal_prob_calc["accum_prob"]
             ap *= contrib
-        nd.accum_prob = ap
+        nd.marginal_prob_calc["accum_prob"] = ap
         return ret
