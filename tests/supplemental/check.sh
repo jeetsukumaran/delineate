@@ -1,7 +1,20 @@
 #!/bin/bash
 
 echoerr() { printf "%s\n" "$*" >&2; }
-echoout() { echo "$*"; }
+echoout() { echo -e "$*"; }
+trim()
+{
+    local trimmed="$1"
+    # Strip leading spaces.
+    while [[ $trimmed == ' '* ]]; do
+       trimmed="${trimmed## }"
+    done
+    # Strip trailing spaces.
+    while [[ $trimmed == *' ' ]]; do
+        trimmed="${trimmed%% }"
+    done
+    echo "$trimmed"
+}
 
 nfails=0
 ntests=0
@@ -37,7 +50,7 @@ while test $linenum -lt $nl ; do
     linenum=`expr 1 + $linenum`
     if python -c "assert(abs(${oprob} - ${tprob})/${tprob} < 1e-08)" 2>/dev/null ; then
         echoerr "  correct         $ttaxa     $oprob   $tprob"
-        echoout "$fn\t$r\tjoint\t$ttaxa\t$tprob"
+        echoout "$fn\t$r\tjoint\t$(trim $ttaxa | sed 's/{//g' | sed 's/}/;/g' | sed 's/;$//')\t$tprob"
         ntests=$(expr 1 + $ntests)
     else
         echoerr "INCORRECT         $ttaxa     $oprob   $tprob"
@@ -63,7 +76,7 @@ while test $linenum -lt $nl ; do
     mprob=$(echo $margout | sed 's/.*[=] //')
     if python -c "assert(abs(${mprob} - ${jprob})/${jprob} < 1e-08)" 2>/dev/null ; then
         echoerr "  correct         $taxa     $mprob   $jprob"
-        echoout "$fn\t$r\tmarginal\t$taxa\t$jprob"
+        echoout "$fn\t$r\tmarginal\t$(echo $taxa | sed 's/ /;/g')\t$jprob"
         ntests=$(expr 1 + $ntests)
     else
         echoerr "INCORRECT         $taxa     $mprob   $jprob"
