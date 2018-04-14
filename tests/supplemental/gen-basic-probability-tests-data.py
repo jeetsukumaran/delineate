@@ -36,14 +36,14 @@ def main():
     """
     Main CLI handler.
     """
-    num_tax = 8
-    num_trees = 3
-    num_branch_length_variants = 5
-    speciation_rates = [0.01, 0.05, 0.2]
-    # num_tax = 3
-    # num_trees = 1
-    # num_branch_length_variants = 1
-    # speciation_rates = [0.01]
+    # num_tax = 6
+    # num_trees = 3
+    # num_branch_length_variants = 5
+    # speciation_rates = [0.01, 0.05, 0.2]
+    num_tax = 3
+    num_trees = 1
+    num_branch_length_variants = 1
+    speciation_rates = [0.01]
     rng = random.Random()
     working_filepath = ".temp-test-data-tree"
     assert num_tax <= 26
@@ -109,9 +109,9 @@ def main():
                     else:
                         raise ValueError(cols[2])
                     # print("{}: {}".format(cols[3], json.dumps(entry)))
-    with open("marginal_probability.json", "w") as dest:
+    with open(os.path.join("out", "marginal_probability.json"), "w") as dest:
         json.dump(marginal_probability_test_data, dest, indent=4, separators=(',', ': '))
-    with open("joint_probability.json", "w") as dest:
+    with open(os.path.join("out", "joint_probability.json"), "w") as dest:
         json.dump(joint_probability_test_data, dest, indent=4, separators=(',', ': '))
 
 if __name__ == "__main__":
