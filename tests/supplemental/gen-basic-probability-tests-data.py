@@ -67,10 +67,13 @@ def main():
             main_entry["branch_length_configurations"] = []
         assert len(taxon_namespace) == num_tax
         leaf_count = 0
-        for nd in tree.leaf_node_iter():
-            assert nd.taxon in taxon_namespace
-            leaf_count += 1
-        assert leaf_count == len(taxon_namespace)
+        taxa = [taxon for taxon in taxon_namespace]
+        rng.shuffle(taxa)
+        leaves = [nd for nd in tree.leaf_node_iter()]
+        rng.shuffle(leaves)
+        assert len(leaves) == len(taxa)
+        for nd, taxon in zip(leaves, taxa):
+            nd.taxon = taxon
         for brlen_variant_idx in range(num_branch_length_variants):
             randomize_brlens(tree, rng)
             with open(working_filepath, "w") as dest:
