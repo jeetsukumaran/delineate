@@ -36,14 +36,19 @@ def main():
     """
     Main CLI handler.
     """
-    # num_tax = 6
-    # num_trees = 3
-    # num_branch_length_variants = 3
-    # speciation_rates = [0.01, 0.05, 0.2]
-    num_tax = 3
-    num_trees = 1
-    num_branch_length_variants = 1
-    speciation_rates = [0.01]
+
+    ## for dev/test cycle
+    # num_tax = 3
+    # num_trees = 1
+    # num_branch_length_variants = 1
+    # speciation_rates = [0.01]
+
+    ## for production
+    num_tax = 6
+    num_trees = 3
+    num_branch_length_variants = 3
+    speciation_rates = [0.01, 0.05, 0.2]
+
     rng = random.Random()
     working_filepath = ".temp-test-data-tree"
     assert num_tax <= 26
