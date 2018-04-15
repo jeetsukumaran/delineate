@@ -36,14 +36,14 @@ def main():
     """
     Main CLI handler.
     """
-    num_tax = 6
-    num_trees = 3
-    num_branch_length_variants = 3
-    speciation_rates = [0.01, 0.05, 0.2]
-    # num_tax = 3
-    # num_trees = 1
-    # num_branch_length_variants = 1
-    # speciation_rates = [0.01]
+    # num_tax = 6
+    # num_trees = 3
+    # num_branch_length_variants = 3
+    # speciation_rates = [0.01, 0.05, 0.2]
+    num_tax = 3
+    num_trees = 1
+    num_branch_length_variants = 1
+    speciation_rates = [0.01]
     rng = random.Random()
     working_filepath = ".temp-test-data-tree"
     assert num_tax <= 26
@@ -56,6 +56,15 @@ def main():
                 death_rate=0.0,
                 num_extant_tips=num_tax,
                 taxon_namespace=taxon_namespace)
+        tree.encode_bipartitions()
+        main_entries = {
+                "joint": collections.OrderedDict(),
+                "marginal": collections.OrderedDict(),
+        }
+        tree_string = tree.as_string("newick").replace("\n", "")
+        for main_entry in main_entries.values():
+            main_entry["tree"] = tree_string
+            main_entry["test_configurations"] = []
         assert len(taxon_namespace) == num_tax
         leaf_count = 0
         for nd in tree.leaf_node_iter():
@@ -64,10 +73,13 @@ def main():
         assert leaf_count == len(taxon_namespace)
         for brlen_variant_idx in range(num_branch_length_variants):
             randomize_brlens(tree, rng)
-            tree_string = tree.as_string("newick")
             with open(working_filepath, "w") as dest:
-                dest.write(tree_string + "\n")
+                tree.write(file=dest, schema="newick")
                 dest.flush()
+            for main_entry in main_entries.values():
+                main_entry["test_configurations"].append(collections.OrderedDict())
+                main_entry["test_configurations"][-1]["branch_lengths"] = collections.OrderedDict([ (edge.split_bitmask, edge.length) for edge in tree.preorder_edge_iter() ])
+                main_entry["test_configurations"][-1]["subtest_configurations"] = []
             for speciation_rate in speciation_rates:
                 cmd = [os.path.abspath(os.path.join(script_path, "check.sh")),
                         working_filepath,
@@ -93,22 +105,23 @@ def main():
                     if not row:
                         continue
                     cols = row.split("\t")
-                    entry = collections.OrderedDict((
-                            ("tree", tree_string.replace("\n", "")),
+                    subentry = collections.OrderedDict((
                             ("speciation_rate", speciation_rate),
                             ("species", None),
                             ("probability_type", cols[2]),
                             ("probability_value", float(cols[4])),
                             ))
                     if cols[2] == "joint":
-                        entry["species"] = [sp.split(",") for sp in cols[3].split(";")]
-                        joint_probability_test_data.append(entry)
+                        subentry["species"] = [sp.split(",") for sp in cols[3].split(";")]
+                        main_entries["joint"]["test_configurations"][-1]["subtest_configurations"].append(subentry)
                     elif cols[2] == "marginal":
-                        entry["species"] = cols[3].split(";")
-                        marginal_probability_test_data.append(entry)
+                        subentry["species"] = cols[3].split(";")
+                        main_entries["marginal"]["test_configurations"][-1]["subtest_configurations"].append(subentry)
                     else:
                         raise ValueError(cols[2])
                     # print("{}: {}".format(cols[3], json.dumps(entry)))
+        marginal_probability_test_data.append(main_entries["marginal"])
+        joint_probability_test_data.append(main_entries["joint"])
     with open(os.path.join("out", "marginal_probability.json"), "w") as dest:
         json.dump(marginal_probability_test_data, dest, indent=4, separators=(',', ': '))
     with open(os.path.join("out", "joint_probability.json"), "w") as dest:
