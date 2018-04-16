@@ -29,9 +29,3 @@
 ##
 ##############################################################################
 
-import os
-LOCAL_DIR = os.path.dirname(__file__)
-TESTS_DIR = os.path.join(LOCAL_DIR, os.path.pardir)
-TESTS_DATA_DIR = os.path.join(TESTS_DIR, "data")
-PACKAGE_DIR = os.path.join(TESTS_DIR, os.path.pardir)
-APPLICATIONS_DIR = os.path.join(PACKAGE_DIR, os.path.pardir, "applications")

@@ -4,6 +4,16 @@ import math
 import random
 import unittest
 from delineate import model
+if __name__ == "__main__":
+    # For:
+    #   python tests/test_probabilities.py
+    import _pathmap
+else:
+    # For:
+    #   python setup.py test
+    #   python -m unittest discover
+    #   python -m unittest tests/test_probabilities.py
+    from . import _pathmap
 
 class LineageTreeBasicMarginalSpeciesProbabilities(unittest.TestCase):
 
@@ -79,6 +89,7 @@ class LineageTreeMultiMarginalSpeciesProbabilities(unittest.TestCase):
 
     # Tests to see if changing the branch lengths and/or speciation rate will
     # result in correct probs
+    pass
 
 
 if __name__ == "__main__":
