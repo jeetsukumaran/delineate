@@ -133,9 +133,9 @@ def main():
                         raise ValueError(cols[2])
         marginal_probability_test_data.append(main_entries["marginal"])
         joint_probability_test_data.append(main_entries["joint"])
-    with open(os.path.join("out", "marginal_probability.json"), "w") as dest:
+    with open(os.path.join("out", "marginal_probability_of_species.json"), "w") as dest:
         json.dump(marginal_probability_test_data, dest, indent=4, separators=(',', ': '))
-    with open(os.path.join("out", "joint_probability.json"), "w") as dest:
+    with open(os.path.join("out", "joint_probability_of_species.json"), "w") as dest:
         json.dump(joint_probability_test_data, dest, indent=4, separators=(',', ': '))
 
 if __name__ == "__main__":
