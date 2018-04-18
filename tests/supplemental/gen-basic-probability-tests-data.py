@@ -61,15 +61,6 @@ def main():
                 death_rate=0.0,
                 num_extant_tips=num_tax,
                 taxon_namespace=taxon_namespace)
-        tree.encode_bipartitions()
-        main_entries = {
-                "joint": collections.OrderedDict(),
-                "marginal": collections.OrderedDict(),
-        }
-        tree_string = tree.as_string("newick").replace("\n", "")
-        for main_entry in main_entries.values():
-            main_entry["tree"] = tree_string
-            main_entry["branch_length_configurations"] = []
         assert len(taxon_namespace) == num_tax
         leaf_count = 0
         taxa = [taxon for taxon in taxon_namespace]
@@ -79,6 +70,17 @@ def main():
         assert len(leaves) == len(taxa)
         for nd, taxon in zip(leaves, taxa):
             nd.taxon = taxon
+        tree.encode_bipartitions()
+
+        main_entries = {
+                "joint": collections.OrderedDict(),
+                "marginal": collections.OrderedDict(),
+        }
+        tree_string = tree.as_string("newick").replace("\n", "")
+        for main_entry in main_entries.values():
+            main_entry["taxon_namespace"] = [t.label for t in taxon_namespace]
+            main_entry["tree"] = tree_string
+            main_entry["branch_length_configurations"] = []
         for brlen_variant_idx in range(num_branch_length_variants):
             randomize_brlens(tree, rng)
             with open(working_filepath, "w") as dest:
@@ -92,7 +94,7 @@ def main():
                 for main_entry in main_entries.values():
                     main_entry["branch_length_configurations"][-1]["speciation_rate_configurations"].append(collections.OrderedDict())
                     main_entry["branch_length_configurations"][-1]["speciation_rate_configurations"][-1]["speciation_rate"] = speciation_rate
-                    main_entry["branch_length_configurations"][-1]["speciation_rate_configurations"][-1]["species_probabilities"] = []
+                    main_entry["branch_length_configurations"][-1]["speciation_rate_configurations"][-1]["species_configurations"] = []
                 cmd = [os.path.abspath(os.path.join(script_path, "check.sh")),
                         working_filepath,
                         str(speciation_rate)]
@@ -120,15 +122,15 @@ def main():
                     subentry = collections.OrderedDict((
                             # ("speciation_rate", speciation_rate),
                             ("species", None),
-                            ("probability_type", cols[2]),
-                            ("probability_value", float(cols[4])),
+                            ("type", cols[2]),
+                            ("probability", float(cols[4])),
                             ))
                     if cols[2] == "joint":
                         subentry["species"] = [sp.split(",") for sp in cols[3].split(";")]
-                        main_entries["joint"]["branch_length_configurations"][-1]["speciation_rate_configurations"][-1]["species_probabilities"].append(subentry)
+                        main_entries["joint"]["branch_length_configurations"][-1]["speciation_rate_configurations"][-1]["species_configurations"].append(subentry)
                     elif cols[2] == "marginal":
                         subentry["species"] = cols[3].split(";")
-                        main_entries["marginal"]["branch_length_configurations"][-1]["speciation_rate_configurations"][-1]["species_probabilities"].append(subentry)
+                        main_entries["marginal"]["branch_length_configurations"][-1]["speciation_rate_configurations"][-1]["species_configurations"].append(subentry)
                     else:
                         raise ValueError(cols[2])
         marginal_probability_test_data.append(main_entries["marginal"])
