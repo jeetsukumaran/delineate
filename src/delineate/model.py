@@ -40,7 +40,7 @@ class LineageTree(dendropy.Tree):
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
 
-    def calc_prob_good_species(self, selected_tip_labels, good_sp_rate):
+    def calc_marginal_probability_of_species(self, selected_tip_labels, good_sp_rate):
         """
         Calculates the marginal probability that there is a "good" species with the tip labels
         that correspond to the set `selected_tip_labels`.

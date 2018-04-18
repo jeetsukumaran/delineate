@@ -69,23 +69,23 @@ class LineageTreeBasicMarginalSpeciesProbabilities(unittest.TestCase):
     def testValidMonophyleticMultitaxonCladeProbabilities(self):
         for tax_labels in self.monophyletic_multitaxon_clade_test_cases:
             self.assertAlmostEqual(
-                    self.tree.calc_prob_good_species(tax_labels, self.speciation_completion_rate),
+                    self.tree.calc_marginal_probability_of_species(tax_labels, self.speciation_completion_rate),
                     self.monophyletic_multitaxon_clade_test_cases[tax_labels], 8)
 
     def testValidSingleTaxonCladeProbabilities(self):
         for tax_labels in self.single_taxon_clade_test_cases:
             self.assertAlmostEqual(
-                    self.tree.calc_prob_good_species(tax_labels, self.speciation_completion_rate),
+                    self.tree.calc_marginal_probability_of_species(tax_labels, self.speciation_completion_rate),
                     self.single_taxon_clade_test_cases[tax_labels], 8)
 
     def testValidRootSpanningNonMonophyleticMultitaxonCladeProbabilities(self):
         for tax_labels in self.root_spanning_nonmonophyletic_multitaxon_clade_test_cases:
-            self.assertAlmostEqual(self.tree.calc_prob_good_species(tax_labels, self.speciation_completion_rate),
+            self.assertAlmostEqual(self.tree.calc_marginal_probability_of_species(tax_labels, self.speciation_completion_rate),
                     self.root_spanning_nonmonophyletic_multitaxon_clade_test_cases[tax_labels], 8)
 
     def testValidNonRootSpanningNonMonophyleticMultitaxonCladeProbabilities(self):
         for tax_labels in self.non_root_spanning_nonmonophyletic_multitaxon_clade_test_cases:
-            self.assertAlmostEqual(self.tree.calc_prob_good_species(tax_labels, self.speciation_completion_rate),
+            self.assertAlmostEqual(self.tree.calc_marginal_probability_of_species(tax_labels, self.speciation_completion_rate),
                     self.non_root_spanning_nonmonophyletic_multitaxon_clade_test_cases[tax_labels], 8)
 
 class LineageTreeMultiMarginalSpeciesProbabilities(unittest.TestCase):
@@ -113,8 +113,9 @@ class LineageTreeMultiMarginalSpeciesProbabilities(unittest.TestCase):
                     for species_configuration in speciation_rate_config["species_configurations"]:
                         species_labels = species_configuration["species"]
                         expected_probability = species_configuration["probability"]
-                        obs_probability = tree.calc_prob_good_species(species_labels, speciation_rate)
+                        obs_probability = tree.calc_marginal_probability_of_species(species_labels, speciation_rate)
                         self.assertAlmostEqual(expected_probability, obs_probability, 8)
+
 
 if __name__ == "__main__":
     unittest.main()

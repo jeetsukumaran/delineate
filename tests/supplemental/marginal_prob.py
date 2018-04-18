@@ -12,7 +12,7 @@ class SF(object):
     CA_FLAG = 3  # flag for a common ancestor of all selected tips
 
 
-def calc_prob_good_species(tree, selected_tip_labels, good_sp_rate):
+def calc_marginal_probability_of_species(tree, selected_tip_labels, good_sp_rate):
     """Calculates the marginal probability that there is a "good" species with the tip labels
     that correspond to the set `selected_tip_labels`.
     """
@@ -80,7 +80,7 @@ def main(tree_filename, good_sp_rate, selected_tip_labels):
     if labels_found != selected_tip_labels:
         d = selected_tip_labels - labels_found
         sys.exit('Not all tips were found. Missing: "{}"\n'.format('", "'.join(list(d))))
-    prob_good = calc_prob_good_species(tree, selected_tip_labels, good_sp_rate)
+    prob_good = calc_marginal_probability_of_species(tree, selected_tip_labels, good_sp_rate)
     stn = list(selected_tip_labels)
     stn.sort()
     stl = ','.join(stn)
@@ -101,7 +101,7 @@ if __name__ == '__main__':
         if len(selected_tip_label_set) < len(selected_tip_label_list):
             sys.stderr.write('WARN: some tip labels were repeated in the command line.\n')
     except:
-        sys.exit('''Expecting up to at least 3 args: 
+        sys.exit('''Expecting up to at least 3 args:
     1. the filepath to a rooted newick tree with branch lengths,
     2. a rate of good speciation events (branch length multiplier), and
     3. a series of taxa labels that designate the possible conspecific lineages.
