@@ -223,7 +223,7 @@ if __name__ == '__main__':
             rate = float(sys.argv[2])
         assert rate > 0.0
     except:
-        sys.exit('''Expecting up to 2 args: 
+        sys.exit('''Expecting up to 2 args:
     1. the filepath to a rooted newick tree with branch lengths, and
     2. (optionally) a rate of good speciation events (branch length multiplier), and
 ''')
