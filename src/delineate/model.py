@@ -264,7 +264,7 @@ class LineageTree(dendropy.Tree):
     def __init__(self, *args, **kwargs):
         self._partition_probability_map = None
         self._label_partition_probability_map = None
-        self._speciation_rate = None
+        self._speciation_completion_rate = None
         self._setup_cache()
         dendropy.Tree.__init__(self, *args, **kwargs)
 
@@ -274,14 +274,14 @@ class LineageTree(dendropy.Tree):
     ################################################################################
     ## Properties
 
-    def _get_speciation_rate(self):
-        return self._speciation_rate
+    def _get_speciation_completion_rate(self):
+        return self._speciation_completion_rate
 
-    def _set_speciation_rate(self, value):
-        self._speciation_rate = value
+    def _set_speciation_completion_rate(self, value):
+        self._speciation_completion_rate = value
         self.invalidate_cache(self)
 
-    speciation_rate = property(_get_speciation_rate, _set_speciation_rate)
+    speciation_completion_rate = property(_get_speciation_completion_rate, _set_speciation_completion_rate)
 
     ################################################################################
     ## Cache
@@ -301,7 +301,7 @@ class LineageTree(dendropy.Tree):
     ################################################################################
     ## Marginal Probability
 
-    def calc_marginal_probability_of_species(self, selected_tip_labels, good_sp_rate):
+    def calc_marginal_probability_of_species(self, selected_tip_labels):
         """
         Calculates the marginal probability that there is a "good" species with the tip labels
         that correspond to the set `selected_tip_labels`.
@@ -329,7 +329,7 @@ class LineageTree(dendropy.Tree):
                     nd.marginal_prob_calc["anc_status"] = SF.CA_FLAG
                 else:
                     nd.marginal_prob_calc["anc_status"] = SF.SEL_DES
-                total_prob += self._marginal_species_prob_accum_prob(nd, good_sp_rate)
+                total_prob += self._marginal_species_prob_accum_prob(nd, self._speciation_completion_rate)
         total_prob += self.seed_node.marginal_prob_calc["accum_prob"]
         return total_prob
 
@@ -365,7 +365,7 @@ class LineageTree(dendropy.Tree):
         return prob
 
     def calc_label_partition_probability_map(self):
-        partition_probability_map = self._calc_all_joint_sp_probs(good_sp_rate=self._speciation_rate)
+        partition_probability_map = self._calc_all_joint_sp_probs(good_sp_rate=self._speciation_completion_rate)
         label_partition_probability_map = {}
         for p, v in partition_probability_map.items():
             k = p.compile_lookup_key()

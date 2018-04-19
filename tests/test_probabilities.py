@@ -64,28 +64,28 @@ class LineageTreeBasicMarginalSpeciesProbabilities(unittest.TestCase):
                 "ace": 2.2783942169371514e-05,
                 "abc": 0.004826167453992684,
         }
-        self.speciation_completion_rate = 0.02
+        self.tree.speciation_completion_rate = 0.02
 
     def testValidMonophyleticMultitaxonCladeProbabilities(self):
         for tax_labels in self.monophyletic_multitaxon_clade_test_cases:
             self.assertAlmostEqual(
-                    self.tree.calc_marginal_probability_of_species(tax_labels, self.speciation_completion_rate),
+                    self.tree.calc_marginal_probability_of_species(tax_labels),
                     self.monophyletic_multitaxon_clade_test_cases[tax_labels], 8)
 
     def testValidSingleTaxonCladeProbabilities(self):
         for tax_labels in self.single_taxon_clade_test_cases:
             self.assertAlmostEqual(
-                    self.tree.calc_marginal_probability_of_species(tax_labels, self.speciation_completion_rate),
+                    self.tree.calc_marginal_probability_of_species(tax_labels),
                     self.single_taxon_clade_test_cases[tax_labels], 8)
 
     def testValidRootSpanningNonMonophyleticMultitaxonCladeProbabilities(self):
         for tax_labels in self.root_spanning_nonmonophyletic_multitaxon_clade_test_cases:
-            self.assertAlmostEqual(self.tree.calc_marginal_probability_of_species(tax_labels, self.speciation_completion_rate),
+            self.assertAlmostEqual(self.tree.calc_marginal_probability_of_species(tax_labels),
                     self.root_spanning_nonmonophyletic_multitaxon_clade_test_cases[tax_labels], 8)
 
     def testValidNonRootSpanningNonMonophyleticMultitaxonCladeProbabilities(self):
         for tax_labels in self.non_root_spanning_nonmonophyletic_multitaxon_clade_test_cases:
-            self.assertAlmostEqual(self.tree.calc_marginal_probability_of_species(tax_labels, self.speciation_completion_rate),
+            self.assertAlmostEqual(self.tree.calc_marginal_probability_of_species(tax_labels),
                     self.non_root_spanning_nonmonophyletic_multitaxon_clade_test_cases[tax_labels], 8)
 
 class LineageTreeMultiMarginalSpeciesProbabilities(unittest.TestCase):
@@ -109,11 +109,11 @@ class LineageTreeMultiMarginalSpeciesProbabilities(unittest.TestCase):
                     assert split_bitmask in tree.split_bitmask_edge_map, split_bitmask
                     tree.split_bitmask_edge_map[split_bitmask].length = br_len
                 for speciation_rate_config in brlen_config["speciation_rate_configurations"]:
-                    speciation_rate = speciation_rate_config["speciation_rate"]
+                    tree.speciation_completion_rate = speciation_rate_config["speciation_rate"]
                     for species_configuration in speciation_rate_config["species_configurations"]:
                         species_labels = species_configuration["species"]
                         expected_probability = species_configuration["probability"]
-                        obs_probability = tree.calc_marginal_probability_of_species(species_labels, speciation_rate)
+                        obs_probability = tree.calc_marginal_probability_of_species(species_labels)
                         self.assertAlmostEqual(expected_probability, obs_probability, 8)
 
 class LineageTreeJointSpeciesProbabilities(unittest.TestCase):
@@ -137,7 +137,7 @@ class LineageTreeJointSpeciesProbabilities(unittest.TestCase):
                     assert split_bitmask in tree.split_bitmask_edge_map, split_bitmask
                     tree.split_bitmask_edge_map[split_bitmask].length = br_len
                 for speciation_rate_config in brlen_config["speciation_rate_configurations"]:
-                    tree.speciation_rate = speciation_rate_config["speciation_rate"]
+                    tree.speciation_completion_rate = speciation_rate_config["speciation_rate"]
                     for species_configuration in speciation_rate_config["species_configurations"]:
                         species_labels = species_configuration["species"]
                         expected_probability = species_configuration["probability"]
