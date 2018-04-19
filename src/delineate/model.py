@@ -262,8 +262,6 @@ class LineageTree(dendropy.Tree):
     ## Lifecycle and Structure
 
     def __init__(self, *args, **kwargs):
-        self._partition_probability_map = None
-        self._label_partition_probability_map = None
         self._speciation_completion_rate = None
         self._setup_cache()
         dendropy.Tree.__init__(self, *args, **kwargs)
@@ -287,7 +285,6 @@ class LineageTree(dendropy.Tree):
     ## Cache
 
     def _setup_cache(self):
-        self._marginal_probability_cache = _Cache()
         self._joint_probability_cache = _Cache()
         self._joint_probability_cache.add(
                 "label_partition_probability_map",
@@ -295,7 +292,6 @@ class LineageTree(dendropy.Tree):
 
     def invalidate_cache(self, o):
         # o = object that changed that required cache invalidation
-        self._marginal_probability_cache.clear()
         self._joint_probability_cache.clear()
 
     ################################################################################
