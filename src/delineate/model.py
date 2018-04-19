@@ -173,8 +173,42 @@ class Partition(object):
         as_l = [','.join(i) for i in self._label_subsets]
         return ''.join(['{', '}{'.join(as_l), '}'])
 
-    def compile_lookup_map(self):
+    def compile_lookup_key(self):
         return frozenset( frozenset(i) for i in self._label_subsets )
+
+################################################################################
+## Cache class
+
+class _Cache(object):
+
+    def __init__(self):
+        self._calc_fns = {}
+        self._values = {}
+
+    def clear(self, key=None):
+        if key is None:
+            self._values = {}
+        else:
+            self._values.pop(key, None)
+
+    def recalc(self, key=None):
+        if key is None:
+            self._values = {}
+            for k in self._calc_fns:
+                self._values[k] = self._calc_fns[k]()
+        else:
+            self._values[key] = self._calc_fns[key]
+
+    def add(self, key, calc_fn):
+        self._calc_fns[key] = calc_fn
+        self._values.pop(key, None)
+
+    def __getitem__(self, key):
+        try:
+            return self._values[key]
+        except KeyError:
+            self._values[key] = self._calc_fns[key]()
+            return self._values[key]
 
 ################################################################################
 ## Enum class
@@ -196,8 +230,15 @@ class SF(object):
 class LineageEdge(dendropy.Edge):
 
     def __init__(self, tree, **kwargs):
-        self.tree = tree
         dendropy.Edge.__init__(self, **kwargs)
+        self.tree = tree
+
+    def _get_length(self):
+        return self._length
+    def _set_length(self, length):
+        self._length = length
+        # to do! self.tree.invalidate_cache(self)
+    length = property(_get_length, _set_length)
 
 ################################################################################
 ## LineageNode
@@ -221,12 +262,41 @@ class LineageTree(dendropy.Tree):
     ## Lifecycle and Structure
 
     def __init__(self, *args, **kwargs):
-        dendropy.Tree.__init__(self, *args, **kwargs)
         self._partition_probability_map = None
         self._label_partition_probability_map = None
+        self._speciation_rate = None
+        self._setup_cache()
+        dendropy.Tree.__init__(self, *args, **kwargs)
 
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
+
+    ################################################################################
+    ## Properties
+
+    def _get_speciation_rate(self):
+        return self._speciation_rate
+
+    def _set_speciation_rate(self, value):
+        self._speciation_rate = value
+        self.invalidate_cache(self)
+
+    speciation_rate = property(_get_speciation_rate, _set_speciation_rate)
+
+    ################################################################################
+    ## Cache
+
+    def _setup_cache(self):
+        self._marginal_probability_cache = _Cache()
+        self._joint_probability_cache = _Cache()
+        self._joint_probability_cache.add(
+                "label_partition_probability_map",
+                self.calc_label_partition_probability_map)
+
+    def invalidate_cache(self, o):
+        # o = object that changed that required cache invalidation
+        self._marginal_probability_cache.clear()
+        self._joint_probability_cache.clear()
 
     ################################################################################
     ## Marginal Probability
@@ -288,19 +358,20 @@ class LineageTree(dendropy.Tree):
     ################################################################################
     ## Joint Probability
 
-    def calc_joint_probability_of_species(self, taxon_labels, speciation_rate):
-        if self._label_partition_probability_map is None:
-            self._partition_probability_map = self._calc_all_joint_sp_probs(good_sp_rate=speciation_rate)
-            self._label_partition_probability_map = {}
-            for p, v in self._partition_probability_map.items():
-                k = p.compile_lookup_map()
-                assert k not in self._label_partition_probability_map
-                self._label_partition_probability_map[k] = v
+    def calc_joint_probability_of_species(self, taxon_labels):
         if not isinstance(taxon_labels, set):
             taxon_labels = frozenset(frozenset(i) for i in taxon_labels)
-        print(taxon_labels)
-        prob = self._label_partition_probability_map[taxon_labels]
+        prob = self._joint_probability_cache["label_partition_probability_map"][taxon_labels]
         return prob
+
+    def calc_label_partition_probability_map(self):
+        partition_probability_map = self._calc_all_joint_sp_probs(good_sp_rate=self._speciation_rate)
+        label_partition_probability_map = {}
+        for p, v in partition_probability_map.items():
+            k = p.compile_lookup_key()
+            assert k not in label_partition_probability_map
+            label_partition_probability_map[k] = v
+        return label_partition_probability_map
 
     def _calc_all_joint_sp_probs(self, good_sp_rate):
         for nd in self.postorder_node_iter():

@@ -137,11 +137,11 @@ class LineageTreeJointSpeciesProbabilities(unittest.TestCase):
                     assert split_bitmask in tree.split_bitmask_edge_map, split_bitmask
                     tree.split_bitmask_edge_map[split_bitmask].length = br_len
                 for speciation_rate_config in brlen_config["speciation_rate_configurations"]:
-                    speciation_rate = speciation_rate_config["speciation_rate"]
+                    tree.speciation_rate = speciation_rate_config["speciation_rate"]
                     for species_configuration in speciation_rate_config["species_configurations"]:
                         species_labels = species_configuration["species"]
                         expected_probability = species_configuration["probability"]
-                        obs_probability = tree.calc_joint_probability_of_species(species_labels, speciation_rate)
+                        obs_probability = tree.calc_joint_probability_of_species(species_labels)
                         self.assertAlmostEqual(expected_probability, obs_probability, 8)
 
 if __name__ == "__main__":
