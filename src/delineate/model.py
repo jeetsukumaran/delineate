@@ -16,7 +16,7 @@ def _gen_from_sub_list(sub_list, open_el):
     sub_list.sort()
     sub_list = tuple(sub_list)
     new_ot_ind = -1 if open_el is None else sub_list.index(open_el)
-    return Partition(data=(new_ot_ind, sub_list))
+    return _Partition(data=(new_ot_ind, sub_list))
 
 def _del_part_maps(nd):
     try:
@@ -63,8 +63,12 @@ def _enforce_constraints(partition_table, constraints):
 
 
 # noinspection PyProtectedMember
-class Partition(object):
+class _Partition(object):
     __slots__ = '_data'
+
+    @staticmethod
+    def compile_lookup_key(group_of_groups):
+        return frozenset( frozenset(i) for i in group_of_groups )
 
     def __init__(self, leaf_label=None, data=None):
         if data is not None:
@@ -120,7 +124,7 @@ class Partition(object):
     def create_closed(self):
         asl = list(self._data)
         asl[0] = -1
-        return Partition(data=tuple(asl))
+        return _Partition(data=tuple(asl))
 
     def create_extension(self, other):
         new_sub = []
@@ -166,15 +170,15 @@ class Partition(object):
         as_str_l = [str(i) for i in self._label_subsets]
         if self.is_open:
             as_str_l[self.index_of_open_el] = as_str_l[self.index_of_open_el] + '*'
-        return 'Partition[{}]'.format(' | '.join(as_str_l))
+        return '_Partition[{}]'.format(' | '.join(as_str_l))
 
     @property
     def set_notation(self):
         as_l = [','.join(i) for i in self._label_subsets]
         return ''.join(['{', '}{'.join(as_l), '}'])
 
-    def compile_lookup_key(self):
-        return frozenset( frozenset(i) for i in self._label_subsets )
+    def lookup_key(self):
+        return _Partition.compile_lookup_key(self._data[1])
 
 ################################################################################
 ## _Cache class
@@ -362,18 +366,13 @@ class LineageTree(dendropy.Tree):
 
     def calc_label_partition_probability_map(self):
         partition_probability_map = self._calc_all_joint_sp_probs(good_sp_rate=self._speciation_completion_rate)
-        label_partition_probability_map = {}
-        for p, v in partition_probability_map.items():
-            k = p.compile_lookup_key()
-            assert k not in label_partition_probability_map
-            label_partition_probability_map[k] = v
-        return label_partition_probability_map
+        return partition_probability_map
 
     def _calc_all_joint_sp_probs(self, good_sp_rate):
         for nd in self.postorder_node_iter():
             if nd.is_leaf():
                 nd.tipward_part_map = defaultdict(float)
-                nd.tipward_part_map[Partition(leaf_label=nd.taxon.label)] = 1.0
+                nd.tipward_part_map[_Partition(leaf_label=nd.taxon.label)] = 1.0
             else:
                 children = nd.child_nodes()
                 nd.tipward_part_map = children[0].rootward_part_map
@@ -391,9 +390,16 @@ class LineageTree(dendropy.Tree):
             prob_no_sp = math.exp(-scaled_brlen)
             nd.rootward_part_map = _create_closed_map(nd.tipward_part_map, prob_no_sp)
         final_part_map = defaultdict(float)
-        for part, prob in self.seed_node.tipward_part_map.items():
-            k = part.create_closed() if part.is_open else part
-            final_part_map[k] += prob
+        if False:
+            # use _Partition as key
+            for part, prob in self.seed_node.tipward_part_map.items():
+                k = part.create_closed() if part.is_open else part
+                final_part_map[k] += prob
+        else:
+            # use lookup key as key
+            for part, prob in self.seed_node.tipward_part_map.items():
+                k = part.create_closed() if part.is_open else part
+                final_part_map[k.lookup_key()] += prob
         _del_part_maps(self.seed_node)
         return final_part_map
 
