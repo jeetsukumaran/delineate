@@ -177,7 +177,7 @@ class Partition(object):
         return frozenset( frozenset(i) for i in self._label_subsets )
 
 ################################################################################
-## Cache class
+## _Cache class
 
 class _Cache(object):
 
