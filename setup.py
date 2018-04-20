@@ -26,7 +26,9 @@ setup(
     author_email="jeetsukumaran@gmail.com and mtholder@ku.edu",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    # scripts=["bin/delineate.py",],
+    scripts=[
+        "bin/delineate-estimate-speciation-rate.py",
+        ],
     test_suite = "tests",
     url="http://pypi.python.org/pypi/delineate/",
     license="LICENSE.txt",
