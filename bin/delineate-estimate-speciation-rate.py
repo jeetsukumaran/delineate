@@ -27,6 +27,9 @@ This program does something.
 import sys
 import os
 import argparse
+import json
+import scipy.optimize
+from delineate import model
 
 __prog__ = os.path.basename(__file__)
 __version__ = "1.0.0"
@@ -44,6 +47,7 @@ def main():
     source_options = parser.add_argument_group("Source options")
 
     source_options.add_argument("-t", "--tree-file",
+            nargs=1,
             help="Path to tree file.")
 
     source_options.add_argument("-c", "--config-file",
@@ -61,6 +65,27 @@ def main():
             default="delineate-results",
             help="Prefix for output files (default='%(default)s').")
 
+    args = parser.parse_args()
+    tree = model.LineageTree.get(
+            path=args.tree_file[0],
+            schema=args.data_format,
+            )
+    with open(args.config_file) as src:
+        config = json.load(src)
+    initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
+    min_speciation_rate = config.pop("min_speciation_rate", 0.00)
+    max_speciation_rate = config.pop("max_speciation_rate", 2.00)
+    species_leaf_sets = model._Partition.compile_lookup_key( config["species_leaf_sets"] )
+    def f(x, *args):
+        tree.speciation_completion_rate = x
+        return tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
+    #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
+    brac_res = scipy.optimize.bracket(f,
+            xa=min_speciation_rate,
+            xb=max_speciation_rate,
+            )
+    brent_res = scipy.optimize.brent(f, brack=brac_res[:3])
+    print(brent_res)
 
 if __name__ == '__main__':
     main()
