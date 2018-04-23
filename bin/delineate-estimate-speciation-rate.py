@@ -78,7 +78,7 @@ def main():
     species_leaf_sets = model._Partition.compile_lookup_key( config["species_leaf_sets"] )
     def f(x, *args):
         tree.speciation_completion_rate = x
-        return tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
+        return -1 * tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
     #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
     brac_res = scipy.optimize.bracket(f,
             xa=min_speciation_rate,
