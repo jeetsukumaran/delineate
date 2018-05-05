@@ -26,8 +26,10 @@ This program does something.
 
 import sys
 import os
+import re
 import argparse
 import json
+import collections
 import scipy.optimize
 from delineate import model
 
@@ -36,6 +38,18 @@ __version__ = "1.0.0"
 __description__ = __doc__
 __author__ = 'Jeet Sukumaran and Mark T. Holder'
 __copyright__ = 'Copyright (C) 2018 Jeet Sukumaran and Mark T. Holder.'
+
+def parse_fieldname_and_value(labels):
+    if not labels:
+        return collections.OrderedDict()
+    fieldname_value_map = collections.OrderedDict()
+    for label in labels:
+        match = re.match(r"\s*(.*?)\s*:\s*(.*)\s*", label)
+        if not match:
+            raise ValueError("Cannot parse fieldname and label (format required: fieldname:value): {}".format(label))
+        fieldname, value = match.groups(0)
+        fieldname_value_map[fieldname] = value
+    return fieldname_value_map
 
 def main():
     """
@@ -61,11 +75,23 @@ def main():
             help="Input data format (default='%(default)s').")
 
     output_options = parser.add_argument_group("Output options")
-    output_options.add_argument("-o", "--output-prefix",
-            default="delineate-results",
-            help="Prefix for output files (default='%(default)s').")
+    output_options.add_argument("-i", "--tree-info",
+            action="store_true",
+            help="Output additional information about the tree",)
+    output_options.add_argument("-l", "--label",
+            action="append",
+            help="Label to append to output (in format <FIELD-NAME>:value;)")
+    output_options.add_argument( "--no-header-row",
+            action="store_true",
+            default=False,
+            help="Do not write a header row.")
+    output_options.add_argument( "--append",
+            action="store_true",
+            default=False,
+            help="Append to output file if it already exists instead of overwriting.")
 
     args = parser.parse_args()
+    args.separator = "\t"
     tree = model.LineageTree.get(
             path=args.tree_file[0],
             schema=args.data_format,
@@ -85,7 +111,26 @@ def main():
             xb=max_speciation_rate,
             )
     brent_res = scipy.optimize.brent(f, brack=brac_res[:3])
-    print(brent_res)
+    extra_fields = parse_fieldname_and_value(args.label)
+    if not args.no_header_row:
+        header_row = []
+        if args.tree_info:
+            header_row.append("ntips")
+            header_row.append("rootAge")
+        header_row.extend(extra_fields)
+        header_row.append("estSpCompRate")
+        sys.stdout.write(args.separator.join(header_row))
+        sys.stdout.write("\n")
+    row = []
+    if args.tree_info:
+        row.append("{}".format(len(tree.taxon_namespace)))
+        tree.calc_node_ages()
+        row.append("{}".format(tree.seed_node.age))
+    for field in extra_fields:
+        row.append(extra_fields[field])
+    row.append("{}".format(brent_res))
+    sys.stdout.write(args.separator.join(row))
+    sys.stdout.write("\n")
 
 if __name__ == '__main__':
     main()
