@@ -98,27 +98,37 @@ def main():
             )
     with open(args.config_file) as src:
         config = json.load(src)
-    initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
-    min_speciation_rate = config.pop("min_speciation_rate", 0.00)
-    max_speciation_rate = config.pop("max_speciation_rate", 2.00)
     species_leaf_sets = model._Partition.compile_lookup_key( config["species_leaf_sets"] )
-    def f(x, *args):
-        tree.speciation_completion_rate = x
-        return -1 * tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
-    #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
-    brac_res = scipy.optimize.bracket(f,
-            xa=min_speciation_rate,
-            xb=max_speciation_rate,
-            )
-    brent_res = scipy.optimize.brent(f, brack=brac_res[:3])
+    if len(species_leaf_sets) == 1:
+        speciation_completion_rate_estimate = 0.0
+        tree.speciation_completion_rate = speciation_completion_rate_estimate
+        speciation_completion_rate_estimate_prob = tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
+    else:
+        initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
+        min_speciation_rate = config.pop("min_speciation_rate", -1e-8)
+        max_speciation_rate = config.pop("max_speciation_rate", 2.00)
+        def f(x, *args):
+            tree.speciation_completion_rate = x
+            return -1 * tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
+        #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
+        brac_res = scipy.optimize.bracket(f,
+                xa=min_speciation_rate,
+                xb=max_speciation_rate,
+                )
+        # brent_res = scipy.optimize.brent(f, brack=brac_res[:3])
+        b = (min_speciation_rate, initial_speciation_rate, max_speciation_rate)
+        est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+        speciation_completion_rate_estimate = est_result[0]
+        speciation_completion_rate_estimate_prob = -1 * est_result[1]
     extra_fields = parse_fieldname_and_value(args.label)
     if not args.no_header_row:
         header_row = []
         if args.tree_info:
-            header_row.append("ntips")
+            header_row.append("numTips")
             header_row.append("rootAge")
         header_row.extend(extra_fields)
         header_row.append("estSpCompRate")
+        header_row.append("estSpCompRateProb")
         sys.stdout.write(args.separator.join(header_row))
         sys.stdout.write("\n")
     row = []
@@ -128,7 +138,8 @@ def main():
         row.append("{}".format(tree.seed_node.age))
     for field in extra_fields:
         row.append(extra_fields[field])
-    row.append("{}".format(brent_res))
+    row.append("{}".format(speciation_completion_rate_estimate))
+    row.append("{}".format(speciation_completion_rate_estimate_prob))
     sys.stdout.write(args.separator.join(row))
     sys.stdout.write("\n")
 
