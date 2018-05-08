@@ -115,8 +115,8 @@ def main():
                 xa=min_speciation_rate,
                 xb=max_speciation_rate,
                 )
-        # brent_res = scipy.optimize.brent(f, brack=brac_res[:3])
-        b = (min_speciation_rate, initial_speciation_rate, max_speciation_rate)
+        b = brac_res[:3]
+        # b = (min_speciation_rate, initial_speciation_rate, max_speciation_rate)
         est_result = scipy.optimize.brent(f, brack=b, full_output=True)
         speciation_completion_rate_estimate = est_result[0]
         speciation_completion_rate_estimate_prob = -1 * est_result[1]
