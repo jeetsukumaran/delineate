@@ -105,7 +105,7 @@ def main():
         speciation_completion_rate_estimate_prob = tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
     else:
         initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
-        min_speciation_rate = config.pop("min_speciation_rate", -1e-8)
+        min_speciation_rate = config.pop("min_speciation_rate", 0.00)
         max_speciation_rate = config.pop("max_speciation_rate", 2.00)
         def f(x, *args):
             tree.speciation_completion_rate = x
