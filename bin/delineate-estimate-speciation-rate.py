@@ -99,6 +99,29 @@ def main():
     with open(args.config_file) as src:
         config = json.load(src)
     species_leaf_sets = model._Partition.compile_lookup_key( config["species_leaf_sets"] )
+
+    # Set up per-node conspecific and non-conspecific constraints...
+    sls_by_species = {}
+    for spls in species_leaf_sets:
+        for sp in spls:
+            sls_by_species[sp] = spls
+    for nd in tree.postorder_node_iter():
+        nd.speciation_allowed = True
+        if nd.is_leaf():
+            nd.leaf_label_set = frozenset([nd.taxon.label])
+            sp = sls_by_species[nd.taxon.label]
+            nd.speciation_allowed = len(sp) == 1
+        else:
+            lls = set()
+            for c in nd.child_nodes():
+                lls.update(c.leaf_label_set)
+            nd.leaf_label_set = frozenset(lls)
+            des_sp_set = set([sls_by_species[i] for i in nd.leaf_label_set])
+            for sp in des_sp_set:
+                if not nd.leaf_label_set.issuperset(sp):
+                    nd.speciation_allowed = False
+        #  print(nd.leaf_label_set, nd.speciation_allowed)
+
     if len(species_leaf_sets) == 1:
         speciation_completion_rate_estimate = 0.0
         tree.speciation_completion_rate = speciation_completion_rate_estimate

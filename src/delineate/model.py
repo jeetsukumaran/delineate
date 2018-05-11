@@ -39,15 +39,20 @@ def _merge_into_first(src_and_dest_dict, second):
             dest[fpart.create_extension(spart)] += fprob * sprob
     return dest
 
-def _create_closed_map(map_with_open, remain_open_prob):
+def _create_closed_map(map_with_open, remain_open_prob, allow_closing=True):
     ret = defaultdict(float)
-    close_prob = 1.0 - remain_open_prob
-    for part, prob in map_with_open.items():
-        if part.is_open:
-            ret[part] += prob * remain_open_prob
-            ret[part.create_closed()] += prob * close_prob
-        else:
-            ret[part] += prob
+    if allow_closing:
+        close_prob = 1.0 - remain_open_prob
+        for part, prob in map_with_open.items():
+            if part.is_open:
+                ret[part] += prob * remain_open_prob
+                ret[part.create_closed()] += prob * close_prob
+            else:
+                ret[part] += prob
+    else:
+        for part, prob in map_with_open.items():
+            if part.is_open:
+                ret[part] += prob * remain_open_prob
     return ret
 
 def _enforce_constraints(partition_table, constraints):
@@ -388,7 +393,9 @@ class LineageTree(dendropy.Tree):
             c_brlen = nd.edge.length
             scaled_brlen = c_brlen * good_sp_rate
             prob_no_sp = math.exp(-scaled_brlen)
-            nd.rootward_part_map = _create_closed_map(nd.tipward_part_map, prob_no_sp)
+            nd.rootward_part_map = _create_closed_map(nd.tipward_part_map,
+                                                      prob_no_sp,
+                                                      nd.speciation_allowed)
         final_part_map = defaultdict(float)
         if False:
             # use _Partition as key
