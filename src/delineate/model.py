@@ -395,7 +395,7 @@ class LineageTree(dendropy.Tree):
             prob_no_sp = math.exp(-scaled_brlen)
             nd.rootward_part_map = _create_closed_map(nd.tipward_part_map,
                                                       prob_no_sp,
-                                                      nd.speciation_allowed)
+                                                      getattr(nd, 'speciation_allowed', True))
         final_part_map = defaultdict(float)
         if False:
             # use _Partition as key
