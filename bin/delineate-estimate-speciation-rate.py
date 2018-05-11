@@ -51,6 +51,17 @@ def parse_fieldname_and_value(labels):
         fieldname_value_map[fieldname] = value
     return fieldname_value_map
 
+
+def calc_new_nonconsp(nd, species):
+    not_consp = []
+    for c in nd.child_nodes():
+        if species not in c.sp_set:
+            first_label = list(species)[0]
+            for cs in c.sp_set:
+                fcl = list(cs)[0]
+                not_consp.append((first_label, fcl))
+    return not_consp
+
 def main():
     """
     Main CLI handler.
@@ -137,6 +148,11 @@ def main():
                                 raise ValueError(m)
                             break
                         found = True
+            not_consp = []
+            for sp in nd.sp_set:
+                not_consp.extend(calc_new_nonconsp(nd, sp))
+            if not_consp:
+                nd.sp_constraints = {'not_conspecific': not_consp}
 
         #  print(nd.leaf_label_set, nd.speciation_allowed)
 

@@ -56,8 +56,8 @@ def _create_closed_map(map_with_open, remain_open_prob, allow_closing=True):
     return ret
 
 def _enforce_constraints(partition_table, constraints):
-    consp_constraints = constraints.get('conspecific')
-    not_consp_constraints = constraints.get('not_conspecific')
+    consp_constraints = constraints.get('conspecific', [])
+    not_consp_constraints = constraints.get('not_conspecific', [])
     to_del = []
     for k in partition_table.keys():
         if k.violates_constraints(consp_constraints, not_consp_constraints):
