@@ -102,7 +102,10 @@ def main():
 
     # Set up per-node conspecific and non-conspecific constraints...
     sls_by_species = {}
+    all_monotypic = True
     for spls in species_leaf_sets:
+        if len(spls) > 1:
+            all_monotypic = False
         for sp in spls:
             sls_by_species[sp] = spls
     for nd in tree.postorder_node_iter():
@@ -124,6 +127,10 @@ def main():
 
     if len(species_leaf_sets) == 1:
         speciation_completion_rate_estimate = 0.0
+        tree.speciation_completion_rate = speciation_completion_rate_estimate
+        speciation_completion_rate_estimate_prob = tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
+    elif all_monotypic:
+        speciation_completion_rate_estimate = float('inf')
         tree.speciation_completion_rate = speciation_completion_rate_estimate
         speciation_completion_rate_estimate_prob = tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
     else:
