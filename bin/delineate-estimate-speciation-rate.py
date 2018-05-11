@@ -114,15 +114,30 @@ def main():
             nd.leaf_label_set = frozenset([nd.taxon.label])
             sp = sls_by_species[nd.taxon.label]
             nd.speciation_allowed = len(sp) == 1
+            nd.sp_set = set([sls_by_species[nd.taxon.label]])
         else:
             lls = set()
             for c in nd.child_nodes():
                 lls.update(c.leaf_label_set)
             nd.leaf_label_set = frozenset(lls)
-            des_sp_set = set([sls_by_species[i] for i in nd.leaf_label_set])
-            for sp in des_sp_set:
+            nd.sp_set = set([sls_by_species[i] for i in nd.leaf_label_set])
+            dup_sp = None
+            for sp in nd.sp_set:
                 if not nd.leaf_label_set.issuperset(sp):
                     nd.speciation_allowed = False
+                found = False
+                for c in nd.child_nodes():
+                    if sp in c.sp_set:
+                        if found:
+                            if dup_sp is None:
+                                dup_sp = sp
+                            else:
+                                m = 'More than 1 species is conspecific with this ancestor. This is not allowed. Leaf sets of offending species:  {}\n  {}\n'
+                                m = m.format(sp, dup_sp)
+                                raise ValueError(m)
+                            break
+                        found = True
+
         #  print(nd.leaf_label_set, nd.speciation_allowed)
 
     if len(species_leaf_sets) == 1:
