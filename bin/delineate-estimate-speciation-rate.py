@@ -85,8 +85,12 @@ def main():
             choices=["nexus", "newick"],
             help="Input data format (default='%(default)s').")
 
+    estimation_options = parser.add_argument_group("Estimation options")
+    estimation_options.add_argument("-i", "--intervals", "--confidence-intervals",
+            action="store_true",
+            help="Calculate confidence intervals.",)
     output_options = parser.add_argument_group("Output options")
-    output_options.add_argument("-i", "--tree-info",
+    output_options.add_argument("-I", "--tree-info",
             action="store_true",
             help="Output additional information about the tree",)
     output_options.add_argument("-l", "--label",
@@ -177,8 +181,13 @@ def main():
                 xb=max_speciation_rate,
                 )
         b = brac_res[:3]
-        # b = (min_speciation_rate, initial_speciation_rate, max_speciation_rate)
-        est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+        while True:
+            try:
+                est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+                break
+            except ValueError:
+                # weird bracket interval; default to min/max bounds
+                b = (min_speciation_rate, initial_speciation_rate, max_speciation_rate)
         speciation_completion_rate_estimate = est_result[0]
         speciation_completion_rate_estimate_prob = -1 * est_result[1]
     extra_fields = parse_fieldname_and_value(args.label)
@@ -190,6 +199,9 @@ def main():
         header_row.extend(extra_fields)
         header_row.append("estSpCompRate")
         header_row.append("estSpCompRateProb")
+        if args.intervals:
+            header_row.append("ciLow")
+            header_row.append("ciHigh")
         sys.stdout.write(args.separator.join(header_row))
         sys.stdout.write("\n")
     row = []
@@ -201,6 +213,11 @@ def main():
         row.append(extra_fields[field])
     row.append("{}".format(speciation_completion_rate_estimate))
     row.append("{}".format(speciation_completion_rate_estimate_prob))
+    if args.intervals:
+        ci_low = 0
+        ci_high = 0
+        row.append("{}".format(ci_low))
+        row.append("{}".format(ci_high))
     sys.stdout.write(args.separator.join(row))
     sys.stdout.write("\n")
 
