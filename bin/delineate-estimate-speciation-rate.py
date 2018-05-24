@@ -51,16 +51,104 @@ def parse_fieldname_and_value(labels):
         fieldname_value_map[fieldname] = value
     return fieldname_value_map
 
+class MaximumLikelihoodEstimator(object):
 
-def calc_new_nonconsp(nd, species):
-    not_consp = []
-    for c in nd.child_nodes():
-        if species not in c.sp_set:
-            first_label = list(species)[0]
-            for cs in c.sp_set:
-                fcl = list(cs)[0]
-                not_consp.append((first_label, fcl))
-    return not_consp
+    def __init__(self,
+            tree,
+            species_leaf_sets,
+            initial_speciation_rate,
+            min_speciation_rate,
+            max_speciation_rate):
+        self.tree = tree
+        self.species_leaf_sets = species_leaf_sets
+        self.initial_speciation_rate = initial_speciation_rate
+        self.min_speciation_rate = min_speciation_rate
+        self.max_speciation_rate = max_speciation_rate
+        self._set_up_node_constraints()
+
+    def _set_up_node_constraints(self):
+        # Set up per-node conspecific and non-conspecific constraints...
+        sls_by_species = {}
+        self.all_monotypic = True
+        for spls in self.species_leaf_sets:
+            if len(spls) > 1:
+                self.all_monotypic = False
+            for sp in spls:
+                sls_by_species[sp] = spls
+        for nd in self.tree.postorder_node_iter():
+            nd.speciation_allowed = True
+            if nd.is_leaf():
+                nd.leaf_label_set = frozenset([nd.taxon.label])
+                sp = sls_by_species[nd.taxon.label]
+                nd.speciation_allowed = len(sp) == 1
+                nd.sp_set = set([sls_by_species[nd.taxon.label]])
+            else:
+                lls = set()
+                for c in nd.child_nodes():
+                    lls.update(c.leaf_label_set)
+                nd.leaf_label_set = frozenset(lls)
+                nd.sp_set = set([sls_by_species[i] for i in nd.leaf_label_set])
+                dup_sp = None
+                for sp in nd.sp_set:
+                    if not nd.leaf_label_set.issuperset(sp):
+                        nd.speciation_allowed = False
+                    found = False
+                    for c in nd.child_nodes():
+                        if sp in c.sp_set:
+                            if found:
+                                if dup_sp is None:
+                                    dup_sp = sp
+                                else:
+                                    m = 'More than 1 species is conspecific with this ancestor. This is not allowed. Leaf sets of offending species:  {}\n  {}\n'
+                                    m = m.format(sp, dup_sp)
+                                    raise ValueError(m)
+                                break
+                            found = True
+                not_consp = []
+                for sp in nd.sp_set:
+                    not_consp.extend(self._calc_new_nonconsp(nd, sp))
+                if not_consp:
+                    nd.sp_constraints = {'not_conspecific': not_consp}
+
+    def _calc_new_nonconsp(self, nd, species):
+        not_consp = []
+        for c in nd.child_nodes():
+            if species not in c.sp_set:
+                first_label = list(species)[0]
+                for cs in c.sp_set:
+                    fcl = list(cs)[0]
+                    not_consp.append((first_label, fcl))
+        return not_consp
+
+    def mle_speciation_prob(self):
+        if len(self.species_leaf_sets) == 1:
+            speciation_completion_rate_estimate = 0.0
+            self.tree.speciation_completion_rate = speciation_completion_rate_estimate
+            speciation_completion_rate_estimate_prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
+        elif self.all_monotypic:
+            speciation_completion_rate_estimate = float('inf')
+            self.tree.speciation_completion_rate = speciation_completion_rate_estimate
+            speciation_completion_rate_estimate_prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
+        else:
+            def f(x, *args):
+                self.tree.speciation_completion_rate = x
+                return -1 * self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
+            #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
+            brac_res = scipy.optimize.bracket(f,
+                    xa=self.min_speciation_rate,
+                    xb=self.max_speciation_rate,
+                    )
+            b = brac_res[:3]
+            while True:
+                try:
+                    est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+                    break
+                except ValueError:
+                    # weird bracket interval; default to min/max bounds
+                    b = (self.min_speciation_rate, self.initial_speciation_rate, self.max_speciation_rate)
+            speciation_completion_rate_estimate = est_result[0]
+            speciation_completion_rate_estimate_prob = -1 * est_result[1]
+        return speciation_completion_rate_estimate, speciation_completion_rate_estimate_prob
 
 def main():
     """
@@ -114,82 +202,16 @@ def main():
     with open(args.config_file) as src:
         config = json.load(src)
     species_leaf_sets = model._Partition.compile_lookup_key( config["species_leaf_sets"] )
-
-    # Set up per-node conspecific and non-conspecific constraints...
-    sls_by_species = {}
-    all_monotypic = True
-    for spls in species_leaf_sets:
-        if len(spls) > 1:
-            all_monotypic = False
-        for sp in spls:
-            sls_by_species[sp] = spls
-    for nd in tree.postorder_node_iter():
-        nd.speciation_allowed = True
-        if nd.is_leaf():
-            nd.leaf_label_set = frozenset([nd.taxon.label])
-            sp = sls_by_species[nd.taxon.label]
-            nd.speciation_allowed = len(sp) == 1
-            nd.sp_set = set([sls_by_species[nd.taxon.label]])
-        else:
-            lls = set()
-            for c in nd.child_nodes():
-                lls.update(c.leaf_label_set)
-            nd.leaf_label_set = frozenset(lls)
-            nd.sp_set = set([sls_by_species[i] for i in nd.leaf_label_set])
-            dup_sp = None
-            for sp in nd.sp_set:
-                if not nd.leaf_label_set.issuperset(sp):
-                    nd.speciation_allowed = False
-                found = False
-                for c in nd.child_nodes():
-                    if sp in c.sp_set:
-                        if found:
-                            if dup_sp is None:
-                                dup_sp = sp
-                            else:
-                                m = 'More than 1 species is conspecific with this ancestor. This is not allowed. Leaf sets of offending species:  {}\n  {}\n'
-                                m = m.format(sp, dup_sp)
-                                raise ValueError(m)
-                            break
-                        found = True
-            not_consp = []
-            for sp in nd.sp_set:
-                not_consp.extend(calc_new_nonconsp(nd, sp))
-            if not_consp:
-                nd.sp_constraints = {'not_conspecific': not_consp}
-
-        #  print(nd.leaf_label_set, nd.speciation_allowed)
-
-    if len(species_leaf_sets) == 1:
-        speciation_completion_rate_estimate = 0.0
-        tree.speciation_completion_rate = speciation_completion_rate_estimate
-        speciation_completion_rate_estimate_prob = tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
-    elif all_monotypic:
-        speciation_completion_rate_estimate = float('inf')
-        tree.speciation_completion_rate = speciation_completion_rate_estimate
-        speciation_completion_rate_estimate_prob = tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
-    else:
-        initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
-        min_speciation_rate = config.pop("min_speciation_rate", 0.00)
-        max_speciation_rate = config.pop("max_speciation_rate", 2.00)
-        def f(x, *args):
-            tree.speciation_completion_rate = x
-            return -1 * tree.calc_joint_probability_of_species(taxon_labels=species_leaf_sets)
-        #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
-        brac_res = scipy.optimize.bracket(f,
-                xa=min_speciation_rate,
-                xb=max_speciation_rate,
-                )
-        b = brac_res[:3]
-        while True:
-            try:
-                est_result = scipy.optimize.brent(f, brack=b, full_output=True)
-                break
-            except ValueError:
-                # weird bracket interval; default to min/max bounds
-                b = (min_speciation_rate, initial_speciation_rate, max_speciation_rate)
-        speciation_completion_rate_estimate = est_result[0]
-        speciation_completion_rate_estimate_prob = -1 * est_result[1]
+    initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
+    min_speciation_rate = config.pop("min_speciation_rate", 0.00)
+    max_speciation_rate = config.pop("max_speciation_rate", 2.00)
+    mle = MaximumLikelihoodEstimator(
+            tree=tree,
+            species_leaf_sets=species_leaf_sets,
+            initial_speciation_rate=initial_speciation_rate,
+            min_speciation_rate=min_speciation_rate,
+            max_speciation_rate=max_speciation_rate)
+    speciation_completion_rate_estimate, speciation_completion_rate_estimate_prob = mle.mle_speciation_prob()
     extra_fields = parse_fieldname_and_value(args.label)
     if not args.no_header_row:
         header_row = []
