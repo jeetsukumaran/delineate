@@ -132,6 +132,7 @@ class MaximumLikelihoodEstimator(object):
                 xb=max_val,
                 )
         b = brac_res[:3]
+        sys.stderr.write("brackets: {}\n".format(b))
         while True:
             try:
                 est_result = scipy.optimize.brent(f, brack=b, full_output=True)
@@ -140,9 +141,9 @@ class MaximumLikelihoodEstimator(object):
                 # weird bracket interval; default to min/max bounds
                 b = (min_val, initial_val, max_val)
                 est_result = scipy.optimize.brent(f, brack=b, full_output=True)
-        speciation_completion_rate_estimate = est_result[0]
-        speciation_completion_rate_estimate_prob = -1 * est_result[1]
-        return speciation_completion_rate_estimate, math.log(speciation_completion_rate_estimate_prob)
+        value_estimate = est_result[0]
+        value_estimate_prob = -1 * est_result[1]
+        return value_estimate, value_estimate_prob
 
     def estimate_speciation_rate(self):
         if len(self.species_leaf_sets) == 1:
@@ -157,11 +158,12 @@ class MaximumLikelihoodEstimator(object):
             def f(x, *args):
                 self.tree.speciation_completion_rate = x
                 return -1 * self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
-            return self._estimate(f=f,
+            speciation_completion_rate_estimate, speciation_completion_rate_estimate_prob = self._estimate(f=f,
                     initial_val=self.initial_speciation_rate,
                     min_val=self.min_speciation_rate,
                     max_val=self.max_speciation_rate,
                     )
+            return speciation_completion_rate_estimate, math.log(speciation_completion_rate_estimate_prob)
             # #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
             # brac_res = scipy.optimize.bracket(f,
             #         xa=self.min_speciation_rate,
@@ -184,7 +186,7 @@ class MaximumLikelihoodEstimator(object):
             self.tree.speciation_completion_rate = x
             prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
             try:
-                return max_lnl - 1.96 - math.log(prob)
+                return abs(max_lnl - 1.96 - math.log(prob))
             except ValueError:
                 sys.stderr.write("x = {}, prob = {}\n".format(x, prob))
                 raise
