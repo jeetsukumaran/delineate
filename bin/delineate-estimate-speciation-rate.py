@@ -31,6 +31,7 @@ import argparse
 import json
 import collections
 import scipy.optimize
+import math
 from delineate import model
 
 __prog__ = os.path.basename(__file__)
@@ -120,7 +121,30 @@ class MaximumLikelihoodEstimator(object):
                     not_consp.append((first_label, fcl))
         return not_consp
 
-    def mle_speciation_prob(self):
+    def _estimate(self,
+            f,
+            initial_val,
+            min_val,
+            max_val):
+        #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
+        brac_res = scipy.optimize.bracket(f,
+                xa=min_val,
+                xb=max_val,
+                )
+        b = brac_res[:3]
+        while True:
+            try:
+                est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+                break
+            except ValueError:
+                # weird bracket interval; default to min/max bounds
+                b = (min_val, initial_val, max_val)
+                est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+        speciation_completion_rate_estimate = est_result[0]
+        speciation_completion_rate_estimate_prob = -1 * est_result[1]
+        return speciation_completion_rate_estimate, math.log(speciation_completion_rate_estimate_prob)
+
+    def estimate_speciation_rate(self):
         if len(self.species_leaf_sets) == 1:
             speciation_completion_rate_estimate = 0.0
             self.tree.speciation_completion_rate = speciation_completion_rate_estimate
@@ -133,22 +157,52 @@ class MaximumLikelihoodEstimator(object):
             def f(x, *args):
                 self.tree.speciation_completion_rate = x
                 return -1 * self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
-            #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
-            brac_res = scipy.optimize.bracket(f,
-                    xa=self.min_speciation_rate,
-                    xb=self.max_speciation_rate,
+            return self._estimate(f=f,
+                    initial_val=self.initial_speciation_rate,
+                    min_val=self.min_speciation_rate,
+                    max_val=self.max_speciation_rate,
                     )
-            b = brac_res[:3]
-            while True:
-                try:
-                    est_result = scipy.optimize.brent(f, brack=b, full_output=True)
-                    break
-                except ValueError:
-                    # weird bracket interval; default to min/max bounds
-                    b = (self.min_speciation_rate, self.initial_speciation_rate, self.max_speciation_rate)
-            speciation_completion_rate_estimate = est_result[0]
-            speciation_completion_rate_estimate_prob = -1 * est_result[1]
-        return speciation_completion_rate_estimate, speciation_completion_rate_estimate_prob
+            # #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
+            # brac_res = scipy.optimize.bracket(f,
+            #         xa=self.min_speciation_rate,
+            #         xb=self.max_speciation_rate,
+            #         )
+            # b = brac_res[:3]
+            # while True:
+            #     try:
+            #         est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+            #         break
+            #     except ValueError:
+            #         # weird bracket interval; default to min/max bounds
+            #         b = (self.min_speciation_rate, self.initial_speciation_rate, self.max_speciation_rate)
+            # speciation_completion_rate_estimate = est_result[0]
+            # speciation_completion_rate_estimate_prob = -1 * est_result[1]
+        # return speciation_completion_rate_estimate, math.log(speciation_completion_rate_estimate_prob)
+
+    def estimate_confidence_interval(self, mle_speciation_rate, max_lnl):
+        def f0(x, *args):
+            self.tree.speciation_completion_rate = x
+            prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
+            try:
+                return max_lnl - 1.96 - math.log(prob)
+            except ValueError:
+                sys.stderr.write("x = {}, prob = {}\n".format(x, prob))
+                raise
+        min_val = self.min_speciation_rate
+        max_val = mle_speciation_rate - 1e-8
+        initial_val = min_val + ((max_val - min_val) / 2.0)
+        ci_low = self._estimate(f0,
+                initial_val=initial_val,
+                min_val=min_val,
+                max_val=max_val)
+        min_val = mle_speciation_rate + 1e-8
+        max_val = self.max_speciation_rate
+        initial_val = min_val + ((max_val - min_val) / 2.0)
+        ci_hi = self._estimate(f0,
+                initial_val=initial_val,
+                min_val=min_val,
+                max_val=max_val)
+        return ci_low, ci_hi
 
 def main():
     """
@@ -203,7 +257,7 @@ def main():
         config = json.load(src)
     species_leaf_sets = model._Partition.compile_lookup_key( config["species_leaf_sets"] )
     initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
-    min_speciation_rate = config.pop("min_speciation_rate", 0.00)
+    min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
     max_speciation_rate = config.pop("max_speciation_rate", 2.00)
     mle = MaximumLikelihoodEstimator(
             tree=tree,
@@ -211,7 +265,7 @@ def main():
             initial_speciation_rate=initial_speciation_rate,
             min_speciation_rate=min_speciation_rate,
             max_speciation_rate=max_speciation_rate)
-    speciation_completion_rate_estimate, speciation_completion_rate_estimate_prob = mle.mle_speciation_prob()
+    speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
     extra_fields = parse_fieldname_and_value(args.label)
     if not args.no_header_row:
         header_row = []
@@ -234,10 +288,11 @@ def main():
     for field in extra_fields:
         row.append(extra_fields[field])
     row.append("{}".format(speciation_completion_rate_estimate))
-    row.append("{}".format(speciation_completion_rate_estimate_prob))
+    row.append("{}".format(speciation_completion_rate_estimate_lnl))
     if args.intervals:
-        ci_low = 0
-        ci_high = 0
+        ci_low, ci_hi = mle.estimate_confidence_interval(
+            mle_speciation_rate=speciation_completion_rate_estimate,
+            max_lnl=speciation_completion_rate_estimate_lnl)
         row.append("{}".format(ci_low))
         row.append("{}".format(ci_high))
     sys.stdout.write(args.separator.join(row))
