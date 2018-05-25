@@ -134,25 +134,28 @@ class MaximumLikelihoodEstimator(object):
         assert min_val <= max_val
         assert min_val <= initial_val
         assert max_val >= initial_val
-        brac_res = scipy.optimize.bracket(f,
-                xa=min_val,
-                xb=max_val,
-                )
-        b = brac_res[:3]
-        if b[0] <= 0:
-            b[0] = 1e-8
-        sys.stderr.write("brackets: {}\n".format(b))
-        while True:
-            try:
-                est_result = scipy.optimize.brent(f, brack=b, full_output=True)
-                break
-            except ValueError:
-                # weird bracket interval; default to min/max bounds
-                b = (min_val, initial_val, max_val)
-                est_result = scipy.optimize.brent(f, brack=b, full_output=True)
-        value_estimate = est_result[0]
-        value_estimate_prob = -1 * est_result[1]
-        return value_estimate, value_estimate_prob
+        est_result = scipy.optimize.minimize_scalar(f, method="bounded", bounds=(min_val, max_val))
+        return est_result.x, est_result.fun
+        # brac_res = scipy.optimize.bracket(f,
+        #         xa=min_val,
+        #         xb=max_val,
+        #         )
+        # b = brac_res[:3]
+        # if b[0] <= 0:
+        #     b[0] = 1e-8
+        # sys.stderr.write("brackets: {}\n".format(b))
+        # while True:
+        #     try:
+        #         # est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+        #         est_result = scipy.optimize.minimize_scalar(f, bounds=b)
+        #         break
+        #     except ValueError:
+        #         # weird bracket interval; default to min/max bounds
+        #         b = (min_val, initial_val, max_val)
+        #         est_result = scipy.optimize.brent(f, brack=b, full_output=True)
+        # value_estimate = est_result[0]
+        # value_estimate_prob = est_result[1]
+        # return value_estimate, value_estimate_prob
 
     def estimate_speciation_rate(self):
         if len(self.species_leaf_sets) == 1:
@@ -167,11 +170,13 @@ class MaximumLikelihoodEstimator(object):
             def f(x, *args):
                 self.tree.speciation_completion_rate = x
                 return -1 * self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
-            speciation_completion_rate_estimate, speciation_completion_rate_estimate_prob = self._estimate(f=f,
+            x1, x2 = self._estimate(f=f,
                     initial_val=self.initial_speciation_rate,
                     min_val=self.min_speciation_rate,
                     max_val=self.max_speciation_rate,
                     )
+            speciation_completion_rate_estimate = x1
+            speciation_completion_rate_estimate_prob = -1 * x2
             return speciation_completion_rate_estimate, math.log(speciation_completion_rate_estimate_prob)
 
     def estimate_confidence_interval(self, mle_speciation_rate, max_lnl):
@@ -186,18 +191,18 @@ class MaximumLikelihoodEstimator(object):
         min_val = self.min_speciation_rate
         max_val = mle_speciation_rate - 1e-8
         initial_val = min_val + ((max_val - min_val) / 2.0)
-        ci_low = self._estimate(f0,
+        ci_low, _ = self._estimate(f0,
                 initial_val=initial_val,
                 min_val=min_val,
                 max_val=max_val)
         min_val = mle_speciation_rate + 1e-8
         max_val = self.max_speciation_rate
         initial_val = min_val + ((max_val - min_val) / 2.0)
-        ci_hi = self._estimate(f0,
+        ci_high, _ = self._estimate(f0,
                 initial_val=initial_val,
                 min_val=min_val,
                 max_val=max_val)
-        return ci_low, ci_hi
+        return ci_low, ci_high
 
 def main():
     """
@@ -285,7 +290,7 @@ def main():
     row.append("{}".format(speciation_completion_rate_estimate))
     row.append("{}".format(speciation_completion_rate_estimate_lnl))
     if args.intervals:
-        ci_low, ci_hi = mle.estimate_confidence_interval(
+        ci_low, ci_high = mle.estimate_confidence_interval(
             mle_speciation_rate=speciation_completion_rate_estimate,
             max_lnl=speciation_completion_rate_estimate_lnl)
         row.append("{}".format(ci_low))
