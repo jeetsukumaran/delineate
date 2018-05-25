@@ -65,6 +65,10 @@ class MaximumLikelihoodEstimator(object):
         self.initial_speciation_rate = initial_speciation_rate
         self.min_speciation_rate = min_speciation_rate
         self.max_speciation_rate = max_speciation_rate
+        assert self.min_speciation_rate > 0.0
+        assert self.min_speciation_rate <= self.max_speciation_rate
+        assert self.min_speciation_rate <= self.initial_speciation_rate
+        assert self.max_speciation_rate >= self.initial_speciation_rate
         self._set_up_node_constraints()
 
     def _set_up_node_constraints(self):
@@ -126,12 +130,17 @@ class MaximumLikelihoodEstimator(object):
             initial_val,
             min_val,
             max_val):
-        #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
+        assert min_val > 0.0
+        assert min_val <= max_val
+        assert min_val <= initial_val
+        assert max_val >= initial_val
         brac_res = scipy.optimize.bracket(f,
                 xa=min_val,
                 xb=max_val,
                 )
         b = brac_res[:3]
+        if b[0] <= 0:
+            b[0] = 1e-8
         sys.stderr.write("brackets: {}\n".format(b))
         while True:
             try:
@@ -164,22 +173,6 @@ class MaximumLikelihoodEstimator(object):
                     max_val=self.max_speciation_rate,
                     )
             return speciation_completion_rate_estimate, math.log(speciation_completion_rate_estimate_prob)
-            # #scipy.optimize.bracket(func, xa=0.0, xb=1.0, args=(), grow_limit=110.0, maxiter=1000)[source]
-            # brac_res = scipy.optimize.bracket(f,
-            #         xa=self.min_speciation_rate,
-            #         xb=self.max_speciation_rate,
-            #         )
-            # b = brac_res[:3]
-            # while True:
-            #     try:
-            #         est_result = scipy.optimize.brent(f, brack=b, full_output=True)
-            #         break
-            #     except ValueError:
-            #         # weird bracket interval; default to min/max bounds
-            #         b = (self.min_speciation_rate, self.initial_speciation_rate, self.max_speciation_rate)
-            # speciation_completion_rate_estimate = est_result[0]
-            # speciation_completion_rate_estimate_prob = -1 * est_result[1]
-        # return speciation_completion_rate_estimate, math.log(speciation_completion_rate_estimate_prob)
 
     def estimate_confidence_interval(self, mle_speciation_rate, max_lnl):
         def f0(x, *args):
