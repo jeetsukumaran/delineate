@@ -274,7 +274,7 @@ def main():
             header_row.append("rootAge")
         header_row.extend(extra_fields)
         header_row.append("estSpCompRate")
-        header_row.append("estSpCompRateProb")
+        header_row.append("estSpCompRateLnL")
         if args.intervals:
             header_row.append("ciLow")
             header_row.append("ciHigh")
