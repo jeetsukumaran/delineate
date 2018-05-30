@@ -33,24 +33,13 @@ import collections
 import scipy.optimize
 import math
 from delineate import model
+from delineate import utility
 
 __prog__ = os.path.basename(__file__)
 __version__ = "1.0.0"
 __description__ = __doc__
 __author__ = 'Jeet Sukumaran and Mark T. Holder'
 __copyright__ = 'Copyright (C) 2018 Jeet Sukumaran and Mark T. Holder.'
-
-def parse_fieldname_and_value(labels):
-    if not labels:
-        return collections.OrderedDict()
-    fieldname_value_map = collections.OrderedDict()
-    for label in labels:
-        match = re.match(r"\s*(.*?)\s*:\s*(.*)\s*", label)
-        if not match:
-            raise ValueError("Cannot parse fieldname and label (format required: fieldname:value): {}".format(label))
-        fieldname, value = match.groups(0)
-        fieldname_value_map[fieldname] = value
-    return fieldname_value_map
 
 class MaximumLikelihoodEstimator(object):
 
@@ -210,42 +199,18 @@ def main():
     """
 
     parser = argparse.ArgumentParser(description=__description__)
-
-    source_options = parser.add_argument_group("Source options")
-
-    source_options.add_argument("-t", "--tree-file",
-            nargs=1,
-            help="Path to tree file.")
-
-    source_options.add_argument("-c", "--config-file",
-            help="Path to configuration file.")
-
-    source_options.add_argument("-f", "--format",
-            dest="data_format",
-            type=str,
-            default="nexus",
-            choices=["nexus", "newick"],
-            help="Input data format (default='%(default)s').")
+    utility.add_source_options(parser)
 
     estimation_options = parser.add_argument_group("Estimation options")
     estimation_options.add_argument("-i", "--intervals", "--confidence-intervals",
             action="store_true",
             help="Calculate confidence intervals.",)
+
     output_options = parser.add_argument_group("Output options")
     output_options.add_argument("-I", "--tree-info",
             action="store_true",
             help="Output additional information about the tree",)
-    output_options.add_argument("-l", "--label",
-            action="append",
-            help="Label to append to output (in format <FIELD-NAME>:value;)")
-    output_options.add_argument( "--no-header-row",
-            action="store_true",
-            default=False,
-            help="Do not write a header row.")
-    output_options.add_argument( "--append",
-            action="store_true",
-            default=False,
-            help="Append to output file if it already exists instead of overwriting.")
+    utility.add_output_options(parser, output_options=output_options)
 
     args = parser.parse_args()
     args.separator = "\t"
@@ -266,7 +231,7 @@ def main():
             min_speciation_rate=min_speciation_rate,
             max_speciation_rate=max_speciation_rate)
     speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
-    extra_fields = parse_fieldname_and_value(args.label)
+    extra_fields = utility.parse_fieldname_and_value(args.label)
     if not args.no_header_row:
         header_row = []
         if args.tree_info:
