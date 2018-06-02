@@ -213,9 +213,9 @@ def main():
     utility.add_output_options(parser, output_options=output_options)
 
     args = parser.parse_args()
-    args.separator = "\t"
+    args.output_field_separator = "\t"
     tree = model.LineageTree.get(
-            path=args.tree_file[0],
+            path=args.tree_file,
             schema=args.data_format,
             )
     with open(args.config_file) as src:
@@ -243,7 +243,7 @@ def main():
         if args.intervals:
             header_row.append("ciLow")
             header_row.append("ciHigh")
-        sys.stdout.write(args.separator.join(header_row))
+        sys.stdout.write(args.output_field_separator.join(header_row))
         sys.stdout.write("\n")
     row = []
     if args.tree_info:
@@ -260,7 +260,7 @@ def main():
             max_lnl=speciation_completion_rate_estimate_lnl)
         row.append("{}".format(ci_low))
         row.append("{}".format(ci_high))
-    sys.stdout.write(args.separator.join(row))
+    sys.stdout.write(args.output_field_separator.join(row))
     sys.stdout.write("\n")
 
 if __name__ == '__main__':

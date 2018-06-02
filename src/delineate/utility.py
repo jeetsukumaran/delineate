@@ -22,7 +22,6 @@ def add_source_options(parser, source_options=None):
     if not source_options:
         source_options = parser.add_argument_group("Source options")
     source_options.add_argument("-t", "--tree-file",
-            nargs=1,
             required=True,
             help="Path to tree file.")
     source_options.add_argument("-c", "--config-file",
@@ -49,6 +48,10 @@ def add_output_options(parser, output_options=None):
             action="store_true",
             default=False,
             help="Append to output file if it already exists instead of overwriting.")
+    output_options.add_argument( "--field-separator",
+            default="\t",
+            dest="output_field_separator",
+            help="Field separator or delimiter character [default: tab].")
     return parser
 
 # }}}1

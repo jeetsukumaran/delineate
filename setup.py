@@ -28,6 +28,7 @@ setup(
     package_dir={"": "src"},
     scripts=[
         "bin/delineate-estimate-speciation-rate.py",
+        "bin/delineate-estimate-species-partition.py",
         ],
     test_suite = "tests",
     url="http://pypi.python.org/pypi/delineate/",
