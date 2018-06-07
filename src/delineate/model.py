@@ -304,6 +304,116 @@ class LineageTree(dendropy.Tree):
         self._joint_probability_cache.clear()
 
     ################################################################################
+    ## Node Constraints
+
+    def set_up_node_constraints(self, species_leaf_sets):
+        # Set up per-node conspecific and non-conspecific constraints...
+        sls_by_species = {}
+        self.all_monotypic = True
+        for spls in species_leaf_sets:
+            if len(spls) > 1:
+                self.all_monotypic = False
+            for sp in spls:
+                sls_by_species[sp] = spls
+        for nd in self.postorder_node_iter():
+            nd.speciation_allowed = True
+            if nd.is_leaf():
+                nd.leaf_label_set = frozenset([nd.taxon.label])
+                sp = sls_by_species[nd.taxon.label]
+                nd.speciation_allowed = len(sp) == 1
+                nd.sp_set = set([sls_by_species[nd.taxon.label]])
+            else:
+                lls = set()
+                for c in nd.child_nodes():
+                    lls.update(c.leaf_label_set)
+                nd.leaf_label_set = frozenset(lls)
+                nd.sp_set = set([sls_by_species[i] for i in nd.leaf_label_set])
+                dup_sp = None
+                for sp in nd.sp_set:
+                    if not nd.leaf_label_set.issuperset(sp):
+                        nd.speciation_allowed = False
+                    found = False
+                    for c in nd.child_nodes():
+                        if sp in c.sp_set:
+                            if found:
+                                if dup_sp is None:
+                                    dup_sp = sp
+                                else:
+                                    m = 'More than 1 species is conspecific with this ancestor. This is not allowed. Leaf sets of offending species:  {}\n  {}\n'
+                                    m = m.format(sp, dup_sp)
+                                    raise ValueError(m)
+                                break
+                            found = True
+                not_consp = []
+                for sp in nd.sp_set:
+                    not_consp.extend(self._calc_new_nonconsp(nd, sp))
+                if not_consp:
+                    nd.sp_constraints = {'not_conspecific': not_consp}
+
+    def _calc_new_nonconsp(self, nd, species):
+        not_consp = []
+        for c in nd.child_nodes():
+            if species not in c.sp_set:
+                first_label = list(species)[0]
+                for cs in c.sp_set:
+                    fcl = list(cs)[0]
+                    not_consp.append((first_label, fcl))
+        return not_consp
+
+    ################################################################################
+    ## Joint Probability
+
+    def calc_joint_probability_of_species(self, taxon_labels):
+        # self.set_up_node_constraints(taxon_labels)
+        ppm = self.calc_label_partition_probability_map()
+        return ppm[taxon_labels]
+        # if not isinstance(taxon_labels, set):
+        #     taxon_labels = frozenset(frozenset(i) for i in taxon_labels)
+        # prob = self._joint_probability_cache["label_partition_probability_map"][taxon_labels]
+        # return prob
+
+    def calc_label_partition_probability_map(self):
+        partition_probability_map = self._calc_all_joint_sp_probs(good_sp_rate=self._speciation_completion_rate)
+        return partition_probability_map
+
+    def _calc_all_joint_sp_probs(self, good_sp_rate):
+        for nd in self.postorder_node_iter():
+            if nd.is_leaf():
+                nd.tipward_part_map = defaultdict(float)
+                nd.tipward_part_map[_Partition(leaf_label=nd.taxon.label)] = 1.0
+            else:
+                children = nd.child_nodes()
+                nd.tipward_part_map = children[0].rootward_part_map
+                _del_part_maps(children[0])
+                constraints = getattr(nd, 'sp_constraints', None)
+                for c in children[1:]:
+                    _merge_into_first(nd.tipward_part_map, c.rootward_part_map)
+                    _del_part_maps(c)
+                    if constraints is not None:
+                        _enforce_constraints(nd.tipward_part_map, constraints)
+            if nd is self.seed_node:
+                break
+            c_brlen = nd.edge.length
+            scaled_brlen = c_brlen * good_sp_rate
+            prob_no_sp = math.exp(-scaled_brlen)
+            nd.rootward_part_map = _create_closed_map(nd.tipward_part_map,
+                                                      prob_no_sp,
+                                                      getattr(nd, 'speciation_allowed', True))
+        final_part_map = defaultdict(float)
+        if False:
+            # use _Partition as key
+            for part, prob in self.seed_node.tipward_part_map.items():
+                k = part.create_closed() if part.is_open else part
+                final_part_map[k] += prob
+        else:
+            # use lookup key as key
+            for part, prob in self.seed_node.tipward_part_map.items():
+                k = part.create_closed() if part.is_open else part
+                final_part_map[k.lookup_key()] += prob
+        _del_part_maps(self.seed_node)
+        return final_part_map
+
+    ################################################################################
     ## Marginal Probability
 
     def calc_marginal_probability_of_species(self, selected_tip_labels):
@@ -359,54 +469,4 @@ class LineageTree(dendropy.Tree):
             ap *= contrib
         nd.marginal_prob_calc["accum_prob"] = ap
         return ret
-
-    ################################################################################
-    ## Joint Probability
-
-    def calc_joint_probability_of_species(self, taxon_labels):
-        if not isinstance(taxon_labels, set):
-            taxon_labels = frozenset(frozenset(i) for i in taxon_labels)
-        prob = self._joint_probability_cache["label_partition_probability_map"][taxon_labels]
-        return prob
-
-    def calc_label_partition_probability_map(self):
-        partition_probability_map = self._calc_all_joint_sp_probs(good_sp_rate=self._speciation_completion_rate)
-        return partition_probability_map
-
-    def _calc_all_joint_sp_probs(self, good_sp_rate):
-        for nd in self.postorder_node_iter():
-            if nd.is_leaf():
-                nd.tipward_part_map = defaultdict(float)
-                nd.tipward_part_map[_Partition(leaf_label=nd.taxon.label)] = 1.0
-            else:
-                children = nd.child_nodes()
-                nd.tipward_part_map = children[0].rootward_part_map
-                _del_part_maps(children[0])
-                constraints = getattr(nd, 'sp_constraints', None)
-                for c in children[1:]:
-                    _merge_into_first(nd.tipward_part_map, c.rootward_part_map)
-                    _del_part_maps(c)
-                    if constraints is not None:
-                        _enforce_constraints(nd.tipward_part_map, constraints)
-            if nd is self.seed_node:
-                break
-            c_brlen = nd.edge.length
-            scaled_brlen = c_brlen * good_sp_rate
-            prob_no_sp = math.exp(-scaled_brlen)
-            nd.rootward_part_map = _create_closed_map(nd.tipward_part_map,
-                                                      prob_no_sp,
-                                                      getattr(nd, 'speciation_allowed', True))
-        final_part_map = defaultdict(float)
-        if False:
-            # use _Partition as key
-            for part, prob in self.seed_node.tipward_part_map.items():
-                k = part.create_closed() if part.is_open else part
-                final_part_map[k] += prob
-        else:
-            # use lookup key as key
-            for part, prob in self.seed_node.tipward_part_map.items():
-                k = part.create_closed() if part.is_open else part
-                final_part_map[k.lookup_key()] += prob
-        _del_part_maps(self.seed_node)
-        return final_part_map
 

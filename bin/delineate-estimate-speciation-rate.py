@@ -60,60 +60,6 @@ class MaximumLikelihoodEstimator(object):
         assert self.max_speciation_rate >= self.initial_speciation_rate
         self._set_up_node_constraints()
 
-    def _set_up_node_constraints(self):
-        # Set up per-node conspecific and non-conspecific constraints...
-        sls_by_species = {}
-        self.all_monotypic = True
-        for spls in self.species_leaf_sets:
-            if len(spls) > 1:
-                self.all_monotypic = False
-            for sp in spls:
-                sls_by_species[sp] = spls
-        for nd in self.tree.postorder_node_iter():
-            nd.speciation_allowed = True
-            if nd.is_leaf():
-                nd.leaf_label_set = frozenset([nd.taxon.label])
-                sp = sls_by_species[nd.taxon.label]
-                nd.speciation_allowed = len(sp) == 1
-                nd.sp_set = set([sls_by_species[nd.taxon.label]])
-            else:
-                lls = set()
-                for c in nd.child_nodes():
-                    lls.update(c.leaf_label_set)
-                nd.leaf_label_set = frozenset(lls)
-                nd.sp_set = set([sls_by_species[i] for i in nd.leaf_label_set])
-                dup_sp = None
-                for sp in nd.sp_set:
-                    if not nd.leaf_label_set.issuperset(sp):
-                        nd.speciation_allowed = False
-                    found = False
-                    for c in nd.child_nodes():
-                        if sp in c.sp_set:
-                            if found:
-                                if dup_sp is None:
-                                    dup_sp = sp
-                                else:
-                                    m = 'More than 1 species is conspecific with this ancestor. This is not allowed. Leaf sets of offending species:  {}\n  {}\n'
-                                    m = m.format(sp, dup_sp)
-                                    raise ValueError(m)
-                                break
-                            found = True
-                not_consp = []
-                for sp in nd.sp_set:
-                    not_consp.extend(self._calc_new_nonconsp(nd, sp))
-                if not_consp:
-                    nd.sp_constraints = {'not_conspecific': not_consp}
-
-    def _calc_new_nonconsp(self, nd, species):
-        not_consp = []
-        for c in nd.child_nodes():
-            if species not in c.sp_set:
-                first_label = list(species)[0]
-                for cs in c.sp_set:
-                    fcl = list(cs)[0]
-                    not_consp.append((first_label, fcl))
-        return not_consp
-
     def _estimate(self,
             f,
             initial_val,
@@ -224,6 +170,9 @@ def main():
     initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
     min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
     max_speciation_rate = config.pop("max_speciation_rate", 2.00)
+    print(species_leaf_sets)
+    print(type(species_leaf_sets))
+    sys.exit(1)
     mle = MaximumLikelihoodEstimator(
             tree=tree,
             species_leaf_sets=species_leaf_sets,

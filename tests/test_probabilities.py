@@ -139,9 +139,9 @@ class LineageTreeJointSpeciesProbabilities(unittest.TestCase):
                 for speciation_rate_config in brlen_config["speciation_rate_configurations"]:
                     tree.speciation_completion_rate = speciation_rate_config["speciation_rate"]
                     for species_configuration in speciation_rate_config["species_configurations"]:
-                        species_labels = species_configuration["species"]
-                        expected_probability = species_configuration["probability"]
-                        obs_probability = tree.calc_joint_probability_of_species(species_labels)
+                        species_labels=frozenset([frozenset(s) for s in species_configuration["species"]])
+                        expected_probability=species_configuration["probability"]
+                        obs_probability=tree.calc_joint_probability_of_species(species_labels)
                         self.assertAlmostEqual(expected_probability, obs_probability, 8)
 
 if __name__ == "__main__":
