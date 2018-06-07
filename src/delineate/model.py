@@ -364,7 +364,7 @@ class LineageTree(dendropy.Tree):
     ## Joint Probability
 
     def calc_joint_probability_of_species(self, taxon_labels):
-        # self.set_up_node_constraints(taxon_labels)
+        self.set_up_node_constraints(taxon_labels)
         ppm = self.calc_label_partition_probability_map()
         return ppm[taxon_labels]
         # if not isinstance(taxon_labels, set):
