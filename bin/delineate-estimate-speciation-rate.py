@@ -58,7 +58,7 @@ class MaximumLikelihoodEstimator(object):
         assert self.min_speciation_rate <= self.max_speciation_rate
         assert self.min_speciation_rate <= self.initial_speciation_rate
         assert self.max_speciation_rate >= self.initial_speciation_rate
-        self._set_up_node_constraints()
+        self.tree.set_up_node_constraints(species_leaf_sets=self.species_leaf_sets)
 
     def _estimate(self,
             f,
@@ -97,7 +97,7 @@ class MaximumLikelihoodEstimator(object):
             speciation_completion_rate_estimate = 0.0
             self.tree.speciation_completion_rate = speciation_completion_rate_estimate
             speciation_completion_rate_estimate_prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
-        elif self.all_monotypic:
+        elif self.tree.all_monotypic:
             speciation_completion_rate_estimate = float('inf')
             self.tree.speciation_completion_rate = speciation_completion_rate_estimate
             speciation_completion_rate_estimate_prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
@@ -170,9 +170,6 @@ def main():
     initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
     min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
     max_speciation_rate = config.pop("max_speciation_rate", 2.00)
-    print(species_leaf_sets)
-    print(type(species_leaf_sets))
-    sys.exit(1)
     mle = MaximumLikelihoodEstimator(
             tree=tree,
             species_leaf_sets=species_leaf_sets,

@@ -273,6 +273,7 @@ class LineageTree(dendropy.Tree):
     def __init__(self, *args, **kwargs):
         self._speciation_completion_rate = None
         self._setup_cache()
+        self.all_monotypic = None
         dendropy.Tree.__init__(self, *args, **kwargs)
 
     def node_factory(self, *args, **kwargs):
@@ -364,7 +365,6 @@ class LineageTree(dendropy.Tree):
     ## Joint Probability
 
     def calc_joint_probability_of_species(self, taxon_labels):
-        self.set_up_node_constraints(taxon_labels)
         ppm = self.calc_label_partition_probability_map()
         return ppm[taxon_labels]
         # if not isinstance(taxon_labels, set):
