@@ -45,12 +45,12 @@ class MaximumLikelihoodEstimator(object):
 
     def __init__(self,
             tree,
-            species_leaf_sets,
+            species_leafset_labels,
             initial_speciation_rate,
             min_speciation_rate,
             max_speciation_rate):
         self.tree = tree
-        self.species_leaf_sets = species_leaf_sets
+        self.species_leafset_labels = species_leafset_labels
         self.initial_speciation_rate = initial_speciation_rate
         self.min_speciation_rate = min_speciation_rate
         self.max_speciation_rate = max_speciation_rate
@@ -58,7 +58,7 @@ class MaximumLikelihoodEstimator(object):
         assert self.min_speciation_rate <= self.max_speciation_rate
         assert self.min_speciation_rate <= self.initial_speciation_rate
         assert self.max_speciation_rate >= self.initial_speciation_rate
-        self.tree.set_up_node_constraints(species_leaf_sets=self.species_leaf_sets)
+        self.tree.set_node_constraints(species_leafset_labels=self.species_leafset_labels)
 
     def _estimate(self,
             f,
@@ -93,18 +93,18 @@ class MaximumLikelihoodEstimator(object):
         # return value_estimate, value_estimate_prob
 
     def estimate_speciation_rate(self):
-        if len(self.species_leaf_sets) == 1:
+        if len(self.species_leafset_labels) == 1:
             speciation_completion_rate_estimate = 0.0
             self.tree.speciation_completion_rate = speciation_completion_rate_estimate
-            speciation_completion_rate_estimate_prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
+            speciation_completion_rate_estimate_prob = self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels)
         elif self.tree.all_monotypic:
             speciation_completion_rate_estimate = float('inf')
             self.tree.speciation_completion_rate = speciation_completion_rate_estimate
-            speciation_completion_rate_estimate_prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
+            speciation_completion_rate_estimate_prob = self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels)
         else:
             def f(x, *args):
                 self.tree.speciation_completion_rate = x
-                return -1 * self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
+                return -1 * self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels)
             x1, x2 = self._estimate(f=f,
                     initial_val=self.initial_speciation_rate,
                     min_val=self.min_speciation_rate,
@@ -117,7 +117,7 @@ class MaximumLikelihoodEstimator(object):
     def estimate_confidence_interval(self, mle_speciation_rate, max_lnl):
         def f0(x, *args):
             self.tree.speciation_completion_rate = x
-            prob = self.tree.calc_joint_probability_of_species(taxon_labels=self.species_leaf_sets)
+            prob = self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels)
             try:
                 return abs(max_lnl - 1.96 - math.log(prob))
             except ValueError:
@@ -166,13 +166,13 @@ def main():
             )
     with open(args.config_file) as src:
         config = json.load(src)
-    species_leaf_sets = model._Partition.compile_lookup_key( config["species_leaf_sets"] )
+    species_leafset_labels = model._Partition.compile_lookup_key( config["species_leafsets"] )
     initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
     min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
     max_speciation_rate = config.pop("max_speciation_rate", 2.00)
     mle = MaximumLikelihoodEstimator(
             tree=tree,
-            species_leaf_sets=species_leaf_sets,
+            species_leafset_labels=species_leafset_labels,
             initial_speciation_rate=initial_speciation_rate,
             min_speciation_rate=min_speciation_rate,
             max_speciation_rate=max_speciation_rate)

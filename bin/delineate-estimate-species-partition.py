@@ -69,13 +69,13 @@ def main():
     partition_probability_map = tree.calc_label_partition_probability_map()
     for key in partition_probability_map:
         print("{}: {}".format(key, partition_probability_map[key]))
-    # species_leaf_sets = model._Partition.compile_lookup_key( config["species_leaf_sets"] )
+    # species_leafset_labels = model._Partition.compile_lookup_key( config["species_leafset_labels"] )
     # initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
     # min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
     # max_speciation_rate = config.pop("max_speciation_rate", 2.00)
     # mle = MaximumLikelihoodEstimator(
     #         tree=tree,
-    #         species_leaf_sets=species_leaf_sets,
+    #         species_leafset_labels=species_leafset_labels,
     #         initial_speciation_rate=initial_speciation_rate,
     #         min_speciation_rate=min_speciation_rate,
     #         max_speciation_rate=max_speciation_rate)

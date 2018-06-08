@@ -307,11 +307,11 @@ class LineageTree(dendropy.Tree):
     ################################################################################
     ## Node Constraints
 
-    def set_up_node_constraints(self, species_leaf_sets):
+    def set_node_constraints(self, species_leafset_labels):
         # Set up per-node conspecific and non-conspecific constraints...
         sls_by_species = {}
         self.all_monotypic = True
-        for spls in species_leaf_sets:
+        for spls in species_leafset_labels:
             if len(spls) > 1:
                 self.all_monotypic = False
             for sp in spls:
@@ -364,9 +364,9 @@ class LineageTree(dendropy.Tree):
     ################################################################################
     ## Joint Probability
 
-    def calc_joint_probability_of_species(self, taxon_labels):
+    def calc_joint_probability_of_species(self, species_leafset_labels):
         ppm = self.calc_label_partition_probability_map()
-        return ppm[taxon_labels]
+        return ppm[species_leafset_labels]
         # if not isinstance(taxon_labels, set):
         #     taxon_labels = frozenset(frozenset(i) for i in taxon_labels)
         # prob = self._joint_probability_cache["label_partition_probability_map"][taxon_labels]
