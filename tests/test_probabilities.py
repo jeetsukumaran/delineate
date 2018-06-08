@@ -171,29 +171,30 @@ class LineageTreeJointSpeciesProbabilitiesWithConstraints(unittest.TestCase):
                         obs_probability=tree.calc_joint_probability_of_species(species_leafset_labels)
                         self.assertAlmostEqual(expected_probability, obs_probability, 8)
 
-#     def test_probs_with_constraints_with_same_tree(self):
-#         with open(os.path.join(_pathmap.TESTS_DATA_DIR, "joint_probability_of_species.json")) as src:
-#             test_ref = json.load(src)
-#         for test_tree_set in test_ref:
-#             taxon_namespace = dendropy.TaxonNamespace(test_tree_set["taxon_namespace"])
-#             tree = model.LineageTree.get(
-#                     data=test_tree_set["tree"],
-#                     schema="newick",
-#                     taxon_namespace=taxon_namespace,
-#                     )
-#             tree.encode_bipartitions()
-#             for brlen_config in test_tree_set["branch_length_configurations"]:
-#                 for split_bitmask, br_len in brlen_config["branch_lengths"].items():
-#                     split_bitmask = int(split_bitmask)
-#                     assert split_bitmask in tree.split_bitmask_edge_map, split_bitmask
-#                     tree.split_bitmask_edge_map[split_bitmask].length = br_len
-#                 for speciation_rate_config in brlen_config["speciation_rate_configurations"]:
-#                     tree.speciation_completion_rate = speciation_rate_config["speciation_rate"]
-#                     for spconf_idx, species_configuration in enumerate(speciation_rate_config["species_configurations"]):
-#                         species_leafset_labels=frozenset([frozenset(s) for s in species_configuration["species"]])
-#                         expected_probability=species_configuration["probability"]
-#                         obs_probability=tree.calc_joint_probability_of_species(species_leafset_labels)
-#                         self.assertAlmostEqual(expected_probability, obs_probability, 8)
+    def test_probs_with_constraints_with_same_tree(self):
+        with open(os.path.join(_pathmap.TESTS_DATA_DIR, "joint_probability_of_species.json")) as src:
+            test_ref = json.load(src)
+        for test_tree_set in test_ref:
+            taxon_namespace = dendropy.TaxonNamespace(test_tree_set["taxon_namespace"])
+            tree = model.LineageTree.get(
+                    data=test_tree_set["tree"],
+                    schema="newick",
+                    taxon_namespace=taxon_namespace,
+                    )
+            tree.encode_bipartitions()
+            for brlen_config in test_tree_set["branch_length_configurations"]:
+                for split_bitmask, br_len in brlen_config["branch_lengths"].items():
+                    split_bitmask = int(split_bitmask)
+                    assert split_bitmask in tree.split_bitmask_edge_map, split_bitmask
+                    tree.split_bitmask_edge_map[split_bitmask].length = br_len
+                for speciation_rate_config in brlen_config["speciation_rate_configurations"]:
+                    tree.speciation_completion_rate = speciation_rate_config["speciation_rate"]
+                    for spconf_idx, species_configuration in enumerate(speciation_rate_config["species_configurations"]):
+                        species_leafset_labels=frozenset([frozenset(s) for s in species_configuration["species"]])
+                        tree.set_node_constraints(species_leafset_labels=species_leafset_labels)
+                        expected_probability=species_configuration["probability"]
+                        obs_probability=tree.calc_joint_probability_of_species(species_leafset_labels)
+                        self.assertAlmostEqual(expected_probability, obs_probability, 8)
 
 
 if __name__ == "__main__":
