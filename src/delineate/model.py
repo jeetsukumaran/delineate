@@ -307,8 +307,21 @@ class LineageTree(dendropy.Tree):
     ################################################################################
     ## Node Constraints
 
+    def clear_node_constraints(self):
+        for nd in self:
+            for attr in (
+                    "leaf_label_set",
+                    "speciation_allowed",
+                    "sp_set",
+                    "sp_constraints"):
+                try:
+                    delattr(nd, attr)
+                except AttributeError:
+                    pass
+
     def set_node_constraints(self, species_leafset_labels):
         # Set up per-node conspecific and non-conspecific constraints...
+        self.clear_node_constraints()
         sls_by_species = {}
         self.all_monotypic = True
         for spls in species_leafset_labels:
