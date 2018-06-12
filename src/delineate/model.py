@@ -386,6 +386,8 @@ class LineageTree(dendropy.Tree):
         # return prob
 
     def calc_label_partition_probability_map(self):
+        if self._speciation_completion_rate is None:
+            raise ValueError("Speciation completion rate not set")
         partition_probability_map = self._calc_all_joint_sp_probs(good_sp_rate=self._speciation_completion_rate)
         return partition_probability_map
 

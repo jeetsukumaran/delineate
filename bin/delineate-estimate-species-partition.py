@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 ###############################################################################
@@ -65,11 +65,12 @@ def main():
     with open(args.config_file) as src:
         config = json.load(src)
     speciation_completion_rate = config.get("speciation_completion_rate", args.speciation_completion_rate)
+    if speciation_completion_rate is None:
+        raise ValueError("Speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
     tree.speciation_completion_rate = speciation_completion_rate
+    if "species_leafsets" in config:
+        species_constraints = model._Partition.compile_lookup_key( config["species_leafsets"] )
     partition_probability_map = tree.calc_label_partition_probability_map()
-    for key in partition_probability_map:
-        print("{}: {}".format(key, partition_probability_map[key]))
-    # species_leafset_labels = model._Partition.compile_lookup_key( config["species_leafset_labels"] )
     # initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
     # min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
     # max_speciation_rate = config.pop("max_speciation_rate", 2.00)
