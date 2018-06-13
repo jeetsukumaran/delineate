@@ -88,9 +88,9 @@ def main():
     #     sys.stdout.write("\n")
     row = []
     if args.tree_info:
-        result_dict["numTips"] = len(tree.taxon_namespace)
+        result_dict["num_tips"] = len(tree.taxon_namespace)
         tree.calc_node_ages()
-        result_dict["rootAge"] = "{}".format(tree.seed_node.age)
+        result_dict["root_age"] = "{}".format(tree.seed_node.age)
     extra_fields = utility.parse_fieldname_and_value(args.label)
     if extra_fields:
         result_dict.update(extra_fields)
@@ -98,19 +98,19 @@ def main():
     species_partition_info = [(k, list(list(s) for s in k), math.log(partition_probability_map[k])) for k in partition_probability_map]
     species_partition_info.sort(key=lambda x: x[2], reverse=True)
     assert species_partition_info[0][2] >= species_partition_info[-1][2]
-    result_dict["numPartitions"] = len(species_partition_info)
-    max_loglikelihood = species_partition_info[0][2]
-    result_dict["lnLMax"] = max_loglikelihood
+    result_dict["num_partitions"] = len(species_partition_info)
+    max_log_likelihood = species_partition_info[0][2]
+    result_dict["max_log_likelihood"] = max_log_likelihood
     result_dict["partitions"] = []
     for key_idx, (key, key_as_list, lnL) in enumerate(species_partition_info):
         p = collections.OrderedDict()
-        p["partition"] = key_as_list
-        p["lnL"] = lnL
-        if lnL + 1.96 >= max_loglikelihood:
-            p["isInConfidenceInterval"] = True
+        p["species_leafsets"] = key_as_list
+        p["log_likelihood"] = lnL
+        if lnL + 1.96 >= max_log_likelihood:
+            p["is_in_confidence_interval"] = True
         else:
-            p["isInConfidenceInterval"] = False
-        # sys.stderr.write("{}, {}, {}\n".format(max_loglikelihood, lnL, p["isInConfidenceInterval"]))
+            p["is_in_confidence_interval"] = False
+        # sys.stderr.write("{}, {}, {}\n".format(max_log_likelihood, lnL, p["isInConfidenceInterval"]))
         result_dict["partitions"].append(p)
     if args.format == "json-compact":
         json.dump(result_dict, sys.stdout)
