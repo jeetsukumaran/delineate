@@ -101,17 +101,21 @@ def main():
     result_dict["num_partitions"] = len(species_partition_info)
     max_log_likelihood = species_partition_info[0][2]
     result_dict["max_log_likelihood"] = max_log_likelihood
+    result_dict["num_partitions_in_confidence_interval"] = 0
     result_dict["partitions"] = []
+    num_partitions_in_confidence_interval = 0
     for key_idx, (key, key_as_list, lnL) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
         p["log_likelihood"] = lnL
         if lnL + 1.96 >= max_log_likelihood:
             p["is_in_confidence_interval"] = True
+            num_partitions_in_confidence_interval += 1
         else:
             p["is_in_confidence_interval"] = False
         # sys.stderr.write("{}, {}, {}\n".format(max_log_likelihood, lnL, p["isInConfidenceInterval"]))
         result_dict["partitions"].append(p)
+    result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
     if args.format == "json-compact":
         json.dump(result_dict, sys.stdout)
     else:
