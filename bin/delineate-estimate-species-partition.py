@@ -95,25 +95,33 @@ def main():
     if extra_fields:
         result_dict.update(extra_fields)
 
-    species_partition_info = [(k, list(list(s) for s in k), math.log(partition_probability_map[k])) for k in partition_probability_map]
-    species_partition_info.sort(key=lambda x: x[2], reverse=True)
-    assert species_partition_info[0][2] >= species_partition_info[-1][2]
+    species_partition_info = [(
+            k,
+            list(list(s) for s in k),
+            partition_probability_map[k],
+            math.log(partition_probability_map[k])) for k in partition_probability_map]
+    log_likelihood_index = 3
+    species_partition_info.sort(key=lambda x: x[log_likelihood_index], reverse=True)
+    assert species_partition_info[0][log_likelihood_index] >= species_partition_info[-1][log_likelihood_index]
     result_dict["num_partitions"] = len(species_partition_info)
-    max_log_likelihood = species_partition_info[0][2]
+    max_log_likelihood = species_partition_info[0][log_likelihood_index]
     result_dict["max_log_likelihood"] = max_log_likelihood
     result_dict["num_partitions_in_confidence_interval"] = 0
     result_dict["partitions"] = []
+    cumulative_probability = 0.0
     num_partitions_in_confidence_interval = 0
-    for key_idx, (key, key_as_list, lnL) in enumerate(species_partition_info):
+    for key_idx, (key, key_as_list, prob, lnL) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
         p["log_likelihood"] = lnL
-        if lnL + 1.96 >= max_log_likelihood:
+        p["probability"] = prob
+        cumulative_probability += prob
+        p["cumulative_probability"] = cumulative_probability
+        if cumulative_probability <= 0.95:
             p["is_in_confidence_interval"] = True
             num_partitions_in_confidence_interval += 1
         else:
             p["is_in_confidence_interval"] = False
-        # sys.stderr.write("{}, {}, {}\n".format(max_log_likelihood, lnL, p["isInConfidenceInterval"]))
         result_dict["partitions"].append(p)
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
     if args.format == "json-compact":
