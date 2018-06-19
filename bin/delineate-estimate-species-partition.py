@@ -31,7 +31,9 @@ import argparse
 import json
 import collections
 import math
+import itertools
 from delineate import model
+from delineate import estimate
 from delineate import utility
 
 __prog__ = os.path.basename(__file__)
@@ -67,25 +69,35 @@ def main():
     with open(args.config_file) as src:
         config = json.load(src)
     speciation_completion_rate = config.get("speciation_completion_rate", args.speciation_completion_rate)
+    species_leafset_constraint_labels = config.get("species_leafset_constraints", None)
+    if species_leafset_constraint_labels is not None:
+        species_constraints = model._Partition.compile_lookup_key(species_leafset_constraint_labels)
+        tree.set_node_constraints(species_constraints)
+
+    if speciation_completion_rate is None:
+        if species_leafset_constraint_labels is not None:
+            constraint_tip_labels = list(itertools.chain(*species_leafset_constraint_labels))
+            induced_tree = tree.extract_tree_with_taxa_labels(
+                    labels=constraint_tip_labels)
+            mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
+                    tree=induced_tree,
+                    species_leafset_labels=species_constraints,
+                    initial_speciation_rate=config.get("initial_speciation_rate", 0.01),
+                    min_speciation_rate=config.get("min_speciation_rate", 1e-8),
+                    max_speciation_rate=config.get("max_speciation_rate", 2.00))
+            speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
+        speciation_completion_rate = speciation_completion_rate_estimate
+        speciation_completion_rate_source = "estimated"
+    else:
+        speciation_completion_rate_source = "specified"
+        speciation_completion_rate_estimate_lnl = 0.0
     if speciation_completion_rate is None:
         raise ValueError("Speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
     tree.speciation_completion_rate = speciation_completion_rate
-    if "species_constraints" in config:
-        species_constraints = model._Partition.compile_lookup_key( config["species_constraints"] )
-        tree.set_node_constraints(species_constraints)
+
     partition_probability_map = tree.calc_label_partition_probability_map()
 
     result_dict = collections.OrderedDict()
-    # if not args.no_header_row:
-    #     header_row = []
-    #     if args.tree_info:
-    #         header_row.append("numTips")
-    #         header_row.append("rootAge")
-    #     header_row.extend(extra_fields)
-    #     header_row.append("estSpCompRate")
-    #     header_row.append("estSpCompRateLnL")
-    #     sys.stdout.write(args.separator.join(header_row))
-    #     sys.stdout.write("\n")
     row = []
     if args.tree_info:
         result_dict["num_tips"] = len(tree.taxon_namespace)
@@ -94,6 +106,9 @@ def main():
     extra_fields = utility.parse_fieldname_and_value(args.label)
     if extra_fields:
         result_dict.update(extra_fields)
+    result_dict["speciation_completion_rate"] = speciation_completion_rate
+    result_dict["speciation_completion_rate_source"] = speciation_completion_rate_source
+    result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
 
     species_partition_info = [(
             k,
