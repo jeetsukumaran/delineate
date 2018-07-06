@@ -134,7 +134,7 @@ def main():
     for key_idx, (key, key_as_list, prob, lnL) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
-        p["log_prob"] = lnL
+        p["log_probability"] = lnL
         p["probability"] = prob
         bpc = prob / cond_prob
         p["prob_given_constraints"] = bpc
