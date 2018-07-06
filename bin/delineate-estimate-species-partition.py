@@ -66,8 +66,11 @@ def main():
             path=args.tree_file,
             schema=args.data_format,
             )
-    with open(args.config_file) as src:
-        config = json.load(src)
+    if args.config_file:
+        with open(args.config_file) as src:
+            config = json.load(src)
+    else:
+        config = {}
     speciation_completion_rate = config.get("speciation_completion_rate", args.speciation_completion_rate)
     species_leafset_constraint_labels = config.get("species_leafset_constraints", None)
     if species_leafset_constraint_labels is not None:
