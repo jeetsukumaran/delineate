@@ -333,36 +333,50 @@ class LineageTree(dendropy.Tree):
             nd.speciation_allowed = True
             if nd.is_leaf():
                 nd.leaf_label_set = frozenset([nd.taxon.label])
-                sp = sls_by_species[nd.taxon.label]
-                nd.speciation_allowed = len(sp) == 1
-                nd.sp_set = set([sls_by_species[nd.taxon.label]])
+                sp = sls_by_species.get(nd.taxon.label)
+                nd.speciation_allowed = sp is None or len(sp) == 1
+                if sp is None:
+                    nd.sp_set = set()
+                    nd.known_tipward_sp = None
+                else:
+                    nd.sp_set = {sp}
+                    nd.known_tipward_sp = sp
             else:
                 lls = set()
-                for c in nd.child_nodes():
-                    lls.update(c.leaf_label_set)
-                nd.leaf_label_set = frozenset(lls)
-                nd.sp_set = set([sls_by_species[i] for i in nd.leaf_label_set])
-                dup_sp = None
+                nd.all_des_sp_known = True
+                assert len(nd.child_nodes()) == 2 # Not tested with polytomies yet...
+                lchild, rchild = nd.child_nodes()
+                nd.sp_set = lchild.sp_set.union(rchild.sp_set)
+                shared = lchild.sp_set.intersection(rchild.sp_set)
+                nd.leaf_label_set = frozenset(lchild.leaf_label_set.union(rchild.leaf_label_set))
+                if len(shared) > 1:
+                    m = 'More than 1 species is conspecific with this ancestor. This is not allowed. Leaf sets of offending species are:'
+                    for x in shared:
+                        m = m + '\n {}'.format(x)
+                    raise ValueError(m)
+                consp = []
+                nonconsp = []
+                for sp in lchild.sp_set:
+                    ll = next(iter(sp.intersection(lchild.leaf_label_set)))
+                    if sp in shared:
+                        rl = next(iter(sp.intersection(rchild.leaf_label_set)))
+                        consp.append((rl, ll))
+                    else:
+                        for rsp in rchild.sp_set:
+                            if rsp not in shared:
+                                rl = next(iter(rsp.intersection(rchild.leaf_label_set)))
+                                nonconsp.append((ll, rl))
+                nd.speciation_allowed = True
                 for sp in nd.sp_set:
                     if not nd.leaf_label_set.issuperset(sp):
                         nd.speciation_allowed = False
-                    found = False
-                    for c in nd.child_nodes():
-                        if sp in c.sp_set:
-                            if found:
-                                if dup_sp is None:
-                                    dup_sp = sp
-                                else:
-                                    m = 'More than 1 species is conspecific with this ancestor. This is not allowed. Leaf sets of offending species:  {}\n  {}\n'
-                                    m = m.format(sp, dup_sp)
-                                    raise ValueError(m)
-                                break
-                            found = True
-                not_consp = []
-                for sp in nd.sp_set:
-                    not_consp.extend(self._calc_new_nonconsp(nd, sp))
-                if not_consp:
-                    nd.sp_constraints = {'not_conspecific': not_consp}
+                nd.sp_constraints = None
+                if nonconsp or consp:
+                    nd.sp_constraints = {}
+                    if nonconsp:
+                        nd.sp_constraints['not_conspecific'] = nonconsp
+                    if consp:
+                        nd.sp_constraints['conspecific'] = consp
 
     def _calc_new_nonconsp(self, nd, species):
         not_consp = []

@@ -127,15 +127,25 @@ def main():
     result_dict["num_partitions_in_confidence_interval"] = 0
     result_dict["partitions"] = []
     cumulative_probability = 0.0
+    cumulative_probability_given_constr = 0.0
     num_partitions_in_confidence_interval = 0
+    cond_prob = sum([i[2] for i in species_partition_info])
+    ln_cond_prob = math.log(cond_prob)
     for key_idx, (key, key_as_list, prob, lnL) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
-        p["log_likelihood"] = lnL
+        p["log_prob"] = lnL
         p["probability"] = prob
+        bpc = prob / cond_prob
+        p["prob_given_constraints"] = bpc
+        p["ln_prob_given_constraints"] = lnL - ln_cond_prob
+
         cumulative_probability += prob
+        cumulative_probability_given_constr += bpc
         p["cumulative_probability"] = cumulative_probability
-        if cumulative_probability <= 0.95:
+        p["cumulative_probability_given_constraints"] = cumulative_probability_given_constr
+
+        if cumulative_probability_given_constr <= 0.95:
             p["is_in_confidence_interval"] = True
             num_partitions_in_confidence_interval += 1
         else:
