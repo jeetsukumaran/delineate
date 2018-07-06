@@ -86,8 +86,8 @@ def main():
                     min_speciation_rate=config.get("min_speciation_rate", 1e-8),
                     max_speciation_rate=config.get("max_speciation_rate", 2.00))
             speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
-        speciation_completion_rate = speciation_completion_rate_estimate
-        speciation_completion_rate_source = "estimated"
+            speciation_completion_rate = speciation_completion_rate_estimate
+            speciation_completion_rate_source = "estimated"
     else:
         speciation_completion_rate_source = "specified"
         speciation_completion_rate_estimate_lnl = 0.0
