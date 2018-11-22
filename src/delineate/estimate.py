@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import math
+import sys
 try:
     import scipy.optimize
 except ImportError:
