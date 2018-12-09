@@ -137,8 +137,8 @@ def main():
         p["log_probability"] = lnL
         p["probability"] = prob
         bpc = prob / cond_prob
-        p["prob_given_constraints"] = bpc
-        p["ln_prob_given_constraints"] = lnL - ln_cond_prob
+        p["probability_given_constraints"] = bpc
+        p["log_probability_given_constraints"] = lnL - ln_cond_prob
 
         cumulative_probability += prob
         cumulative_probability_given_constr += bpc
