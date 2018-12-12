@@ -113,11 +113,24 @@ def main():
     result_dict["speciation_completion_rate_source"] = speciation_completion_rate_source
     result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
 
-    species_partition_info = [(
-            k,
-            list(list(s) for s in k),
-            partition_probability_map[k],
-            math.log(partition_probability_map[k])) for k in partition_probability_map]
+    species_partition_info = []
+    for k in partition_probability_map:
+        try:
+            klp = math.log(partition_probability_map[k])
+        except ValueError:
+            klp = float("nan")
+        kentry = (
+                k,
+                list(list(s) for s in k),
+                partition_probability_map[k],
+                klp,
+                )
+        species_partition_info.append(kentry)
+    # species_partition_info = [(
+    #         k,
+    #         list(list(s) for s in k),
+    #         partition_probability_map[k],
+    #         math.log(partition_probability_map[k])) for k in partition_probability_map]
     log_likelihood_index = 3
     species_partition_info.sort(key=lambda x: x[log_likelihood_index], reverse=True)
     assert species_partition_info[0][log_likelihood_index] >= species_partition_info[-1][log_likelihood_index]
