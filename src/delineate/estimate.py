@@ -79,7 +79,11 @@ class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
                     )
             speciation_completion_rate_estimate = x1
             speciation_completion_rate_estimate_prob = -1 * x2
-        return speciation_completion_rate_estimate, math.log(speciation_completion_rate_estimate_prob)
+        try:
+            lprob = math.log(speciation_completion_rate_estimate_prob)
+        except ValueError:
+            lprob = float("-inf")
+        return speciation_completion_rate_estimate, lprob
 
     def estimate_confidence_interval(self, mle_speciation_rate, max_lnl):
         def f0(x, *args):
