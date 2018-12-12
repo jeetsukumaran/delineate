@@ -118,7 +118,8 @@ def main():
         try:
             klp = math.log(partition_probability_map[k])
         except ValueError:
-            klp = float("nan")
+            # klp = float("nan")
+            klp = float("-inf") # for sorting
         kentry = (
                 k,
                 list(list(s) for s in k),
