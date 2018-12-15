@@ -154,16 +154,20 @@ def main():
         p["probability_given_constraints"] = bpc
         p["log_probability_given_constraints"] = lnL - ln_cond_prob
 
+        # need to check this before summing cumulative probability, otherwise
+        # any single partition with probability > 0.95 will incorrectly be
+        # flagged as being outside the confidence interval.
+        if cumulative_probability_given_constr <= 0.95 and bpc > 0.0:
+            p["is_in_confidence_interval"] = True
+            num_partitions_in_confidence_interval += 1
+        else:
+            p["is_in_confidence_interval"] = False
+
         cumulative_probability += prob
         cumulative_probability_given_constr += bpc
         p["cumulative_probability"] = cumulative_probability
         p["cumulative_probability_given_constraints"] = cumulative_probability_given_constr
 
-        if cumulative_probability_given_constr <= 0.95:
-            p["is_in_confidence_interval"] = True
-            num_partitions_in_confidence_interval += 1
-        else:
-            p["is_in_confidence_interval"] = False
         result_dict["partitions"].append(p)
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
     if args.format == "json-compact":
