@@ -147,7 +147,7 @@ def main():
     try:
         ln_cond_prob = math.log(cond_prob)
     except ValueError:
-        ln_cond_prob = None
+        ln_cond_prob = float("nan")
     for key_idx, (key, key_as_list, prob, lnL) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
@@ -155,10 +155,7 @@ def main():
         p["probability"] = prob
         bpc = prob / cond_prob
         p["probability_given_constraints"] = bpc
-        if ln_cond_prob is not None:
-            p["log_probability_given_constraints"] = lnL - ln_cond_prob
-        else:
-            p["log_probability_given_constraints"] = float("nan")
+        p["log_probability_given_constraints"] = lnL - ln_cond_prob
 
         # need to check this before summing cumulative probability, otherwise
         # any single partition with probability > 0.95 will incorrectly be
