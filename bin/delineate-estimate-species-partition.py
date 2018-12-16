@@ -144,7 +144,10 @@ def main():
     cumulative_probability_given_constr = 0.0
     num_partitions_in_confidence_interval = 0
     cond_prob = sum([i[2] for i in species_partition_info])
-    ln_cond_prob = math.log(cond_prob)
+    try:
+        ln_cond_prob = math.log(cond_prob)
+    except ValueError:
+        ln_cond_prob = None
     for key_idx, (key, key_as_list, prob, lnL) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
@@ -152,7 +155,10 @@ def main():
         p["probability"] = prob
         bpc = prob / cond_prob
         p["probability_given_constraints"] = bpc
-        p["log_probability_given_constraints"] = lnL - ln_cond_prob
+        if ln_cond_prob is not None:
+            p["log_probability_given_constraints"] = lnL - ln_cond_prob
+        else:
+            p["log_probability_given_constraints"] = float("nan")
 
         # need to check this before summing cumulative probability, otherwise
         # any single partition with probability > 0.95 will incorrectly be
