@@ -153,9 +153,13 @@ def main():
         p["species_leafsets"] = key_as_list
         p["log_probability"] = lnL
         p["probability"] = prob
-        bpc = prob / cond_prob
-        p["probability_given_constraints"] = bpc
-        p["log_probability_given_constraints"] = lnL - ln_cond_prob
+        if cond_prob > 0:
+            bpc = prob / cond_prob
+            p["probability_given_constraints"] = bpc
+            p["log_probability_given_constraints"] = lnL - ln_cond_prob
+        else:
+            p["probability_given_constraints"] = float("nan")
+            p["log_probability_given_constraints"] = float("nan")
 
         # need to check this before summing cumulative probability, otherwise
         # any single partition with probability > 0.95 will incorrectly be
