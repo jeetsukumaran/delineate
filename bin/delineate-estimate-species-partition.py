@@ -142,8 +142,10 @@ def main():
     for key_idx, (key, key_as_list, log_probability) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
+        p["probability"] = math.exp(log_probability)
         p["log_probability"] = log_probability
         log_probability_given_constraints = log_probability - ln_cond_prob
+        p["probability_given_constraints"] = math.exp(log_probability_given_constraints)
         p["log_probability_given_constraints"] = log_probability_given_constraints
 
         # need to check this before summing cumulative probability, otherwise
