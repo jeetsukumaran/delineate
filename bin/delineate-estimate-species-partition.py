@@ -146,6 +146,8 @@ def main():
     cumulative_probability_given_constr = 0.0
     num_partitions_in_confidence_interval = 0
     cond_prob = sum([i[probability_index] for i in species_partition_info])
+    if cond_prob == 0:
+        raise ValueError("0 conditional probability")
     try:
         ln_cond_prob = math.log(cond_prob)
     except ValueError:
