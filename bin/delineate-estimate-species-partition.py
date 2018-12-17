@@ -114,6 +114,8 @@ def main():
     result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
 
     species_partition_info = []
+    probability_index = 2
+    log_likelihood_index = 3
     for k in partition_probability_map:
         try:
             klp = math.log(partition_probability_map[k])
@@ -132,9 +134,9 @@ def main():
     #         list(list(s) for s in k),
     #         partition_probability_map[k],
     #         math.log(partition_probability_map[k])) for k in partition_probability_map]
-    log_likelihood_index = 3
     species_partition_info.sort(key=lambda x: x[log_likelihood_index], reverse=True)
     assert species_partition_info[0][log_likelihood_index] >= species_partition_info[-1][log_likelihood_index]
+    assert species_partition_info[0][probability_index] >= species_partition_info[-1][probability_index]
     result_dict["num_partitions"] = len(species_partition_info)
     max_log_likelihood = species_partition_info[0][log_likelihood_index]
     result_dict["max_log_likelihood"] = max_log_likelihood
@@ -143,7 +145,7 @@ def main():
     cumulative_probability = 0.0
     cumulative_probability_given_constr = 0.0
     num_partitions_in_confidence_interval = 0
-    cond_prob = sum([i[2] for i in species_partition_info])
+    cond_prob = sum([i[probability_index] for i in species_partition_info])
     try:
         ln_cond_prob = math.log(cond_prob)
     except ValueError:
