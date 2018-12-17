@@ -160,6 +160,7 @@ def main():
             p["probability_given_constraints"] = bpc
             p["log_probability_given_constraints"] = lnL - ln_cond_prob
         else:
+            bpc = float("nan")
             p["probability_given_constraints"] = float("nan")
             p["log_probability_given_constraints"] = float("nan")
 
