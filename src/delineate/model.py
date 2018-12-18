@@ -280,7 +280,7 @@ class LineageTree(dendropy.Tree):
         self._setup_cache()
         self.all_monotypic = None
         dendropy.Tree.__init__(self, *args, **kwargs)
-        self.use_decimal_class_work_units = kwargs.pop("use_decimal_class_work_units", True)
+        self.use_decimal_class_work_units = kwargs.pop("use_decimal_class_work_units", None)
         if self.use_decimal_class_work_units:
             self.cast_to_work_units = lambda x: decimal.Decimal(x)
             self.cast_to_original_units = lambda x: float(x)
