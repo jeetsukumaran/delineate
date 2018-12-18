@@ -6,8 +6,8 @@ from collections import defaultdict
 import copy
 import random
 import math
+import decimal
 import dendropy
-import sys
 
 ################################################################################
 ## Functions in support of calculating the joint probability
@@ -37,40 +37,27 @@ def _merge_into_first(src_and_dest_dict, second):
         # print('fpart = {}'.format(fpart))
         for spart, sprob in second.items():
             # print('spart = {}'.format(spart))
-            kex = fpart.create_extension(spart)
-            if kex not in dest:
-                dest[kex] = fprob + sprob
-            else:
-                dest[kex] = math.log(math.exp(dest[kex]) + math.exp(fprob + sprob ))
+            dest[fpart.create_extension(spart)] += fprob * sprob
     return dest
 
-def _create_closed_map(map_with_open, log_remain_open_prob, allow_closing=True):
-    ret = {}
+def _create_closed_map(
+        map_with_open,
+        remain_open_prob,
+        cast_to_work_units,
+        allow_closing=True):
+    ret = defaultdict(lambda:cast_to_work_units(0.0))
     if allow_closing:
-        log_close_prob = math.log(1.0 - math.exp(log_remain_open_prob))
-        for part, log_prob in map_with_open.items():
+        close_prob = cast_to_work_units(1.0) - remain_open_prob
+        for part, prob in map_with_open.items():
             if part.is_open:
-                if part not in ret:
-                    ret[part] = log_prob + log_remain_open_prob
-                else:
-                    ret[part] = math.log(math.exp(ret[part]) + math.exp(log_prob + log_remain_open_prob))
-                cc = part.create_closed()
-                if cc not in ret:
-                    ret[cc] = log_prob + log_close_prob
-                else:
-                    ret[cc] = math.log(math.exp(ret[cc]) + math.exp(log_prob + log_close_prob))
+                ret[part] += prob * remain_open_prob
+                ret[part.create_closed()] += prob * close_prob
             else:
-                if part not in ret:
-                    ret[part] = log_prob
-                else:
-                    ret[part] = math.log(math.exp(ret[part]) + math.exp(log_prob))
+                ret[part] += prob
     else:
-        for part, log_prob in map_with_open.items():
+        for part, prob in map_with_open.items():
             if part.is_open:
-                if part not in ret:
-                    ret[part] = log_prob + log_remain_open_prob
-                else:
-                    ret[part] = math.log(math.exp(ret[part]) + math.exp(log_prob + log_remain_open_prob))
+                ret[part] += prob * remain_open_prob
     return ret
 
 def _enforce_constraints(partition_table, constraints):
@@ -293,6 +280,13 @@ class LineageTree(dendropy.Tree):
         self._setup_cache()
         self.all_monotypic = None
         dendropy.Tree.__init__(self, *args, **kwargs)
+        self.use_decimal_class_work_units = True # TODO: base this on tree size
+        if self.use_decimal_class_work_units:
+            self.cast_to_work_units = lambda x: decimal.Decimal(x)
+            self.cast_to_original_units = lambda x: float(x)
+        else:
+            self.cast_to_work_units = lambda x: x
+            self.cast_to_original_units = lambda x: x
 
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
@@ -426,8 +420,8 @@ class LineageTree(dendropy.Tree):
     def _calc_all_joint_sp_probs(self, good_sp_rate):
         for nd in self.postorder_node_iter():
             if nd.is_leaf():
-                nd.tipward_part_map = defaultdict(float)
-                nd.tipward_part_map[_Partition(leaf_label=nd.taxon.label)] = 0
+                nd.tipward_part_map = defaultdict(lambda: self.cast_to_work_units(0.0))
+                nd.tipward_part_map[_Partition(leaf_label=nd.taxon.label)] = self.cast_to_work_units(1.0)
             else:
                 children = nd.child_nodes()
                 nd.tipward_part_map = children[0].rootward_part_map
@@ -442,18 +436,19 @@ class LineageTree(dendropy.Tree):
                 break
             c_brlen = nd.edge.length
             scaled_brlen = c_brlen * good_sp_rate
-            log_prob_no_sp = -scaled_brlen
+            prob_no_sp = self.cast_to_work_units(math.exp(-scaled_brlen))
             nd.rootward_part_map = _create_closed_map(nd.tipward_part_map,
-                                                      log_prob_no_sp,
+                                                      prob_no_sp,
+                                                      self.cast_to_work_units,
                                                       getattr(nd, 'speciation_allowed', True))
-        final_part_map = {}
-        for part, log_prob in self.seed_node.tipward_part_map.items():
+        final_part_map = defaultdict(lambda:self.cast_to_work_units(0.0))
+        # use lookup key as key
+        for part, prob in self.seed_node.tipward_part_map.items():
             k = part.create_closed() if part.is_open else part
-            lk = k.lookup_key()
-            if lk not in final_part_map:
-                final_part_map[lk] = log_prob
-            else:
-                final_part_map[lk] = math.log(math.exp(final_part_map[lk]) + math.exp(log_prob))
+            final_part_map[k.lookup_key()] += prob
+        # if self.use_decimal_class_work_units:
+        #     for part in final_part_map:
+        #         final_part_map[part] = float(final_part_map[part])
         _del_part_maps(self.seed_node)
         return final_part_map
 

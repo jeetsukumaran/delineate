@@ -114,12 +114,19 @@ def main():
     result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
 
     species_partition_info = []
-    log_probability_index = 2
+    probability_index = 2
+    log_likelihood_index = 3
     for k in partition_probability_map:
+        try:
+            klp = math.log(partition_probability_map[k])
+        except ValueError:
+            # klp = float("nan")
+            klp = float("-inf") # for sorting
         kentry = (
                 k,
                 list(list(s) for s in k),
                 partition_probability_map[k],
+                klp,
                 )
         species_partition_info.append(kentry)
     # species_partition_info = [(
@@ -127,41 +134,47 @@ def main():
     #         list(list(s) for s in k),
     #         partition_probability_map[k],
     #         math.log(partition_probability_map[k])) for k in partition_probability_map]
-    species_partition_info.sort(key=lambda x: x[log_probability_index], reverse=True)
-    assert species_partition_info[0][log_probability_index] >= species_partition_info[-1][log_probability_index]
+    species_partition_info.sort(key=lambda x: x[probability_index], reverse=True)
+    assert species_partition_info[0][log_likelihood_index] >= species_partition_info[-1][log_likelihood_index]
+    assert species_partition_info[0][probability_index] >= species_partition_info[-1][probability_index], \
+            sys.stderr.write("{} >= {}: False\n".format(species_partition_info[0][probability_index], species_partition_info[-1][probability_index]))
     result_dict["num_partitions"] = len(species_partition_info)
-    max_log_likelihood = species_partition_info[0][log_probability_index]
+    max_log_likelihood = species_partition_info[0][log_likelihood_index]
     result_dict["max_log_likelihood"] = max_log_likelihood
     result_dict["num_partitions_in_confidence_interval"] = 0
     result_dict["partitions"] = []
-    cumulative_probability = 0.0
-    cumulative_probability_given_constr = 0.0
+    cumulative_probability = tree.cast_to_work_units(0.0)
+    cumulative_probability_given_constr = tree.cast_to_work_units(0.0)
     num_partitions_in_confidence_interval = 0
-    # cond_prob = sum([i[probability_index] for i in species_partition_info])
-    ln_cond_prob = math.log(sum([math.exp(i[log_probability_index]) for i in species_partition_info]))
-    for key_idx, (key, key_as_list, log_probability) in enumerate(species_partition_info):
+    cond_prob = sum([i[probability_index] for i in species_partition_info])
+    if cond_prob == 0:
+        raise ValueError("0 conditional probability")
+    try:
+        ln_cond_prob = math.log(cond_prob)
+    except ValueError:
+        ln_cond_prob = float("nan")
+    for key_idx, (key, key_as_list, prob, lnL) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
-        p["probability"] = math.exp(log_probability)
-        p["log_probability"] = log_probability
-        log_probability_given_constraints = log_probability - ln_cond_prob
-        p["probability_given_constraints"] = math.exp(log_probability_given_constraints)
-        p["log_probability_given_constraints"] = log_probability_given_constraints
+        p["log_probability"] = tree.cast_to_original_units(lnL)
+        p["probability"] = tree.cast_to_original_units(prob)
+        bpc = prob / cond_prob
+        p["probability_given_constraints"] = tree.cast_to_original_units(bpc)
+        p["log_probability_given_constraints"] = tree.cast_to_original_units(lnL - ln_cond_prob)
 
         # need to check this before summing cumulative probability, otherwise
         # any single partition with probability > 0.95 will incorrectly be
         # flagged as being outside the confidence interval.
-        bpc = math.exp(log_probability_given_constraints)
         if cumulative_probability_given_constr <= 0.95 and bpc > 0.0:
             p["is_in_confidence_interval"] = True
             num_partitions_in_confidence_interval += 1
         else:
             p["is_in_confidence_interval"] = False
 
-        cumulative_probability += math.exp(log_probability)
+        cumulative_probability += prob
         cumulative_probability_given_constr += bpc
-        p["cumulative_probability"] = cumulative_probability
-        p["cumulative_probability_given_constraints"] = cumulative_probability_given_constr
+        p["cumulative_probability"] = tree.cast_to_original_units(cumulative_probability)
+        p["cumulative_probability_given_constraints"] = tree.cast_to_original_units(cumulative_probability_given_constr)
 
         result_dict["partitions"].append(p)
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval

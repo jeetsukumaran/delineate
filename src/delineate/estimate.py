@@ -71,7 +71,7 @@ class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
         else:
             def f(x, *args):
                 self.tree.speciation_completion_rate = x
-                return -1 * self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels)
+                return -1 * float(self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels))
             x1, x2 = self._estimate(f=f,
                     initial_val=self.initial_speciation_rate,
                     min_val=self.min_speciation_rate,
