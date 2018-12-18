@@ -41,10 +41,10 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
             species_leafsets = frozenset(frozenset(s) for s in part_d["species_leafsets"])
             partitions[species_leafsets] = {}
             for val_key in (
-                    "log_probability",
+                    # "log_probability",
                     "probability",
                     "probability_given_constraints",
-                    "log_probability_given_constraints",
+                    # "log_probability_given_constraints",
                     "is_in_confidence_interval",
                     "cumulative_probability",
                     "cumulative_probability_given_constraints",
@@ -70,7 +70,8 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
                 exp_val = exp_vals[val_key]
                 obs_val = obs_vals[val_key]
                 if type(exp_val) == float:
-                    self.assertAlmostEqual(exp_val, obs_val, 8)
+                    self.assertAlmostEqual(exp_val, obs_val, 8,
+                            "{}: {}, {}".format(val_key, exp_val, obs_val))
                 else:
                     self.assertEqual(exp_val, obs_val)
 
@@ -78,7 +79,6 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
                 "speciation_completion_rate",
                 "speciation_completion_rate_estimate_lnl",
                 "num_partitions",
-                "max_log_likelihood",
                 "num_partitions_in_confidence_interval",
                 ]:
             exp_val = expected_results[key]
@@ -89,13 +89,31 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
                 self.assertEqual(exp_val, obs_val)
 
     def test_constrained_partitions_small(self):
-        test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "constrained-partitions-small/s1-master-aa56716")
+        test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "constrained-partitions-small", "s1-master-aa56716")
         test_filename_stems = [
                 "run1_spr0.001_.0001",
                 "run1_spr0.005_.0001",
                 "run1_spr0.010_.0001",
                 "run1_spr0.050_.0001",
                 "run1_spr0.010_.0001",
+                ]
+        for test_filename_stem in test_filename_stems:
+            config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
+            tree_path = os.path.join(test_file_dir, test_filename_stem + ".nex")
+            expected_results_path = os.path.join(test_file_dir, test_filename_stem + ".partition-probs.json")
+            self._check_analysis(
+                    config_path=config_path,
+                    tree_path=tree_path,
+                    expected_results_path=expected_results_path)
+
+    def test_constrained_partitions_large(self):
+        test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "constrained-partitions-large", "s2-ba7be54")
+        test_filename_stems = [
+                "run2_spr0.001_.0001",
+                "run2_spr0.005_.0001",
+                "run2_spr0.010_.0001",
+                "run2_spr0.050_.0001",
+                "run2_spr0.010_.0001",
                 ]
         for test_filename_stem in test_filename_stems:
             config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
