@@ -132,6 +132,78 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
                     expected_results_path=expected_results_path,
                     is_use_decimal_value_type=True)
 
+class SpeciationCompletionRateEstimation(unittest.TestCase):
+
+    def execute_analysis(self,
+            config_path,
+            tree_path,
+            is_use_decimal_value_type):
+        cmd = [
+                os.path.join(_pathmap.BIN_DIR, "delineate-estimate-speciation-completion-rate.py"),
+                "-c", config_path,
+                "-t", tree_path,
+                "-I",
+                "-i"
+              ]
+        if is_use_decimal_value_type:
+            cmd.append("--underflow-protect")
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE,)
+        stdout, stderr = processio.communicate(p)
+        return self._load_results(stdout)
+
+    def _load_results(self, s):
+        s = s.split("\n")
+        keys = [i for i in s[0].split("\t") if i]
+        vals = [i for i in s[1].split("\t") if i]
+        assert len(keys) == len(vals)
+        r = {}
+        for k, v in zip(keys, vals):
+            try:
+                r[k] = float(v)
+            except ValueError:
+                r[k] = v
+        return r
+
+    def _check_analysis(self,
+            config_path,
+            tree_path,
+            expected_results_path,
+            is_use_decimal_value_type):
+        with open(expected_results_path, "r") as src:
+            expected_results = self._load_results(src.read())
+        observed_results = self.execute_analysis(
+            config_path=config_path,
+            tree_path=tree_path,
+            is_use_decimal_value_type=is_use_decimal_value_type)
+        for key in [
+                "speciation_completion_rate",
+                "speciation_completion_rate_estimate_lnl",
+                "ci_low",
+                "ci_high",
+                ]:
+            self.assertAlmostEqual(expected_results[key], observed_results[key], 8,
+                    "{}: {} != {}".format(key, expected_results[key], observed_results[key]))
+
+    def test_constrained_partitions_large(self):
+        test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "speciation-completion-rate", "s1-6c39caf")
+        test_filename_stems = [
+                # ("spccomplrate_spr0.001_.0001", (True, False),),
+                # ("spccomplrate_spr0.005_.0001", (True, False),),
+                # ("spccomplrate_spr0.010_.0001", (True, False),),
+                ("spccomplrate_spr0.050_.0001", (False, True),),
+                ("spccomplrate_spr0.010_.0001", (False, True),),
+                ]
+        for test_filename_stem, underflow_protection_states in test_filename_stems:
+            for underflow_protection in underflow_protection_states:
+                config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
+                tree_path = os.path.join(test_file_dir, test_filename_stem + ".nex")
+                expected_results_path = os.path.join(test_file_dir, test_filename_stem + ".speciation-rate.tsv")
+                self._check_analysis(
+                        config_path=config_path,
+                        tree_path=tree_path,
+                        expected_results_path=expected_results_path,
+                        is_use_decimal_value_type=underflow_protection)
+
 if __name__ == "__main__":
     unittest.main()
 

@@ -27,7 +27,7 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     scripts=[
-        "bin/delineate-estimate-speciation-rate.py",
+        "bin/delineate-estimate-speciation-completion-rate.py",
         "bin/delineate-estimate-species-partition.py",
         ],
     test_suite = "tests",
