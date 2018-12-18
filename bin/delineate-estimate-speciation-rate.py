@@ -52,6 +52,10 @@ def main():
     estimation_options.add_argument("-i", "--intervals", "--confidence-intervals",
             action="store_true",
             help="Calculate confidence intervals.",)
+    estimation_options.add_argument("-u", "--underflow-protection",
+            action="store_true",
+            default=False,
+            help="Try to protect against underflow by using special number handling classes (slow).",)
 
     output_options = parser.add_argument_group("Output options")
     output_options.add_argument("-I", "--tree-info",
@@ -65,6 +69,7 @@ def main():
             path=args.tree_file,
             schema=args.data_format,
             )
+    tree.is_use_decimal_value_type = args.underflow_protection
     with open(args.config_file) as src:
         config = json.load(src)
     species_leafset_labels = model._Partition.compile_lookup_key( config["species_leafsets"] )

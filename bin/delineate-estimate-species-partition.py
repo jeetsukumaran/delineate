@@ -49,6 +49,11 @@ def main():
 
     parser = argparse.ArgumentParser(description=__description__)
     utility.add_source_options(parser)
+    estimation_options = parser.add_argument_group("Estimation options")
+    estimation_options.add_argument("-u", "--underflow-protection",
+            action="store_true",
+            default=False,
+            help="Try to protect against underflow by using special number handling classes (slow).",)
     model_options = parser.add_argument_group("Model options")
     model_options.add_argument("-s", "--speciation-completion-rate",
             type=float,
@@ -66,6 +71,7 @@ def main():
             path=args.tree_file,
             schema=args.data_format,
             )
+    tree.is_use_decimal_value_type = args.underflow_protection
     if args.config_file:
         with open(args.config_file) as src:
             config = json.load(src)

@@ -272,6 +272,7 @@ class LineageNode(dendropy.Node):
 
 class LineageTree(dendropy.Tree):
 
+
     ################################################################################
     ## Lifecycle and Structure
 
@@ -280,19 +281,8 @@ class LineageTree(dendropy.Tree):
         self._setup_cache()
         self.all_monotypic = None
         dendropy.Tree.__init__(self, *args, **kwargs)
-        self.use_decimal_value_type = kwargs.pop("use_decimal_value_type", None)
-        self.decimal_value_type_tree_size_threshold = kwargs.pop("decimal_value_type_tree_size_threshold", 100)
-        if self.use_decimal_value_type is None:
-            if len(self.taxon_namespace) >= self.decimal_value_type_tree_size_threshold:
-                self.use_decimal_value_type = True
-            else:
-                self.use_decimal_value_type = False
-        if self.use_decimal_value_type:
-            self.as_working_value_type = lambda x: decimal.Decimal(x)
-            self.as_float = lambda x: float(x)
-        else:
-            self.as_working_value_type = lambda x: x
-            self.as_float = lambda x: x
+        self.decimal_value_type_tree_size_threshold = 100
+        self.is_use_decimal_value_type = None
 
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
@@ -306,8 +296,25 @@ class LineageTree(dendropy.Tree):
     def _set_speciation_completion_rate(self, value):
         self._speciation_completion_rate = value
         self.invalidate_cache(self)
-
     speciation_completion_rate = property(_get_speciation_completion_rate, _set_speciation_completion_rate)
+
+    def _get_is_use_decimal_value_type(self):
+        return self._is_use_decimal_value_type
+    def _set_is_use_decimal_value_type(self, v):
+        self._is_use_decimal_value_type = v
+        self.invalidate_cache(self)
+        if self._is_use_decimal_value_type is None:
+            if len(self.taxon_namespace) >= self.decimal_value_type_tree_size_threshold:
+                self._is_use_decimal_value_type = True
+            else:
+                self._is_use_decimal_value_type = False
+        if self._is_use_decimal_value_type:
+            self.as_working_value_type = lambda x: decimal.Decimal(x)
+            self.as_float = lambda x: float(x)
+        else:
+            self.as_working_value_type = lambda x: x
+            self.as_float = lambda x: x
+    is_use_decimal_value_type = property(_get_is_use_decimal_value_type, _set_is_use_decimal_value_type)
 
     ################################################################################
     ## Cache
@@ -452,7 +459,7 @@ class LineageTree(dendropy.Tree):
         for part, prob in self.seed_node.tipward_part_map.items():
             k = part.create_closed() if part.is_open else part
             final_part_map[k.lookup_key()] += prob
-        # if self.use_decimal_value_type:
+        # if self.is_use_decimal_value_type:
         #     for part in final_part_map:
         #         final_part_map[part] = float(final_part_map[part])
         _del_part_maps(self.seed_node)
