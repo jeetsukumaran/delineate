@@ -281,6 +281,12 @@ class LineageTree(dendropy.Tree):
         self.all_monotypic = None
         dendropy.Tree.__init__(self, *args, **kwargs)
         self.use_decimal_class_work_units = kwargs.pop("use_decimal_class_work_units", None)
+        self.decimal_class_work_unit_threshold = kwargs.pop("decimal_class_work_unit_threshold", 100)
+        if self.use_decimal_class_work_units is None:
+            if len(self.taxon_namespace) >= self.decimal_class_work_unit_threshold:
+                self.use_decimal_class_work_units = True
+            else:
+                self.use_decimal_class_work_units = False
         if self.use_decimal_class_work_units:
             self.cast_to_work_units = lambda x: decimal.Decimal(x)
             self.cast_to_original_units = lambda x: float(x)
