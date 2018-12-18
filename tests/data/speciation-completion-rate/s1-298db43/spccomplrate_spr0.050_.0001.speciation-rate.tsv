@@ -1,0 +1,2 @@
+num_tips	root_age	num_lineages	num_species	src_filepath	true_speciation_completion_rate	batch_id	speciation_completion_rate	speciation_completion_rate_estimate_lnl	ci_low	ci_high
+80	45.26610400352518	80	29	spccomplrate_spr0.050_.0001.nex	0.05	megaptera::20181218141844::4231	0.04369364807885468	-42.06197558938397	0.028979365694192755	0.06311619432693495

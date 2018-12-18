@@ -100,7 +100,7 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
                 "run1_spr0.005_.0001",
                 "run1_spr0.010_.0001",
                 "run1_spr0.050_.0001",
-                "run1_spr0.010_.0001",
+                "run1_spr0.100_.0001",
                 ]
         for is_use_decimal_value_type in (False, True):
             for test_filename_stem in test_filename_stems:
@@ -120,7 +120,7 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
                 "run2_spr0.005_.0001",
                 "run2_spr0.010_.0001",
                 "run2_spr0.050_.0001",
-                "run2_spr0.010_.0001",
+                "run2_spr0.100_.0001",
                 ]
         for test_filename_stem in test_filename_stems:
             config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
@@ -178,20 +178,20 @@ class SpeciationCompletionRateEstimation(unittest.TestCase):
         for key in [
                 "speciation_completion_rate",
                 "speciation_completion_rate_estimate_lnl",
-                "ci_low",
-                "ci_high",
+                # "ci_low",
+                # "ci_high",
                 ]:
             self.assertAlmostEqual(expected_results[key], observed_results[key], 8,
                     "{}: {} != {}".format(key, expected_results[key], observed_results[key]))
 
     def test_constrained_partitions_large(self):
-        test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "speciation-completion-rate", "s1-6c39caf")
+        test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "speciation-completion-rate", "s1-298db43")
         test_filename_stems = [
                 # ("spccomplrate_spr0.001_.0001", (True, False),),
                 # ("spccomplrate_spr0.005_.0001", (True, False),),
                 # ("spccomplrate_spr0.010_.0001", (True, False),),
                 ("spccomplrate_spr0.050_.0001", (False, True),),
-                ("spccomplrate_spr0.010_.0001", (False, True),),
+                ("spccomplrate_spr0.100_.0001", (False, True),),
                 ]
         for test_filename_stem, underflow_protection_states in test_filename_stems:
             for underflow_protection in underflow_protection_states:
