@@ -1,0 +1,15 @@
+#! /bin/bash
+
+#$ -cwd
+#$ -V
+#$ -S /bin/bash
+
+
+set -e -o pipefail
+
+delineate-estimate-species-partition.py -c run1_spr0.001_.0001.json -t run1_spr0.001_.0001.nex -I  -l num_lineages:100 -l num_species:2 -l src_filepath:run1_spr0.001_.0001.nex -l true_speciation_completion_rate:0.001 -l batch_id:megaptera::20181217161156::42 > run1_spr0.001_.0001.partition-probs.json
+
+python3 /home/jeet/Content/primary/research/delineate/delineate-performance/bin/evaluate-species-partition-estimation.py run1_spr0.001_.0001.json run1_spr0.001_.0001.partition-probs.json > run1_spr0.001_.0001.joint-partition-est-perf.tsv
+
+
+echo "Job $JOBID completed on $(date --rfc-3339='seconds')"
