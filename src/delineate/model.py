@@ -43,11 +43,11 @@ def _merge_into_first(src_and_dest_dict, second):
 def _create_closed_map(
         map_with_open,
         remain_open_prob,
-        cast_to_work_units,
+        as_working_value_type,
         allow_closing=True):
-    ret = defaultdict(lambda:cast_to_work_units(0.0))
+    ret = defaultdict(lambda:as_working_value_type(0.0))
     if allow_closing:
-        close_prob = cast_to_work_units(1.0) - remain_open_prob
+        close_prob = as_working_value_type(1.0) - remain_open_prob
         for part, prob in map_with_open.items():
             if part.is_open:
                 ret[part] += prob * remain_open_prob
@@ -280,19 +280,19 @@ class LineageTree(dendropy.Tree):
         self._setup_cache()
         self.all_monotypic = None
         dendropy.Tree.__init__(self, *args, **kwargs)
-        self.use_decimal_class_work_units = kwargs.pop("use_decimal_class_work_units", None)
-        self.decimal_class_work_unit_threshold = kwargs.pop("decimal_class_work_unit_threshold", 100)
-        if self.use_decimal_class_work_units is None:
-            if len(self.taxon_namespace) >= self.decimal_class_work_unit_threshold:
-                self.use_decimal_class_work_units = True
+        self.use_decimal_value_type = kwargs.pop("use_decimal_value_type", None)
+        self.decimal_value_type_tree_size_threshold = kwargs.pop("decimal_value_type_tree_size_threshold", 100)
+        if self.use_decimal_value_type is None:
+            if len(self.taxon_namespace) >= self.decimal_value_type_tree_size_threshold:
+                self.use_decimal_value_type = True
             else:
-                self.use_decimal_class_work_units = False
-        if self.use_decimal_class_work_units:
-            self.cast_to_work_units = lambda x: decimal.Decimal(x)
-            self.cast_to_original_units = lambda x: float(x)
+                self.use_decimal_value_type = False
+        if self.use_decimal_value_type:
+            self.as_working_value_type = lambda x: decimal.Decimal(x)
+            self.as_float = lambda x: float(x)
         else:
-            self.cast_to_work_units = lambda x: x
-            self.cast_to_original_units = lambda x: x
+            self.as_working_value_type = lambda x: x
+            self.as_float = lambda x: x
 
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
@@ -426,8 +426,8 @@ class LineageTree(dendropy.Tree):
     def _calc_all_joint_sp_probs(self, good_sp_rate):
         for nd in self.postorder_node_iter():
             if nd.is_leaf():
-                nd.tipward_part_map = defaultdict(lambda: self.cast_to_work_units(0.0))
-                nd.tipward_part_map[_Partition(leaf_label=nd.taxon.label)] = self.cast_to_work_units(1.0)
+                nd.tipward_part_map = defaultdict(lambda: self.as_working_value_type(0.0))
+                nd.tipward_part_map[_Partition(leaf_label=nd.taxon.label)] = self.as_working_value_type(1.0)
             else:
                 children = nd.child_nodes()
                 nd.tipward_part_map = children[0].rootward_part_map
@@ -442,17 +442,17 @@ class LineageTree(dendropy.Tree):
                 break
             c_brlen = nd.edge.length
             scaled_brlen = c_brlen * good_sp_rate
-            prob_no_sp = self.cast_to_work_units(math.exp(-scaled_brlen))
+            prob_no_sp = self.as_working_value_type(math.exp(-scaled_brlen))
             nd.rootward_part_map = _create_closed_map(nd.tipward_part_map,
                                                       prob_no_sp,
-                                                      self.cast_to_work_units,
+                                                      self.as_working_value_type,
                                                       getattr(nd, 'speciation_allowed', True))
-        final_part_map = defaultdict(lambda:self.cast_to_work_units(0.0))
+        final_part_map = defaultdict(lambda:self.as_working_value_type(0.0))
         # use lookup key as key
         for part, prob in self.seed_node.tipward_part_map.items():
             k = part.create_closed() if part.is_open else part
             final_part_map[k.lookup_key()] += prob
-        # if self.use_decimal_class_work_units:
+        # if self.use_decimal_value_type:
         #     for part in final_part_map:
         #         final_part_map[part] = float(final_part_map[part])
         _del_part_maps(self.seed_node)

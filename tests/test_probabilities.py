@@ -142,7 +142,7 @@ class LineageTreeJointSpeciesProbabilities(unittest.TestCase):
                         species_leafset_labels = frozenset([frozenset(s) for s in species_configuration["species"]])
                         expected_probability=species_configuration["probability"]
                         obs_probability=tree.calc_joint_probability_of_species(species_leafset_labels)
-                        self.assertAlmostEqual(tree.cast_to_work_units(expected_probability), obs_probability, 8)
+                        self.assertAlmostEqual(tree.as_working_value_type(expected_probability), obs_probability, 8)
 
 class LineageTreeJointSpeciesProbabilitiesWithConstraints(unittest.TestCase):
 
@@ -169,7 +169,7 @@ class LineageTreeJointSpeciesProbabilitiesWithConstraints(unittest.TestCase):
                         tree.set_node_constraints(species_leafset_labels=species_leafset_labels)
                         expected_probability=species_configuration["probability"]
                         obs_probability=tree.calc_joint_probability_of_species(species_leafset_labels)
-                        self.assertAlmostEqual(tree.cast_to_work_units(expected_probability), obs_probability, 8)
+                        self.assertAlmostEqual(tree.as_working_value_type(expected_probability), obs_probability, 8)
 
     def test_probs_with_constraints_with_same_tree(self):
         with open(os.path.join(_pathmap.TESTS_DATA_DIR, "joint_probability_of_species.json")) as src:
@@ -194,7 +194,7 @@ class LineageTreeJointSpeciesProbabilitiesWithConstraints(unittest.TestCase):
                         tree.set_node_constraints(species_leafset_labels=species_leafset_labels)
                         expected_probability=species_configuration["probability"]
                         obs_probability=tree.calc_joint_probability_of_species(species_leafset_labels)
-                        self.assertAlmostEqual(tree.cast_to_work_units(expected_probability), obs_probability, 8)
+                        self.assertAlmostEqual(tree.as_working_value_type(expected_probability), obs_probability, 8)
 
 
 if __name__ == "__main__":

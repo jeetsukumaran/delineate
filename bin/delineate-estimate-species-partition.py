@@ -135,8 +135,8 @@ def main():
     # result_dict["max_log_likelihood"] = max_log_likelihood
     result_dict["num_partitions_in_confidence_interval"] = 0
     result_dict["partitions"] = []
-    cumulative_probability = tree.cast_to_work_units(0.0)
-    cumulative_probability_given_constr = tree.cast_to_work_units(0.0)
+    cumulative_probability = tree.as_working_value_type(0.0)
+    cumulative_probability_given_constr = tree.as_working_value_type(0.0)
     num_partitions_in_confidence_interval = 0
     cond_prob = sum([i[probability_index] for i in species_partition_info])
     if cond_prob == 0:
@@ -152,10 +152,10 @@ def main():
         #     p["log_probability"] = math.log(prob)
         # except ValueError:
         #     p["log_probability"] = float("nan")
-        p["probability"] = tree.cast_to_original_units(prob)
+        p["probability"] = tree.as_float(prob)
         bpc = prob / cond_prob
-        p["probability_given_constraints"] = tree.cast_to_original_units(bpc)
-        # p["log_probability_given_constraints"] = tree.cast_to_original_units(lnL - ln_cond_prob)
+        p["probability_given_constraints"] = tree.as_float(bpc)
+        # p["log_probability_given_constraints"] = tree.as_float(lnL - ln_cond_prob)
 
         # need to check this before summing cumulative probability, otherwise
         # any single partition with probability > 0.95 will incorrectly be
@@ -168,8 +168,8 @@ def main():
 
         cumulative_probability += prob
         cumulative_probability_given_constr += bpc
-        p["cumulative_probability"] = tree.cast_to_original_units(cumulative_probability)
-        p["cumulative_probability_given_constraints"] = tree.cast_to_original_units(cumulative_probability_given_constr)
+        p["cumulative_probability"] = tree.as_float(cumulative_probability)
+        p["cumulative_probability_given_constraints"] = tree.as_float(cumulative_probability_given_constr)
 
         result_dict["partitions"].append(p)
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
