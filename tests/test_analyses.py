@@ -197,7 +197,7 @@ class SpeciationCompletionRateEstimation(unittest.TestCase):
                 config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
                 tree_path = os.path.join(test_file_dir, test_filename_stem + ".nex")
                 expected_results_path = os.path.join(test_file_dir, test_filename_stem + ".speciation-rate.tsv")
-                print("{}: {}".format(test_filename_stem, underflow_protection))
+                # print("{}: {}".format(test_filename_stem, underflow_protection))
                 self._check_analysis(
                         config_path=config_path,
                         tree_path=tree_path,
