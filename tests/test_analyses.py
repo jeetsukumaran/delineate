@@ -107,7 +107,7 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
                     expected_results_path=expected_results_path)
 
     def test_constrained_partitions_large(self):
-        test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "constrained-partitions-large", "s2-ba7be54")
+        test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "constrained-partitions-large", "s2-da57940")
         test_filename_stems = [
                 "run2_spr0.001_.0001",
                 "run2_spr0.005_.0001",
