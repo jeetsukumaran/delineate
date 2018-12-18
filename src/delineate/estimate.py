@@ -3,10 +3,13 @@
 
 import math
 import sys
+import decimal
 try:
     import scipy.optimize
 except ImportError:
     pass
+
+ci_span = decimal.Decimal(math.exp(1.96))
 
 class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
 
@@ -89,11 +92,19 @@ class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
         def f0(x, *args):
             self.tree.speciation_completion_rate = x
             prob = self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels)
-            try:
-                return abs(max_lnl - 1.96 - math.log(prob))
-            except ValueError:
-                sys.stderr.write("x = {}, prob = {}\n".format(x, prob))
-                raise
+            if self.tree.is_use_decimal_value_type:
+                max_prob = self.tree.as_working_value_type(math.exp(max_lnl))
+                try:
+                    return self.tree.as_float(abs(max_prob - ci_span - prob))
+                except ValueError:
+                    sys.stderr.write("x = {}, prob = {}\n".format(x, prob))
+                    raise
+            else:
+                try:
+                    return abs(max_lnl - 1.96 - math.log(prob))
+                except ValueError:
+                    sys.stderr.write("x = {}, prob = {}\n".format(x, prob))
+                    raise
         min_val = self.min_speciation_rate
         max_val = mle_speciation_rate - 1e-8
         initial_val = min_val + ((max_val - min_val) / 2.0)
