@@ -115,18 +115,11 @@ def main():
 
     species_partition_info = []
     probability_index = 2
-    log_likelihood_index = 3
     for k in partition_probability_map:
-        try:
-            klp = math.log(partition_probability_map[k])
-        except ValueError:
-            # klp = float("nan")
-            klp = float("-inf") # for sorting
         kentry = (
                 k,
                 list(list(s) for s in k),
                 partition_probability_map[k],
-                klp,
                 )
         species_partition_info.append(kentry)
     # species_partition_info = [(
@@ -135,12 +128,11 @@ def main():
     #         partition_probability_map[k],
     #         math.log(partition_probability_map[k])) for k in partition_probability_map]
     species_partition_info.sort(key=lambda x: x[probability_index], reverse=True)
-    assert species_partition_info[0][log_likelihood_index] >= species_partition_info[-1][log_likelihood_index]
     assert species_partition_info[0][probability_index] >= species_partition_info[-1][probability_index], \
             sys.stderr.write("{} >= {}: False\n".format(species_partition_info[0][probability_index], species_partition_info[-1][probability_index]))
     result_dict["num_partitions"] = len(species_partition_info)
-    max_log_likelihood = species_partition_info[0][log_likelihood_index]
-    result_dict["max_log_likelihood"] = max_log_likelihood
+    # max_log_likelihood = species_partition_info[0][log_likelihood_index]
+    # result_dict["max_log_likelihood"] = max_log_likelihood
     result_dict["num_partitions_in_confidence_interval"] = 0
     result_dict["partitions"] = []
     cumulative_probability = tree.cast_to_work_units(0.0)
@@ -153,14 +145,17 @@ def main():
         ln_cond_prob = math.log(cond_prob)
     except ValueError:
         ln_cond_prob = float("nan")
-    for key_idx, (key, key_as_list, prob, lnL) in enumerate(species_partition_info):
+    for key_idx, (key, key_as_list, prob) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
-        p["log_probability"] = tree.cast_to_original_units(lnL)
+        # try:
+        #     p["log_probability"] = math.log(prob)
+        # except ValueError:
+        #     p["log_probability"] = float("nan")
         p["probability"] = tree.cast_to_original_units(prob)
         bpc = prob / cond_prob
         p["probability_given_constraints"] = tree.cast_to_original_units(bpc)
-        p["log_probability_given_constraints"] = tree.cast_to_original_units(lnL - ln_cond_prob)
+        # p["log_probability_given_constraints"] = tree.cast_to_original_units(lnL - ln_cond_prob)
 
         # need to check this before summing cumulative probability, otherwise
         # any single partition with probability > 0.95 will incorrectly be
