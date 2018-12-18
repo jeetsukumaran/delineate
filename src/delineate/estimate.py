@@ -92,24 +92,15 @@ class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
         def f0(x, *args):
             self.tree.speciation_completion_rate = x
             prob = self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels)
-            if self.tree.is_use_decimal_value_type:
-                max_prob = self.tree.as_working_value_type(math.exp(max_lnl))
-                try:
-                    v = max_prob/(ci_span * prob)
-                    v = abs(math.log(v))
-                    return self.tree.as_float(v)
-                except ValueError:
-                    sys.stderr.write("x = {}, prob = {}\n".format(x, prob))
-                    raise
-            else:
-                try:
-                    return abs(max_lnl - 1.96 - math.log(prob))
-                except ValueError:
-                    sys.stderr.write("x = {}, prob = {}\n".format(x, prob))
-                    raise
+            try:
+                # sys.stderr.write("{}: {} ({})\n".format(x, abs(max_lnl - 1.96 - math.log(prob)), abs(max_lnl)))
+                return abs(max_lnl - 1.96 - math.log(prob))
+            except ValueError:
+                return sys.float_info.max
         min_val = self.min_speciation_rate
         max_val = mle_speciation_rate - 1e-8
         initial_val = min_val + ((max_val - min_val) / 2.0)
+        # sys.stderr.write("start, ci low:\n")
         ci_low, _ = self._estimate(f0,
                 initial_val=initial_val,
                 min_val=min_val,
@@ -117,6 +108,7 @@ class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
         min_val = mle_speciation_rate + 1e-8
         max_val = self.max_speciation_rate
         initial_val = min_val + ((max_val - min_val) / 2.0)
+        # sys.stderr.write("start, ci high:\n")
         ci_high, _ = self._estimate(f0,
                 initial_val=initial_val,
                 min_val=min_val,
