@@ -89,7 +89,6 @@ class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
         def f0(x, *args):
             self.tree.speciation_completion_rate = x
             prob = self.tree.calc_joint_probability_of_species(species_leafset_labels=self.species_leafset_labels)
-            sys.stderr.write("\n{}\n".format(prob))
             try:
                 return abs(max_lnl - 1.96 - math.log(prob))
             except ValueError:
