@@ -24,13 +24,16 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
 
     def execute_analysis(self,
             config_path,
-            tree_path):
+            tree_path,
+            is_use_decimal_value_type):
         cmd = [
                 os.path.join(_pathmap.BIN_DIR, "delineate-estimate-species-partition.py"),
                 "-c", config_path,
                 "-t", tree_path,
                 "-I",
               ]
+        if is_use_decimal_value_type:
+            cmd.append("--underflow-protect")
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE,)
         stdout, stderr = processio.communicate(p)
         return json.loads(stdout)
@@ -55,12 +58,14 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
     def _check_analysis(self,
             config_path,
             tree_path,
-            expected_results_path):
+            expected_results_path,
+            is_use_decimal_value_type):
         with open(expected_results_path, "r") as src:
             expected_results = json.load(src)
         observed_results = self.execute_analysis(
             config_path=config_path,
-            tree_path=tree_path)
+            tree_path=tree_path,
+            is_use_decimal_value_type=is_use_decimal_value_type)
         expected_partitions = self._load_partitions(expected_results)
         observed_partitions = self._load_partitions(observed_results)
         for part_key in expected_partitions:
@@ -97,14 +102,16 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
                 "run1_spr0.050_.0001",
                 "run1_spr0.010_.0001",
                 ]
-        for test_filename_stem in test_filename_stems:
-            config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
-            tree_path = os.path.join(test_file_dir, test_filename_stem + ".nex")
-            expected_results_path = os.path.join(test_file_dir, test_filename_stem + ".partition-probs.json")
-            self._check_analysis(
-                    config_path=config_path,
-                    tree_path=tree_path,
-                    expected_results_path=expected_results_path)
+        for is_use_decimal_value_type in (False, True):
+            for test_filename_stem in test_filename_stems:
+                config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
+                tree_path = os.path.join(test_file_dir, test_filename_stem + ".nex")
+                expected_results_path = os.path.join(test_file_dir, test_filename_stem + ".partition-probs.json")
+                self._check_analysis(
+                        config_path=config_path,
+                        tree_path=tree_path,
+                        expected_results_path=expected_results_path,
+                        is_use_decimal_value_type=is_use_decimal_value_type)
 
     def test_constrained_partitions_large(self):
         test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "constrained-partitions-large", "s2-da57940")
@@ -122,7 +129,8 @@ class ConstrainedPartitionsTestCase(unittest.TestCase):
             self._check_analysis(
                     config_path=config_path,
                     tree_path=tree_path,
-                    expected_results_path=expected_results_path)
+                    expected_results_path=expected_results_path,
+                    is_use_decimal_value_type=True)
 
 if __name__ == "__main__":
     unittest.main()
