@@ -281,7 +281,7 @@ class LineageTree(dendropy.Tree):
         self._setup_cache()
         self.all_monotypic = None
         dendropy.Tree.__init__(self, *args, **kwargs)
-        self.decimal_value_type_tree_size_threshold = 100
+        # self.decimal_value_type_tree_size_threshold = 100
         self.is_use_decimal_value_type = None
 
     def node_factory(self, *args, **kwargs):
@@ -304,10 +304,11 @@ class LineageTree(dendropy.Tree):
         self._is_use_decimal_value_type = v
         self.invalidate_cache(self)
         if self._is_use_decimal_value_type is None:
-            if len(self.taxon_namespace) >= self.decimal_value_type_tree_size_threshold:
-                self._is_use_decimal_value_type = True
-            else:
-                self._is_use_decimal_value_type = False
+            # if len(self.taxon_namespace) >= self.decimal_value_type_tree_size_threshold:
+            #     self._is_use_decimal_value_type = True
+            # else:
+            #     self._is_use_decimal_value_type = False
+            self._is_use_decimal_value_type = False
         if self._is_use_decimal_value_type:
             self.as_working_value_type = lambda x: decimal.Decimal(x)
             self.as_float = lambda x: float(x)
