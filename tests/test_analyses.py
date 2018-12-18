@@ -178,11 +178,10 @@ class SpeciationCompletionRateEstimation(unittest.TestCase):
         for key in [
                 "speciation_completion_rate",
                 "speciation_completion_rate_estimate_lnl",
-                # "ci_low",
-                # "ci_high",
+                "ci_low",
+                "ci_high",
                 ]:
-            self.assertAlmostEqual(expected_results[key], observed_results[key], 8,
-                    "{}: {} != {}".format(key, expected_results[key], observed_results[key]))
+            self.assertAlmostEqual(expected_results[key], observed_results[key], 8, "{}".format(key))
 
     def test_constrained_partitions_large(self):
         test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "speciation-completion-rate", "s1-298db43")
@@ -198,6 +197,7 @@ class SpeciationCompletionRateEstimation(unittest.TestCase):
                 config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
                 tree_path = os.path.join(test_file_dir, test_filename_stem + ".nex")
                 expected_results_path = os.path.join(test_file_dir, test_filename_stem + ".speciation-rate.tsv")
+                print("{}: {}".format(test_filename_stem, underflow_protection))
                 self._check_analysis(
                         config_path=config_path,
                         tree_path=tree_path,

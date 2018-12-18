@@ -95,7 +95,9 @@ class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
             if self.tree.is_use_decimal_value_type:
                 max_prob = self.tree.as_working_value_type(math.exp(max_lnl))
                 try:
-                    return self.tree.as_float(abs(max_prob - ci_span - prob))
+                    v = max_prob/(ci_span * prob)
+                    v = abs(math.log(v))
+                    return self.tree.as_float(v)
                 except ValueError:
                     sys.stderr.write("x = {}, prob = {}\n".format(x, prob))
                     raise
