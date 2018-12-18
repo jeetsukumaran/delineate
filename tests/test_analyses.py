@@ -186,9 +186,9 @@ class SpeciationCompletionRateEstimation(unittest.TestCase):
     def test_constrained_partitions_large(self):
         test_file_dir = os.path.join(_pathmap.TESTS_DATA_DIR, "speciation-completion-rate", "s1-298db43")
         test_filename_stems = [
-                # ("spccomplrate_spr0.001_.0001", (True, False),),
-                # ("spccomplrate_spr0.005_.0001", (True, False),),
-                # ("spccomplrate_spr0.010_.0001", (True, False),),
+                ("spccomplrate_spr0.001_.0001", (True, False),),
+                ("spccomplrate_spr0.005_.0001", (True, False),),
+                ("spccomplrate_spr0.010_.0001", (True, False),),
                 ("spccomplrate_spr0.050_.0001", (False, True),),
                 ("spccomplrate_spr0.100_.0001", (False, True),),
                 ]
@@ -197,7 +197,6 @@ class SpeciationCompletionRateEstimation(unittest.TestCase):
                 config_path = os.path.join(test_file_dir, test_filename_stem + ".json")
                 tree_path = os.path.join(test_file_dir, test_filename_stem + ".nex")
                 expected_results_path = os.path.join(test_file_dir, test_filename_stem + ".speciation-rate.tsv")
-                # print("{}: {}".format(test_filename_stem, underflow_protection))
                 self._check_analysis(
                         config_path=config_path,
                         tree_path=tree_path,

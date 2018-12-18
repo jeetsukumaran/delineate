@@ -1,0 +1,13 @@
+#! /bin/bash
+
+#$ -cwd
+#$ -V
+#$ -S /bin/bash
+
+
+set -e -o pipefail
+
+delineate-estimate-speciation-completion-rate.py  --underflow-protect -c spccomplrate_spr0.005_.0001.json -t spccomplrate_spr0.005_.0001.nex -i -I -l num_lineages:80 -l num_species:5 -l src_filepath:spccomplrate_spr0.005_.0001.nex -l true_speciation_completion_rate:0.005 -l batch_id:megaptera::20181218141844::4231 > spccomplrate_spr0.005_.0001.speciation-rate.tsv
+
+
+echo "Job $JOBID completed on $(date --rfc-3339='seconds')"
