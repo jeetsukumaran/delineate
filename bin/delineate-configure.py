@@ -30,6 +30,9 @@ def main():
             action="store",
             default="\t",
             help="Input file delimiter [default=<TABE>].")
+    parser.add_argument("--pretty-print",
+            action="store_true",
+            help="Pretty-print JSON.")
     args = parser.parse_args()
     with open(os.path.expandvars(os.path.expanduser(args.source_filepath))) as src:
         src_data = csv.DictReader(src,
@@ -77,13 +80,17 @@ def main():
         out = sys.stdout
     else:
         out = open(args.output_prefix + ".delineate.json", "w")
+    kwargs = {}
+    if args.pretty_print:
+        kwargs["sort_keys"] = True
+        kwargs["indent"] = 4
     with out:
-        json.dump(config_d, out)
+        json.dump(config_d, out, **kwargs)
     if not hasattr(out, "name"):
         out_name = "<stdout>"
     else:
         out_name = out.name
-    sys.stderr.write("[delineate-configure] DELINEATE configuration data written to: '{}'".format(out_name))
+    sys.stderr.write("[delineate-configure] DELINEATE configuration data written to: '{}'\n".format(out_name))
 
 if __name__ == "__main__":
     main()

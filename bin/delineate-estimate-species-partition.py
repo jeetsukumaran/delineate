@@ -21,7 +21,7 @@
 ###############################################################################
 
 """
-This program does something.
+Calculate probabilities of partitions of population tree leafsets under a speciation model.
 """
 
 import sys
