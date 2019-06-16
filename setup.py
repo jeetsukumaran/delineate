@@ -29,6 +29,7 @@ setup(
     scripts=[
         "bin/delineate-estimate-speciation-completion-rate.py",
         "bin/delineate-estimate-species-partition.py",
+        "bin/delineate-configure.py",
         ],
     test_suite = "tests",
     url="http://pypi.python.org/pypi/delineate/",
