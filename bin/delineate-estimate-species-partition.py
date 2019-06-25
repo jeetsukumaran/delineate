@@ -76,6 +76,17 @@ def main():
             args=args,
             logger=logger)
 
+    utility.report_configuration(
+            config_d=config,
+            tree=tree,
+            logger=logger,
+            json_output_file=None,
+            delimited_output_file=sys.stdout,
+            delimiter="\t",
+            is_fail_on_extra_tree_lineages=True,
+            is_fail_on_extra_configuration_lineages=True,
+            )
+
     speciation_completion_rate = config.get("speciation_completion_rate", args.speciation_completion_rate)
     species_leafset_constraint_labels = config.get(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY, None)
     if species_leafset_constraint_labels is not None:
