@@ -41,9 +41,11 @@ def main():
             choices=["nexus", "newick"],
             help="Tree file data format (default='%(default)s').")
     parser.add_argument("--ignore-extra-tree-lineages",
-            default=True,
+            action="store_true",
+            default=False,
             help="Do not complain if not all tree lineages are specified in the configuration file.")
     parser.add_argument("--ignore-extra-configuration-lineages",
+            action="store_true",
             default=False,
             help="Do not complain if not all configuration lineages are found on the tree.")
     args = parser.parse_args()

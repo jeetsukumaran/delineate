@@ -200,39 +200,45 @@ def parse_delimited_configuration_file(
         if required_field not in fieldname_set:
             logger.error("ERROR: Required field '{}' not found in configuration source".format(required_field))
             sys.exit(1)
-    species_label_map = {}
+    species_lineage_map = {}
+    lineage_species_map = {}
     known = []
     unknown = []
     for entry in src_data:
         if entry[STATUS_FIELDNAME] == "1":
             try:
-                species_label_map[entry[SPECIES_ID_FIELDNAME]].append(entry[LINEAGE_ID_FIELDNAME])
+                species_lineage_map[entry[SPECIES_ID_FIELDNAME]].append(entry[LINEAGE_ID_FIELDNAME])
             except KeyError:
-                species_label_map[entry[SPECIES_ID_FIELDNAME]] = [entry[LINEAGE_ID_FIELDNAME]]
+                species_lineage_map[entry[SPECIES_ID_FIELDNAME]] = [entry[LINEAGE_ID_FIELDNAME]]
             known.append(entry[LINEAGE_ID_FIELDNAME])
+            lineage_species_map[entry[LINEAGE_ID_FIELDNAME]] = entry[SPECIES_ID_FIELDNAME]
         elif entry[STATUS_FIELDNAME] == "0":
             unknown.append(entry[LINEAGE_ID_FIELDNAME])
+            lineage_species_map[entry[LINEAGE_ID_FIELDNAME]] = entry[SPECIES_ID_FIELDNAME]
             pass
         else:
             sys.exit("Unrecognized status: '{}'".format(entry[STATUS_FIELDNAME]))
     # logger.info("{} lineages in total".format(len(known) + len(unknown)))
     # msg = []
-    # msg.append("{} species defined in total".format(len(species_label_map)))
-    # for spidx, sp in enumerate(species_label_map):
-    #     msg.append("    [{}/{}] '{}'".format(spidx+1, len(species_label_map), sp))
+    # msg.append("{} species defined in total".format(len(species_lineage_map)))
+    # for spidx, sp in enumerate(species_lineage_map):
+    #     msg.append("    [{}/{}] '{}'".format(spidx+1, len(species_lineage_map), sp))
     # msg = "\n".join(msg)
     # logger.info(msg)
-    # logger.info("{} lineages assigned to {} species".format(len(known), len(species_label_map)))
+    # logger.info("{} lineages assigned to {} species".format(len(known), len(species_lineage_map)))
     # logger.info("{} lineages of unknown species affinities".format(len(unknown)))
     species_leafset_constraints = []
-    for key in species_label_map:
-        species_leafset_constraints.append(species_label_map[key])
-    assert len(species_leafset_constraints) == len(species_label_map)
+    for key in species_lineage_map:
+        species_leafset_constraints.append(species_lineage_map[key])
+    assert len(species_leafset_constraints) == len(species_lineage_map)
     config_d = {}
     config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY] = species_leafset_constraints
-    config_d["configuration_file_lineages"] = known + unknown
-    config_d["configuration_file_constrained_lineages"] = known
-    config_d["configuration_file_unconstrained_lineages"] = unknown
+    config_d["configuration_file"] = {}
+    config_d["configuration_file"]["lineages"] = known + unknown
+    config_d["configuration_file"]["constrained_lineages"] = known
+    config_d["configuration_file"]["unconstrained_lineages"] = unknown
+    config_d["configuration_file"]["lineage_species_map"] = lineage_species_map
+    config_d["configuration_file"]["species_lineage_map"] = species_lineage_map
     return config_d
 
 def report_configuration(
@@ -246,20 +252,24 @@ def report_configuration(
         is_fail_on_extra_tree_lineages=False,
         is_fail_on_extra_configuration_lineages=True,
         ):
-    species_leafsets = config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
     sp_lineage_map = {}
-    lineage_sp_map = {}
-    if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
-        for spi, sp in enumerate(species_leafsets):
-            sp_label = "Sp{:03d}".format(spi+1)
-            sp_lineage_map[sp_label] = list(sp)
-            for lineage in sp:
-                lineage_sp_map[lineage] = sp_label
+    lineage_species_map = {}
+    if "configuration_file" in config_d:
+        sp_lineage_map = dict(config_d["configuration_file"]["species_lineage_map"])
+        lineage_species_map = dict(config_d["configuration_file"]["lineage_species_map"])
     else:
-        sp_lineage_map = dict(species_leafsets)
-        for sp in sp_lineage_map:
-            for lineage in sp_lineage_map[sp]:
-                lineage_sp_map[lineage] = sp
+        species_leafsets = config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
+        if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
+            for spi, sp in enumerate(species_leafsets):
+                sp_label = "Sp{:03d}".format(spi+1)
+                sp_lineage_map[sp_label] = list(sp)
+                for lineage in sp:
+                    lineage_species_map[lineage] = sp_label
+        else:
+            sp_lineage_map = dict(species_leafsets)
+            for sp in sp_lineage_map:
+                for lineage in sp_lineage_map[sp]:
+                    lineage_species_map[lineage] = sp
     lineages = sp_lineage_map.values()
     msg = []
     tree_lineages = None
@@ -269,8 +279,8 @@ def report_configuration(
         msg.append("{} terminal lineages on tree".format(len(tree_lineages)))
     else:
         tree_lineages = None
-    if "configuration_file_lineages" in config_d:
-        config_lineages = list(config_d["configuration_file_lineages"])
+    if "configuration_file" in config_d and "lineages" in config_d["configuration_file"]:
+        config_lineages = list(config_d["configuration_file"]["lineages"])
         msg.append("{} lineages described in configuration file".format(len(config_lineages)))
     else:
         config_lineages is None
@@ -322,10 +332,10 @@ def report_configuration(
         all_lineages = config_lineages
 
     msg.append("{} lineages assigned to {} species".format(
-        len(lineage_sp_map),
+        len(lineage_species_map),
         len(sp_lineage_map)))
     msg.append("{} lineages of unknown species identities".format(
-        len(all_lineages) - len(lineage_sp_map)))
+        len(all_lineages) - len(lineage_species_map)))
     if logger:
         pmsg = "\n".join(["  -  {}".format(m) for m in msg])
         logger.info("Analysis configuration:\n{}".format(pmsg))
@@ -340,19 +350,12 @@ def report_configuration(
         for lineage in all_lineages:
             parts = []
             parts.append(lineage)
-            if lineage in lineage_sp_map:
-                parts.append(lineage_sp_map[lineage])
+            if lineage in lineage_species_map:
+                parts.append(lineage_species_map[lineage])
                 parts.append("1")
             else:
                 parts.append("?")
                 parts.append("0")
             delimited_output_file.write("{}\n".format(delimiter.join(parts)))
     return msg
-    # msg.append("{} lineages assigned to species".len(lineage_sp_map))
-    # for spidx, sp in enumerate(species_label_map):
-    #     msg.append("    [{}/{}] '{}'".format(spidx+1, len(species_label_map), sp))
-    # msg = "\n".join(msg)
-    # logger.info(msg)
-    # logger.info("{} lineages assigned to {} species".format(known, len(species_label_map)))
-    # logger.info("{} lineages of unknown species affinities".format(unknown))
 
