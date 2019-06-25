@@ -6,6 +6,7 @@ import sys
 import json
 import argparse
 from delineate import utility
+from delineate import model
 
 """
 Generate a JSON format configuration file from a columnar data file.
@@ -29,10 +30,16 @@ def main():
     parser.add_argument("-d", "--delimiter",
             action="store",
             default=None,
-            help="Input file delimiter [default=<TABE>].")
-    parser.add_argument("--pretty-print",
-            action="store_true",
-            help="Pretty-print JSON.")
+            help="Input file delimiter [default=<TAB>].")
+    parser.add_argument("-t", "--tree_file",
+            default=None,
+            help="Path to tree file (for validation)")
+    parser.add_argument("-f", "--format",
+            dest="data_format",
+            type=str,
+            default="nexus",
+            choices=["nexus", "newick"],
+            help="Tree file data format (default='%(default)s').")
     args = parser.parse_args()
     if args.delimiter is not None and (
             args.delimiter.upper() == "TAB"
@@ -54,21 +61,30 @@ def main():
                 delimiter=args.delimiter,
                 logger=logger)
     if args.output_prefix is None:
-        out = open(os.path.splitext(args.source_filepath)[0] + ".delineate.json", "w")
-    elif args.output_prefix == "-":
+        # out = open(os.path.splitext(args.source_filepath)[0] + ".delineate.json", "w")
+        args.output_prefix = os.path.splitext(args.source_filepath)[0] + ".delineate"
+    if args.output_prefix == "-":
+        out_name = "<stdout>"
         out = sys.stdout
     else:
-        out = open(args.output_prefix + ".delineate.json", "w")
-    kwargs = {}
-    if args.pretty_print:
-        kwargs["sort_keys"] = True
-        kwargs["indent"] = 4
-    with out:
-        json.dump(config_d, out, **kwargs)
-    if not hasattr(out, "name"):
-        out_name = "<stdout>"
+        out_name = args.output_prefix + ".json"
+        out = open(out_name, "w")
+    if args.tree_file:
+        tree = model.LineageTree.get(
+                path=args.tree_file,
+                schema=args.data_format,
+                )
     else:
-        out_name = out.name
+        tree = None
+    with out:
+        utility.report_configuration(
+                config_d,
+                tree=tree,
+                logger=logger,
+                json_output_file=out,
+                delimited_output_file=sys.stdout,
+                delimiter="\t",
+                )
     logger.info("DELINEATE configuration data written to: '{}'".format(out_name))
 
 if __name__ == "__main__":

@@ -64,15 +64,25 @@ def main():
     utility.add_output_options(parser, output_options=output_options)
 
     args = parser.parse_args()
+    logger = utility.RunLogger(name="delineate-estimate")
     args.output_field_separator = "\t"
     tree = model.LineageTree.get(
             path=args.tree_file,
             schema=args.data_format,
             )
     tree.is_use_decimal_value_type = args.underflow_protection
-    with open(args.config_file) as src:
-        config = json.load(src)
-    species_leafset_labels = model._Partition.compile_lookup_key( config["species_leafsets"] )
+    config = utility.parse_configuration(
+            args=args,
+            logger=logger)
+    if "species_leafsets" in config and utility.SPECIES_LEAFSET_CONSTRAINTS_KEY in config:
+        sys.exit("Both 'species_leafsets' and '{}' specified in configuration".format(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY))
+    elif "species_leafsets" in config:
+        key = "species_leafsets"
+    elif utility.SPECIES_LEAFSET_CONSTRAINTS_KEY in config:
+        key = utility.SPECIES_LEAFSET_CONSTRAINTS_KEY
+    else:
+        sys.exit("Neither 'species_leafsets' nor '{}' specified in configuration".format(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY))
+    species_leafset_labels = model._Partition.compile_lookup_key( config[key] )
     initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
     min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
     max_speciation_rate = config.pop("max_speciation_rate", 2.00)

@@ -77,7 +77,7 @@ def main():
             logger=logger)
 
     speciation_completion_rate = config.get("speciation_completion_rate", args.speciation_completion_rate)
-    species_leafset_constraint_labels = config.get("species_leafset_constraints", None)
+    species_leafset_constraint_labels = config.get(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY, None)
     if species_leafset_constraint_labels is not None:
         species_constraints = model._Partition.compile_lookup_key(species_leafset_constraint_labels)
         tree.set_node_constraints(species_constraints)
