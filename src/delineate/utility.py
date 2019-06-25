@@ -1,10 +1,99 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import logging
 import collections
 import re
 
-# CLI Support Functions {{{1
+LINEAGE_ID_FIELDNAME = "lineage"
+SPECIES_ID_FIELDNAME = "species"
+STATUS_FIELDNAME = "status"
+
+_LOGGING_LEVEL_ENVAR = "DELINEATE_LOGGING_LEVEL"
+_LOGGING_FORMAT_ENVAR = "DELINEATE_LOGGING_FORMAT"
+
+class RunLogger(object):
+
+    def __init__(self, **kwargs):
+        self.name = kwargs.get("name", "RunLog")
+        self.is_include_timestamp = kwargs.get("is_include_timestamp", True)
+        self.is_include_name = kwargs.get("is_include_name", True)
+        self._log = logging.getLogger(self.name)
+        self._log.setLevel(logging.DEBUG)
+        self.handlers = []
+        if kwargs.get("log_to_stderr", True):
+            handler1 = logging.StreamHandler()
+            stderr_logging_level = self.get_logging_level(kwargs.get("stderr_logging_level", logging.INFO))
+            handler1.setLevel(stderr_logging_level)
+            handler1.setFormatter(self.get_default_formatter())
+            self._log.addHandler(handler1)
+            self.handlers.append(handler1)
+        if kwargs.get("log_to_file", True):
+            if "log_stream" in kwargs:
+                log_stream = kwargs.get("log_stream")
+            else:
+                log_stream = open(kwargs.get("log_path", self.name + ".log"), "w")
+            handler2 = logging.StreamHandler(log_stream)
+            file_logging_level = self.get_logging_level(kwargs.get("file_logging_level", logging.DEBUG))
+            handler2.setLevel(file_logging_level)
+            handler2.setFormatter(self.get_default_formatter())
+            self._log.addHandler(handler2)
+            self.handlers.append(handler2)
+
+    def get_logging_level(self, level=None):
+        if level in [logging.NOTSET, logging.DEBUG, logging.INFO, logging.WARNING,
+            logging.ERROR, logging.CRITICAL]:
+            return level
+        elif level is not None:
+            level_name = str(level).upper()
+        elif _LOGGING_LEVEL_ENVAR in os.environ:
+            level_name = os.environ[_LOGGING_LEVEL_ENVAR].upper()
+        else:
+            level_name = "NOTSET"
+        if level_name == "NOTSET":
+            level = logging.NOTSET
+        elif level_name == "DEBUG":
+            level = logging.DEBUG
+        elif level_name == "INFO":
+            level = logging.INFO
+        elif level_name == "WARNING":
+            level = logging.WARNING
+        elif level_name == "ERROR":
+            level = logging.ERROR
+        elif level_name == "CRITICAL":
+            level = logging.CRITICAL
+        else:
+            level = logging.NOTSET
+        return level
+
+    def get_default_formatter(self):
+        prefix = []
+        if self.is_include_name:
+            prefix.append(self.name)
+        if self.is_include_timestamp:
+            prefix.append("%(asctime)s")
+        if prefix:
+            prefix = "[" + " ".join(prefix) + "] "
+        else:
+            prefix = ""
+        f = logging.Formatter("{}{}".format(prefix, "%(message)s"))
+        f.datefmt='%Y-%m-%d %H:%M:%S'
+        return f
+
+    def debug(self, msg):
+        self._log.debug("[DEBUG] {}".format(msg))
+
+    def info(self, msg):
+        self._log.info(msg)
+
+    def warning(self, msg):
+        self._log.warning(msg)
+
+    def error(self, msg):
+        self._log.error(msg)
+
+    def critical(self, msg):
+        self._log.critical(msg)
 
 def parse_fieldname_and_value(labels):
     if not labels:
@@ -54,5 +143,10 @@ def add_output_options(parser, output_options=None):
             help="Field separator or delimiter character [default: tab].")
     return parser
 
-# }}}1
+def parse_delimited_configuration_file(src,
+        delimiter,
+        logger):
+    pass
+
+
 

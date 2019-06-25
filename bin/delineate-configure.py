@@ -6,6 +6,7 @@ import sys
 import csv
 import json
 import argparse
+from delineate import utility
 
 """
 Generate a JSON format configuration file from a columnar data file.
@@ -34,6 +35,9 @@ def main():
             action="store_true",
             help="Pretty-print JSON.")
     args = parser.parse_args()
+    logger = utility.RunLogger(name="delineate-configure",
+            is_include_name=True,
+            is_include_timestamp=False)
     with open(os.path.expandvars(os.path.expanduser(args.source_filepath))) as src:
         src_data = csv.DictReader(src,
             delimiter=args.delimiter,
@@ -41,12 +45,15 @@ def main():
             )
         fieldname_set = set(src_data.fieldnames)
         found_fields = "\n".join("-    '{}'".format(f) for f in src_data.fieldnames)
-        sys.stderr.write("[delineate-configure] {} fields found in configuration source:\n".format(len(src_data.fieldnames)))
+        msg = []
+        msg.append(("{} fields found in configuration source:".format(len(src_data.fieldnames))))
         for idx, fn in enumerate(src_data.fieldnames):
-            sys.stderr.write("    [{}/{}] '{}'\n".format(idx+1, len(src_data.fieldnames), fn))
+            msg.append("    [{}/{}] '{}'".format(idx+1, len(src_data.fieldnames), fn))
+        logger.info("\n".join(msg))
         for required_field in ("label", "species", "status"):
             if required_field not in fieldname_set:
-                sys.exit("[delineate-configure] ERROR: Field '{}' not found in configuration source".format(required_field))
+                logger.error("[delineate-configure] ERROR: Field '{}' not found in configuration source".format(required_field))
+                sys.exit(1)
         species_label_map = {}
         known = 0
         unknown = 0
@@ -62,12 +69,15 @@ def main():
                 pass
             else:
                 sys.exit("Unrecognized status: '{}'".format(entry["status"]))
-    sys.stderr.write("[delineate-configure] {} lineages in total\n".format(known + unknown))
-    sys.stderr.write("[delineate-configure] {} species defined in total\n".format(len(species_label_map)))
+    logger.info("{} lineages in total".format(known + unknown))
+    msg = []
+    msg.append("{} species defined in total".format(len(species_label_map)))
     for spidx, sp in enumerate(species_label_map):
-        sys.stderr.write("    [{}/{}] '{}'\n".format(spidx+1, len(species_label_map), sp))
-    sys.stderr.write("[delineate-configure] {} lineages assigned to {} species\n".format(known, len(species_label_map)))
-    sys.stderr.write("[delineate-configure] {} lineages of unknown species affinities\n".format(unknown))
+        msg.append("    [{}/{}] '{}'".format(spidx+1, len(species_label_map), sp))
+    msg = "\n".join(msg)
+    logger.info(msg)
+    logger.info("{} lineages assigned to {} species".format(known, len(species_label_map)))
+    logger.info("{} lineages of unknown species affinities".format(unknown))
     species_leafset_constraints = []
     for key in species_label_map:
         species_leafset_constraints.append(species_label_map[key])
@@ -90,7 +100,7 @@ def main():
         out_name = "<stdout>"
     else:
         out_name = out.name
-    sys.stderr.write("[delineate-configure] DELINEATE configuration data written to: '{}'\n".format(out_name))
+    logger.info("DELINEATE configuration data written to: '{}'".format(out_name))
 
 if __name__ == "__main__":
     main()
