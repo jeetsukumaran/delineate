@@ -81,9 +81,9 @@ def main():
             tree=tree,
             logger=logger,
             json_output_file=None,
-            delimited_output_file=sys.stdout,
+            delimited_output_file=None,
             delimiter="\t",
-            is_fail_on_extra_tree_lineages=True,
+            is_fail_on_extra_tree_lineages=False,
             is_fail_on_extra_configuration_lineages=True,
             )
 

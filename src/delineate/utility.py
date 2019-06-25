@@ -283,7 +283,7 @@ def report_configuration(
         config_lineages = list(config_d["configuration_file"]["lineages"])
         msg.append("{} lineages described in configuration file".format(len(config_lineages)))
     else:
-        config_lineages is None
+        config_lineages = list(lineage_species_map.keys())
 
     if tree_lineages is not None and config_lineages is not None:
         tree_lineage_set = set(tree_lineages)
@@ -331,10 +331,10 @@ def report_configuration(
     elif config_lineages is not None:
         all_lineages = config_lineages
 
-    msg.append("{} lineages assigned to {} species".format(
+    msg.append("{} lineages with known species identities, assigned to {} species".format(
         len(lineage_species_map),
         len(sp_lineage_map)))
-    msg.append("{} lineages of unknown species identities".format(
+    msg.append("{} lineages with species identities to be inferred".format(
         len(all_lineages) - len(lineage_species_map)))
     if logger:
         pmsg = "\n".join(["  -  {}".format(m) for m in msg])
