@@ -5,6 +5,8 @@ import logging
 import collections
 import re
 import csv
+import json
+import sys
 
 LINEAGE_ID_FIELDNAME = "lineage"
 SPECIES_ID_FIELDNAME = "species"
@@ -144,13 +146,44 @@ def add_output_options(parser, output_options=None):
             help="Field separator or delimiter character [default: tab].")
     return parser
 
-def parse_delimited_configuration_file(src,
-        delimiter,
-        logger):
-    src_data = csv.DictReader(src,
-        delimiter=delimiter,
-        quoting=csv.QUOTE_NONE,
-        )
+def parse_configuration(args, logger):
+    if args.config_file:
+        with open(args.config_file) as src:
+            if args.config_file.endswith("json"):
+                config = json.load(src)
+            else:
+                config_d = utility.parse_delimited_configuration_file(
+                        src=src,
+                        delimiter=None,
+                        logger=logger)
+    else:
+        config = {}
+    return config
+
+def parse_delimited_configuration_file(
+        src,
+        delimiter=None,
+        logger=None):
+    if not logger:
+        logger = RunLogger(name="delineate",
+            is_include_name=True,
+            is_include_timestamp=False,
+            log_to_stderr=True,
+            stderr_logging_level=utility.logging.INFO,
+            log_to_file=False,
+            file_logging_level=utility.logging.INFO,
+            )
+    if delimiter is None:
+        dialect = csv.Sniffer().sniff(src.read(), delimiters=",\t")
+        src.seek(0)
+        # delimiter = dialect.delimiter
+        src_data = csv.DictReader(src,
+                dialect=dialect)
+    else:
+        src_data = csv.DictReader(src,
+            delimiter=delimiter,
+            quoting=csv.QUOTE_NONE,
+            )
     fieldname_set = set(src_data.fieldnames)
     msg = []
     msg.append(("{} fields found in configuration source:".format(len(src_data.fieldnames))))

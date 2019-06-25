@@ -28,15 +28,26 @@ def main():
             help="Prefix for output file.")
     parser.add_argument("-d", "--delimiter",
             action="store",
-            default="\t",
+            default=None,
             help="Input file delimiter [default=<TABE>].")
     parser.add_argument("--pretty-print",
             action="store_true",
             help="Pretty-print JSON.")
     args = parser.parse_args()
+    if args.delimiter is not None and (
+            args.delimiter.upper() == "TAB"
+            or args.delimiter == '\\t'
+            or args.delimiter == '\t'
+            ):
+        args.delimiter = "\t"
     logger = utility.RunLogger(name="delineate-configure",
             is_include_name=True,
-            is_include_timestamp=False)
+            is_include_timestamp=False,
+            log_to_stderr=True,
+            stderr_logging_level=utility.logging.INFO,
+            log_to_file=False,
+            file_logging_level=utility.logging.INFO,
+            )
     with open(os.path.expandvars(os.path.expanduser(args.source_filepath))) as src:
         config_d = utility.parse_delimited_configuration_file(
                 src=src,

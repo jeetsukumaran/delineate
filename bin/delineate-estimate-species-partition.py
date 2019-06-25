@@ -65,18 +65,17 @@ def main():
             help="Output additional information about the tree",)
     utility.add_output_options(parser, output_options=output_options)
     args = parser.parse_args()
-    args.format = "json"
-
+    args.output_format = "json-compact"
+    logger = utility.RunLogger(name="delineate-estimate")
     tree = model.LineageTree.get(
             path=args.tree_file,
             schema=args.data_format,
             )
     tree.is_use_decimal_value_type = args.underflow_protection
-    if args.config_file:
-        with open(args.config_file) as src:
-            config = json.load(src)
-    else:
-        config = {}
+    config = utility.parse_configuration(
+            args=args,
+            logger=logger)
+
     speciation_completion_rate = config.get("speciation_completion_rate", args.speciation_completion_rate)
     species_leafset_constraint_labels = config.get("species_leafset_constraints", None)
     if species_leafset_constraint_labels is not None:
@@ -179,7 +178,7 @@ def main():
 
         result_dict["partitions"].append(p)
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
-    if args.format == "json-compact":
+    if args.output_format == "json-compact":
         json.dump(result_dict, sys.stdout)
     else:
         json.dump(result_dict, sys.stdout, indent=4, separators=(',', ': '))
