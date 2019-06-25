@@ -198,7 +198,7 @@ def parse_delimited_configuration_file(
     logger.info("\n".join(msg))
     for required_field in CONFIGURATION_REQUIRED_FIELDS:
         if required_field not in fieldname_set:
-            logger.error("Field '{}' not found in configuration source".format(required_field))
+            logger.error("ERROR: Required field '{}' not found in configuration source".format(required_field))
             sys.exit(1)
     species_label_map = {}
     known = []
@@ -243,6 +243,8 @@ def report_configuration(
         delimited_output_file=None,
         is_pretty_print=True,
         delimiter="\t",
+        is_fail_on_extra_tree_lineages=False,
+        is_fail_on_extra_configuration_lineages=True,
         ):
     species_leafsets = config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
     sp_lineage_map = {}
@@ -277,11 +279,42 @@ def report_configuration(
         tree_lineage_set = set(tree_lineages)
         config_lineage_set = set(config_lineages)
         s1 = tree_lineage_set - config_lineage_set
-        s2 = config_lineage_set - tree_lineage_set
         if s1:
             msg.append("{} lineages in tree not described in configuration file: {}".format(len(s1), ", ".join(s1)))
+            s1_error_msg = ["{}: {} lineages found on tree but not in configuration file:".format(
+                "ERROR" if is_fail_on_extra_tree_lineages else "NOTE",
+                len(s1))]
+            for lidx, label in enumerate(sorted(s1, key=lambda x: x.lower())):
+                s1_error_msg.append("    [{: 3d}/{:<3d}] {}".format(lidx+1, len(s1), label))
+            s1_error_msg = "\n".join(s1_error_msg)
+        else:
+            s1_error_msg = ""
+        s2 = config_lineage_set - tree_lineage_set
         if s2:
             msg.append("{} lineages in configuration file not found on tree: {}".format(len(s2), ", ".join(s2)))
+            s2_error_msg = ["{}: {} lineages found in configuration but not found on tree:".format(
+                "ERROR" if is_fail_on_extra_tree_lineages else "WARNING",
+                len(s2))]
+            for lidx, label in enumerate(sorted(s2, key=lambda x: x.lower())):
+                s2_error_msg.append("    [{: 3d}/{:<3d}] {}".format(lidx+1, len(s2), label))
+            s2_error_msg = "\n".join(s2_error_msg)
+        else:
+            s2_error_msg = ""
+        if s1 or s2:
+            if s1 and is_fail_on_extra_tree_lineages:
+                logger.error(s1_error_msg)
+            elif s1:
+                logger.warning(s1_error_msg)
+            if s2 and is_fail_on_extra_configuration_lineages:
+                logger.error(s2_error_msg)
+            elif s2:
+                logger.warning(s2_error_msg)
+            if s1 and is_fail_on_extra_tree_lineages:
+                logger.error("Exiting due to lineage identity mismatch error")
+                sys.exit(1)
+            if s2 and is_fail_on_extra_configuration_lineages:
+                logger.error("Exiting due to lineage identity mismatch error")
+                sys.exit(1)
         all_lineages = tree_lineages
     elif tree_lineages is not None:
         all_lineages = tree_lineages

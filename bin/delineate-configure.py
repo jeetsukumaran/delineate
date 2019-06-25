@@ -40,6 +40,12 @@ def main():
             default="nexus",
             choices=["nexus", "newick"],
             help="Tree file data format (default='%(default)s').")
+    parser.add_argument("--ignore-extra-tree-lineages",
+            default=True,
+            help="Do not complain if not all tree lineages are specified in the configuration file.")
+    parser.add_argument("--ignore-extra-configuration-lineages",
+            default=False,
+            help="Do not complain if not all configuration lineages are found on the tree.")
     args = parser.parse_args()
     if args.delimiter is not None and (
             args.delimiter.upper() == "TAB"
@@ -84,6 +90,8 @@ def main():
                 json_output_file=out,
                 delimited_output_file=sys.stdout,
                 delimiter="\t",
+                is_fail_on_extra_tree_lineages=not args.ignore_extra_tree_lineages,
+                is_fail_on_extra_configuration_lineages=not args.ignore_extra_configuration_lineages,
                 )
     logger.info("DELINEATE configuration data written to: '{}'".format(out_name))
 
