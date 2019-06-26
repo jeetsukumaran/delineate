@@ -267,8 +267,10 @@ def report_configuration(
     if "configuration_file" in config_d and "lineages" in config_d["configuration_file"]:
         config_lineages = list(config_d["configuration_file"]["lineages"])
         msg.append("{} lineages described in configuration file".format(len(config_lineages)))
+    elif tree_lineages is not None:
+        config_lineages = list(tree_lineages)
     else:
-        config_lineages = list(lineage_species_map.keys())
+        raise ValueError("No configuration data available")
     lineage_case_normalization_map = {}
     if tree_lineages is not None and config_lineages is not None:
         tree_lineage_set = set(tree_lineages)
@@ -356,11 +358,11 @@ def report_configuration(
         if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
             for spi, sp in enumerate(species_leafsets):
                 lineages = []
+                sp_label = "Sp{:03d}".format(spi+1)
                 for lineage in sp:
                     normalized_lineage_name = lineage_case_normalization_map.get(lineage, lineage)
                     constrained_lineage_species_map[normalized_lineage_name] = sp_label
                     lineages.append(normalized_lineage_name)
-                sp_label = "Sp{:03d}".format(spi+1)
                 species_lineage_map[sp_label] = lineages
         else:
             raise NotImplementedError
@@ -375,10 +377,9 @@ def report_configuration(
 
     spp_list = []
     species_names = species_lineage_map.keys()
-    max_spp_name_length = max(len(sp) for sp in species_names) + 2
-    sp_name_template = "{{:{}}}".format(max_spp_name_length)
-    spp_list.append("{} lineages with known species identities, assigned to {} species:".format(
-        len(constrained_lineage_species_map),
+    max_spp_name_length = max(len(sp) for sp in species_names)
+    sp_name_template = "{{:{}}}".format(max_spp_name_length + 2)
+    spp_list.append("{} species defined in configuration file:".format(
         len(species_lineage_map)))
     for sidx, spp in enumerate(sorted(species_names)):
         if len(species_lineage_map[spp]) > 1:
@@ -392,6 +393,25 @@ def report_configuration(
                 len(species_lineage_map[spp]),
                 descriptor))
     msg.append("\n".join(spp_list))
+
+    constrained_lineage_list =[]
+    constrained_lineage_list.append("{} lineages with known species identities, assigned to {} species:".format(
+        len(constrained_lineage_species_map),
+        len(species_lineage_map)))
+    max_lineage_name_length = max(len(ln) for ln in all_lineages)
+    lineage_name_template = "{{:{}}}".format(max_lineage_name_length + 2)
+    lidx = 0
+    for lineage in all_lineages:
+        if lineage in constrained_lineage_species_map:
+            lidx += 1
+            constrained_lineage_list.append("    [{: 3d}/{:<3d}] LINEAGE {} (SPECIES: '{}')".format(
+                lidx,
+                len(all_lineages) - len(constrained_lineage_species_map),
+                lineage_name_template.format("'"+lineage+"'"),
+                constrained_lineage_species_map[lineage]
+                ))
+    msg.append("\n".join(constrained_lineage_list))
+
     unconstrained_lineage_list =[]
     unconstrained_lineage_list.append("{} lineages with species identities to be inferred:".format(
         len(all_lineages) - len(constrained_lineage_species_map)))
