@@ -124,8 +124,8 @@ def add_source_options(parser, source_options=None):
             help="Path to tree file.")
     source_options.add_argument("-c", "--config-file",
             help="Path to configuration file.")
-    source_options.add_argument("-f", "--format",
-            dest="data_format",
+    source_options.add_argument("-f", "--tree-format",
+            dest="tree_format",
             type=str,
             default="nexus",
             choices=["nexus", "newick"],
@@ -245,18 +245,20 @@ def report_configuration(
         config_d,
         tree=None,
         logger=None,
-        json_output_file=None,
-        delimited_output_file=None,
+        output_file=None,
+        output_format="json",
         is_pretty_print=True,
-        delimiter="\t",
+        output_delimiter="\t",
         is_fail_on_extra_tree_lineages=False,
         is_fail_on_extra_configuration_lineages=True,
         ):
-    sp_lineage_map = {}
+    species_lineage_map = {}
     lineage_species_map = {}
+    original_lineage_species_map = {}
     if "configuration_file" in config_d:
-        sp_lineage_map = dict(config_d["configuration_file"]["species_lineage_map"])
+        species_lineage_map = dict(config_d["configuration_file"]["species_lineage_map"])
         lineage_species_map = {}
+        original_lineage_species_map.update(config_d["configuration_file"]["lineage_species_map"])
         for key in config_d["configuration_file"]["lineage_species_map"]:
             if key in config_d["configuration_file"]["constrained_lineages"]:
                 lineage_species_map[key] = config_d["configuration_file"]["lineage_species_map"][key]
@@ -265,15 +267,15 @@ def report_configuration(
         if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
             for spi, sp in enumerate(species_leafsets):
                 sp_label = "Sp{:03d}".format(spi+1)
-                sp_lineage_map[sp_label] = list(sp)
+                species_lineage_map[sp_label] = list(sp)
                 for lineage in sp:
                     lineage_species_map[lineage] = sp_label
         else:
-            sp_lineage_map = dict(species_leafsets)
-            for sp in sp_lineage_map:
-                for lineage in sp_lineage_map[sp]:
+            species_lineage_map = dict(species_leafsets)
+            for sp in species_lineage_map:
+                for lineage in species_lineage_map[sp]:
                     lineage_species_map[lineage] = sp
-    lineages = sp_lineage_map.values()
+    lineages = species_lineage_map.values()
     msg = []
     tree_lineages = None
     config_lineages = None
@@ -336,20 +338,20 @@ def report_configuration(
 
     msg.append("{} lineages with known species identities, assigned to {} species".format(
         len(lineage_species_map),
-        len(sp_lineage_map)))
+        len(species_lineage_map)))
     msg.append("{} lineages with species identities to be inferred".format(
         len(all_lineages) - len(lineage_species_map)))
     if logger:
         pmsg = "\n".join(["  -  {}".format(m) for m in msg])
         logger.info("Analysis configuration:\n{}".format(pmsg))
-    if json_output_file:
+    if output_format == "json":
         kwargs = {}
         if is_pretty_print:
             kwargs["sort_keys"] = True
             kwargs["indent"] = 4
-        json.dump(config_d, json_output_file, **kwargs)
-    if delimited_output_file:
-        delimited_output_file.write("{}\n".format(delimiter.join(CONFIGURATION_REQUIRED_FIELDS)))
+        json.dump(config_d, output_file, **kwargs)
+    elif output_format == "delimited":
+        output_file.write("{}\n".format(output_delimiter.join(CONFIGURATION_REQUIRED_FIELDS)))
         for lineage in all_lineages:
             parts = []
             parts.append(lineage)
@@ -357,8 +359,10 @@ def report_configuration(
                 parts.append(lineage_species_map[lineage])
                 parts.append("1")
             else:
-                parts.append("?")
+                parts.append(original_lineage_species_map.get(lineage, "?"))
                 parts.append("0")
-            delimited_output_file.write("{}\n".format(delimiter.join(parts)))
+            output_file.write("{}\n".format(output_delimiter.join(parts)))
+    else:
+        raise ValueError(output_format)
     return msg
 

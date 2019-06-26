@@ -68,7 +68,7 @@ def main():
     args.output_field_separator = "\t"
     tree = model.LineageTree.get(
             path=args.tree_file,
-            schema=args.data_format,
+            schema=args.tree_format,
             )
     tree.is_use_decimal_value_type = args.underflow_protection
     config = utility.parse_configuration(
