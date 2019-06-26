@@ -249,33 +249,13 @@ def report_configuration(
         output_format="json",
         is_pretty_print=True,
         output_delimiter="\t",
+        is_normalize_case=True,
         is_fail_on_extra_tree_lineages=False,
         is_fail_on_extra_configuration_lineages=True,
         ):
-    species_lineage_map = {}
-    lineage_species_map = {}
-    original_lineage_species_map = {}
-    if "configuration_file" in config_d:
-        species_lineage_map = dict(config_d["configuration_file"]["species_lineage_map"])
-        lineage_species_map = {}
-        original_lineage_species_map.update(config_d["configuration_file"]["lineage_species_map"])
-        for key in config_d["configuration_file"]["lineage_species_map"]:
-            if key in config_d["configuration_file"]["constrained_lineages"]:
-                lineage_species_map[key] = config_d["configuration_file"]["lineage_species_map"][key]
-    else:
-        species_leafsets = config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
-        if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
-            for spi, sp in enumerate(species_leafsets):
-                sp_label = "Sp{:03d}".format(spi+1)
-                species_lineage_map[sp_label] = list(sp)
-                for lineage in sp:
-                    lineage_species_map[lineage] = sp_label
-        else:
-            species_lineage_map = dict(species_leafsets)
-            for sp in species_lineage_map:
-                for lineage in species_lineage_map[sp]:
-                    lineage_species_map[lineage] = sp
-    lineages = species_lineage_map.values()
+
+    ### VALIDATION and NORMALIZATION
+
     msg = []
     tree_lineages = None
     config_lineages = None
@@ -289,10 +269,22 @@ def report_configuration(
         msg.append("{} lineages described in configuration file".format(len(config_lineages)))
     else:
         config_lineages = list(lineage_species_map.keys())
-
+    lineage_case_normalization_map = {}
     if tree_lineages is not None and config_lineages is not None:
         tree_lineage_set = set(tree_lineages)
         config_lineage_set = set(config_lineages)
+        if is_normalize_case:
+            tree_lineages_lower = {}
+            for lineage in tree_lineage_set:
+                tree_lineages_lower[lineage.lower()] = lineage
+                # lineage_case_normalization_map[lineage] = lineage
+            for lineage in config_lineage_set:
+                if lineage.lower() in tree_lineages_lower:
+                    lineage_case_normalization_map[lineage] = tree_lineages_lower[lineage.lower()]
+                else:
+                    lineage_case_normalization_map[lineage] = lineage
+            config_lineage_set_normalized = set([lineage_case_normalization_map[lineage] for lineage in config_lineage_set])
+            config_lineage_set = config_lineage_set_normalized
         s1 = tree_lineage_set - config_lineage_set
         if s1:
             msg.append("{} lineages in tree not described in configuration file: {}".format(len(s1), ", ".join(s1)))
@@ -336,6 +328,45 @@ def report_configuration(
     elif config_lineages is not None:
         all_lineages = config_lineages
 
+    ### MAPPING
+
+    species_lineage_map = {}
+    lineage_species_map = {}
+    original_lineage_species_map = {}
+    if "configuration_file" in config_d:
+        # additional info from configurator front-end
+        for spp in config_d["configuration_file"]["species_lineage_map"]:
+            species_lineage_map[spp] = []
+            for lineage_name in config_d["configuration_file"]["species_lineage_map"][spp]:
+                species_lineage_map[spp].append(lineage_case_normalization_map.get(lineage_name, lineage_name))
+        lineage_species_map = {}
+        original_lineage_species_map.update(config_d["configuration_file"]["lineage_species_map"])
+        for lineage_name in config_d["configuration_file"]["lineage_species_map"]:
+            normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, lineage_name)
+            if lineage_name in config_d["configuration_file"]["constrained_lineages"]:
+                lineage_species_map[normalized_lineage_name] = config_d["configuration_file"]["lineage_species_map"][lineage_name]
+    else:
+        species_leafsets = config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
+        if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
+            for spi, sp in enumerate(species_leafsets):
+                lineages = []
+                for lineage in sp:
+                    normalized_lineage_name = lineage_case_normalization_map.get(lineage, lineage)
+                    lineage_species_map[normalized_lineage_name] = sp_label
+                    lineages.append(normalized_lineage_name)
+                sp_label = "Sp{:03d}".format(spi+1)
+                species_lineage_map[sp_label] = lineages
+        else:
+            raise NotImplementedError
+            species_lineage_map = {}
+            for sp_label in species_leafsets:
+                for lineage in species_leafsets[sp_label]:
+                    lineages = []
+                    normalized_lineage_name = lineage_case_normalization_map.get(lineage, lineage)
+                    lineage_species_map[normalized_lineage_name] = sp_label
+                    lineages.append(normalized_lineage_name)
+                species_lineage_map[sp_label] = lineages
+
     msg.append("{} lineages with known species identities, assigned to {} species".format(
         len(lineage_species_map),
         len(species_lineage_map)))
@@ -344,7 +375,9 @@ def report_configuration(
     if logger:
         pmsg = "\n".join(["  -  {}".format(m) for m in msg])
         logger.info("Analysis configuration:\n{}".format(pmsg))
-    if output_format == "json":
+    if output_file is None:
+        pass
+    elif output_format == "json":
         kwargs = {}
         if is_pretty_print:
             kwargs["sort_keys"] = True
