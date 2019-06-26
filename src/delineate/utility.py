@@ -287,7 +287,7 @@ def report_configuration(
             config_lineage_set = config_lineage_set_normalized
         s1 = tree_lineage_set - config_lineage_set
         if s1:
-            msg.append("{} lineages in tree not described in configuration file: {}".format(len(s1), ", ".join(s1)))
+            # msg.append("NOTE: {} lineages in tree not described in configuration file: {}".format(len(s1), ", ".join(s1)))
             s1_error_msg = ["{}: {} lineages found on tree but not in configuration file:".format(
                 "ERROR" if is_fail_on_extra_tree_lineages else "NOTE",
                 len(s1))]
@@ -298,8 +298,8 @@ def report_configuration(
             s1_error_msg = ""
         s2 = config_lineage_set - tree_lineage_set
         if s2:
-            msg.append("{} lineages in configuration file not found on tree: {}".format(len(s2), ", ".join(s2)))
-            s2_error_msg = ["{}: {} lineages found in configuration but not found on tree:".format(
+            # msg.append("WARNING: {} lineages in configuration file not found on tree: {}".format(len(s2), ", ".join(s2)))
+            s2_error_msg = ["{}: {} lineages described in configuration file but not found on tree:".format(
                 "ERROR" if is_fail_on_extra_tree_lineages else "WARNING",
                 len(s2))]
             for lidx, label in enumerate(sorted(s2, key=lambda x: x.lower())):
@@ -311,40 +311,46 @@ def report_configuration(
             if s1 and is_fail_on_extra_tree_lineages:
                 logger.error(s1_error_msg)
             elif s1:
-                logger.warning(s1_error_msg)
+                msg.append(s1_error_msg)
             if s2 and is_fail_on_extra_configuration_lineages:
                 logger.error(s2_error_msg)
             elif s2:
-                logger.warning(s2_error_msg)
+                msg.append(s2_error_msg)
             if s1 and is_fail_on_extra_tree_lineages:
                 logger.error("Exiting due to lineage identity mismatch error")
                 sys.exit(1)
             if s2 and is_fail_on_extra_configuration_lineages:
                 logger.error("Exiting due to lineage identity mismatch error")
                 sys.exit(1)
-        all_lineages = tree_lineages
+        all_lineages = sorted(set(tree_lineages + config_lineages))
     elif tree_lineages is not None:
-        all_lineages = tree_lineages
+        all_lineages = sorted(tree_lineages)
     elif config_lineages is not None:
-        all_lineages = config_lineages
+        all_lineages = sorted(config_lineages)
 
     ### MAPPING
 
     species_lineage_map = {}
-    lineage_species_map = {}
-    original_lineage_species_map = {}
+    constrained_lineage_species_map = {}
+    full_lineage_species_map = {}
+    seen_lineages = set()
     if "configuration_file" in config_d:
         # additional info from configurator front-end
         for spp in config_d["configuration_file"]["species_lineage_map"]:
             species_lineage_map[spp] = []
             for lineage_name in config_d["configuration_file"]["species_lineage_map"][spp]:
-                species_lineage_map[spp].append(lineage_case_normalization_map.get(lineage_name, lineage_name))
-        lineage_species_map = {}
-        original_lineage_species_map.update(config_d["configuration_file"]["lineage_species_map"])
+                normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, lineage_name)
+                if normalized_lineage_name in seen_lineages:
+                    logger.error("ERROR: Duplicate lineage species assignment: '{}'".format(normalized_lineage_name))
+                    sys.exit(1)
+                seen_lineages.add(normalized_lineage_name)
+                species_lineage_map[spp].append(normalized_lineage_name)
+        constrained_lineage_species_map = {}
         for lineage_name in config_d["configuration_file"]["lineage_species_map"]:
             normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, lineage_name)
+            full_lineage_species_map[normalized_lineage_name] = config_d["configuration_file"]["lineage_species_map"][lineage_name]
             if lineage_name in config_d["configuration_file"]["constrained_lineages"]:
-                lineage_species_map[normalized_lineage_name] = config_d["configuration_file"]["lineage_species_map"][lineage_name]
+                constrained_lineage_species_map[normalized_lineage_name] = full_lineage_species_map[normalized_lineage_name]
     else:
         species_leafsets = config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
         if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
@@ -352,7 +358,7 @@ def report_configuration(
                 lineages = []
                 for lineage in sp:
                     normalized_lineage_name = lineage_case_normalization_map.get(lineage, lineage)
-                    lineage_species_map[normalized_lineage_name] = sp_label
+                    constrained_lineage_species_map[normalized_lineage_name] = sp_label
                     lineages.append(normalized_lineage_name)
                 sp_label = "Sp{:03d}".format(spi+1)
                 species_lineage_map[sp_label] = lineages
@@ -363,15 +369,31 @@ def report_configuration(
                 for lineage in species_leafsets[sp_label]:
                     lineages = []
                     normalized_lineage_name = lineage_case_normalization_map.get(lineage, lineage)
-                    lineage_species_map[normalized_lineage_name] = sp_label
+                    constrained_lineage_species_map[normalized_lineage_name] = sp_label
                     lineages.append(normalized_lineage_name)
                 species_lineage_map[sp_label] = lineages
 
-    msg.append("{} lineages with known species identities, assigned to {} species".format(
-        len(lineage_species_map),
+    spp_list = []
+    species_names = species_lineage_map.keys()
+    max_spp_name_length = max(len(sp) for sp in species_names)
+    sp_name_template = "{{:{}}}".format(max_spp_name_length)
+    spp_list.append("{} lineages with known species identities, assigned to {} species:".format(
+        len(constrained_lineage_species_map),
         len(species_lineage_map)))
+    for sidx, spp in enumerate(sorted(species_names)):
+        if len(species_lineage_map[spp]) > 1:
+            descriptor = "lineages"
+        else:
+            descriptor = "lineage"
+        spp_list.append("    [{: 3d}/{:<3d}] {} ({} {})".format(
+                sidx+1,
+                len(species_lineage_map),
+                sp_name_template.format(spp),
+                len(species_lineage_map[spp]),
+                descriptor))
+    msg.append("\n".join(spp_list))
     msg.append("{} lineages with species identities to be inferred".format(
-        len(all_lineages) - len(lineage_species_map)))
+        len(all_lineages) - len(constrained_lineage_species_map)))
     if logger:
         pmsg = "\n".join(["  -  {}".format(m) for m in msg])
         logger.info("Analysis configuration:\n{}".format(pmsg))
@@ -385,14 +407,14 @@ def report_configuration(
         json.dump(config_d, output_file, **kwargs)
     elif output_format == "delimited":
         output_file.write("{}\n".format(output_delimiter.join(CONFIGURATION_REQUIRED_FIELDS)))
-        for lineage in all_lineages:
+        for lidx, lineage in enumerate(all_lineages):
             parts = []
             parts.append(lineage)
-            if lineage in lineage_species_map:
-                parts.append(lineage_species_map[lineage])
+            if lineage in constrained_lineage_species_map:
+                parts.append(constrained_lineage_species_map[lineage])
                 parts.append("1")
             else:
-                parts.append(original_lineage_species_map.get(lineage, "?"))
+                parts.append(full_lineage_species_map.get(lineage, "?"))
                 parts.append("0")
             output_file.write("{}\n".format(output_delimiter.join(parts)))
     else:

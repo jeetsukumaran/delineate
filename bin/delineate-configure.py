@@ -81,7 +81,7 @@ def main():
         output_format = "delimited"
         output_delimiter="\t"
     elif args.output_format == "csv":
-        suffix = ".tsv"
+        suffix = ".csv"
         output_format = "delimited"
         output_delimiter=","
     else:
