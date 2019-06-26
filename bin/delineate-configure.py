@@ -20,7 +20,7 @@ __copyright__ = 'Copyright (C) 2019 Jeet Sukumaran and Mark T. Holder.'
 
 def main():
     parser = argparse.ArgumentParser(description=__description__)
-    parser.add_argument("source_filepath",
+    parser.add_argument("config_file",
             action="store",
             help="Source of configuration information.")
     parser.add_argument("-o", "--output-prefix",
@@ -63,14 +63,12 @@ def main():
             log_to_file=False,
             file_logging_level=utility.logging.INFO,
             )
-    with open(os.path.expandvars(os.path.expanduser(args.source_filepath))) as src:
-        config_d = utility.parse_delimited_configuration_file(
-                src=src,
-                delimiter=args.delimiter,
-                logger=logger)
+    config_d = utility.parse_configuration(
+            args=args,
+            delimiter=args.delimiter,
+            logger=logger)
     if args.output_prefix is None:
-        # out = open(os.path.splitext(args.source_filepath)[0] + ".delineate.json", "w")
-        args.output_prefix = os.path.splitext(args.source_filepath)[0] + ".delineate"
+        args.output_prefix = os.path.splitext(args.config_file)[0] + ".delineate"
     if args.output_prefix == "-":
         out_name = "<stdout>"
         out = sys.stdout

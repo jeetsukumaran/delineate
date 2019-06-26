@@ -152,15 +152,15 @@ def add_output_options(parser, output_options=None):
             help="Field separator or delimiter character [default: tab].")
     return parser
 
-def parse_configuration(args, logger):
+def parse_configuration(args, logger, delimiter=None):
     if args.config_file:
         with open(args.config_file) as src:
             if args.config_file.endswith("json"):
                 config = json.load(src)
             else:
-                config_d = utility.parse_delimited_configuration_file(
+                config = parse_delimited_configuration_file(
                         src=src,
-                        delimiter=None,
+                        delimiter=delimiter,
                         logger=logger)
     else:
         config = {}
@@ -256,7 +256,10 @@ def report_configuration(
     lineage_species_map = {}
     if "configuration_file" in config_d:
         sp_lineage_map = dict(config_d["configuration_file"]["species_lineage_map"])
-        lineage_species_map = dict(config_d["configuration_file"]["lineage_species_map"])
+        lineage_species_map = {}
+        for key in config_d["configuration_file"]["lineage_species_map"]:
+            if key in config_d["configuration_file"]["constrained_lineages"]:
+                lineage_species_map[key] = config_d["configuration_file"]["lineage_species_map"][key]
     else:
         species_leafsets = config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
         if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
