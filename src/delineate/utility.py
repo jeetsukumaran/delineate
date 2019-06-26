@@ -116,42 +116,6 @@ def parse_fieldname_and_value(labels):
         fieldname_value_map[fieldname] = value
     return fieldname_value_map
 
-def add_source_options(parser, source_options=None):
-    if not source_options:
-        source_options = parser.add_argument_group("Source options")
-    source_options.add_argument("-t", "--tree-file",
-            required=True,
-            help="Path to tree file.")
-    source_options.add_argument("-c", "--config-file",
-            help="Path to configuration file.")
-    source_options.add_argument("-f", "--tree-format",
-            dest="tree_format",
-            type=str,
-            default="nexus",
-            choices=["nexus", "newick"],
-            help="Tree file data format (default='%(default)s').")
-    return parser
-
-def add_output_options(parser, output_options=None):
-    if not output_options:
-        output_options = parser.add_argument_group("Output options")
-    output_options.add_argument("-l", "--label",
-            action="append",
-            help="Label to append to output (in format <FIELD-NAME>:value;)")
-    output_options.add_argument( "--no-header-row",
-            action="store_true",
-            default=False,
-            help="Do not write a header row.")
-    output_options.add_argument( "--append",
-            action="store_true",
-            default=False,
-            help="Append to output file if it already exists instead of overwriting.")
-    output_options.add_argument( "--field-separator",
-            default="\t",
-            dest="output_field_separator",
-            help="Field separator or delimiter character [default: tab].")
-    return parser
-
 def parse_configuration(args, logger, delimiter=None):
     if args.config_file:
         with open(args.config_file) as src:
@@ -261,7 +225,7 @@ def report_configuration(
     config_lineages = None
     if tree is not None:
         tree_lineages = [t.label for t in tree.taxon_namespace]
-        msg.append("{} terminal lineages on tree".format(len(tree_lineages)))
+        msg.append("{} terminal lineages on population tree".format(len(tree_lineages)))
     else:
         tree_lineages = None
     if "configuration_file" in config_d and "lineages" in config_d["configuration_file"]:
@@ -353,7 +317,7 @@ def report_configuration(
             full_lineage_species_map[normalized_lineage_name] = config_d["configuration_file"]["lineage_species_map"][lineage_name]
             if lineage_name in config_d["configuration_file"]["constrained_lineages"]:
                 constrained_lineage_species_map[normalized_lineage_name] = full_lineage_species_map[normalized_lineage_name]
-    else:
+    elif SPECIES_LEAFSET_CONSTRAINTS_KEY in config_d:
         species_leafsets = config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
         if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
             for spi, sp in enumerate(species_leafsets):
@@ -375,24 +339,27 @@ def report_configuration(
                     lineages.append(normalized_lineage_name)
                 species_lineage_map[sp_label] = lineages
 
-    spp_list = []
-    species_names = species_lineage_map.keys()
-    max_spp_name_length = max(len(sp) for sp in species_names)
-    sp_name_template = "{{:{}}}".format(max_spp_name_length + 2)
-    spp_list.append("{} species defined in configuration file:".format(
-        len(species_lineage_map)))
-    for sidx, spp in enumerate(sorted(species_names)):
-        if len(species_lineage_map[spp]) > 1:
-            descriptor = "lineages"
-        else:
-            descriptor = "lineage"
-        spp_list.append("    [{: 3d}/{:<3d}] SPECIES: {} ({} {})".format(
-                sidx+1,
-                len(species_lineage_map),
-                sp_name_template.format("'"+spp+"'"),
-                len(species_lineage_map[spp]),
-                descriptor))
-    msg.append("\n".join(spp_list))
+    if species_lineage_map:
+        spp_list = []
+        species_names = species_lineage_map.keys()
+        max_spp_name_length = max(len(sp) for sp in species_names)
+        sp_name_template = "{{:{}}}".format(max_spp_name_length + 2)
+        spp_list.append("{} species defined in configuration file:".format(
+            len(species_lineage_map)))
+        for sidx, spp in enumerate(sorted(species_names)):
+            if len(species_lineage_map[spp]) > 1:
+                descriptor = "lineages"
+            else:
+                descriptor = "lineage"
+            spp_list.append("    [{: 3d}/{:<3d}] SPECIES: {} ({} {})".format(
+                    sidx+1,
+                    len(species_lineage_map),
+                    sp_name_template.format("'"+spp+"'"),
+                    len(species_lineage_map[spp]),
+                    descriptor))
+        msg.append("\n".join(spp_list))
+    else:
+        msg.append("0 species defined in configuration file")
 
     constrained_lineage_list =[]
     constrained_lineage_list.append("{} lineages with known species affinities:".format(

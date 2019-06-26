@@ -1,0 +1,402 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+###############################################################################
+##
+##  Copyright 2019 Jeet Sukumaran and Mark T. Holder.
+##
+##  This program is free software; you can redistribute it and/or modify
+##  it under the terms of the GNU General Public License as published by
+##  the Free Software Foundation; either version 3 of the License, or
+##  (at your option) any later version.
+##
+##  This program is distributed in the hope that it will be useful,
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+##  GNU General Public License for more details.
+##
+##  You should have received a copy of the GNU General Public License along
+##  with this program. If not, see <http://www.gnu.org/licenses/>.
+##
+###############################################################################
+
+"""
+Calculate probabilities of partitions of population tree leafsets into species
+under a Protracted Birth Death (PBD) model, optimizing the speciation
+completion rate parameter as required.
+"""
+
+# Imports {{{1
+import sys
+import os
+import argparse
+import subprocess
+import math
+import itertools
+import collections
+from delineate import model
+from delineate import estimate
+from delineate import utility
+# }}}1
+
+__description__ = __doc__
+
+# Species Partition Estimation {{{1
+def execute_species_partition_estimation(args):
+    logger = utility.RunLogger(name="delineate-estimate")
+    tree = model.LineageTree.get(
+            path=args.tree_file,
+            schema=args.tree_format,
+            )
+    tree.is_use_decimal_value_type = args.underflow_protection
+    config = utility.parse_configuration(
+            args=args,
+            logger=logger)
+    utility.report_configuration(
+            config_d=config,
+            tree=tree,
+            logger=logger,
+            output_file=None,
+            is_fail_on_extra_tree_lineages=False,
+            is_fail_on_extra_configuration_lineages=True,
+            )
+    speciation_completion_rate = config.get("speciation_completion_rate", args.speciation_completion_rate)
+    species_leafset_constraint_labels = config.get(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY, None)
+    if species_leafset_constraint_labels is not None:
+        species_constraints = model._Partition.compile_lookup_key(species_leafset_constraint_labels)
+        tree.set_node_constraints(species_constraints)
+
+    if speciation_completion_rate is None:
+        if species_leafset_constraint_labels is not None:
+            constraint_tip_labels = list(itertools.chain(*species_leafset_constraint_labels))
+            induced_tree = tree.extract_tree_with_taxa_labels(
+                    labels=constraint_tip_labels)
+            mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
+                    tree=induced_tree,
+                    species_leafset_labels=species_constraints,
+                    initial_speciation_rate=config.get("initial_speciation_rate", 0.01),
+                    min_speciation_rate=config.get("min_speciation_rate", 1e-8),
+                    max_speciation_rate=config.get("max_speciation_rate", 2.00))
+            speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
+            speciation_completion_rate = speciation_completion_rate_estimate
+            speciation_completion_rate_source = "estimated"
+    else:
+        speciation_completion_rate_source = "specified"
+        speciation_completion_rate_estimate_lnl = 0.0
+    if speciation_completion_rate is None:
+        logger.error("ERROR: Speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
+        logger.critical("Terminating due to error")
+        sys.exit(1)
+    tree.speciation_completion_rate = speciation_completion_rate
+
+    partition_probability_map = tree.calc_label_partition_probability_map()
+
+    result_dict = collections.OrderedDict()
+    row = []
+    if args.tree_info:
+        result_dict["num_tips"] = len(tree.taxon_namespace)
+        tree.calc_node_ages()
+        result_dict["root_age"] = "{}".format(tree.seed_node.age)
+    extra_fields = utility.parse_fieldname_and_value(args.label)
+    if extra_fields:
+        result_dict.update(extra_fields)
+    result_dict["speciation_completion_rate"] = speciation_completion_rate
+    result_dict["speciation_completion_rate_source"] = speciation_completion_rate_source
+    result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
+    species_partition_info = []
+    probability_index = 2
+    for k in partition_probability_map:
+        kentry = (
+                k,
+                list(list(s) for s in k),
+                partition_probability_map[k],
+                )
+        species_partition_info.append(kentry)
+    # species_partition_info = [(
+    #         k,
+    #         list(list(s) for s in k),
+    #         partition_probability_map[k],
+    #         math.log(partition_probability_map[k])) for k in partition_probability_map]
+    species_partition_info.sort(key=lambda x: x[probability_index], reverse=True)
+    assert species_partition_info[0][probability_index] >= species_partition_info[-1][probability_index], \
+            sys.stderr.write("{} >= {}: False\n".format(species_partition_info[0][probability_index], species_partition_info[-1][probability_index]))
+    result_dict["num_partitions"] = len(species_partition_info)
+    # max_log_likelihood = species_partition_info[0][log_likelihood_index]
+    # result_dict["max_log_likelihood"] = max_log_likelihood
+    result_dict["num_partitions_in_confidence_interval"] = 0
+    result_dict["partitions"] = []
+    cumulative_probability = tree.as_working_value_type(0.0)
+    cumulative_probability_given_constr = tree.as_working_value_type(0.0)
+    num_partitions_in_confidence_interval = 0
+    cond_prob = sum([i[probability_index] for i in species_partition_info])
+    if cond_prob == 0:
+        raise ValueError("0 conditional probability")
+    try:
+        ln_cond_prob = math.log(cond_prob)
+    except ValueError:
+        ln_cond_prob = float("nan")
+    for key_idx, (key, key_as_list, prob) in enumerate(species_partition_info):
+        p = collections.OrderedDict()
+        p["species_leafsets"] = key_as_list
+        # try:
+        #     p["log_probability"] = math.log(prob)
+        # except ValueError:
+        #     p["log_probability"] = float("nan")
+        p["probability"] = tree.as_float(prob)
+        bpc = prob / cond_prob
+        p["probability_given_constraints"] = tree.as_float(bpc)
+        # p["log_probability_given_constraints"] = tree.as_float(lnL - ln_cond_prob)
+
+        # need to check this before summing cumulative probability, otherwise
+        # any single partition with probability > 0.95 will incorrectly be
+        # flagged as being outside the confidence interval.
+        if cumulative_probability_given_constr <= 0.95 and bpc > 0.0:
+            p["is_in_confidence_interval"] = True
+            num_partitions_in_confidence_interval += 1
+        else:
+            p["is_in_confidence_interval"] = False
+
+        cumulative_probability += prob
+        cumulative_probability_given_constr += bpc
+        p["cumulative_probability"] = tree.as_float(cumulative_probability)
+        p["cumulative_probability_given_constraints"] = tree.as_float(cumulative_probability_given_constr)
+
+        result_dict["partitions"].append(p)
+    result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
+    if args.output_format == "json-compact":
+        json.dump(result_dict, sys.stdout)
+    else:
+        json.dump(result_dict, sys.stdout, indent=4, separators=(',', ': '))
+    # if args.intervals:
+    #     ci_low, ci_high = mle.estimate_confidence_interval(
+    #         mle_speciation_rate=speciation_completion_rate_estimate,
+    #         max_lnl=speciation_completion_rate_estimate_lnl)
+    #     row.append("{}".format(ci_low))
+    #     row.append("{}".format(ci_high))
+    # sys.stdout.write(args.separator.join(row))
+    # sys.stdout.write("\n")
+# }}}1
+
+# Speciation Completion Rate Parameter Estimation {{{1
+def execute_speciation_completion_rate_estimation(args):
+    logger = utility.RunLogger(name="delineate-estimate")
+    args.output_field_separator = "\t"
+    tree = model.LineageTree.get(
+            path=args.tree_file,
+            schema=args.tree_format,
+            )
+    tree.is_use_decimal_value_type = args.underflow_protection
+    config = utility.parse_configuration(
+            args=args,
+            logger=logger)
+    utility.report_configuration(
+            config_d=config,
+            tree=tree,
+            logger=logger,
+            output_file=None,
+            is_fail_on_extra_tree_lineages=False,
+            is_fail_on_extra_configuration_lineages=True,
+            )
+    if "species_leafsets" in config and utility.SPECIES_LEAFSET_CONSTRAINTS_KEY in config:
+        sys.exit("Both 'species_leafsets' and '{}' specified in configuration".format(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY))
+    elif "species_leafsets" in config:
+        key = "species_leafsets"
+    elif utility.SPECIES_LEAFSET_CONSTRAINTS_KEY in config:
+        key = utility.SPECIES_LEAFSET_CONSTRAINTS_KEY
+    else:
+        sys.exit("Neither 'species_leafsets' nor '{}' specified in configuration".format(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY))
+    species_leafset_labels = model._Partition.compile_lookup_key( config[key] )
+    initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
+    min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
+    max_speciation_rate = config.pop("max_speciation_rate", 2.00)
+    mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
+            tree=tree,
+            species_leafset_labels=species_leafset_labels,
+            initial_speciation_rate=initial_speciation_rate,
+            min_speciation_rate=min_speciation_rate,
+            max_speciation_rate=max_speciation_rate)
+    speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
+    extra_fields = utility.parse_fieldname_and_value(args.label)
+    if not args.no_header_row:
+        header_row = []
+        if args.tree_info:
+            header_row.append("num_tips")
+            header_row.append("root_age")
+        header_row.extend(extra_fields)
+        header_row.append("speciation_completion_rate")
+        header_row.append("speciation_completion_rate_estimate_lnl")
+        if args.intervals:
+            header_row.append("ci_low")
+            header_row.append("ci_high")
+        sys.stdout.write(args.output_field_separator.join(header_row))
+        sys.stdout.write("\n")
+    row = []
+    if args.tree_info:
+        row.append("{}".format(len(tree.taxon_namespace)))
+        tree.calc_node_ages()
+        row.append("{}".format(tree.seed_node.age))
+    for field in extra_fields:
+        row.append(extra_fields[field])
+    row.append("{}".format(speciation_completion_rate_estimate))
+    row.append("{}".format(speciation_completion_rate_estimate_lnl))
+    if args.intervals:
+        ci_low, ci_high = mle.estimate_confidence_interval(
+            mle_speciation_rate=speciation_completion_rate_estimate,
+            max_lnl=speciation_completion_rate_estimate_lnl)
+        row.append("{}".format(ci_low))
+        row.append("{}".format(ci_high))
+    sys.stdout.write(args.output_field_separator.join(row))
+    sys.stdout.write("\n")
+# }}}1
+
+# CLI Support{{{1
+def add_source_options(parser, source_options=None):
+    if not source_options:
+        source_options = parser.add_argument_group("Source Options")
+    source_options.add_argument("-t", "--tree-file",
+            required=True,
+            help="Path to tree file.")
+    source_options.add_argument("-c", "--config-file",
+            help="Path to configuration file.")
+    source_options.add_argument("-f", "--tree-format",
+            dest="tree_format",
+            type=str,
+            default="nexus",
+            choices=["nexus", "newick"],
+            help="Tree file data format (default='%(default)s').")
+    parser._source_options = source_options
+    return parser
+
+def add_output_options(parser, output_options=None):
+    if not output_options:
+        output_options = parser.add_argument_group("Output Options")
+    output_options.add_argument("-l", "--label",
+            action="append",
+            help="Label to append to output (in format <FIELD-NAME>:value;)")
+    output_options.add_argument( "--no-header-row",
+            action="store_true",
+            default=False,
+            help="Do not write a header row.")
+    output_options.add_argument( "--append",
+            action="store_true",
+            default=False,
+            help="Append to output file if it already exists instead of overwriting.")
+    output_options.add_argument( "--field-separator",
+            default="\t",
+            dest="output_field_separator",
+            help="Field separator or delimiter character [default: tab].")
+    parser._output_options = output_options
+    return parser
+# }}}1
+
+
+# Main CLI {{{1
+
+def main():
+    main_parser = argparse.ArgumentParser(description=__description__)
+    try:
+        main_parser._optionals.title = "Program Options"
+    except AttributeError:
+        pass
+    cmd_parser = main_parser.add_subparsers(title="Commands", dest="command")
+
+    command_cli = collections.OrderedDict()
+    command_cli["partitions"] = {
+        "parents": [],
+        "desc":
+                "Given a known population tree and optionally a speciation"
+                " completion rate, calculate the probability of different"
+                " partitions of population lineages into species, with the"
+                " partition of the highest probability corresponding to the"
+                " maximum likelihood species delimitation estimate.",
+        "func": execute_species_partition_estimation}
+    command_cli["rates"] = {
+        "parents": [],
+        "desc":
+                "Given a known population tree and known species partition,"
+                " estimate the speciation completion rate",
+        "func": execute_speciation_completion_rate_estimation}
+    command_parsers = collections.OrderedDict()
+    for key in command_cli:
+        kwargs = {}
+        if command_cli[key]["parents"]:
+            kwargs["parents"] = command_cli[key]["parents"]
+        kwargs["help"] = command_cli[key]["desc"]
+        kwargs["description"] = kwargs["help"]
+        cmd_options_parser = cmd_parser.add_parser(
+            key,
+            **kwargs)
+        cmd_options_parser.set_defaults(func=command_cli[key]["func"])
+        try:
+            cmd_options_parser._optionals.title = "Command Options"
+            cmd_options_parser._positionals.title = "Command Targets"
+        except AttributeError:
+            pass
+        add_source_options(cmd_options_parser)
+        add_output_options(cmd_options_parser)
+        command_parsers[key] = cmd_options_parser
+
+    ## setup partition options
+    c1_parser = command_parsers["partitions"]
+    estimation_options = c1_parser.add_argument_group("Estimation Options")
+    estimation_options.add_argument("-u", "--underflow-protection",
+            action="store_true",
+            default=False,
+            help="Try to protect against underflow by using special number handling classes (slow).",)
+    model_options = c1_parser.add_argument_group("Model Options")
+    model_options.add_argument("-s", "--speciation-completion-rate",
+            type=float,
+            default=None,
+            help="The speciation completion rate (overrides that given in configuration file, if any; default: None).",)
+    output_options = c1_parser._output_options
+    output_options.add_argument("-I", "--tree-info",
+            action="store_true",
+            help="Output additional information about the tree",)
+
+    ## setup rate estimation options
+    c2_parser = command_parsers["rates"]
+    estimation_options = c2_parser.add_argument_group("Estimation options")
+    estimation_options.add_argument("-i", "--intervals", "--confidence-intervals",
+            action="store_true",
+            help="Calculate confidence intervals.",)
+    estimation_options.add_argument("-u", "--underflow-protection",
+            action="store_true",
+            default=False,
+            help="Try to protect against underflow by using special number handling classes (slow).",)
+    output_options = c2_parser._output_options
+    output_options.add_argument("-I", "--tree-info",
+            action="store_true",
+            help="Output additional information about the tree",)
+
+
+    if len(sys.argv) == 1:
+        msg = []
+        msg.append("Please specify one of the following operations:")
+        msg.append("")
+        msg.append("    delineate-estimate partitions")
+        msg.append("    delineate-estimate rates")
+        msg.append("")
+        msg.append("Or type '--help' for help:")
+        msg.append("")
+        msg.append("    delineate-estimate --help")
+        msg.append("    delineate-estimate partitions --help")
+        msg.append("    delineate-estimate rates --help")
+        msg.append("")
+        msg = "\n".join(msg)
+        sys.exit(msg)
+
+    args = main_parser.parse_args()
+    # controller.is_quiet = getattr(args, "quiet", True)
+
+    if hasattr(args, 'func'):
+        args.func(args=args)
+    else:
+        pass
+        # args.status_targets = "short"
+        # execute_status_command(controller=controller, args=args)
+    sys.exit(0)
+
+if __name__ == '__main__':
+    main()
+
+# }}}1
