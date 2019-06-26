@@ -176,6 +176,8 @@ def execute_species_partition_estimation(args):
     #     row.append("{}".format(ci_high))
     # sys.stdout.write(args.separator.join(row))
     # sys.stdout.write("\n")
+    logger.info("Operation complete")
+    logger.info("Terminating normally")
 # }}}1
 
 # Speciation Completion Rate Parameter Estimation {{{1
@@ -248,6 +250,8 @@ def execute_speciation_completion_rate_estimation(args):
         row.append("{}".format(ci_high))
     sys.stdout.write(args.output_field_separator.join(row))
     sys.stdout.write("\n")
+    logger.info("Operation complete")
+    logger.info("Terminating normally")
 # }}}1
 
 # CLI Support{{{1
