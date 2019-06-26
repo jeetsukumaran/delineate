@@ -74,6 +74,14 @@ def main():
     config = utility.parse_configuration(
             args=args,
             logger=logger)
+    utility.report_configuration(
+            config_d=config,
+            tree=tree,
+            logger=logger,
+            output_file=None,
+            is_fail_on_extra_tree_lineages=False,
+            is_fail_on_extra_configuration_lineages=True,
+            )
     if "species_leafsets" in config and utility.SPECIES_LEAFSET_CONSTRAINTS_KEY in config:
         sys.exit("Both 'species_leafsets' and '{}' specified in configuration".format(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY))
     elif "species_leafsets" in config:

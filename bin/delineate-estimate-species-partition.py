@@ -75,7 +75,6 @@ def main():
     config = utility.parse_configuration(
             args=args,
             logger=logger)
-
     utility.report_configuration(
             config_d=config,
             tree=tree,
