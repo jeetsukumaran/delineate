@@ -395,9 +395,10 @@ def report_configuration(
     msg.append("\n".join(spp_list))
 
     constrained_lineage_list =[]
-    constrained_lineage_list.append("{} lineages with known species identities, assigned to {} species:".format(
+    constrained_lineage_list.append("{} lineages with known species affinities:".format(
         len(constrained_lineage_species_map),
-        len(species_lineage_map)))
+        # len(species_lineage_map)),
+        ))
     max_lineage_name_length = max(len(ln) for ln in all_lineages)
     lineage_name_template = "{{:{}}}".format(max_lineage_name_length + 2)
     lidx = 0
@@ -413,7 +414,7 @@ def report_configuration(
     msg.append("\n".join(constrained_lineage_list))
 
     unconstrained_lineage_list =[]
-    unconstrained_lineage_list.append("{} lineages with species identities to be inferred:".format(
+    unconstrained_lineage_list.append("{} lineages of unknown species affinities:".format(
         len(all_lineages) - len(constrained_lineage_species_map)))
     lidx = 0
     for lineage in all_lineages:
@@ -425,7 +426,7 @@ def report_configuration(
                 lineage))
     msg.append("\n".join(unconstrained_lineage_list))
     if logger:
-        pmsg = "\n".join(["  -  {}".format(m) for m in msg])
+        pmsg = "\n".join(["  - {}".format(m) for m in msg])
         logger.info("Analysis configuration:\n{}".format(pmsg))
     if output_file is None:
         pass
