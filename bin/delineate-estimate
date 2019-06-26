@@ -34,6 +34,7 @@ import subprocess
 import math
 import itertools
 import collections
+import json
 from delineate import model
 from delineate import estimate
 from delineate import utility
@@ -352,6 +353,10 @@ def main():
     output_options.add_argument("-I", "--tree-info",
             action="store_true",
             help="Output additional information about the tree",)
+    output_options.add_argument("--output-format",
+            default="json-compact",
+            choices=["json", "json-compact"],
+            help="Format for output file.",)
 
     ## setup rate estimation options
     c2_parser = command_parsers["rates"]
