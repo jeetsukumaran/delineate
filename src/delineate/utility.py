@@ -375,7 +375,7 @@ def report_configuration(
 
     spp_list = []
     species_names = species_lineage_map.keys()
-    max_spp_name_length = max(len(sp) for sp in species_names)
+    max_spp_name_length = max(len(sp) for sp in species_names) + 2
     sp_name_template = "{{:{}}}".format(max_spp_name_length)
     spp_list.append("{} lineages with known species identities, assigned to {} species:".format(
         len(constrained_lineage_species_map),
@@ -385,15 +385,25 @@ def report_configuration(
             descriptor = "lineages"
         else:
             descriptor = "lineage"
-        spp_list.append("    [{: 3d}/{:<3d}] {} ({} {})".format(
+        spp_list.append("    [{: 3d}/{:<3d}] SPECIES: {} ({} {})".format(
                 sidx+1,
                 len(species_lineage_map),
-                sp_name_template.format(spp),
+                sp_name_template.format("'"+spp+"'"),
                 len(species_lineage_map[spp]),
                 descriptor))
     msg.append("\n".join(spp_list))
-    msg.append("{} lineages with species identities to be inferred".format(
+    unconstrained_lineage_list =[]
+    unconstrained_lineage_list.append("{} lineages with species identities to be inferred:".format(
         len(all_lineages) - len(constrained_lineage_species_map)))
+    lidx = 0
+    for lineage in all_lineages:
+        if lineage not in constrained_lineage_species_map:
+            lidx += 1
+            unconstrained_lineage_list.append("    [{: 3d}/{:<3d}] LINEAGE '{}'".format(
+                lidx,
+                len(all_lineages) - len(constrained_lineage_species_map),
+                lineage))
+    msg.append("\n".join(unconstrained_lineage_list))
     if logger:
         pmsg = "\n".join(["  -  {}".format(m) for m in msg])
         logger.info("Analysis configuration:\n{}".format(pmsg))
