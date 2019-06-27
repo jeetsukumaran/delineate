@@ -6,6 +6,7 @@ import collections
 import re
 import csv
 import json
+import os
 import sys
 
 SPECIES_LEAFSET_CONSTRAINTS_KEY = "species_leafset_constraints"
@@ -418,4 +419,9 @@ def report_configuration(
     else:
         raise ValueError(output_format)
     return msg
+
+def compose_output_prefix(input_filepath, default):
+    if not input_filepath:
+        return default
+    return os.path.splitext(os.path.expanduser(os.path.expandvars(input_filepath)))[0]
 

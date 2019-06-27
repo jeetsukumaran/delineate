@@ -303,14 +303,14 @@ def open_output_file(args, suffix):
         return "<STDOUT>", sys.stdout
     else:
         if args.output_prefix is None:
-            args.output_prefix = "delineate-results"
+            args.output_prefix = utility.compose_output_prefix(
+                    input_filepath=args.config_file,
+                    default="delineate-results")
         outpath = "{}.{}".format(
                 os.path.expanduser(os.path.expandvars(args.output_prefix)),
                 suffix)
         return outpath, open(outpath, "w")
-
 # }}}1
-
 
 # Main CLI {{{1
 

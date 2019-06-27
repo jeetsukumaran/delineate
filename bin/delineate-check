@@ -44,7 +44,7 @@ def main():
     parser.add_argument("-o", "--output-prefix",
             action="store",
             default=None,
-            help="Prefix for output file.")
+            help="Prefix for configuration output files; if provided normalized configuration will be written here.")
     parser.add_argument("--ignore-extra-tree-lineages",
             action="store_true",
             default=False,
@@ -54,6 +54,8 @@ def main():
             default=False,
             help="Do not complain if not all configuration lineages are found on the tree.")
     args = parser.parse_args()
+    if not args.config_file:
+        sys.exit("Need to specify path to configuration file using '-c' option")
     if args.delimiter is not None and (
             args.delimiter.upper() == "TAB"
             or args.delimiter == '\\t'
@@ -86,14 +88,6 @@ def main():
         output_delimiter=","
     else:
         raise ValueError(args.output_format)
-    if args.output_prefix is None:
-        args.output_prefix = os.path.splitext(args.config_file)[0] + ".delineate"
-    if args.output_prefix == "-":
-        out_name = "<stdout>"
-        out = sys.stdout
-    else:
-        out_name = args.output_prefix + suffix
-        out = open(out_name, "w")
     if args.tree_file:
         tree = model.LineageTree.get(
                 path=args.tree_file,
@@ -101,6 +95,19 @@ def main():
                 )
     else:
         tree = None
+    if args.output_prefix is None:
+        out = open(os.devnull, "w")
+        # args.output_prefix = utility.compose_output_prefix(
+        out_name = None
+        #         input_filepath=args.config_file,
+        #         default="delineate-config")
+    else:
+        if args.output_prefix == "-":
+            out_name = "<stdout>"
+            out = sys.stdout
+        else:
+            out_name = args.output_prefix + suffix
+            out = open(out_name, "w")
     with out:
         utility.report_configuration(
                 config_d,
@@ -112,7 +119,8 @@ def main():
                 is_fail_on_extra_tree_lineages=not args.ignore_extra_tree_lineages,
                 is_fail_on_extra_configuration_lineages=not args.ignore_extra_configuration_lineages,
                 )
-    logger.info("DELINEATE configuration data written to: '{}'".format(out_name))
+    if out_name:
+        logger.info("DELINEATE configuration data written to: '{}'".format(out_name))
 
 if __name__ == "__main__":
     main()
