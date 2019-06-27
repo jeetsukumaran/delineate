@@ -136,6 +136,16 @@ def execute_species_partition_estimation(args):
         ln_cond_prob = math.log(cond_prob)
     except ValueError:
         ln_cond_prob = float("nan")
+
+    if "configuration_file" in config_d and "constrained_lineage_species_map" in config_d["configuration_file"]:
+        preanalysis_lineage_species_name_map = dict(config_d["configuration_file"]["constrained_lineage_species_map"])
+    else:
+        preanalysis_lineage_species_name_map = {}
+        for sp_idx, species_leafset in enumerate(species_leafset_constraint_labels):
+            sp_name = utility.compose_constrained_species_label(sp_idx)
+            for lineage in species_leafset:
+                preanalysis_lineage_species_name_map[lineage] = sp_name
+
     for key_idx, (key, key_as_list, prob) in enumerate(species_partition_info):
         p = collections.OrderedDict()
         p["species_leafsets"] = key_as_list
@@ -163,16 +173,24 @@ def execute_species_partition_estimation(args):
         p["cumulative_probability_given_constraints"] = tree.as_float(cumulative_probability_given_constr)
 
         result_dict["partitions"].append(p)
+
+        lineage_species_name_map = utility.compose_lineage_species_name_map(
+                postanalysis_species_leafset_labels=key_as_list,
+                preanalysis_lineage_species_name_map=preanalysis_lineage_species_name_map)
+        print("--")
+        print(lineage_species_name_map)
+
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
-    out_path, outf = open_output_file(
-            args=args,
-            suffix="json")
-    with outf:
-        if args.output_format == "json-compact":
-            json.dump(result_dict, outf)
-        else:
-            json.dump(result_dict, outf, indent=4, separators=(',', ': '))
-        logger.info("Results written to: '{}'".format(out_path))
+    if True: # args.write_json
+        out_path, outf = open_output_file(
+                args=args,
+                suffix="json")
+        with outf:
+            if False: #args.output_format == "json-compact":
+                json.dump(result_dict, outf)
+            else:
+                json.dump(result_dict, outf, indent=4, separators=(',', ': '))
+            logger.info("JSON-formatted results written to: '{}'".format(out_path))
     logger.info("Operation complete")
     logger.info("Terminating normally")
 # }}}1
@@ -303,9 +321,7 @@ def open_output_file(args, suffix):
         return "<STDOUT>", sys.stdout
     else:
         if args.output_prefix is None:
-            args.output_prefix = utility.compose_output_prefix(
-                    input_filepath=args.config_file,
-                    default="delineate-results")
+            args.output_prefix = "delineate-results"
         outpath = "{}.{}".format(
                 os.path.expanduser(os.path.expandvars(args.output_prefix)),
                 suffix)
@@ -374,10 +390,10 @@ def main():
     output_options.add_argument("-I", "--tree-info",
             action="store_true",
             help="Output additional information about the tree",)
-    output_options.add_argument("--output-format",
-            default="json-compact",
-            choices=["json", "json-compact"],
-            help="Format for output file.",)
+    # output_options.add_argument("--output-format",
+    #         default="json-compact",
+    #         choices=["json", "json-compact"],
+    #         help="Format for output file.",)
 
     ## setup rate estimation options
     c2_parser = command_parsers["rates"]

@@ -203,6 +203,7 @@ def parse_delimited_configuration_file(
     config_d["configuration_file"]["constrained_lineages"] = known
     config_d["configuration_file"]["unconstrained_lineages"] = unknown
     config_d["configuration_file"]["lineage_species_map"] = lineage_species_map
+    config_d["configuration_file"]["constrained_lineage_species_map"] = {lineage_name:lineage_species_map[lineage_name] for lineage_name in known}
     config_d["configuration_file"]["species_lineage_map"] = species_lineage_map
     return config_d
 
@@ -232,10 +233,11 @@ def report_configuration(
     if "configuration_file" in config_d and "lineages" in config_d["configuration_file"]:
         config_lineages = list(config_d["configuration_file"]["lineages"])
         msg.append("{} lineages described in configuration file".format(len(config_lineages)))
-    elif tree_lineages is not None:
-        config_lineages = list(tree_lineages)
     else:
-        raise ValueError("No configuration data available")
+        if tree_lineages is not None:
+            config_lineages = list(tree_lineages)
+        else:
+            raise ValueError("Tree file required for checking JSON file configuration")
     lineage_case_normalization_map = {}
     if tree_lineages is not None and config_lineages is not None:
         tree_lineage_set = set(tree_lineages)
@@ -323,7 +325,7 @@ def report_configuration(
         if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
             for spi, sp in enumerate(species_leafsets):
                 lineages = []
-                sp_label = "Sp{:03d}".format(spi+1)
+                sp_label = compose_constrained_species_label(spi)
                 for lineage in sp:
                     normalized_lineage_name = lineage_case_normalization_map.get(lineage, lineage)
                     constrained_lineage_species_map[normalized_lineage_name] = sp_label
@@ -420,8 +422,55 @@ def report_configuration(
         raise ValueError(output_format)
     return msg
 
+def compose_constrained_species_label(idx):
+    return "ConstrainedSp{:03d}".format(idx+1)
+
 def compose_output_prefix(input_filepath, default):
     if not input_filepath:
         return default
     return os.path.splitext(os.path.expanduser(os.path.expandvars(input_filepath)))[0]
+
+def compose_lineage_species_name_map(
+        postanalysis_species_leafset_labels,
+        preanalysis_lineage_species_name_map,
+        ):
+    lnsp_map = {}
+    new_sp_idx = 0
+    existing_sp_names = set(preanalysis_lineage_species_name_map.values())
+    processed_sp_names = set()
+    for leafset in postanalysis_species_leafset_labels:
+        sp_id = None
+        for lineage in leafset:
+            try:
+                assigned_sp_id = preanalysis_lineage_species_name_map[lineage]
+                if sp_id and assigned_sp_id != sp_id:
+                    msg = []
+                    msg.append("Conflicting species identity assignment for lineages grouped into same species '{}' vs '{}':".format(
+                        sp_id,
+                        assigned_sp_id))
+                    max_lineage_name_length = max(len(ln) for ln in all_lineages)
+                    lineage_name_template = "{{:{}}}".format(max_lineage_name_length + 2)
+                    for lineage in leafset:
+                        msg.append("  - LINEAGE {} => SPECIES {}".format(
+                            lineage_name_template.format("'{}'".format(lineage)),
+                            assigned_sp_id))
+                    msg = "\n".join(msg)
+                    raise ValueError(msg)
+                sp_id = assigned_sp_id
+                # break
+            except KeyError:
+                pass
+        if sp_id is None:
+            while True:
+                new_sp_idx += 1
+                sp_id = "DelineatedSp{:03d}".format(new_sp_idx)
+                if sp_id not in existing_sp_names:
+                    existing_sp_names.add(sp_id)
+                    break
+        assert sp_id is not None
+        assert sp_id not in processed_sp_names
+        processed_sp_names.add(sp_id)
+        for lineage in leafset:
+            lnsp_map[lineage] = sp_id
+    return lnsp_map
 
