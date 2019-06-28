@@ -420,7 +420,18 @@ def report_configuration(
             output_file.write("{}\n".format(output_delimiter.join(parts)))
     else:
         raise ValueError(output_format)
-    return msg
+    for lineage_name in lineage_case_normalization_map:
+        if lineage_name not in constrained_lineage_species_map:
+            normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, None)
+            if normalized_lineage_name in constrained_lineage_species_map:
+                constrained_lineage_species_map[lineage_name] = constrained_lineage_species_map[normalized_lineage_name]
+    return {
+            "constrained_lineage_species_map": constrained_lineage_species_map,
+            "full_lineage_species_map": full_lineage_species_map,
+            "species_lineage_map": species_lineage_map,
+            "lineage_case_normalization_map": lineage_case_normalization_map,
+            "messages": msg,
+        }
 
 def compose_constrained_species_label(idx):
     return "ConstrainedSp{:03d}".format(idx+1)

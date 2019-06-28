@@ -53,7 +53,7 @@ def execute_species_partition_estimation(args):
     config_d = utility.parse_configuration(
             args=args,
             logger=logger)
-    utility.report_configuration(
+    configuration_report = utility.report_configuration(
             config_d=config_d,
             tree=tree,
             logger=logger,
@@ -137,14 +137,15 @@ def execute_species_partition_estimation(args):
     except ValueError:
         ln_cond_prob = float("nan")
 
-    if "configuration_file" in config_d and "constrained_lineage_species_map" in config_d["configuration_file"]:
-        preanalysis_lineage_species_name_map = dict(config_d["configuration_file"]["constrained_lineage_species_map"])
-    else:
-        preanalysis_lineage_species_name_map = {}
-        for sp_idx, species_leafset in enumerate(species_leafset_constraint_labels):
-            sp_name = utility.compose_constrained_species_label(sp_idx)
-            for lineage in species_leafset:
-                preanalysis_lineage_species_name_map[lineage] = sp_name
+    preanalysis_lineage_species_name_map = configuration_report["constrained_lineage_species_map"]
+    # if "configuration_file" in config_d and "constrained_lineage_species_map" in config_d["configuration_file"]:
+    #     preanalysis_lineage_species_name_map = dict(config_d["configuration_file"]["constrained_lineage_species_map"])
+    # else:
+    #     preanalysis_lineage_species_name_map = {}
+    #     for sp_idx, species_leafset in enumerate(species_leafset_constraint_labels):
+    #         sp_name = utility.compose_constrained_species_label(sp_idx)
+    #         for lineage in species_leafset:
+    #             preanalysis_lineage_species_name_map[lineage] = sp_name
 
     for key_idx, (key, key_as_list, prob) in enumerate(species_partition_info):
         p = collections.OrderedDict()
