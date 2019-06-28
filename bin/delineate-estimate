@@ -147,45 +147,71 @@ def execute_species_partition_estimation(args):
     #         for lineage in species_leafset:
     #             preanalysis_lineage_species_name_map[lineage] = sp_name
 
-    for key_idx, (key, key_as_list, prob) in enumerate(species_partition_info):
-        p = collections.OrderedDict()
-        p["species_leafsets"] = key_as_list
-        # try:
-        #     p["log_probability"] = math.log(prob)
-        # except ValueError:
-        #     p["log_probability"] = float("nan")
-        p["probability"] = tree.as_float(prob)
-        bpc = prob / cond_prob
-        p["probability_given_constraints"] = tree.as_float(bpc)
-        # p["log_probability_given_constraints"] = tree.as_float(lnL - ln_cond_prob)
+    treefile_path, treefile = open_output_file(
+            args=args,
+            suffix=".delimitation-results",
+            extension="trees",)
+    leaf_nodes = [nd for nd in tree.leaf_node_iter()]
+    with treefile:
+        tree.taxon_namespace.write(file=treefile, schema="nexus")
+        treefile.write("BEGIN TREES;\n")
+        for key_idx, (key, key_as_list, prob) in enumerate(species_partition_info):
+            p = collections.OrderedDict()
+            p["species_leafsets"] = key_as_list
+            # try:
+            #     p["log_probability"] = math.log(prob)
+            # except ValueError:
+            #     p["log_probability"] = float("nan")
+            p["probability"] = tree.as_float(prob)
+            bpc = prob / cond_prob
+            p["probability_given_constraints"] = tree.as_float(bpc)
+            # p["log_probability_given_constraints"] = tree.as_float(lnL - ln_cond_prob)
 
-        # need to check this before summing cumulative probability, otherwise
-        # any single partition with probability > 0.95 will incorrectly be
-        # flagged as being outside the confidence interval.
-        if cumulative_probability_given_constr <= 0.95 and bpc > 0.0:
-            p["is_in_confidence_interval"] = True
-            num_partitions_in_confidence_interval += 1
-        else:
-            p["is_in_confidence_interval"] = False
+            # need to check this before summing cumulative probability, otherwise
+            # any single partition with probability > 0.95 will incorrectly be
+            # flagged as being outside the confidence interval.
+            if cumulative_probability_given_constr <= 0.95 and bpc > 0.0:
+                p["is_in_confidence_interval"] = True
+                num_partitions_in_confidence_interval += 1
+            else:
+                p["is_in_confidence_interval"] = False
 
-        cumulative_probability += prob
-        cumulative_probability_given_constr += bpc
-        p["cumulative_probability"] = tree.as_float(cumulative_probability)
-        p["cumulative_probability_given_constraints"] = tree.as_float(cumulative_probability_given_constr)
+            cumulative_probability += prob
+            cumulative_probability_given_constr += bpc
+            p["cumulative_probability"] = tree.as_float(cumulative_probability)
+            p["cumulative_probability_given_constraints"] = tree.as_float(cumulative_probability_given_constr)
 
-        result_dict["partitions"].append(p)
+            result_dict["partitions"].append(p)
 
-        lineage_species_name_map = utility.compose_lineage_species_name_map(
-                postanalysis_species_leafset_labels=key_as_list,
-                preanalysis_lineage_species_name_map=preanalysis_lineage_species_name_map)
-        print("--")
-        print(lineage_species_name_map)
+            lineage_species_name_map = utility.compose_lineage_species_name_map(
+                    postanalysis_species_leafset_labels=key_as_list,
+                    preanalysis_lineage_species_name_map=preanalysis_lineage_species_name_map)
+            for key in (
+                    "probability",
+                    "probability_given_constraints",
+                    "is_in_confidence_interval",
+                    "cumulative_probability",
+                    "cumulative_probability_given_constraints",
+                    ):
+                tree.annotations[key] = p[key]
+            for nd in leaf_nodes:
+                nd.annotations["species"] = lineage_species_name_map[nd.taxon.label]
+            treefile.write("    Tree {} = {}".format(
+                key_idx + 1,
+                tree.as_string(
+                    schema="newick",
+                    suppress_annotations=False,
+                    )))
+            # print("--")
+            # print(lineage_species_name_map)
+        treefile.write("END TREES;\n")
 
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
     if True: # args.write_json
         out_path, outf = open_output_file(
                 args=args,
-                suffix="json")
+                suffix=".delimitation-results",
+                extension="json")
         with outf:
             if False: #args.output_format == "json-compact":
                 json.dump(result_dict, outf)
@@ -238,7 +264,8 @@ def execute_speciation_completion_rate_estimation(args):
     extra_fields = utility.parse_fieldname_and_value(args.label)
     out_path, out = open_output_file(
             args=args,
-            suffix="tsv")
+            suffix=".rate-results",
+            extension="tsv")
     with out:
         if not args.no_header_row:
             header_row = []
@@ -317,15 +344,24 @@ def add_output_options(parser, output_options=None):
     parser._output_options = output_options
     return parser
 
-def open_output_file(args, suffix):
+def open_output_file(args,
+        suffix,
+        extension,
+        ):
     if args.output_prefix == "-":
         return "<STDOUT>", sys.stdout
     else:
         if args.output_prefix is None:
-            args.output_prefix = "delineate-results"
-        outpath = "{}.{}".format(
+            args.output_prefix = utility.compose_output_prefix(
+                    input_filepath=args.config_file,
+                    default="delineate",
+                    )
+        if suffix is None:
+            suffix = ""
+        outpath = "{}{}.{}".format(
                 os.path.expanduser(os.path.expandvars(args.output_prefix)),
-                suffix)
+                suffix,
+                extension)
         return outpath, open(outpath, "w")
 # }}}1
 

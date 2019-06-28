@@ -444,6 +444,7 @@ def compose_output_prefix(input_filepath, default):
 def compose_lineage_species_name_map(
         postanalysis_species_leafset_labels,
         preanalysis_lineage_species_name_map,
+        is_validate_species_group_consistency=True,
         ):
     lnsp_map = {}
     new_sp_idx = 0
@@ -454,7 +455,8 @@ def compose_lineage_species_name_map(
         for lineage in leafset:
             try:
                 assigned_sp_id = preanalysis_lineage_species_name_map[lineage]
-                if sp_id and assigned_sp_id != sp_id:
+                if (is_validate_species_group_consistency and
+                    (sp_id is not None and assigned_sp_id != sp_id)):
                     msg = []
                     msg.append("Conflicting species identity assignment for lineages grouped into same species '{}' vs '{}':".format(
                         sp_id,
