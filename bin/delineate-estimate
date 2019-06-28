@@ -37,47 +37,53 @@ import collections
 import json
 from delineate import model
 from delineate import estimate
+from delineate import control
 from delineate import utility
 # }}}1
 
-__description__ = __doc__
+# Common Setup {{{1
+def get_controller(args, name, logger=None):
+    controller = control.Controller(
+            name="delineate-estimate",
+            logger=logger)
+    controller.read_tree(
+            tree_filepath=args.tree_file,
+            schema=args.tree_format,
+            underflow_protection=args.underflow_protection)
+    controller.parse_configuration_file(
+            config_filepath=args.config_file,
+            delimiter=None)
+    return controller
+# }}}1
 
 # Species Partition Estimation {{{1
 def execute_species_partition_estimation(args):
-    logger = utility.RunLogger(name="delineate-estimate")
-    tree = model.LineageTree.get(
-            path=args.tree_file,
-            schema=args.tree_format,
-            )
-    tree.is_use_decimal_value_type = args.underflow_protection
-    config_d = utility.parse_configuration(
-            args=args,
-            logger=logger)
-    configuration_report = utility.report_configuration(
-            config_d=config_d,
-            tree=tree,
-            logger=logger,
+    controller = get_controller(
+            name="delineate-estimate",
+            args=args)
+    configuration_report = controller.validate_configuration(
             output_file=None,
             is_fail_on_extra_tree_lineages=False,
             is_fail_on_extra_configuration_lineages=True,
             )
-    speciation_completion_rate = config_d.get("speciation_completion_rate", args.speciation_completion_rate)
-    species_leafset_constraint_labels = config_d.get(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY, None)
-    if species_leafset_constraint_labels is not None:
-        species_constraints = model._Partition.compile_lookup_key(species_leafset_constraint_labels)
+    if args.speciation_completion_rate is not None:
+        controller.speciation_completion_rate = args.speciation_completion_rate
+    speciation_completion_rate = controller.speciation_completion_rate
+    tree = controller.tree
+    if controller.has_species_constraints:
+        species_constraints = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
         tree.set_node_constraints(species_constraints)
 
     if speciation_completion_rate is None:
-        if species_leafset_constraint_labels is not None:
-            constraint_tip_labels = list(itertools.chain(*species_leafset_constraint_labels))
+        if controller.has_species_constraints:
             induced_tree = tree.extract_tree_with_taxa_labels(
-                    labels=constraint_tip_labels)
+                    labels=controller.constrained_lineage_leaf_labels)
             mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
                     tree=induced_tree,
                     species_leafset_labels=species_constraints,
-                    initial_speciation_rate=config_d.get("initial_speciation_rate", 0.01),
-                    min_speciation_rate=config_d.get("min_speciation_rate", 1e-8),
-                    max_speciation_rate=config_d.get("max_speciation_rate", 2.00))
+                    initial_speciation_rate=controller.config_d.get("initial_speciation_rate", 0.01),
+                    min_speciation_rate=controller.config_d.get("min_speciation_rate", 1e-8),
+                    max_speciation_rate=controller.config_d.get("max_speciation_rate", 2.00))
             speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
             speciation_completion_rate = speciation_completion_rate_estimate
             speciation_completion_rate_source = "estimated"
@@ -85,8 +91,8 @@ def execute_species_partition_estimation(args):
         speciation_completion_rate_source = "specified"
         speciation_completion_rate_estimate_lnl = 0.0
     if speciation_completion_rate is None:
-        logger.error("ERROR: Speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
-        logger.critical("Terminating due to error")
+        controller.logger.error("ERROR: Speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
+        controller.logger.critical("Terminating due to error")
         sys.exit(1)
     tree.speciation_completion_rate = speciation_completion_rate
 
@@ -138,8 +144,8 @@ def execute_species_partition_estimation(args):
         ln_cond_prob = float("nan")
 
     preanalysis_lineage_species_name_map = configuration_report["constrained_lineage_species_map"]
-    # if "configuration_file" in config_d and "constrained_lineage_species_map" in config_d["configuration_file"]:
-    #     preanalysis_lineage_species_name_map = dict(config_d["configuration_file"]["constrained_lineage_species_map"])
+    # if "configuration_file" in controller.config_d and "constrained_lineage_species_map" in controller.config_d["configuration_file"]:
+    #     preanalysis_lineage_species_name_map = dict(controller.config_d["configuration_file"]["constrained_lineage_species_map"])
     # else:
     #     preanalysis_lineage_species_name_map = {}
     #     for sp_idx, species_leafset in enumerate(species_leafset_constraint_labels):
@@ -222,43 +228,24 @@ def execute_species_partition_estimation(args):
                 json.dump(result_dict, outf)
             else:
                 json.dump(result_dict, outf, indent=4, separators=(',', ': '))
-            logger.info("JSON-formatted results written to: '{}'".format(out_path))
-    logger.info("Operation complete")
-    logger.info("Terminating normally")
+            controller.logger.info("JSON-formatted results written to: '{}'".format(out_path))
+    controller.logger.info("Operation complete")
+    controller.logger.info("Terminating normally")
 # }}}1
 
 # Speciation Completion Rate Parameter Estimation {{{1
 def execute_speciation_completion_rate_estimation(args):
-    logger = utility.RunLogger(name="delineate-estimate")
-    args.output_field_separator = "\t"
-    tree = model.LineageTree.get(
-            path=args.tree_file,
-            schema=args.tree_format,
-            )
-    tree.is_use_decimal_value_type = args.underflow_protection
-    config_d = utility.parse_configuration(
-            args=args,
-            logger=logger)
-    utility.report_configuration(
-            config_d=config_d,
-            tree=tree,
-            logger=logger,
-            output_file=None,
-            is_fail_on_extra_tree_lineages=False,
-            is_fail_on_extra_configuration_lineages=True,
-            )
-    if "species_leafsets" in config_d and utility.SPECIES_LEAFSET_CONSTRAINTS_KEY in config_d:
-        sys.exit("Both 'species_leafsets' and '{}' specified in configuration".format(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY))
-    elif "species_leafsets" in config_d:
-        key = "species_leafsets"
-    elif utility.SPECIES_LEAFSET_CONSTRAINTS_KEY in config_d:
-        key = utility.SPECIES_LEAFSET_CONSTRAINTS_KEY
-    else:
+    controller = get_controller(
+            name="delineate-estimate",
+            args=args)
+    tree = controller.tree
+    if not controller.has_species_constraints:
         sys.exit("Neither 'species_leafsets' nor '{}' specified in configuration".format(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY))
-    species_leafset_labels = model._Partition.compile_lookup_key( config_d[key] )
-    initial_speciation_rate = config_d.pop("initial_speciation_rate", 0.01)
-    min_speciation_rate = config_d.pop("min_speciation_rate", 1e-8)
-    max_speciation_rate = config_d.pop("max_speciation_rate", 2.00)
+    # species_constraints = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
+    species_leafset_labels = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
+    initial_speciation_rate = controller.config_d.pop("initial_speciation_rate", 0.01)
+    min_speciation_rate = controller.config_d.pop("min_speciation_rate", 1e-8)
+    max_speciation_rate = controller.config_d.pop("max_speciation_rate", 2.00)
     mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
             tree=tree,
             species_leafset_labels=species_leafset_labels,
@@ -272,6 +259,7 @@ def execute_speciation_completion_rate_estimation(args):
             suffix=".rate-results",
             extension="tsv")
     with out:
+        output_field_separator = args.output_field_separator
         if not args.no_header_row:
             header_row = []
             if args.tree_info:
@@ -283,7 +271,7 @@ def execute_speciation_completion_rate_estimation(args):
             if args.intervals:
                 header_row.append("ci_low")
                 header_row.append("ci_high")
-            out.write(args.output_field_separator.join(header_row))
+            out.write(output_field_separator.join(header_row))
             out.write("\n")
         row = []
         if args.tree_info:
@@ -300,11 +288,11 @@ def execute_speciation_completion_rate_estimation(args):
                 max_lnl=speciation_completion_rate_estimate_lnl)
             row.append("{}".format(ci_low))
             row.append("{}".format(ci_high))
-        out.write(args.output_field_separator.join(row))
+        out.write(output_field_separator.join(row))
         out.write("\n")
-        logger.info("Results written to: '{}'".format(out_path))
-    logger.info("Operation complete")
-    logger.info("Terminating normally")
+        controller.logger.info("Results written to: '{}'".format(out_path))
+    controller.logger.info("Operation complete")
+    controller.logger.info("Terminating normally")
 # }}}1
 
 # CLI Support{{{1
@@ -373,7 +361,7 @@ def open_output_file(args,
 # Main CLI {{{1
 
 def main():
-    main_parser = argparse.ArgumentParser(description=__description__)
+    main_parser = argparse.ArgumentParser(description=__doc__)
     try:
         main_parser._optionals.title = "Program Options"
     except AttributeError:
