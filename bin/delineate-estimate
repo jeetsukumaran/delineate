@@ -196,6 +196,10 @@ def execute_species_partition_estimation(args):
                 tree.annotations[key] = p[key]
             for nd in leaf_nodes:
                 nd.annotations["species"] = lineage_species_name_map[nd.taxon.label]
+                if nd.taxon.label in configuration_report["constrained_lineage_species_map"]:
+                    nd.annotations["status"] = "constrained"
+                else:
+                    nd.annotations["status"] = "inferred"
             treefile.write("    Tree {} = {}".format(
                 key_idx + 1,
                 tree.as_string(

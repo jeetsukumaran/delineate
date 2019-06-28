@@ -430,7 +430,7 @@ def report_configuration(
             "full_lineage_species_map": full_lineage_species_map,
             "species_lineage_map": species_lineage_map,
             "lineage_case_normalization_map": lineage_case_normalization_map,
-            "messages": msg,
+            # "messages": msg,
         }
 
 def compose_constrained_species_label(idx):
