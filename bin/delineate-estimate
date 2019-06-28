@@ -207,6 +207,7 @@ def execute_species_partition_estimation(args):
         treefile.write("END TREES;\n")
 
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
+    result_dict["configuration"] = configuration_report
     if True: # args.write_json
         out_path, outf = open_output_file(
                 args=args,
