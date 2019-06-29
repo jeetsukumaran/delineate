@@ -41,24 +41,9 @@ from delineate import control
 from delineate import utility
 # }}}1
 
-# Common Setup {{{1
-def get_controller(args, name, logger=None):
-    controller = control.Controller(
-            name="delineate-estimate",
-            logger=logger)
-    controller.read_tree(
-            tree_filepath=args.tree_file,
-            schema=args.tree_format,
-            underflow_protection=args.underflow_protection)
-    controller.parse_configuration_file(
-            config_filepath=args.config_file,
-            delimiter=None)
-    return controller
-# }}}1
-
 # Species Partition Estimation {{{1
 def execute_species_partition_estimation(args):
-    controller = get_controller(
+    controller = control.get_controller(
             name="delineate-estimate",
             args=args)
     controller.register_names()
@@ -236,7 +221,7 @@ def execute_species_partition_estimation(args):
 
 # Speciation Completion Rate Parameter Estimation {{{1
 def execute_speciation_completion_rate_estimation(args):
-    controller = get_controller(
+    controller = control.get_controller(
             name="delineate-estimate",
             args=args)
     tree = controller.tree

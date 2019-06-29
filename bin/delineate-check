@@ -7,6 +7,7 @@ import json
 import argparse
 from delineate import utility
 from delineate import model
+from delineate import control
 
 """
 Generate normalized JSON/delimited format configuration file from a JSON/delimited data file.
@@ -22,6 +23,7 @@ def main():
     parser = argparse.ArgumentParser(description=__description__)
     parser.add_argument("-c", "--config-file",
             action="store",
+            required=True,
             help="Path to configuration file; can be JSON for columnar tab/comma-delimited file.")
     parser.add_argument("-d", "--config-file-delimiter",
             action="store",
@@ -30,6 +32,7 @@ def main():
             help="[Assuming non-JSON columnar file] configuration data delimiting character.")
     parser.add_argument("-t", "--tree_file",
             default=None,
+            required=True,
             help="Path to tree file (optional; for validation)")
     parser.add_argument("-f", "--tree-format",
             dest="tree_format",
@@ -45,13 +48,20 @@ def main():
             action="store",
             default=None,
             help="Prefix for configuration output files; if provided normalized configuration will be written here.")
-    parser.add_argument("--ignore-extra-tree-lineages",
+    parser.add_argument("--case-sensitive-labels",
+            dest="is_case_sensitive",
             action="store_true",
             default=False,
+            help="Labels will be treated case-sensitively.")
+    parser.add_argument("--ignore-extra-tree-lineages",
+            dest="is_fail_on_extra_tree_lineages",
+            action="store_false",
+            default=True,
             help="Do not complain if not all tree lineages are specified in the configuration file.")
     parser.add_argument("--ignore-extra-configuration-lineages",
-            action="store_true",
-            default=False,
+            dest="is_fail_on_extra_configuration_lineages",
+            action="store_false",
+            default=True,
             help="Do not complain if not all configuration lineages are found on the tree.")
     args = parser.parse_args()
     if not args.config_file:
@@ -62,18 +72,21 @@ def main():
             or args.delimiter == '\t'
             ):
         args.delimiter = "\t"
-    logger = utility.RunLogger(name="delineate-configure",
-            is_include_name=True,
-            is_include_timestamp=False,
-            log_to_stderr=True,
-            stderr_logging_level=utility.logging.INFO,
-            log_to_file=False,
-            file_logging_level=utility.logging.INFO,
-            )
-    config_d = utility.parse_configuration(
+    controller = control.get_controller(
             args=args,
-            delimiter=args.delimiter,
-            logger=logger)
+            name="delineate-check")
+    # logger = utility.RunLogger(name="delineate-configure",
+    #         is_include_name=True,
+    #         is_include_timestamp=False,
+    #         log_to_stderr=True,
+    #         stderr_logging_level=utility.logging.INFO,
+    #         log_to_file=False,
+    #         file_logging_level=utility.logging.INFO,
+    #         )
+    # config_d = utility.parse_configuration(
+    #         args=args,
+    #         delimiter=args.delimiter,
+    #         logger=logger)
     if args.output_format == "json":
         suffix = ".json"
         output_format = "json"
@@ -109,15 +122,10 @@ def main():
             out_name = args.output_prefix + suffix
             out = open(out_name, "w")
     with out:
-        utility.report_configuration(
-                config_d,
-                tree=tree,
-                logger=logger,
+        controller.xvalidate_configuration(
                 output_file=out,
                 output_format = output_format,
                 output_delimiter="\t",
-                is_fail_on_extra_tree_lineages=not args.ignore_extra_tree_lineages,
-                is_fail_on_extra_configuration_lineages=not args.ignore_extra_configuration_lineages,
                 )
     if out_name:
         logger.info("DELINEATE configuration data written to: '{}'".format(out_name))
