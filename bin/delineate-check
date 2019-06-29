@@ -75,6 +75,8 @@ def main():
     controller = control.get_controller(
             args=args,
             name="delineate-check")
+    controller.register_names()
+    sys.exit(0)
     # logger = utility.RunLogger(name="delineate-configure",
     #         is_include_name=True,
     #         is_include_timestamp=False,

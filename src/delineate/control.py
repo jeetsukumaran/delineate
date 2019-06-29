@@ -37,10 +37,12 @@ def get_controller(args, name, logger=None):
 
 class Registry(object):
 
-    def __init__(self, is_case_sensitive):
+    def __init__(self, **kwargs):
         self.tree_lineages = None
         self.config_file_lineages = None
-        self.is_case_sensitive = is_case_sensitive
+        self.is_case_sensitive = kwargs.pop("is_case_sensitive", False)
+        self.is_fail_on_extra_tree_lineages = kwargs.pop("is_fail_on_extra_tree_lineages", True)
+        self.is_fail_on_extra_configuration_lineages = kwargs.pop("is_fail_on_extra_configuration_lineages", True)
         if self.is_case_sensitive:
             self.normalized_lineage_names = {}
             self.normalized_config_lineage_names = {}
@@ -57,6 +59,45 @@ class Registry(object):
             self.normalized_lineage_names[lineage] = lineage
         for lineage in self.config_file_lineages:
             self.normalized_config_lineage_names[lineage] = lineage
+
+    def validate_lineage_names(self, logger):
+        for lineage in self.config_file_lineages:
+            if lineage not in self.normalized_lineage_names:
+                self.extra_configuration_lineages.append(lineage)
+        for lineage in self.tree_lineages:
+            if lineage not in self.normalized_config_lineage_names:
+                self.extra_tree_lineages.append(lineage)
+
+        if self.extra_tree_lineages:
+            s1_error_msg = ["{}: {} lineages found on tree but not in configuration data:".format(
+                "ERROR" if self.is_fail_on_extra_tree_lineages else "NOTE",
+                len(self.extra_tree_lineages))]
+            for lidx, label in enumerate(sorted(self.extra_tree_lineages, key=lambda x: x.lower())):
+                s1_error_msg.append("    [{: 3d}/{:<3d}] {}".format(lidx+1, len(self.extra_tree_lineages), label))
+            s1_error_msg = "\n".join(s1_error_msg)
+        else:
+            s1_error_msg = ""
+
+        if self.extra_configuration_lineages:
+            s2_error_msg = ["{}: {} lineages found in configuration data but not on tree:".format(
+                "ERROR" if self.is_fail_on_extra_configuration_lineages else "NOTE",
+                len(self.extra_configuration_lineages))]
+            for lidx, label in enumerate(sorted(self.extra_configuration_lineages, key=lambda x: x.lower())):
+                s2_error_msg.append("    [{: 3d}/{:<3d}] {}".format(lidx+1, len(self.extra_configuration_lineages), label))
+            s2_error_msg = "\n".join(s2_error_msg)
+        else:
+            s2_error_msg = ""
+
+        is_fail = False
+        if self.extra_tree_lineages and self.is_fail_on_extra_tree_lineages:
+            logger.error(s1_error_msg)
+            is_fail = True
+        if self.extra_configuration_lineages and self.is_fail_on_extra_configuration_lineages:
+            logger.error(s2_error_msg)
+            is_fail = True
+        if is_fail:
+            logger.error("Terminating due to lineage identity conflict error")
+            sys.exit(1)
 
     def compose_report(self):
         msg = []
@@ -84,7 +125,11 @@ class Controller(object):
         self._speciation_completion_rate = None
         self._species_leafset_constraint_labels = None
         self._constrained_lineage_leaf_labels = None
-        self.registry = Registry(is_case_sensitive=self.is_case_sensitive)
+        self.registry = Registry(
+                is_case_sensitive=self.is_case_sensitive,
+                is_fail_on_extra_tree_lineages=self.is_fail_on_extra_tree_lineages,
+                is_fail_on_extra_configuration_lineages=self.is_fail_on_extra_configuration_lineages,
+                )
         self.config_d = {}
         self.tree = None
 
@@ -260,44 +305,7 @@ class Controller(object):
         if not self.registry.config_file_lineages:
             return
         self.registry.normalize_lineage_names()
-
-        for lineage in self.registry.config_file_lineages:
-            if lineage not in self.registry.normalized_lineage_names:
-                self.registry.extra_configuration_lineages.append(lineage)
-        for lineage in self.registry.tree_lineages:
-            if lineage not in self.registry.normalized_config_lineage_names:
-                self.registry.extra_tree_lineages.append(lineage)
-
-        if self.registry.extra_tree_lineages:
-            s1_error_msg = ["{}: {} lineages found on tree but not in configuration data:".format(
-                "ERROR" if self.is_fail_on_extra_tree_lineages else "NOTE",
-                len(self.registry.extra_tree_lineages))]
-            for lidx, label in enumerate(sorted(self.registry.extra_tree_lineages, key=lambda x: x.lower())):
-                s1_error_msg.append("    [{: 3d}/{:<3d}] {}".format(lidx+1, len(self.registry.extra_tree_lineages), label))
-            s1_error_msg = "\n".join(s1_error_msg)
-        else:
-            s1_error_msg = ""
-
-        if self.registry.extra_configuration_lineages:
-            s2_error_msg = ["{}: {} lineages found in configuration data but not on tree:".format(
-                "ERROR" if self.is_fail_on_extra_configuration_lineages else "NOTE",
-                len(self.registry.extra_configuration_lineages))]
-            for lidx, label in enumerate(sorted(self.registry.extra_configuration_lineages, key=lambda x: x.lower())):
-                s2_error_msg.append("    [{: 3d}/{:<3d}] {}".format(lidx+1, len(self.registry.extra_configuration_lineages), label))
-            s2_error_msg = "\n".join(s2_error_msg)
-        else:
-            s2_error_msg = ""
-
-        is_fail = False
-        if self.registry.extra_tree_lineages and self.is_fail_on_extra_tree_lineages:
-            self.logger.error(s1_error_msg)
-            is_fail = True
-        if self.registry.extra_configuration_lineages and self.is_fail_on_extra_configuration_lineages:
-            self.logger.error(s2_error_msg)
-            is_fail = True
-        if is_fail:
-            self.logger.error("Exiting due to lineage identity mismatch error")
-            sys.exit(1)
+        self.registry.validate_lineage_names(self.logger)
 
     def xvalidate_configuration(
             self,
