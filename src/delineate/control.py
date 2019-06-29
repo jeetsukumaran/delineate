@@ -3,6 +3,8 @@
 
 import itertools
 import csv
+import json
+import sys
 from delineate import model
 from delineate import utility
 from dendropy.utility.container import OrderedCaselessDict
@@ -17,24 +19,62 @@ CONFIGURATION_REQUIRED_FIELDS = [
         STATUS_FIELDNAME,
     ]
 
+class Registry(object):
+
+    def __init__(self, is_normalize_case):
+        self.tree_lineages = None
+        self.config_file_lineages = None
+        self.is_normalize_case = is_normalize_case
+        if self.is_normalize_case:
+            self.normalized_lineage_names = OrderedCaselessDict()
+            self.normalized_config_lineage_names = OrderedCaselessDict()
+        else:
+            self.normalized_lineage_names = {}
+            self.normalized_config_lineage_names = {}
+        self.extra_tree_lineages = []
+        self.extra_configuration_lineages = []
+
+    def normalize_lineage_names(self):
+        tree_lineage_set = set(self.tree_lineages)
+        # tree lineages give the canonical orthography
+        for lineage in self.tree_lineages:
+            self.normalized_lineage_names[lineage] = lineage
+        for lineage in self.config_file_lineages:
+            self.normalized_config_lineage_names[lineage] = lineage
+
+    def compose_report(self):
+        msg = []
+        msg.append("{} terminal lineages on population tree".format(len(self.tree_lineages)))
+        msg.append("{} lineages described in configuration file".format(len(self.config_file_lineages)))
+
+
+
+
+
 class Controller(object):
 
     def __init__(self,
             name,
+            is_normalize_case=True,
+            is_fail_on_extra_tree_lineages=False,
+            is_fail_on_extra_configuration_lineages=True,
             logger=None,
             logger_kwargs=None):
         self.name = name
+        self.is_normalize_case = is_normalize_case
+        self.is_fail_on_extra_tree_lineages = is_fail_on_extra_tree_lineages
+        self.is_fail_on_extra_configuration_lineages = is_fail_on_extra_configuration_lineages
         self._logger = logger
-        self.config_d = {}
-        self.tree = None
-        self._speciation_completion_rate = None
-        self._species_leafset_constraint_labels = None
-        self._constrained_lineage_leaf_labels = None
         if logger_kwargs:
             self._logger_kwargs = dict(logger_kwargs)
         else:
             self._logger_kwargs = {}
-        pass
+        self._speciation_completion_rate = None
+        self._species_leafset_constraint_labels = None
+        self._constrained_lineage_leaf_labels = None
+        self.registry = Registry(is_normalize_case=self.is_normalize_case)
+        self.config_d = {}
+        self.tree = None
 
     @property
     def logger(self):
@@ -193,7 +233,61 @@ class Controller(object):
         self.config_d["configuration_file"]["species_lineage_map"] = species_lineage_map
         return self.config_d
 
-    def validate_configuration(
+    def register_names(self):
+        self.register_lineage_names()
+
+    def register_lineage_names(self):
+        if self.tree is None:
+            raise ValueError("'tree' not set")
+        self.registry.tree_lineages = [t.label for t in self.tree.taxon_namespace]
+        if "configuration_file" in self.config_d and "lineages" in self.config_d["configuration_file"]:
+            self.registry.config_file_lineages = list(self.config_d["configuration_file"]["lineages"])
+        else:
+            self.registry.config_file_lineages = list(self.tree_lineages)
+            # self.registry.config_file_lineages = []
+        if not self.registry.config_file_lineages:
+            return
+        self.registry.normalize_lineage_names()
+
+        for lineage in self.registry.config_file_lineages:
+            if lineage not in self.registry.normalized_lineage_names:
+                self.registry.extra_configuration_lineages.append(lineage)
+        for lineage in self.registry.tree_lineages:
+            if lineage not in self.registry.normalized_config_lineage_names:
+                self.registry.extra_tree_lineages.append(lineage)
+
+        if self.registry.extra_tree_lineages:
+            s1_error_msg = ["{}: {} lineages found on tree but not in configuration data:".format(
+                "ERROR" if self.is_fail_on_extra_tree_lineages else "NOTE",
+                len(self.registry.extra_tree_lineages))]
+            for lidx, label in enumerate(sorted(self.registry.extra_tree_lineages, key=lambda x: x.lower())):
+                s1_error_msg.append("    [{: 3d}/{:<3d}] {}".format(lidx+1, len(self.registry.extra_tree_lineages), label))
+            s1_error_msg = "\n".join(s1_error_msg)
+        else:
+            s1_error_msg = ""
+
+        if self.registry.extra_configuration_lineages:
+            s2_error_msg = ["{}: {} lineages found in configuration data but not on tree:".format(
+                "ERROR" if self.is_fail_on_extra_configuration_lineages else "NOTE",
+                len(self.registry.extra_configuration_lineages))]
+            for lidx, label in enumerate(sorted(self.registry.extra_configuration_lineages, key=lambda x: x.lower())):
+                s2_error_msg.append("    [{: 3d}/{:<3d}] {}".format(lidx+1, len(self.registry.extra_configuration_lineages), label))
+            s2_error_msg = "\n".join(s2_error_msg)
+        else:
+            s2_error_msg = ""
+
+        is_fail = False
+        if self.registry.extra_tree_lineages and self.is_fail_on_extra_tree_lineages:
+            self.logger.error(s1_error_msg)
+            is_fail = True
+        if self.registry.extra_configuration_lineages and self.is_fail_on_extra_configuration_lineages:
+            self.logger.error(s2_error_msg)
+            is_fail = True
+        if is_fail:
+            self.logger.error("Exiting due to lineage identity mismatch error")
+            sys.exit(1)
+
+    def xvalidate_configuration(
             self,
             output_file=None,
             output_format="json",
@@ -203,9 +297,6 @@ class Controller(object):
             is_fail_on_extra_tree_lineages=False,
             is_fail_on_extra_configuration_lineages=True,
             ):
-
-        ### VALIDATION and NORMALIZATION
-
         msg = []
         self.tree_lineages = None
         config_lineages = None
