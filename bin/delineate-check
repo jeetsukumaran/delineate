@@ -74,7 +74,13 @@ def main():
         args.delimiter = "\t"
     controller = control.get_controller(
             args=args,
-            name="delineate-check")
+            name="delineate-check",
+            logger_kwargs={
+                "is_include_name": True,
+                "is_include_timestamp": False,
+                "log_to_stderr": True,
+                "log_to_file": False,
+                })
     controller.register_names()
     sys.exit(0)
     # logger = utility.RunLogger(name="delineate-configure",
