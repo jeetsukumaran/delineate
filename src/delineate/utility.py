@@ -107,6 +107,11 @@ def parse_fieldname_and_value(labels):
         fieldname_value_map[fieldname] = value
     return fieldname_value_map
 
+def error_exit(msg, logger):
+    logger.error("ERROR: {}".format(msg))
+    logger.critical("Terminating due to error")
+    sys.exit(1)
+
 def compose_constrained_species_label(idx):
     return "ConstrainedSp{:03d}".format(idx+1)
 
@@ -179,7 +184,10 @@ def compose_table_rows(
             ml = max(ml, len(value))
         if is_quoted:
             ml += 2
-        field_templates.append("{{:{}}}".format(ml))
+        if ml > 0:
+            field_templates.append("{{:{}}}".format(ml))
+        else:
+            field_templates.append("")
         # field_templates.append("{:10}")
     for row_idx in range(len(columns[0])):
         row = []

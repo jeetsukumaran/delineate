@@ -107,11 +107,13 @@ class Registry(object):
             try:
                 normalized_lineage_name = self.original_to_normalized_lineage_name_map[lineage_name]
             except KeyError:
-                self.logger.error("ERROR: Lineage '{}' not defined.".format(lineage_name))
-                sys.exit(1)
+                utility.error_exit(
+                        msg="Lineage '{}' not defined (missing on tree?)".format(lineage_name),
+                        logger=self.logger)
             if normalized_lineage_name in self.preanalysis_constrained_lineage_species_map:
-                self.logger.error("ERROR: Duplicate lineage species assignment: '{}'".format(normalized_lineage_name))
-                sys.exit(1)
+                utility.error_exit(
+                        msg="Duplicate lineage species assignment: '{}'".format(normalized_lineage_name),
+                        logger=self.logger)
             self.preanalysis_constrained_lineage_species_map[normalized_lineage_name] = self.normalized_species_names[species_name]
 
     def normalization_report(self):
@@ -177,8 +179,9 @@ class Registry(object):
         else:
             self.logger.warning(s2_error_msg)
         if is_fail:
-            self.logger.error("Terminating due to lineage identity conflict error ({})".format(", ".join(is_fail)))
-            sys.exit(1)
+            utility.error_exit(
+                msg="Lineage identity errors found ({})".format(", ".join(is_fail)),
+                logger=self.logger)
 
     def compose_name_list(self, names):
         s = utility.compose_table(
@@ -337,8 +340,9 @@ class Controller(object):
         self.logger.info("\n".join(msg))
         for required_field in CONFIGURATION_REQUIRED_FIELDS:
             if required_field not in fieldname_set:
-                self.logger.error("ERROR: Required field '{}' not found in configuration source".format(required_field))
-                sys.exit(1)
+                utility.error_exit(
+                        msg="Required field '{}' not found in configuration source".format(required_field),
+                        logger=logger)
         species_lineage_map = {}
         lineage_species_map = {}
         known = []
@@ -356,7 +360,9 @@ class Controller(object):
                 lineage_species_map[entry[LINEAGE_ID_FIELDNAME]] = entry[SPECIES_ID_FIELDNAME]
                 pass
             else:
-                sys.exit("Unrecognized status: '{}'".format(entry[STATUS_FIELDNAME]))
+                utility.error_exit(
+                        msg="Unrecognized status: '{}'".format(entry[STATUS_FIELDNAME]),
+                        logger=self.logger)
         # self.logger.info("{} lineages in total".format(len(known) + len(unknown)))
         # msg = []
         # msg.append("{} species defined in total".format(len(species_lineage_map)))
@@ -410,6 +416,7 @@ class Controller(object):
                     self.config_d["configuration_file"]["constrained_lineages"],
                     )
         elif SPECIES_LEAFSET_CONSTRAINTS_KEY in self.config_d:
+            raise NotImplementedError
             species_leafsets = self.config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
             if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
                 for spi, sp in enumerate(species_leafsets):
@@ -430,67 +437,66 @@ class Controller(object):
                         constrained_lineage_species_map[normalized_lineage_name] = sp_label
                         lineages.append(normalized_lineage_name)
                     species_lineage_map[sp_label] = lineages
+        # if species_lineage_map:
+        #     spp_list = []
+        #     species_names = species_lineage_map.keys()
+        #     max_spp_name_length = max(len(sp) for sp in species_names)
+        #     sp_name_template = "{{:{}}}".format(max_spp_name_length + 2)
+        #     spp_list.append("{} species defined in configuration file:".format(
+        #         len(species_lineage_map)))
+        #     for sidx, spp in enumerate(sorted(species_names)):
+        #         if len(species_lineage_map[spp]) > 1:
+        #             descriptor = "lineages"
+        #         else:
+        #             descriptor = "lineage"
+        #         spp_list.append("    [{: 3d}/{:<3d}] SPECIES: {} ({} {})".format(
+        #                 sidx+1,
+        #                 len(species_lineage_map),
+        #                 sp_name_template.format("'"+spp+"'"),
+        #                 len(species_lineage_map[spp]),
+        #                 descriptor))
 
-        if species_lineage_map:
-            spp_list = []
-            species_names = species_lineage_map.keys()
-            max_spp_name_length = max(len(sp) for sp in species_names)
-            sp_name_template = "{{:{}}}".format(max_spp_name_length + 2)
-            spp_list.append("{} species defined in configuration file:".format(
-                len(species_lineage_map)))
-            for sidx, spp in enumerate(sorted(species_names)):
-                if len(species_lineage_map[spp]) > 1:
-                    descriptor = "lineages"
-                else:
-                    descriptor = "lineage"
-                spp_list.append("    [{: 3d}/{:<3d}] SPECIES: {} ({} {})".format(
-                        sidx+1,
-                        len(species_lineage_map),
-                        sp_name_template.format("'"+spp+"'"),
-                        len(species_lineage_map[spp]),
-                        descriptor))
+        # constrained_lineage_list =[]
+        # constrained_lineage_list.append("{} lineages with known species affinities:".format(
+        #     len(constrained_lineage_species_map),
+        #     # len(species_lineage_map)),
+        #     ))
+        # max_lineage_name_length = max(len(ln) for ln in all_lineages)
+        # lineage_name_template = "{{:{}}}".format(max_lineage_name_length + 2)
+        # lidx = 0
+        # for lineage in all_lineages:
+        #     if lineage in constrained_lineage_species_map:
+        #         lidx += 1
+        #         constrained_lineage_list.append("    [{: 3d}/{:<3d}] LINEAGE {} (SPECIES: '{}')".format(
+        #             lidx,
+        #             len(all_lineages) - len(constrained_lineage_species_map),
+        #             lineage_name_template.format("'"+lineage+"'"),
+        #             constrained_lineage_species_map[lineage]
+        #             ))
 
-        constrained_lineage_list =[]
-        constrained_lineage_list.append("{} lineages with known species affinities:".format(
-            len(constrained_lineage_species_map),
-            # len(species_lineage_map)),
-            ))
-        max_lineage_name_length = max(len(ln) for ln in all_lineages)
-        lineage_name_template = "{{:{}}}".format(max_lineage_name_length + 2)
-        lidx = 0
-        for lineage in all_lineages:
-            if lineage in constrained_lineage_species_map:
-                lidx += 1
-                constrained_lineage_list.append("    [{: 3d}/{:<3d}] LINEAGE {} (SPECIES: '{}')".format(
-                    lidx,
-                    len(all_lineages) - len(constrained_lineage_species_map),
-                    lineage_name_template.format("'"+lineage+"'"),
-                    constrained_lineage_species_map[lineage]
-                    ))
-
-        unconstrained_lineage_list =[]
-        unconstrained_lineage_list.append("{} lineages of unknown species affinities:".format(
-            len(all_lineages) - len(constrained_lineage_species_map)))
-        lidx = 0
-        for lineage in all_lineages:
-            if lineage not in constrained_lineage_species_map:
-                lidx += 1
-                unconstrained_lineage_list.append("    [{: 3d}/{:<3d}] LINEAGE '{}'".format(
-                    lidx,
-                    len(all_lineages) - len(constrained_lineage_species_map),
-                    lineage))
-        # for lineage_name in lineage_case_normalization_map:
-        #     if lineage_name not in constrained_lineage_species_map:
-        #         normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, None)
-        #         if normalized_lineage_name in constrained_lineage_species_map:
-        #             constrained_lineage_species_map[lineage_name] = constrained_lineage_species_map[normalized_lineage_name]
-        return {
-                "constrained_lineage_species_map": constrained_lineage_species_map,
-                "full_lineage_species_map": full_lineage_species_map,
-                "species_lineage_map": species_lineage_map,
-                "lineage_case_normalization_map": lineage_case_normalization_map,
-                # "messages": msg,
-            }
+        # unconstrained_lineage_list =[]
+        # unconstrained_lineage_list.append("{} lineages of unknown species affinities:".format(
+        #     len(all_lineages) - len(constrained_lineage_species_map)))
+        # lidx = 0
+        # for lineage in all_lineages:
+        #     if lineage not in constrained_lineage_species_map:
+        #         lidx += 1
+        #         unconstrained_lineage_list.append("    [{: 3d}/{:<3d}] LINEAGE '{}'".format(
+        #             lidx,
+        #             len(all_lineages) - len(constrained_lineage_species_map),
+        #             lineage))
+        # # for lineage_name in lineage_case_normalization_map:
+        # #     if lineage_name not in constrained_lineage_species_map:
+        # #         normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, None)
+        # #         if normalized_lineage_name in constrained_lineage_species_map:
+        # #             constrained_lineage_species_map[lineage_name] = constrained_lineage_species_map[normalized_lineage_name]
+        # return {
+        #         "constrained_lineage_species_map": constrained_lineage_species_map,
+        #         "full_lineage_species_map": full_lineage_species_map,
+        #         "species_lineage_map": species_lineage_map,
+        #         "lineage_case_normalization_map": lineage_case_normalization_map,
+        #         # "messages": msg,
+        #     }
 
     def xvalidate_configuration(
             self,
