@@ -48,6 +48,7 @@ class Registry(object):
         self.is_case_sensitive = kwargs.pop("is_case_sensitive", False)
         self.is_fail_on_extra_tree_lineages = kwargs.pop("is_fail_on_extra_tree_lineages", True)
         self.is_fail_on_extra_configuration_lineages = kwargs.pop("is_fail_on_extra_configuration_lineages", True)
+        self.logger = kwargs.pop("logger")
         self.original_to_normalized_lineage_name_map = {}
         self.config_name_normalization_report = {}
         if self.is_case_sensitive:
@@ -82,8 +83,35 @@ class Registry(object):
                 # has a taxon that is not on the tree. But we handle this issue
                 # later so a full report can be shown
                 self.config_name_normalization_report[lineage] = "(NOT FOUND ON TREE)"
+        self.normalization_report()
 
-    def validate_lineage_names(self, logger):
+    def normalization_report(self):
+        treetbl = utility.compose_table(
+                columns=[self.tree_lineage_names,
+                    ["(NOT FOUND IN CONFIGURATION)" if lineage not in self.normalized_config_lineage_names else "" for lineage in self.tree_lineage_names],
+                    ],
+                prefixes=["", ""],
+                quoted=[True, False],
+                is_indexed=True,
+                indent="    ")
+        self.logger.info("{} lineages found on population tree:\n{}".format(
+            len(self.tree_lineage_names),
+            treetbl,
+            ))
+        cfntbl = utility.compose_table(
+                columns=[self.config_lineage_names,
+                    [self.config_name_normalization_report[n] for n in self.config_lineage_names]
+                    ],
+                prefixes=["", ""],
+                quoted=[True, False],
+                is_indexed=True,
+                indent="    ")
+        self.logger.info("{} lineages found in configuration file:\n{}".format(
+            len(self.config_lineage_names),
+            cfntbl,
+            ))
+
+    def validate_lineage_names(self):
         for lineage in self.config_lineage_names:
             if lineage not in self.normalized_tree_lineage_names:
                 self.extra_configuration_lineages.append(lineage)
@@ -92,7 +120,7 @@ class Registry(object):
                 self.extra_tree_lineage_names.append(lineage)
         if self.extra_tree_lineage_names:
             s1_error_msg = ["{}: {} lineages found on tree but not in configuration data:".format(
-                "ERROR" if self.is_fail_on_extra_tree_lineages else "NOTE",
+                "ERROR" if self.is_fail_on_extra_tree_lineages else "WARNING",
                 len(self.extra_tree_lineage_names))]
             s1_error_msg.append(self.compose_name_list(self.extra_tree_lineage_names))
             s1_error_msg = "\n".join(s1_error_msg)
@@ -101,7 +129,7 @@ class Registry(object):
 
         if self.extra_configuration_lineages:
             s2_error_msg = ["{}: {} lineages found in configuration data but not on tree:".format(
-                "ERROR" if self.is_fail_on_extra_configuration_lineages else "NOTE",
+                "ERROR" if self.is_fail_on_extra_configuration_lineages else "WARNING",
                 len(self.extra_configuration_lineages))]
             s2_error_msg.append(self.compose_name_list(self.extra_configuration_lineages))
             s2_error_msg = "\n".join(s2_error_msg)
@@ -110,13 +138,17 @@ class Registry(object):
 
         is_fail = []
         if self.extra_tree_lineage_names and self.is_fail_on_extra_tree_lineages:
-            logger.error(s1_error_msg)
+            self.logger.error(s1_error_msg)
             is_fail.append("1")
+        else:
+            self.logger.warning(s1_error_msg)
         if self.extra_configuration_lineages and self.is_fail_on_extra_configuration_lineages:
-            logger.error(s2_error_msg)
+            self.logger.error(s2_error_msg)
             is_fail.append("2")
+        else:
+            self.logger.warning(s2_error_msg)
         if is_fail:
-            logger.error("Terminating due to lineage identity conflict error ({})".format(", ".join(is_fail)))
+            self.logger.error("Terminating due to lineage identity conflict error ({})".format(", ".join(is_fail)))
             sys.exit(1)
 
     def compose_name_list(self, names):
@@ -158,6 +190,7 @@ class Controller(object):
                 is_case_sensitive=self.is_case_sensitive,
                 is_fail_on_extra_tree_lineages=self.is_fail_on_extra_tree_lineages,
                 is_fail_on_extra_configuration_lineages=self.is_fail_on_extra_configuration_lineages,
+                logger=self.logger,
                 )
         self.config_d = {}
         self.tree = None
@@ -335,31 +368,7 @@ class Controller(object):
         if not self.registry.config_lineage_names:
             return
         self.registry.normalize_lineage_names()
-        treetbl = utility.compose_table(
-                columns=[self.registry.tree_lineage_names,
-                    ["(NOT FOUND IN CONFIGURATION)" if lineage not in self.registry.normalized_config_lineage_names else "" for lineage in self.registry.tree_lineage_names],
-                    ],
-                prefixes=["", ""],
-                quoted=[True, False],
-                is_indexed=True,
-                indent="    ")
-        self.logger.info("{} lineages found on population tree:\n{}".format(
-            len(self.registry.tree_lineage_names),
-            treetbl,
-            ))
-        cfntbl = utility.compose_table(
-                columns=[self.registry.config_lineage_names,
-                    [self.registry.config_name_normalization_report[n] for n in self.registry.config_lineage_names]
-                    ],
-                prefixes=["", ""],
-                quoted=[True, False],
-                is_indexed=True,
-                indent="    ")
-        self.logger.info("{} lineages found in configuration file:\n{}".format(
-            len(self.registry.config_lineage_names),
-            cfntbl,
-            ))
-        self.registry.validate_lineage_names(self.logger)
+        self.registry.validate_lineage_names()
 
     def register_preanalysis_species_names(self):
         pass
