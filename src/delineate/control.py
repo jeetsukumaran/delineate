@@ -171,12 +171,12 @@ class Registry(object):
         if self.extra_tree_lineage_names and self.is_fail_on_extra_tree_lineages:
             self.logger.error(s1_error_msg)
             is_fail.append("1")
-        else:
+        elif s1_error_msg:
             self.logger.warning(s1_error_msg)
         if self.extra_configuration_lineages and self.is_fail_on_extra_configuration_lineages:
             self.logger.error(s2_error_msg)
             is_fail.append("2")
-        else:
+        elif s2_error_msg:
             self.logger.warning(s2_error_msg)
         if is_fail:
             utility.error_exit(
@@ -333,11 +333,6 @@ class Controller(object):
                 quoting=csv.QUOTE_NONE,
                 )
         fieldname_set = set(src_data.fieldnames)
-        msg = []
-        # msg.append(("{} fields found in configuration source:".format(len(src_data.fieldnames))))
-        # for idx, fn in enumerate(src_data.fieldnames):
-        #     msg.append("    [{}/{}] '{}'".format(idx+1, len(src_data.fieldnames), fn))
-        self.logger.info("\n".join(msg))
         for required_field in CONFIGURATION_REQUIRED_FIELDS:
             if required_field not in fieldname_set:
                 utility.error_exit(
@@ -363,15 +358,6 @@ class Controller(object):
                 utility.error_exit(
                         msg="Unrecognized status: '{}'".format(entry[STATUS_FIELDNAME]),
                         logger=self.logger)
-        # self.logger.info("{} lineages in total".format(len(known) + len(unknown)))
-        # msg = []
-        # msg.append("{} species defined in total".format(len(species_lineage_map)))
-        # for spidx, sp in enumerate(species_lineage_map):
-        #     msg.append("    [{}/{}] '{}'".format(spidx+1, len(species_lineage_map), sp))
-        # msg = "\n".join(msg)
-        # self.logger.info(msg)
-        # self.logger.info("{} lineages assigned to {} species".format(len(known), len(species_lineage_map)))
-        # self.logger.info("{} lineages of unknown species affinities".format(len(unknown)))
         species_leafset_constraints = []
         for key in species_lineage_map:
             species_leafset_constraints.append(species_lineage_map[key])
