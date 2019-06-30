@@ -161,3 +161,41 @@ def compose_lineage_species_name_map(
             lnsp_map[lineage] = sp_id
     return lnsp_map
 
+def compose_table(**kwargs):
+    return "\n".join(compose_table_rows(**kwargs))
+
+def compose_table_rows(
+        columns,
+        prefixes,
+        quoted,
+        is_indexed=True,
+        indent="",
+        ):
+    s = []
+    field_templates = []
+    for column, is_quoted in zip(columns, quoted):
+        ml = 0
+        for value in column:
+            ml = max(ml, len(value))
+        if is_quoted:
+            ml += 2
+        field_templates.append("{{:{}}}".format(ml))
+        # field_templates.append("{:10}")
+    for row_idx in range(len(columns[0])):
+        row = []
+        if indent:
+            row.append(indent)
+        if is_indexed:
+            row.append("[{: 3d}/{:<3d}]".format(row_idx+1, len(columns[0])))
+        for column, prefix, field_template, is_quoted in zip(columns, prefixes, field_templates, quoted):
+            if prefix:
+                row.append(prefix)
+            if is_quoted:
+                field_text = "'{}'".format(column[row_idx])
+            else:
+                field_text = column[row_idx]
+            row.append(" ")
+            row.append(field_template.format(field_text))
+        s.append("".join(row))
+    return s
+

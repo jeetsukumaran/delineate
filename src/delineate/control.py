@@ -81,7 +81,7 @@ class Registry(object):
                 # This is a serious error: it means that the configuration file
                 # has a taxon that is not on the tree. But we handle this issue
                 # later so a full report can be shown
-                self.config_name_normalization_report[lineage] = "(INVALID NAME)"
+                self.config_name_normalization_report[lineage] = "(NOT FOUND ON TREE)"
 
     def validate_lineage_names(self, logger):
         for lineage in self.config_lineage_names:
@@ -120,50 +120,12 @@ class Registry(object):
             sys.exit(1)
 
     def compose_name_list(self, names):
-        s = self.compose_table(
+        s = utility.compose_table(
                 columns=[names],
                 prefixes=[""],
                 quoted=[True],
                 is_indexed=True,
                 indent="    ")
-        return s
-
-    def compose_table(self, **kwargs):
-        return "\n".join(self.compose_table_rows(**kwargs))
-
-    def compose_table_rows(self,
-            columns,
-            prefixes,
-            quoted,
-            is_indexed=True,
-            indent="",
-            ):
-        s = []
-        field_templates = []
-        for column, is_quoted in zip(columns, quoted):
-            ml = 0
-            for value in column:
-                ml = max(ml, len(value))
-            if is_quoted:
-                ml += 2
-            field_templates.append("{{:{}}}".format(ml))
-            # field_templates.append("{:10}")
-        for row_idx in range(len(columns[0])):
-            row = []
-            if indent:
-                row.append(indent)
-            if is_indexed:
-                row.append("[{: 3d}/{:<3d}]".format(row_idx+1, len(columns[0])))
-            for column, prefix, field_template, is_quoted in zip(columns, prefixes, field_templates, quoted):
-                if prefix:
-                    row.append(prefix)
-                if is_quoted:
-                    field_text = "'{}'".format(column[row_idx])
-                else:
-                    field_text = column[row_idx]
-                row.append(" ")
-                row.append(field_template.format(field_text))
-            s.append("".join(row))
         return s
 
     def compose_report(self):
@@ -376,7 +338,7 @@ class Controller(object):
             len(self.registry.tree_lineage_names),
             self.registry.compose_name_list(self.registry.tree_lineage_names))
             )
-        cfntbl = self.registry.compose_table(
+        cfntbl = utility.compose_table(
                 columns=[self.registry.config_lineage_names,
                     [self.registry.config_name_normalization_report[n] for n in self.registry.config_lineage_names]
                     ],
