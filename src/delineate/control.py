@@ -73,6 +73,8 @@ class Registry(object):
             self.normalized_tree_lineage_names[lineage] = lineage
             self.lineage_names[lineage] = lineage
             self.original_to_normalized_lineage_name_map[lineage] = lineage
+        normalized_configuration_lineages = {}
+        extra_configuration_lineages = set()
         for lineage in self.config_lineage_names:
             self.normalized_config_lineage_names[lineage] = lineage
             try:
@@ -80,6 +82,7 @@ class Registry(object):
                 self.original_to_normalized_lineage_name_map[lineage] = normalized_name
                 if normalized_name != lineage:
                     self.config_name_normalization_report[lineage] = "(NORMALIZED TO: '{}')".format(normalized_name)
+                    normalized_configuration_lineages[lineage] = normalized_name
                 else:
                     self.config_name_normalization_report[lineage] = ""
             except KeyError as e:
@@ -87,7 +90,10 @@ class Registry(object):
                 # has a taxon that is not on the tree. But we handle this issue
                 # later so a full report can be shown
                 self.config_name_normalization_report[lineage] = "(NOT FOUND ON TREE)"
-        self.normalization_report()
+                extra_configuration_lineages.add(lineage)
+        self.normalization_report(
+                normalized_configuration_lineages=normalized_configuration_lineages,
+                extra_configuration_lineages=extra_configuration_lineages)
 
     def read_configuration_table_species(self,
             conf_lineage_species_map,
@@ -116,7 +122,9 @@ class Registry(object):
                         logger=self.logger)
             self.preanalysis_constrained_lineage_species_map[normalized_lineage_name] = self.normalized_species_names[species_name]
 
-    def normalization_report(self):
+    def normalization_report(self,
+            normalized_configuration_lineages,
+            extra_configuration_lineages):
         treetbl = utility.compose_table(
                 columns=[self.tree_lineage_names,
                     ["(NOT FOUND IN CONFIGURATION)" if lineage not in self.normalized_config_lineage_names else "" for lineage in self.tree_lineage_names],
@@ -129,18 +137,36 @@ class Registry(object):
             len(self.tree_lineage_names),
             treetbl,
             ))
-        cfntbl = utility.compose_table(
-                columns=[self.config_lineage_names,
-                    [self.config_name_normalization_report[n] for n in self.config_lineage_names]
-                    ],
-                prefixes=["", ""],
-                quoted=[True, False],
-                is_indexed=True,
-                indent="    ")
-        self.logger.info("{} lineages found in configuration file:\n{}".format(
-            len(self.config_lineage_names),
-            cfntbl,
-            ))
+        if extra_configuration_lineages:
+            cfntbl = utility.compose_table(
+                    columns=[self.config_lineage_names,
+                        [self.config_name_normalization_report[n] for n in self.config_lineage_names]
+                        ],
+                    prefixes=["", ""],
+                    quoted=[True, False],
+                    is_indexed=True,
+                    indent="    ")
+            self.logger.info("{} lineages found in configuration file:\n{}".format(
+                len(self.config_lineage_names),
+                cfntbl,
+                ))
+        elif normalized_configuration_lineages:
+            n1 = list(normalized_configuration_lineages.keys())
+            n2 = [normalized_configuration_lineages[k] for k in n1]
+            cfntbl = utility.compose_table(
+                    columns=[n1, n2, ],
+                    prefixes=["", "NORMALIZED TO: "],
+                    quoted=[True, True],
+                    is_indexed=True,
+                    indent="    ")
+            self.logger.info("{} lineages found in configuration file, with the following normalized for concordance with tree lineages:\n{}".format(
+                len(self.config_lineage_names),
+                cfntbl,
+                ))
+        else:
+            self.logger.info("{} lineages found in configuration file fully concordant with tree lineages".format(
+                len(self.config_lineage_names),
+                ))
 
     def validate_lineage_names(self):
         for lineage in self.config_lineage_names:

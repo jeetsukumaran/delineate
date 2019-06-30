@@ -194,15 +194,16 @@ def compose_table_rows(
         if indent:
             row.append(indent)
         if is_indexed:
-            row.append("[{: 3d}/{:<3d}]".format(row_idx+1, len(columns[0])))
-        for column, prefix, field_template, is_quoted in zip(columns, prefixes, field_templates, quoted):
+            row.append("[{: 3d}/{:<3d}] ".format(row_idx+1, len(columns[0])))
+        for col_idx, (column, prefix, field_template, is_quoted) in enumerate(zip(columns, prefixes, field_templates, quoted)):
+            if col_idx > 0:
+                row.append("    ")
             if prefix:
                 row.append(prefix)
             if is_quoted:
                 field_text = "'{}'".format(column[row_idx])
             else:
                 field_text = column[row_idx]
-            row.append(" ")
             row.append(field_template.format(field_text))
         s.append("".join(row))
     return s
