@@ -51,6 +51,7 @@ class Registry(object):
         self.logger = kwargs.pop("logger")
         self.original_to_normalized_lineage_name_map = {}
         self.config_name_normalization_report = {}
+        self.preanalysis_constrained_species_lineages_map = {}
         if self.is_case_sensitive:
             self.normalized_tree_lineage_names = {}
             self.normalized_config_lineage_names = {}
@@ -121,6 +122,45 @@ class Registry(object):
                         msg="Duplicate lineage species assignment: '{}'".format(normalized_lineage_name),
                         logger=self.logger)
             self.preanalysis_constrained_lineage_species_map[normalized_lineage_name] = self.normalized_species_names[species_name]
+            try:
+                self.preanalysis_constrained_species_lineages_map[species_name].add(normalized_lineage_name)
+            except KeyError:
+                self.preanalysis_constrained_species_lineages_map[species_name] = set([normalized_lineage_name])
+        self.preanalysis_constrained_species_report()
+
+    def preanalysis_constrained_species_report(self):
+        species_names = sorted(self.preanalysis_constrained_species_lineages_map.keys())
+        num_lineages = ["({} lineages)".format(len(self.preanalysis_constrained_species_lineages_map[n])) for n in species_names]
+        stbl = utility.compose_table(
+                columns=[
+                    species_names,
+                    num_lineages,
+                    ],
+                prefixes=["", ""],
+                quoted=[True, False],
+                is_indexed=True,
+                indent="    ")
+        self.logger.info("{} species defined in configuration constraints, with {} lineages assigned:\n{}".format(
+                len(species_names),
+                len(self.preanalysis_constrained_lineage_species_map),
+                stbl,
+                ))
+        constrained_lineages = sorted(self.preanalysis_constrained_lineage_species_map.keys())
+        species_assignments = ["(SPECIES: '{}')".format(self.preanalysis_constrained_lineage_species_map[n]) for n in constrained_lineages]
+        lntbl = utility.compose_table(
+                columns=[
+                    constrained_lineages,
+                    species_assignments,
+                    ],
+                prefixes=["", ""],
+                quoted=[True, False],
+                is_indexed=True,
+                indent="    ")
+        self.logger.info("{} lineages assigned by constraints to {} species:\n{}".format(
+                len(constrained_lineages),
+                len(species_names),
+                lntbl,
+                ))
 
     def normalization_report(self,
             normalized_configuration_lineages,
@@ -390,13 +430,13 @@ class Controller(object):
         assert len(species_leafset_constraints) == len(species_lineage_map)
         self.config_d = {}
         self.config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY] = species_leafset_constraints
-        self.config_d["configuration_file"] = {}
-        self.config_d["configuration_file"]["lineages"] = known + unknown
-        self.config_d["configuration_file"]["constrained_lineages"] = known
-        self.config_d["configuration_file"]["unconstrained_lineages"] = unknown
-        self.config_d["configuration_file"]["lineage_species_map"] = lineage_species_map
-        self.config_d["configuration_file"]["constrained_lineage_species_map"] = {lineage_name:lineage_species_map[lineage_name] for lineage_name in known}
-        self.config_d["configuration_file"]["species_lineage_map"] = species_lineage_map
+        self.config_d["configuration_table"] = {}
+        self.config_d["configuration_table"]["lineages"] = known + unknown
+        self.config_d["configuration_table"]["constrained_lineages"] = known
+        self.config_d["configuration_table"]["unconstrained_lineages"] = unknown
+        self.config_d["configuration_table"]["lineage_species_map"] = lineage_species_map
+        self.config_d["configuration_table"]["constrained_lineage_species_map"] = {lineage_name:lineage_species_map[lineage_name] for lineage_name in known}
+        self.config_d["configuration_table"]["species_lineage_map"] = species_lineage_map
         return self.config_d
 
     def register_names(self):
@@ -407,8 +447,8 @@ class Controller(object):
         if self.tree is None:
             raise ValueError("'tree' not set")
         self.registry.tree_lineage_names = [t.label for t in self.tree.taxon_namespace]
-        if "configuration_file" in self.config_d and "lineages" in self.config_d["configuration_file"]:
-            self.registry.config_lineage_names = list(self.config_d["configuration_file"]["lineages"])
+        if "configuration_table" in self.config_d and "lineages" in self.config_d["configuration_table"]:
+            self.registry.config_lineage_names = list(self.config_d["configuration_table"]["lineages"])
         else:
             self.registry.config_lineage_names = list(self.tree_lineage_names)
             # self.registry.config_lineage_names = []
@@ -422,10 +462,10 @@ class Controller(object):
         constrained_lineage_species_map = {}
         full_lineage_species_map = {}
         seen_lineages = set()
-        if "configuration_file" in self.config_d:
+        if "configuration_table" in self.config_d:
             self.registry.read_configuration_table_species(
-                    self.config_d["configuration_file"]["lineage_species_map"],
-                    self.config_d["configuration_file"]["constrained_lineages"],
+                    conf_lineage_species_map=self.config_d["configuration_table"]["lineage_species_map"],
+                    conf_constrained_lineages=self.config_d["configuration_table"]["constrained_lineages"],
                     )
         elif SPECIES_LEAFSET_CONSTRAINTS_KEY in self.config_d:
             raise NotImplementedError
@@ -528,8 +568,8 @@ class Controller(object):
             msg.append("{} terminal lineages on population self.tree".format(len(self.tree_lineage_names)))
         else:
             self.tree_lineage_names = None
-        if "configuration_file" in self.config_d and "lineages" in self.config_d["configuration_file"]:
-            config_lineages = list(self.config_d["configuration_file"]["lineages"])
+        if "configuration_table" in self.config_d and "lineages" in self.config_d["configuration_table"]:
+            config_lineages = list(self.config_d["configuration_table"]["lineages"])
             msg.append("{} lineages described in configuration file".format(len(config_lineages)))
         else:
             if self.tree_lineage_names is not None:
@@ -601,11 +641,11 @@ class Controller(object):
         constrained_lineage_species_map = {}
         full_lineage_species_map = {}
         seen_lineages = set()
-        if "configuration_file" in self.config_d:
+        if "configuration_table" in self.config_d:
             # additional info from configurator front-end
-            for spp in self.config_d["configuration_file"]["species_lineage_map"]:
+            for spp in self.config_d["configuration_table"]["species_lineage_map"]:
                 species_lineage_map[spp] = []
-                for lineage_name in self.config_d["configuration_file"]["species_lineage_map"][spp]:
+                for lineage_name in self.config_d["configuration_table"]["species_lineage_map"][spp]:
                     normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, lineage_name)
                     if normalized_lineage_name in seen_lineages:
                         self.logger.error("ERROR: Duplicate lineage species assignment: '{}'".format(normalized_lineage_name))
@@ -613,10 +653,10 @@ class Controller(object):
                     seen_lineages.add(normalized_lineage_name)
                     species_lineage_map[spp].append(normalized_lineage_name)
             constrained_lineage_species_map = {}
-            for lineage_name in self.config_d["configuration_file"]["lineage_species_map"]:
+            for lineage_name in self.config_d["configuration_table"]["lineage_species_map"]:
                 normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, lineage_name)
-                full_lineage_species_map[normalized_lineage_name] = self.config_d["configuration_file"]["lineage_species_map"][lineage_name]
-                if lineage_name in self.config_d["configuration_file"]["constrained_lineages"]:
+                full_lineage_species_map[normalized_lineage_name] = self.config_d["configuration_table"]["lineage_species_map"][lineage_name]
+                if lineage_name in self.config_d["configuration_table"]["constrained_lineages"]:
                     constrained_lineage_species_map[normalized_lineage_name] = full_lineage_species_map[normalized_lineage_name]
         elif SPECIES_LEAFSET_CONSTRAINTS_KEY in self.config_d:
             species_leafsets = self.config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
