@@ -142,7 +142,7 @@ class Registry(object):
                 len(self.preanalysis_constrained_lineage_species_map),
                 stbl,
                 ))
-        constrained_lineages = sorted(self.preanalysis_constrained_lineage_species_map.keys())
+        constrained_lineages = sorted(self.preanalysis_constrained_lineage_species_map.keys(), key=lambda n: (self.preanalysis_constrained_lineage_species_map[n], n))
         species_assignments = ["(SPECIES: '{}')".format(self.preanalysis_constrained_lineage_species_map[n]) for n in constrained_lineages]
         lntbl = utility.compose_table(
                 columns=[
