@@ -55,13 +55,11 @@ class Registry(object):
         if self.is_case_sensitive:
             self.normalized_tree_lineage_names = {}
             self.normalized_config_lineage_names = {}
-            self.lineage_names = {}
             self.species_names = {}
             self.preanalysis_constrained_lineage_species_map = {}
         else:
             self.normalized_tree_lineage_names = OrderedCaselessDict()
             self.normalized_config_lineage_names = OrderedCaselessDict()
-            self.lineage_names = OrderedCaselessDict()
             self.normalized_species_names = OrderedCaselessDict()
             self.preanalysis_constrained_lineage_species_map = OrderedCaselessDict()
         self.extra_tree_lineage_names = []
@@ -72,14 +70,13 @@ class Registry(object):
         # tree lineages give the canonical orthography
         for lineage in self.tree_lineage_names:
             self.normalized_tree_lineage_names[lineage] = lineage
-            self.lineage_names[lineage] = lineage
             self.original_to_normalized_lineage_name_map[lineage] = lineage
         normalized_configuration_lineages = {}
         extra_configuration_lineages = set()
         for lineage in self.config_lineage_names:
             self.normalized_config_lineage_names[lineage] = lineage
             try:
-                normalized_name = self.lineage_names[lineage]
+                normalized_name = self.normalized_tree_lineage_names[lineage]
                 self.original_to_normalized_lineage_name_map[lineage] = normalized_name
                 if normalized_name != lineage:
                     self.config_name_normalization_report[lineage] = "(NORMALIZED TO: '{}')".format(normalized_name)
@@ -156,11 +153,28 @@ class Registry(object):
                 quoted=[True, False],
                 is_indexed=True,
                 indent="    ")
-        self.logger.info("{} lineages assigned by constraints to {} species:\n{}".format(
+        self.logger.info("{} out of {} lineages assigned by constraints to {} species:\n{}".format(
                 len(constrained_lineages),
+                len(self.tree_lineage_names),
                 len(species_names),
                 lntbl,
                 ))
+        unconstrained_lineages = sorted(n for n in self.tree_lineage_names if n not in self.preanalysis_constrained_lineage_species_map)
+        lntbl = utility.compose_table(
+                columns=[
+                    unconstrained_lineages,
+                    ],
+                prefixes=[""],
+                quoted=[True],
+                is_indexed=True,
+                indent="    ")
+        self.logger.info("{} out of {} lineages not constrained by species assignments:\n{}".format(
+                len(unconstrained_lineages),
+                len(self.tree_lineage_names),
+                lntbl,
+                ))
+        assert len(unconstrained_lineages) + len(constrained_lineages) == len(self.tree_lineage_names)
+
 
     def normalization_report(self,
             normalized_configuration_lineages,
