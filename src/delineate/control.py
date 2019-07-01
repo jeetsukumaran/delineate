@@ -175,7 +175,6 @@ class Registry(object):
                 ))
         assert len(unconstrained_lineages) + len(constrained_lineages) == len(self.tree_lineage_names)
 
-
     def normalization_report(self,
             normalized_configuration_lineages,
             extra_configuration_lineages):
@@ -464,7 +463,7 @@ class Controller(object):
         if "configuration_table" in self.config_d and "lineages" in self.config_d["configuration_table"]:
             self.registry.config_lineage_names = list(self.config_d["configuration_table"]["lineages"])
         else:
-            self.registry.config_lineage_names = list(self.tree_lineage_names)
+            self.registry.config_lineage_names = list(self.registry.tree_lineage_names)
             # self.registry.config_lineage_names = []
         if not self.registry.config_lineage_names:
             return
@@ -503,66 +502,32 @@ class Controller(object):
                         constrained_lineage_species_map[normalized_lineage_name] = sp_label
                         lineages.append(normalized_lineage_name)
                     species_lineage_map[sp_label] = lineages
-        # if species_lineage_map:
-        #     spp_list = []
-        #     species_names = species_lineage_map.keys()
-        #     max_spp_name_length = max(len(sp) for sp in species_names)
-        #     sp_name_template = "{{:{}}}".format(max_spp_name_length + 2)
-        #     spp_list.append("{} species defined in configuration file:".format(
-        #         len(species_lineage_map)))
-        #     for sidx, spp in enumerate(sorted(species_names)):
-        #         if len(species_lineage_map[spp]) > 1:
-        #             descriptor = "lineages"
-        #         else:
-        #             descriptor = "lineage"
-        #         spp_list.append("    [{: 3d}/{:<3d}] SPECIES: {} ({} {})".format(
-        #                 sidx+1,
-        #                 len(species_lineage_map),
-        #                 sp_name_template.format("'"+spp+"'"),
-        #                 len(species_lineage_map[spp]),
-        #                 descriptor))
 
-        # constrained_lineage_list =[]
-        # constrained_lineage_list.append("{} lineages with known species affinities:".format(
-        #     len(constrained_lineage_species_map),
-        #     # len(species_lineage_map)),
-        #     ))
-        # max_lineage_name_length = max(len(ln) for ln in all_lineages)
-        # lineage_name_template = "{{:{}}}".format(max_lineage_name_length + 2)
-        # lidx = 0
-        # for lineage in all_lineages:
-        #     if lineage in constrained_lineage_species_map:
-        #         lidx += 1
-        #         constrained_lineage_list.append("    [{: 3d}/{:<3d}] LINEAGE {} (SPECIES: '{}')".format(
-        #             lidx,
-        #             len(all_lineages) - len(constrained_lineage_species_map),
-        #             lineage_name_template.format("'"+lineage+"'"),
-        #             constrained_lineage_species_map[lineage]
-        #             ))
-
-        # unconstrained_lineage_list =[]
-        # unconstrained_lineage_list.append("{} lineages of unknown species affinities:".format(
-        #     len(all_lineages) - len(constrained_lineage_species_map)))
-        # lidx = 0
-        # for lineage in all_lineages:
-        #     if lineage not in constrained_lineage_species_map:
-        #         lidx += 1
-        #         unconstrained_lineage_list.append("    [{: 3d}/{:<3d}] LINEAGE '{}'".format(
-        #             lidx,
-        #             len(all_lineages) - len(constrained_lineage_species_map),
-        #             lineage))
-        # # for lineage_name in lineage_case_normalization_map:
-        # #     if lineage_name not in constrained_lineage_species_map:
-        # #         normalized_lineage_name = lineage_case_normalization_map.get(lineage_name, None)
-        # #         if normalized_lineage_name in constrained_lineage_species_map:
-        # #             constrained_lineage_species_map[lineage_name] = constrained_lineage_species_map[normalized_lineage_name]
-        # return {
-        #         "constrained_lineage_species_map": constrained_lineage_species_map,
-        #         "full_lineage_species_map": full_lineage_species_map,
-        #         "species_lineage_map": species_lineage_map,
-        #         "lineage_case_normalization_map": lineage_case_normalization_map,
-        #         # "messages": msg,
-        #     }
+    def write_configuration(
+            self,
+            output_file,
+            output_format,
+            output_delimiter="\t",):
+        if output_format == "json":
+            d = {}
+            names = self.registry.preanalysis_constrained_species_lineages_map
+            d[SPECIES_LEAFSET_CONSTRAINTS_KEY] = [list(self.registry.preanalysis_constrained_species_lineages_map[n]) for n in names]
+            d["species_names"] = list(names)
+            if False: #args.output_format == "json-compact":
+                json.dump(d, outf)
+            else:
+                json.dump(d, output_file, indent=4, separators=(',', ': '))
+        else:
+            output_file.write("{}\n".format(output_delimiter.join(CONFIGURATION_REQUIRED_FIELDS)))
+            for lineage_name in self.registry.normalized_tree_lineage_names:
+                row = []
+                row.append(lineage_name)
+                row.append(self.registry.preanalysis_constrained_lineage_species_map.get(lineage_name, "N/A"))
+                if lineage_name in self.registry.preanalysis_constrained_lineage_species_map:
+                    row.append("1")
+                else:
+                    row.append("0")
+                output_file.write("{}\n".format(output_delimiter.join(row)))
 
     def xvalidate_configuration(
             self,

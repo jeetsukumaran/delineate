@@ -42,7 +42,7 @@ def main():
             help="Tree file data format (default='%(default)s').")
     parser.add_argument("--output-format",
             choices=["json", "tsv", "csv"],
-            default="json",
+            default="tsv",
             help="Format for output file (default='%(default)s').")
     parser.add_argument("-o", "--output-prefix",
             action="store",
@@ -82,7 +82,8 @@ def main():
                 "log_to_file": False,
                 })
     controller.register_names()
-    sys.exit(0)
+    if not args.output_prefix:
+        sys.exit(0)
     # logger = utility.RunLogger(name="delineate-configure",
     #         is_include_name=True,
     #         is_include_timestamp=False,
@@ -109,34 +110,21 @@ def main():
         output_delimiter=","
     else:
         raise ValueError(args.output_format)
-    if args.tree_file:
-        tree = model.LineageTree.get(
-                path=args.tree_file,
-                schema=args.tree_format,
-                )
+    if args.output_prefix == "-":
+        out_desc = " standard output"
+        out = sys.stdout
     else:
-        tree = None
-    if args.output_prefix is None:
-        out = open(os.devnull, "w")
-        # args.output_prefix = utility.compose_output_prefix(
-        out_name = None
-        #         input_filepath=args.config_file,
-        #         default="delineate-config")
-    else:
-        if args.output_prefix == "-":
-            out_name = "<stdout>"
-            out = sys.stdout
-        else:
-            out_name = args.output_prefix + suffix
-            out = open(out_name, "w")
+        out_name = args.output_prefix + suffix
+        out = open(out_name, "w")
+        out_desc = ": '{}'".format(out_name)
     with out:
-        controller.xvalidate_configuration(
+        controller.write_configuration(
                 output_file=out,
                 output_format = output_format,
                 output_delimiter="\t",
                 )
-    if out_name:
-        logger.info("DELINEATE configuration data written to: '{}'".format(out_name))
+    if out_desc:
+        controller.logger.info("DELINEATE configuration data written to{}".format(out_desc))
 
 if __name__ == "__main__":
     main()
