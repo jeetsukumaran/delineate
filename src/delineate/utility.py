@@ -112,9 +112,6 @@ def error_exit(msg, logger):
     logger.critical("Terminating due to error")
     sys.exit(1)
 
-def compose_constrained_species_label(idx):
-    return "ConstrainedSp{:03d}".format(idx+1)
-
 def compose_output_prefix(input_filepath, default):
     if not input_filepath:
         return default

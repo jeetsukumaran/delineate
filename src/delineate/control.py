@@ -108,6 +108,8 @@ class Registry(object):
             species_name = conf_lineage_species_map[lineage_name]
             if species_name not in self.normalized_species_names:
                 self.normalized_species_names[species_name] = species_name
+            else:
+                species_name = self.normalized_species_names[species_name]
             try:
                 normalized_lineage_name = self.original_to_normalized_lineage_name_map[lineage_name]
             except KeyError:
@@ -118,12 +120,30 @@ class Registry(object):
                 utility.error_exit(
                         msg="Duplicate lineage species assignment: '{}'".format(normalized_lineage_name),
                         logger=self.logger)
-            self.preanalysis_constrained_lineage_species_map[normalized_lineage_name] = self.normalized_species_names[species_name]
+            self.preanalysis_constrained_lineage_species_map[normalized_lineage_name] = species_name
             try:
                 self.preanalysis_constrained_species_lineages_map[species_name].add(normalized_lineage_name)
             except KeyError:
                 self.preanalysis_constrained_species_lineages_map[species_name] = set([normalized_lineage_name])
         self.preanalysis_constrained_species_report()
+
+    def compile_configuration_species_groupings(self, species_leafset_constraints):
+        for spi, sp in enumerate(species_leafset_constraints):
+            lineages = []
+            species_name = "ConstrainedSp{:03d}".format(spi)
+            self.normalized_species_names[species_name] = species_name
+            for lineage_name in sp:
+                try:
+                    normalized_lineage_name = self.original_to_normalized_lineage_name_map[lineage_name]
+                except KeyError:
+                    utility.error_exit(
+                            msg="Lineage '{}' not defined (missing on tree?)".format(lineage_name),
+                            logger=self.logger)
+                self.preanalysis_constrained_lineage_species_map[normalized_lineage_name] = species_name
+                try:
+                    self.preanalysis_constrained_species_lineages_map[species_name].add(normalized_lineage_name)
+                except KeyError:
+                    self.preanalysis_constrained_species_lineages_map[species_name] = set([normalized_lineage_name])
 
     def preanalysis_constrained_species_report(self):
         species_names = sorted(self.preanalysis_constrained_species_lineages_map.keys())
@@ -481,27 +501,7 @@ class Controller(object):
                     conf_constrained_lineages=self.config_d["configuration_table"]["constrained_lineages"],
                     )
         elif SPECIES_LEAFSET_CONSTRAINTS_KEY in self.config_d:
-            raise NotImplementedError
-            species_leafsets = self.config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY]
-            if isinstance(species_leafsets, list) or isinstance(species_leafsets, tuple):
-                for spi, sp in enumerate(species_leafsets):
-                    lineages = []
-                    sp_label = compose_constrained_species_label(spi)
-                    for lineage in sp:
-                        normalized_lineage_name = lineage_case_normalization_map.get(lineage, lineage)
-                        constrained_lineage_species_map[normalized_lineage_name] = sp_label
-                        lineages.append(normalized_lineage_name)
-                    species_lineage_map[sp_label] = lineages
-            else:
-                raise NotImplementedError
-                species_lineage_map = {}
-                for sp_label in species_leafsets:
-                    for lineage in species_leafsets[sp_label]:
-                        lineages = []
-                        normalized_lineage_name = lineage_case_normalization_map.get(lineage, lineage)
-                        constrained_lineage_species_map[normalized_lineage_name] = sp_label
-                        lineages.append(normalized_lineage_name)
-                    species_lineage_map[sp_label] = lineages
+            self.registry.compile_configuration_species_groupings(species_leafset_constraints=self.config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY])
 
     def write_configuration(
             self,
@@ -522,7 +522,7 @@ class Controller(object):
             for lineage_name in self.registry.normalized_tree_lineage_names:
                 row = []
                 row.append(lineage_name)
-                row.append(self.registry.preanalysis_constrained_lineage_species_map.get(lineage_name, "N/A"))
+                row.append(self.registry.preanalysis_constrained_lineage_species_map.get(lineage_name, "?"))
                 if lineage_name in self.registry.preanalysis_constrained_lineage_species_map:
                     row.append("1")
                 else:
