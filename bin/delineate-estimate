@@ -124,16 +124,6 @@ def execute_species_partition_estimation(args):
     except ValueError:
         ln_cond_prob = float("nan")
 
-    preanalysis_lineage_species_name_map = controller.registry.preanalysis_constrained_lineage_species_map
-    # if "configuration_file" in controller.config_d and "constrained_lineage_species_map" in controller.config_d["configuration_file"]:
-    #     preanalysis_lineage_species_name_map = dict(controller.config_d["configuration_file"]["constrained_lineage_species_map"])
-    # else:
-    #     preanalysis_lineage_species_name_map = {}
-    #     for sp_idx, species_leafset in enumerate(species_leafset_constraint_labels):
-    #         sp_name = utility.compose_constrained_species_label(sp_idx)
-    #         for lineage in species_leafset:
-    #             preanalysis_lineage_species_name_map[lineage] = sp_name
-
     treefile_path, treefile = open_output_file(
             args=args,
             suffix=".delimitation-results",
@@ -170,9 +160,7 @@ def execute_species_partition_estimation(args):
 
             result_dict["partitions"].append(p)
 
-            lineage_species_name_map = utility.compose_lineage_species_name_map(
-                    postanalysis_species_leafset_labels=key_as_list,
-                    preanalysis_lineage_species_name_map=preanalysis_lineage_species_name_map)
+            lineage_species_name_map = controller.compile_postanalysis_lineage_species_name_map(postanalysis_species_leafset_labels=key_as_list)
             for key in (
                     "probability",
                     "probability_given_constraints",
