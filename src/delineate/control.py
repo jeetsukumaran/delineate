@@ -144,6 +144,7 @@ class Registry(object):
                     self.preanalysis_constrained_species_lineages_map[species_name].add(normalized_lineage_name)
                 except KeyError:
                     self.preanalysis_constrained_species_lineages_map[species_name] = set([normalized_lineage_name])
+        self.preanalysis_constrained_species_report()
 
     def preanalysis_constrained_species_report(self):
         species_names = sorted(self.preanalysis_constrained_species_lineages_map.keys())
