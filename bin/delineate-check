@@ -81,7 +81,6 @@ def main():
                 "log_to_stderr": True,
                 "log_to_file": False,
                 })
-    controller.register_names()
     if not args.output_prefix:
         sys.exit(0)
     # logger = utility.RunLogger(name="delineate-configure",

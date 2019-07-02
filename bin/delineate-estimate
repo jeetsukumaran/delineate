@@ -46,7 +46,6 @@ def execute_species_partition_estimation(args):
     controller = control.get_controller(
             name="delineate-estimate",
             args=args)
-    controller.register_names()
     if args.speciation_completion_rate is not None:
         controller.speciation_completion_rate = args.speciation_completion_rate
     speciation_completion_rate = controller.speciation_completion_rate

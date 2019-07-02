@@ -38,6 +38,7 @@ def get_controller(
     controller.parse_configuration_file(
             config_filepath=args.config_file,
             delimiter=None)
+    controller.register_names()
     return controller
 
 class Registry(object):
