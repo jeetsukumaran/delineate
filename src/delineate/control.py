@@ -130,7 +130,7 @@ class Registry(object):
     def compile_configuration_species_groupings(self, species_leafset_constraints):
         for spi, sp in enumerate(species_leafset_constraints):
             lineages = []
-            species_name = "ConstrainedSp{:03d}".format(spi)
+            species_name = "ConstrainedSp{:03d}".format(spi+1)
             self.normalized_species_names[species_name] = species_name
             for lineage_name in sp:
                 try:
