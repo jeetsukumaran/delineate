@@ -8,6 +8,7 @@ import random
 import math
 import decimal
 import dendropy
+from delineate import utility
 
 ################################################################################
 ## Functions in support of calculating the joint probability
@@ -280,9 +281,20 @@ class LineageTree(dendropy.Tree):
         self._speciation_completion_rate = None
         self._setup_cache()
         self.all_monotypic = None
+        self.is_annotate_leaf_constraint_status = kwargs.pop("is_annotate_leaf_constraint_status", True)
+        self.is_paint_leaf_constraint_status = kwargs.pop("is_paint_leaf_constraint_status", True)
         dendropy.Tree.__init__(self, *args, **kwargs)
         # self.decimal_value_type_tree_size_threshold = 100
         self.is_use_decimal_value_type = None
+        self.metadata_keys = []
+        if self.is_annotate_leaf_constraint_status:
+            self.metadata_keys.append("status")
+        if self.is_paint_leaf_constraint_status:
+            self.metadata_keys.append("!color")
+        self.metadata_null_values = {
+                "status": "N/A",
+                "!color": "#000000",
+        }
 
     def node_factory(self, *args, **kwargs):
         return LineageNode(tree=self, **kwargs)
@@ -362,12 +374,28 @@ class LineageTree(dendropy.Tree):
                 sp = sls_by_species.get(nd.taxon.label)
                 nd.speciation_allowed = sp is None or len(sp) == 1
                 if sp is None:
+                    if self.is_annotate_leaf_constraint_status:
+                        nd.annotations["status"] = "unconstrained"
+                    if self.is_paint_leaf_constraint_status:
+                        nd.annotations["!color"] = utility.ColorMap.contrast_pairs[0][0]
                     nd.sp_set = set()
                     nd.known_tipward_sp = None
                 else:
+                    if self.is_annotate_leaf_constraint_status:
+                        nd.annotations["status"] = "constrained"
+                    if self.is_paint_leaf_constraint_status:
+                        nd.annotations["!color"] = utility.ColorMap.contrast_pairs[0][1]
                     nd.sp_set = {sp}
                     nd.known_tipward_sp = sp
             else:
+                if self.metadata_keys:
+                    child_nodes = [chnd for chnd in nd.child_node_iter()]
+                    for metadata_key in self.metadata_keys:
+                        child_node_status_set = set([chnd.annotations[metadata_key].value for chnd in child_nodes])
+                        if len(child_node_status_set) == 1:
+                            nd.annotations[metadata_key] = child_nodes[0].annotations[metadata_key].value
+                        else:
+                            nd.annotations[metadata_key] = self.metadata_null_values[metadata_key]
                 lls = set()
                 nd.all_des_sp_known = True
                 assert len(nd.child_nodes()) == 2 # Not tested with polytomies yet...

@@ -95,6 +95,46 @@ class RunLogger(object):
     def critical(self, msg):
         self._log.critical(msg)
 
+class ColorMap(object):
+    """
+    Colors that contrast well over various color perception regimes.
+    """
+
+    contrast_pairs = [
+            ["#ffc20a", "#0c7bdc"],
+            ["#1aff1a", "#4b0092"],
+            ["#994f00", "#006cd1"],
+            ["#fefe62", "#d35fb7"],
+            ["#e1be6a", "#40b0a6"],
+            ["#005ab5", "#dc3220"],
+            ["#e66100", "#5d3a9b"],
+            ["#1a85ff", "#d41159"],
+    ]
+
+    def __init__(self):
+        self.label_color_map = {}
+        self.color_label_map = {}
+        self.colors = [
+            "#000000",
+            "#e69f00",
+            "#56b4e9",
+            "#009e73",
+            "#f0e442",
+            "#0072b2",
+            "#d55e00",
+            "#cc79a7"
+        ]
+        self.available_colors = list(self.colors)
+
+    def __call__(self, label):
+        try:
+            return self.label_color_map[label]
+        except KeyError:
+            new_color = self.available_colors.pop()
+            self.label_color_map[label] = new_color
+            self.color_label_map[new_color] = label
+        return new_color
+
 def parse_fieldname_and_value(labels):
     if not labels:
         return collections.OrderedDict()
