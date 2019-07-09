@@ -144,8 +144,9 @@ def execute_species_partition_estimation(args):
                     quote_underscores=True,
                     )
             translate_statement.append("             {} {}".format(taxon_token_map[taxon], label))
-        treefile.write("        Translate\n")
-        treefile.write("{}\n             ;\n".format(",\n".join(translate_statement)))
+        if not args.no_translate_tree_tokens:
+            treefile.write("        Translate\n")
+            treefile.write("{}\n             ;\n".format(",\n".join(translate_statement)))
         for key_idx, (key, key_as_list, prob) in enumerate(species_partition_info):
             if args.report_mle_only and key_idx > 0:
                 break
@@ -423,6 +424,10 @@ def main():
             default=None,
             type=float,
             help="Do not report on partitions outside of this constrained (conditional) cumulative probability below this threshold.")
+    output_options.add_argument("--no-translate-tree-tokens",
+            action="store_true",
+            default=False,
+            help="Write tree statements using full taxon names rather than numerical indices.")
     # output_options.add_argument("-q", "--report-unconstrained-probability-threshold",
     #         dest="report_unconstrained_probability_threshold",
     #         default=None,
