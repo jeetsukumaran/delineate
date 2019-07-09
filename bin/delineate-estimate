@@ -111,6 +111,9 @@ def execute_species_partition_estimation(args):
     # max_log_likelihood = species_partition_info[0][log_likelihood_index]
     # result_dict["max_log_likelihood"] = max_log_likelihood
     result_dict["num_partitions_in_confidence_interval"] = 0
+    result_dict["report_mle_only"] = args.report_mle_only
+    result_dict["report_constrained_probability_threshold"] = args.report_constrained_probability_threshold
+    result_dict["report_constrained_cumulative_probability_threshold"] = args.report_constrained_cumulative_probability_threshold
     result_dict["partitions"] = []
     cumulative_probability = tree.as_working_value_type(0.0)
     cumulative_probability_given_constr = tree.as_working_value_type(0.0)
