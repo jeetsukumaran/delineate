@@ -90,15 +90,63 @@ The following example illustrates the structure and semantics of the species ass
 In this case, the population tree should consist of exactly 9 tips with the following labels: "able1", "able2", "able3", "new1", "baker1", "baker2", "easy1", "easy2", "oboe1", "oboe2".
 The "1's" in the "status" column indicate species assignments that should be taken as known *a priori* by the program.
 The "0's" in the "status" column indicate populations of unknown species uncertainties: DELINEATE will assign species identities to these lineages (either existing ones, such as "R_able" or "R_baker", or establish entirely new species identities for them).
+Note that the species labels are ignored for population lineages with a "0" status --- these are just there for user book-keeping or reference.
 
-Running the Program
--------------------
+Running a Species Delimitation Analysis
+---------------------------------------
 
-Output
-------
+Basic Run
+.........
+
+Given a population lineage tree file, "population-tree.nex", and a species assignment table file "species-mappings.tsv", then the following command will run a DELINEATE analysis on the data::
+
+    delineate-estimate partitions --tree-file population-tree.nex --config-file species-mappings.tsv"
+
+or, using the short-form options::
+
+    delineate-estimate partitions -t population-tree.nex --t delineate-species.tsv"
+
+This command has the following components:
+
+-   ``delineate-estimate``:
+    This is the name of the program to be run.
+-   ``estimate``:
+    This is the command or operation that the program will be running.
+-   ``--tree-file population-tree.nex`` or ``-t population-tree.nex``:
+    The ``--tree-file`` flag, or its short-form synonym, ``-t``, specifies that the next element will be the path to tree file with data on the population lineage tree.
+    In this example, the file is located in the current working directory, i.e., ``population-tree.nex``.
+    If it was in another directory, then the path could be ``/home/bilbo/projects/orc-species-delimitation/data1/population-tree.nex``, for example.
+-   ``--config-file species-mappings.tsv`` or ``-c species-mappings.tsv``
+    The ``--config-file`` flag, or its short-form synonym, ``-c``, specifies that the next element will be the path to species assignment configuration file.
+    In this example, the file is located in the current working directory, i.e., ``delineate-species.tsv``.
+    Again, if it was in another directory, then the path could be ``/home/bilbo/projects/orc-species-delimitation/data1/delineate-species.tsv``, for example.
+
+Basic Run Output
+................
+
+Executing this command will run the DELINEATE analysis and will produce the following output files:
+
+-   ``delineate-species.delimitation-results.json``
+-   ``delineate-species.delimitation-results.trees``
+
+The first file is the primary results file.
+As can be inferred from its extension, it is a JSON_ format text file, and it consists of a single a dictionary.
+The dictionary provides information on the estimated speciation completion rate as well as the probabilities of all the possible partitions of the population lineage leafset into species sets, given the species assignment constraints, ranked by the probability of each partition.
+
+The second file provides supporting results.
+Basically this is a collection of trees, with one tree for each partition considered.
+The topology of the trees are identical, corresponding to the topology of the input tree (i.e., the population lineage tree), as are the tip labels.
+However, the tips have associated with them some extra metadata that will be available for viewing in a program like FigTree_.
+Most important of this is ``species``, i.e., the label corresponding to the identity of the species assignment in that partition.
+In the case of species assignments that are constrained (i.e., status indicated by "1"), these will be identical to the assignment and invariant across all partitions, of course.
+However, in the case of population lineages of *unknown* species affinities (i.e., status indicated by "0"), this may be an existing species label (if the population lineage was assigned to an existing species in the partition under consideration) or a new, arbitrary species label (if the population lineage was assigned to a new distinct species in the partition under consideration).
+In addition, in FigTree_ you can also choose to have the branches colored by "status", and this will highlight population lineages of (*a priori*) known vs unknown species affinities, and thus quickly identify the assigned species identities of the lineages of interest.
+
 
 .. _Python: https://www.python.org/
 .. _DendroPy: https://dendropy.org/
+.. _JSON: https://en.wikipedia.org/wiki/JSON
+.. _FigTree: http://tree.bio.ed.ac.uk/software/figtree/
 
 .. Indices and tables
 .. ==================
