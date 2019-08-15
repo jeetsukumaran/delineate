@@ -1,50 +1,41 @@
-DELINEATE: Species Delimitation
-===============================
+# DELINEATE: Species Delimitation
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-Introduction
-------------
+## Introduction
 
 DELINEATE is a program that implements the DELINEATE approach to species delimitation (Sukumaran, Holder, and Knowles, 2019).
 This approach integrates an explicit model of speciation into the "censored" or "multispecies" coalescent model to organize a set of population lineages sampled from one or more species into mutually-exclusive and jointly-comprehensive subsets, where each subset of population lineages represents a distinct species.
 
-Requirements
-------------
+## Requirements
 
-*   Python_ (3.7 or greater)
-*   DendroPy_ (4.4.0 or greater)
+-   [Python] (3.7 or greater)
+-   [DendroPy] (4.4.0 or greater)
 
-    If you already have Python 3 available, you can install DendroPy_ by::
+    If you already have [Python] 3 available, you can install DendroPy_ by:
 
-        python3 -m pip install git+https://github.com/jeetsukumaran/DendroPy.git
+    ~~~
+    python3 -m pip install git+https://github.com/jeetsukumaran/DendroPy.git
+    ~~~
 
-Installation
-------------
+## Installation
 
 You can run the following command to install DELINEATE directly from the package repositories::
 
     python3 -m pip install git+https://github.com/jeetsukumaran/delineate.git
 
-Input Data
-----------
+## Data Requirements
 
 DELINEATE requires two items of data:
 
-*   A *population tree*
-*   A *species assignment table*
+-   A *population tree*
+-   A *species assignment table*
 
-Input Data: Population Tree
-...........................
+### Input Data: Population Tree
 
 This is rooted ultrametric tree where each tip lineage represents a population or deme.
 This tree is typically obtained through a classical "censored" or "multispecies" coalescent analysis, such as results from BP&P (either mode A01 or A10) or StarBeast.
 The tree can be be specified either in NEXUS or Newick format.
 
-Input Data: Species Assignment Table
-....................................
+### Input Data: Species Assignment Table
 
 This is a tab-delimited plain text file with at least three columns:
 
@@ -92,19 +83,22 @@ The "1's" in the "status" column indicate species assignments that should be tak
 The "0's" in the "status" column indicate populations of unknown species uncertainties: DELINEATE will assign species identities to these lineages (either existing ones, such as "R_able" or "R_baker", or establish entirely new species identities for them).
 Note that the species labels are ignored for population lineages with a "0" status --- these are just there for user book-keeping or reference.
 
-Running a Species Delimitation Analysis
+## Running a Species Delimitation Analysis
 ---------------------------------------
 
-Basic Run
-.........
+### Basic Run
 
 Given a population lineage tree file, "population-tree.nex", and a species assignment table file "species-mappings.tsv", then the following command will run a DELINEATE analysis on the data::
 
+    ~~~
     delineate-estimate partitions --tree-file population-tree.nex --config-file species-mappings.tsv"
+    ~~~
 
-or, using the short-form options::
+or, using the short-form options:
 
+    ~~~
     delineate-estimate partitions -t population-tree.nex --t delineate-species.tsv"
+    ~~~
 
 This command has the following components:
 
@@ -121,8 +115,7 @@ This command has the following components:
     In this example, the file is located in the current working directory, i.e., ``delineate-species.tsv``.
     Again, if it was in another directory, then the path could be ``/home/bilbo/projects/orc-species-delimitation/data1/delineate-species.tsv``, for example.
 
-Basic Run Output
-................
+### Basic Run Output
 
 Executing this command will run the DELINEATE analysis and will produce the following output files:
 
@@ -130,23 +123,22 @@ Executing this command will run the DELINEATE analysis and will produce the foll
 -   ``delineate-species.delimitation-results.trees``
 
 The first file is the primary results file.
-As can be inferred from its extension, it is a JSON_ format text file, and it consists of a single a dictionary.
+As can be inferred from its extension, it is a [JSON] format text file, and it consists of a single a dictionary.
 The dictionary provides information on the estimated speciation completion rate as well as the probabilities of all the possible partitions of the population lineage leafset into species sets, given the species assignment constraints, ranked by the probability of each partition.
 
 The second file provides supporting results.
 Basically this is a collection of trees, with one tree for each partition considered.
 The topology of the trees are identical, corresponding to the topology of the input tree (i.e., the population lineage tree), as are the tip labels.
-However, the tips have associated with them some extra metadata that will be available for viewing in a program like FigTree_.
+However, the tips have associated with them some extra metadata that will be available for viewing in a program like [FigTree].
 Most important of this is ``species``, i.e., the label corresponding to the identity of the species assignment in that partition.
 In the case of species assignments that are constrained (i.e., status indicated by "1"), these will be identical to the assignment and invariant across all partitions, of course.
 However, in the case of population lineages of *unknown* species affinities (i.e., status indicated by "0"), this may be an existing species label (if the population lineage was assigned to an existing species in the partition under consideration) or a new, arbitrary species label (if the population lineage was assigned to a new distinct species in the partition under consideration).
-In addition, in FigTree_ you can also choose to have the branches colored by "status", and this will highlight population lineages of (*a priori*) known vs unknown species affinities, and thus quickly identify the assigned species identities of the lineages of interest.
+In addition, in [FigTree] you can also choose to have the branches colored by "status", and this will highlight population lineages of (*a priori*) known vs unknown species affinities, and thus quickly identify the assigned species identities of the lineages of interest.
 
-
-.. _Python: https://www.python.org/
-.. _DendroPy: https://dendropy.org/
-.. _JSON: https://en.wikipedia.org/wiki/JSON
-.. _FigTree: http://tree.bio.ed.ac.uk/software/figtree/
+[Python]: https://www.python.org/
+[DendroPy]: https://dendropy.org/
+[JSON]: https://en.wikipedia.org/wiki/JSON
+[FigTree]: http://tree.bio.ed.ac.uk/software/figtree/
 
 .. Indices and tables
 .. ==================
