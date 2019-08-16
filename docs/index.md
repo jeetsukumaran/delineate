@@ -10,11 +10,11 @@ This approach integrates an explicit model of speciation into the "censored" or 
 -   [Python] (3.7 or greater)
 -   [DendroPy] (4.4.0 or greater)
 
-    If you already have [Python] 3 available, you can install DendroPy_ by:
+    If you already have [Python] 3 available, you can install [DendroPy] by:
 
-    ~~~
-    python3 -m pip install git+https://github.com/jeetsukumaran/DendroPy.git
-    ~~~
+~~~
+python3 -m pip install git+https://github.com/jeetsukumaran/DendroPy.git
+~~~
 
 ## Installation
 
@@ -54,29 +54,18 @@ Species assignments that *are* known will have the status field set to "1".
 
 The following example illustrates the structure and semantics of the species assignment table:
 
-+---------+---------+--------+
 | lineage | species | status |
-+=========+=========+========+
+|---------|---------|--------|
 | able1   | R_able  | 1      |
-+---------+---------+--------+
 | able2   | R_able  | 1      |
-+---------+---------+--------+
 | able3   | R_able  | 1      |
-+---------+---------+--------+
 | new1    | ???     | 0      |
-+---------+---------+--------+
 | baker1  | R_baker | 1      |
-+---------+---------+--------+
 | baker2  | R_baker | 1      |
-+---------+---------+--------+
 | easy1   | R_easy? | 0      |
-+---------+---------+--------+
 | easy2   | R_easy? | 0      |
-+---------+---------+--------+
 | oboe1   | unknown | 0      |
-+---------+---------+--------+
 | oboe2   | unknown | 0      |
-+---------+---------+--------+
 
 In this case, the population tree should consist of exactly 9 tips with the following labels: "able1", "able2", "able3", "new1", "baker1", "baker2", "easy1", "easy2", "oboe1", "oboe2".
 The "1's" in the "status" column indicate species assignments that should be taken as known *a priori* by the program.
@@ -84,21 +73,20 @@ The "0's" in the "status" column indicate populations of unknown species uncerta
 Note that the species labels are ignored for population lineages with a "0" status --- these are just there for user book-keeping or reference.
 
 ## Running a Species Delimitation Analysis
----------------------------------------
 
 ### Basic Run
 
 Given a population lineage tree file, "population-tree.nex", and a species assignment table file "species-mappings.tsv", then the following command will run a DELINEATE analysis on the data::
 
-    ~~~
-    delineate-estimate partitions --tree-file population-tree.nex --config-file species-mappings.tsv"
-    ~~~
+~~~
+delineate-estimate partitions --tree-file population-tree.nex --config-file species-mappings.tsv"
+~~~
 
 or, using the short-form options:
 
-    ~~~
-    delineate-estimate partitions -t population-tree.nex --t delineate-species.tsv"
-    ~~~
+~~~
+delineate-estimate partitions -t population-tree.nex --t delineate-species.tsv"
+~~~
 
 This command has the following components:
 
@@ -140,9 +128,3 @@ In addition, in [FigTree] you can also choose to have the branches colored by "s
 [JSON]: https://en.wikipedia.org/wiki/JSON
 [FigTree]: http://tree.bio.ed.ac.uk/software/figtree/
 
-.. Indices and tables
-.. ==================
-..
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
