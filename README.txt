@@ -4,7 +4,7 @@ DELINEATE is an approach to species delimitation that incorporates an extended m
 
 # Software Dependencies
 
--   Python 3
+-   [Python 3](https://www.python.org/downloads/)
 -   [DendroPy](https://github.com/jeetsukumaran/DendroPy)
 
 # Installation
@@ -12,4 +12,8 @@ DELINEATE is an approach to species delimitation that incorporates an extended m
 ~~~
 python -m pip install git+https://github.com/jeetsukumaran/delineate
 ~~~
+
+# Documentation
+
+Full documentation can be found here: https://jeetsukumaran.github.io/delineate/
 
