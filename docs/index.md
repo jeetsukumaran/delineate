@@ -79,13 +79,13 @@ Note that the species labels are ignored for population lineages with a "0" stat
 Given a population lineage tree file, "population-tree.nex", and a species assignment table file "species-mappings.tsv", then the following command will run a DELINEATE analysis on the data::
 
 ~~~
-delineate-estimate partitions --tree-file population-tree.nex --config-file species-mappings.tsv"
+delineate-estimate partitions --tree-file population-tree.nex --config-file data1.tsv"
 ~~~
 
 or, using the short-form options:
 
 ~~~
-delineate-estimate partitions -t population-tree.nex --t delineate-species.tsv"
+delineate-estimate partitions -t population-tree.nex --t data1.tsv"
 ~~~
 
 This command has the following components:
@@ -96,25 +96,27 @@ This command has the following components:
     This is the command or operation that the program will be running.
 -   ``--tree-file population-tree.nex`` or ``-t population-tree.nex``:
     The ``--tree-file`` flag, or its short-form synonym, ``-t``, specifies that the next element will be the path to tree file with data on the population lineage tree.
-    In this example, the file is located in the current working directory, i.e., ``population-tree.nex``.
-    If it was in another directory, then the path could be ``/home/bilbo/projects/orc-species-delimitation/data1/population-tree.nex``, for example.
--   ``--config-file species-mappings.tsv`` or ``-c species-mappings.tsv``
+    In this example, the file is located in the current working directory, i.e., *population-tree.nex*.
+    If it was in another directory, then the path could be */home/bilbo/projects/orc-species-delimitation/data1/population-tree.nex*, for example.
+-   ``--config-file data1.tsv`` or ``-c data1.tsv``
     The ``--config-file`` flag, or its short-form synonym, ``-c``, specifies that the next element will be the path to species assignment configuration file.
-    In this example, the file is located in the current working directory, i.e., ``delineate-species.tsv``.
-    Again, if it was in another directory, then the path could be ``/home/bilbo/projects/orc-species-delimitation/data1/delineate-species.tsv``, for example.
+    In this example, the file is located in the current working directory, i.e., *delineate-species.tsv*.
+    Again, if it was in another directory, then the path could be */home/bilbo/projects/orc-species-delimitation/data1/data1.tsv*, for example.
 
 ### Basic Run Output
 
 Executing this command will run the DELINEATE analysis and will produce the following output files:
 
--   ``delineate-species.delimitation-results.json``
--   ``delineate-species.delimitation-results.trees``
+-   "*data1.delimitation-results.json*"
+-   "*data1.delimitation-results.trees*"
 
-The first file is the primary results file.
+More generally, unless the ``-o`` or ``--output-prefix`` flag (see below) is used to explicity specify an alternate output prefix for all results generated, the files will take on a prefix given by the file stemname of the configuration file, "*data1*" in the this example.
+
+The first file, with the general name of "*&lt;output-prefix&gt;.delimitation-results.json*", is the primary results file.
 As can be inferred from its extension, it is a [JSON] format text file, and it consists of a single a dictionary.
 The dictionary provides information on the estimated speciation completion rate as well as the probabilities of all the possible partitions of the population lineage leafset into species sets, given the species assignment constraints, ranked by the probability of each partition.
 
-The second file provides supporting results.
+The second file, with the general name of "*&lt;output-prefix&gt;.delimitation-results.trees*",  provides supporting results.
 Basically this is a collection of trees, with one tree for each partition considered.
 The topology of the trees are identical, corresponding to the topology of the input tree (i.e., the population lineage tree), as are the tip labels.
 However, the tips have associated with them some extra metadata that will be available for viewing in a program like [FigTree].
