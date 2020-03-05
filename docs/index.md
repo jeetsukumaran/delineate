@@ -85,7 +85,7 @@ delineate-estimate partitions --tree-file population-tree.nex --config-file data
 or, using the short-form options:
 
 ~~~
-delineate-estimate partitions -t population-tree.nex --t data1.tsv"
+delineate-estimate partitions -t population-tree.nex -c data1.tsv"
 ~~~
 
 This command has the following components:
