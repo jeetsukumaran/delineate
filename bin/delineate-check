@@ -5,6 +5,7 @@ import os
 import sys
 import json
 import argparse
+import delineate
 from delineate import utility
 from delineate import model
 from delineate import control
@@ -20,7 +21,8 @@ __author__ = 'Jeet Sukumaran and Mark T. Holder'
 __copyright__ = 'Copyright (C) 2019 Jeet Sukumaran and Mark T. Holder.'
 
 def main():
-    parser = argparse.ArgumentParser(description=__description__)
+    parser = argparse.ArgumentParser(description=__doc__,
+            parents=[delineate.get_metadata_parser_opts()])
     parser.add_argument("-c", "--config-file",
             action="store",
             required=True,
@@ -64,6 +66,12 @@ def main():
             default=True,
             help="Do not complain if not all configuration lineages are found on the tree.")
     args = parser.parse_args()
+    if args.describe:
+        delineate.description()
+        sys.exit(0)
+    if args.version:
+        print(delineate.name())
+        sys.exit(0)
     if not args.config_file:
         sys.exit("Need to specify path to configuration file using '-c' option")
     if args.delimiter is not None and (

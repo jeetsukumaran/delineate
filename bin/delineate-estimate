@@ -36,6 +36,7 @@ import itertools
 import collections
 import json
 from dendropy.dataio import nexusprocessing
+import delineate
 from delineate import model
 from delineate import estimate
 from delineate import control
@@ -390,7 +391,8 @@ def open_output_file(args,
 # Main CLI {{{1
 
 def main():
-    main_parser = argparse.ArgumentParser(description=__doc__)
+    main_parser = argparse.ArgumentParser(description=__doc__,
+            parents=[delineate.get_metadata_parser_opts()])
     try:
         main_parser._optionals.title = "Program Options"
     except AttributeError:
@@ -515,6 +517,12 @@ def main():
         sys.exit(msg)
 
     args = main_parser.parse_args()
+    if args.describe:
+        delineate.description()
+        sys.exit(0)
+    if args.version:
+        print(delineate.name())
+        sys.exit(0)
     # controller.is_quiet = getattr(args, "quiet", True)
 
     if hasattr(args, 'func'):
