@@ -19,48 +19,18 @@ __prog__ = os.path.basename(__file__)
 __author__ = 'Jeet Sukumaran and Mark T. Holder'
 __copyright__ = 'Copyright (C) 2019 Jeet Sukumaran and Mark T. Holder.'
 
-def execute_newspp_probability_summarization(args,
-        results_d,
-        partitions_d,
-        logger,
-        ):
-    d = summarize_conspecificity(
-            args=args,
-            results_d=results_d,
-            partitions_d=partitions_d,
-            logger=logger,
-            is_calc_new_species_probability=True)
-    sys.stdout.write("{}".format(d["total_marginal_probability_of_new_species"]))
-
-def execute_conspecific_probability_summarization(
-        args,
-        results_d,
-        partitions_d,
-        logger,
-        ):
-    d = summarize_conspecificity(
-            args=args,
-            results_d=results_d,
-            partitions_d=partitions_d,
-            logger=logger,
-            is_calc_new_species_probability=False)
-    sys.stdout.write("{}".format(d["total_marginal_probability_of_conspecificity"]))
 
 def summarize_conspecificity(
         args,
         results_d,
         partitions_d,
         logger,
-        is_calc_new_species_probability,
         ):
     try:
         all_taxa_labels = results_d["lineages"]
     except KeyError:
         all_taxa_labels = set(itertools.chain.from_iterable(partitions_d[0]["species_leafsets"]))
-    if is_calc_new_species_probability:
-        species_constrained_lineage_map = results_d["species_constraints"]["species_constrained_lineage_map"]
-    else:
-        species_constrained_lineage_map = None
+    species_constrained_lineage_map = results_d["species_constraints"]["species_constrained_lineage_map"]
     if not args.quiet:
         logger.info("{} taxa defined in results file: {}".format(len(all_taxa_labels), ", ".join("'{}'".format(t) for t in sorted(all_taxa_labels))))
     total_cumulative_probability = partitions_d[-1]["constrained_cumulative_probability"]
@@ -94,10 +64,10 @@ def summarize_conspecificity(
         logger.error("ERROR: Candidate conspecific taxa not defined or read in any source")
         sys.exit(1)
     conspecific_taxa_labels = sorted(set(conspecific_taxa_labels))
-    if not is_calc_new_species_probability and len(conspecific_taxa_labels) == 1:
-        logger.error("ERROR: At least two conspecific taxa must be defined, but only one given: '{}'".format(
-            conspecific_taxa_labels[0]))
-        sys.exit(1)
+    # if len(conspecific_taxa_labels) == 1:
+    #     logger.error("ERROR: At least two conspecific taxa must be defined, but only one given: '{}'".format(
+    #         conspecific_taxa_labels[0]))
+    #     sys.exit(1)
     if len(conspecific_taxa_labels) == 1:
         desc_noun = "taxon"
     else:
@@ -146,11 +116,10 @@ def summarize_conspecificity(
                 conspecifics_in_confidence_interval += 1
             else:
                 conspecifics_not_in_confidence_interval += 1
-            if is_calc_new_species_probability:
-                if species_label in species_constrained_lineage_map:
-                    existing_species_probabilities.append(partition_probability)
-                else:
-                    new_species_probabilities.append(partition_probability)
+            if species_label in species_constrained_lineage_map:
+                existing_species_probabilities.append(partition_probability)
+            else:
+                new_species_probabilities.append(partition_probability)
     total_marginal_probability_of_conspecificity = sum(conspecific_probabilities)
     if not args.quiet:
         if len(conspecific_taxa_labels) > 1:
@@ -159,14 +128,10 @@ def summarize_conspecificity(
                 len(partitions_d),
                 ))
             logger.info("Marginal constrained probability of candidate taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
-        if is_calc_new_species_probability:
-            total_probability_of_new_species = sum(new_species_probabilities)
-            total_probability_of_existing_species = sum(existing_species_probabilities)
-            logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, total_probability_of_new_species))
-            logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, total_probability_of_existing_species))
-        else:
-            total_probability_of_new_species = None
-            total_probability_of_existing_species = None
+        total_probability_of_new_species = sum(new_species_probabilities)
+        total_probability_of_existing_species = sum(existing_species_probabilities)
+        logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, total_probability_of_new_species))
+        logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, total_probability_of_existing_species))
         if total_cumulative_probability + 1e-8 < 1.0:
             logger.warning("WARNING: cumulative constrained probability in results file is only {} --- not all partitions might have been included, and probability summarizations reported should not be considered as accurate".format(total_cumulative_probability))
 
@@ -178,79 +143,20 @@ def summarize_conspecificity(
     return d
 
 def main():
-    main_parser = argparse.ArgumentParser(description=__doc__)
-    try:
-        main_parser._optionals.title = "Program Options"
-    except AttributeError:
-        pass
-    cmd_parser = main_parser.add_subparsers(title="Commands", dest="command")
-
-    results_file_options = argparse.ArgumentParser(add_help=False)
-    results_file_options.add_argument("-r", "--results-file",
-            action="store",
-            help="Path to results data (JSON).")
-    taxon_specification_options = argparse.ArgumentParser(add_help=False)
-    taxon_specification_options.add_argument("taxon_label",
-            metavar="TAXON-LABEL",
-            nargs="+",
-            help="Labels of taxa. Specify '-' to read from standard input or 'file://' to read from file.",)
-    output_options = argparse.ArgumentParser(add_help=False)
-    output_options.add_argument("-q", "--quiet",
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("-q", "--quiet",
             action="store_true",
             default=False,
             help="Run quietly.")
+    parser.add_argument("-r", "--results-file",
+            action="store",
+            help="Path to results data (JSON).")
+    parser.add_argument("taxon_label",
+            metavar="TAXON-LABEL",
+            nargs="+",
+            help="Labels of taxa. Specify '-' to read from standard input or 'file://' to read from file.",)
 
-
-    command_cli = collections.OrderedDict()
-    command_cli["conspecificity"] = {
-        "parents": [results_file_options, taxon_specification_options, output_options],
-        "desc":
-                "Given a path to a DELINEATE JSON results file, and a set"
-                " of taxon labels, report the marginal probability that those"
-                " taxa are conspecific.",
-        "func": execute_conspecific_probability_summarization}
-    command_cli["new-species"] = {
-        "parents": [results_file_options, taxon_specification_options, output_options],
-        "desc":
-                " Given a path to a DELINEATE JSON results file, and a set"
-                " of taxon labels, report the marginal probability that those"
-                " taxa are conspecific AND are collectively *part* of a NEW species.",
-        "func": execute_newspp_probability_summarization}
-    command_parsers = collections.OrderedDict()
-    for key in command_cli:
-        kwargs = {}
-        if command_cli[key]["parents"]:
-            kwargs["parents"] = command_cli[key]["parents"]
-        kwargs["help"] = command_cli[key]["desc"]
-        kwargs["description"] = kwargs["help"]
-        cmd_options_parser = cmd_parser.add_parser(
-            key,
-            **kwargs)
-        cmd_options_parser.set_defaults(func=command_cli[key]["func"])
-        try:
-            cmd_options_parser._optionals.title = "Command Options"
-            cmd_options_parser._positionals.title = "Command Targets"
-        except AttributeError:
-            pass
-        # add_source_options(cmd_options_parser)
-        # add_output_options(cmd_options_parser)
-        command_parsers[key] = cmd_options_parser
-
-    if len(sys.argv) == 1:
-        msg = []
-        msg.append("Please specify one of the following operations:")
-        msg.append("")
-        msg.append("    delineate-summarize conspecificity")
-        msg.append("")
-        msg.append("Or type '--help' for help:")
-        msg.append("")
-        msg.append("    delineate-summarize --help")
-        msg.append("    delineate-summarize conspecificity --help")
-        msg.append("")
-        msg = "\n".join(msg)
-        sys.exit(msg)
-
-    args = main_parser.parse_args()
+    args = parser.parse_args()
     # controller.is_quiet = getattr(args, "quiet", True)
     if args.results_file is None:
         sys.exit("Need to specify path to DELINEATE JSON-format results file")
@@ -277,15 +183,12 @@ def main():
         logger.error("ERROR: No data under 'partitions' key")
         sys.exit(1)
 
-    if hasattr(args, 'func'):
-        args.func(
-                args=args,
-                results_d=results_d,
-                partitions_d=partitions_d,
-                logger=logger,
-                )
-    else:
-        pass
+    d = summarize_conspecificity(
+            args=args,
+            results_d=results_d,
+            partitions_d=partitions_d,
+            logger=logger,
+            )
 
 if __name__ == '__main__':
     main()
