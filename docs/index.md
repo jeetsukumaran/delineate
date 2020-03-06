@@ -127,7 +127,7 @@ In addition, in [FigTree] you can also choose to have the branches colored by "s
 
 ### Calculating the Marginal Probability of Conspecificity for a Subset of Taxa
 
-An analysis estimating the probabilities of different partition gives the the \textit{joint} probability for different organizations of population lineages into subsets, each constituting a distinct species.
+An analysis estimating the probabilities of different partition gives the \textit{joint} probability for different organizations of population lineages into subsets, with each subset constituting a distinct species.
 We might be interested, instead, in the marginal probability of conspecificity of a few population lineages.
 That is, we are asking the question, "What is the probability that the following population lineages are conspecific?"
 To answer the question we simply have to sum up the probabilities of individual partitions in which those population lineages are found to be conspecific.
