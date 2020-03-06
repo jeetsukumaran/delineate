@@ -19,6 +19,60 @@ __prog__ = os.path.basename(__file__)
 __author__ = 'Jeet Sukumaran and Mark T. Holder'
 __copyright__ = 'Copyright (C) 2019 Jeet Sukumaran and Mark T. Holder.'
 
+def summarize_configuration(
+        results_d,
+        logger):
+    all_lineage_labels = results_d["lineages"]
+    species_constrained_lineage_map = results_d["species_constraints"]["species_constrained_lineage_map"]
+    constrained_lineage_species_map = results_d["species_constraints"]["constrained_lineage_species_map"]
+    species_names = sorted(species_constrained_lineage_map)
+    logger.info("{} lineages defined in results file: {}".format(len(all_lineage_labels), ", ".join("'{}'".format(t) for t in sorted(all_lineage_labels))))
+    num_lineages = ["({} lineages)".format(len(species_constrained_lineage_map[n])) for n in species_names]
+    stbl = utility.compose_table(
+            columns=[
+                species_names,
+                num_lineages,
+                ],
+            prefixes=["", ""],
+            quoted=[True, False],
+            is_indexed=True,
+            indent="    ")
+    logger.info("{} species defined in configuration constraints, with {} lineages assigned:\n{}".format(
+            len(species_names),
+            len(constrained_lineage_species_map),
+            stbl,
+            ))
+    constrained_lineages = sorted(constrained_lineage_species_map.keys(), key=lambda n: (constrained_lineage_species_map[n], n))
+    species_assignments = ["(SPECIES: '{}')".format(constrained_lineage_species_map[n]) for n in constrained_lineages]
+    lntbl = utility.compose_table(
+            columns=[
+                constrained_lineages,
+                species_assignments,
+                ],
+            prefixes=["", ""],
+            quoted=[True, False],
+            is_indexed=True,
+            indent="    ")
+    logger.info("{} out of {} lineages assigned by constraints to {} species:\n{}".format(
+            len(constrained_lineages),
+            len(all_lineage_labels),
+            len(species_names),
+            lntbl,
+            ))
+    unconstrained_lineages = sorted(n for n in all_lineage_labels if n not in constrained_lineage_species_map)
+    lntbl = utility.compose_table(
+            columns=[
+                unconstrained_lineages,
+                ],
+            prefixes=[""],
+            quoted=[True],
+            is_indexed=True,
+            indent="    ")
+    logger.info("{} out of {} lineages not constrained by species assignments:\n{}".format(
+            len(unconstrained_lineages),
+            len(all_lineage_labels),
+            lntbl,
+            ))
 
 def summarize_conspecificity(
         args,
@@ -27,12 +81,14 @@ def summarize_conspecificity(
         logger,
         ):
     try:
-        all_taxa_labels = results_d["lineages"]
+        all_lineage_labels = results_d["lineages"]
     except KeyError:
-        all_taxa_labels = set(itertools.chain.from_iterable(partitions_d[0]["species_leafsets"]))
+        all_lineage_labels = set(itertools.chain.from_iterable(partitions_d[0]["species_leafsets"]))
     species_constrained_lineage_map = results_d["species_constraints"]["species_constrained_lineage_map"]
     if not args.quiet:
-        logger.info("{} taxa defined in results file: {}".format(len(all_taxa_labels), ", ".join("'{}'".format(t) for t in sorted(all_taxa_labels))))
+        summarize_configuration(
+                results_d=results_d,
+                logger=logger)
     total_cumulative_probability = partitions_d[-1]["constrained_cumulative_probability"]
     if not args.quiet:
         logger.info("{} partitions found in results file, with total constrained cumulative probability of {}".format(
@@ -79,7 +135,7 @@ def summarize_conspecificity(
             ", ".join("'{}'".format(t) for t in conspecific_taxa_labels)))
     not_found = []
     for ct in conspecific_taxa_labels:
-        if ct not in all_taxa_labels:
+        if ct not in all_lineage_labels:
             not_found.append(ct)
     if not_found:
         logger.error("ERROR: {} of {} {} not defined in results: {}".format(
@@ -89,14 +145,15 @@ def summarize_conspecificity(
             ", ".join("'{}'".format(t) for t in not_found)))
         sys.exit(1)
     conspecific_probabilities = []
+    exclusive_conspecific_probabilities = []
+    exclusive_new_species_probabilities = []
     new_species_probabilities = []
     existing_species_probabilities = []
     conspecifics_in_confidence_interval = 0
     conspecifics_not_in_confidence_interval = 0
-    new_spp_in_confidence_interval = 0
-    new_spp_not_in_confidence_interval = 0
     for partition_idx, partition in enumerate(partitions_d):
         is_conspecific = True
+        found_in_species_label = None
         for species_label in partition["species_leafsets"]:
             species_leafset = partition["species_leafsets"][species_label]
             s = set(species_leafset)
@@ -108,19 +165,33 @@ def summarize_conspecificity(
                 is_conspecific = False
                 break
             elif num_in_leafset == len(conspecific_taxa_labels):
+                found_in_species_label = species_label
                 break
         if is_conspecific:
+            assert found_in_species_label is not None
+            if len(partition["species_leafsets"][species_label]) == len(conspecific_taxa_labels):
+                is_exclusive = True
+            else:
+                is_exclusive = False
             partition_probability = partition["constrained_probability"]
             conspecific_probabilities.append(partition_probability)
             if partition["is_in_confidence_interval"]:
                 conspecifics_in_confidence_interval += 1
             else:
                 conspecifics_not_in_confidence_interval += 1
-            if species_label in species_constrained_lineage_map:
+            if is_exclusive:
+                exclusive_conspecific_probabilities.append(partition_probability)
+            if found_in_species_label in species_constrained_lineage_map:
                 existing_species_probabilities.append(partition_probability)
             else:
                 new_species_probabilities.append(partition_probability)
+                if is_exclusive:
+                    exclusive_new_species_probabilities.append(partition_probability)
     total_marginal_probability_of_conspecificity = sum(conspecific_probabilities)
+    total_marginal_probability_of_exclusive_conspecificity = sum(exclusive_conspecific_probabilities)
+    total_probability_of_new_species = sum(new_species_probabilities)
+    total_probability_of_existing_species = sum(existing_species_probabilities)
+    total_probability_of_exclusive_new_species = sum(exclusive_new_species_probabilities)
     if not args.quiet:
         if len(conspecific_taxa_labels) > 1:
             logger.info("{} out of {} partitions found with candidate taxa conspecific".format(
@@ -128,8 +199,8 @@ def summarize_conspecificity(
                 len(partitions_d),
                 ))
             logger.info("Marginal constrained probability of candidate taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
-        total_probability_of_new_species = sum(new_species_probabilities)
-        total_probability_of_existing_species = sum(existing_species_probabilities)
+            logger.info("Marginal constrained probability of candidate taxa *exclusive* conspecificity: {}".format(total_marginal_probability_of_exclusive_conspecificity))
+        logger.info("Marginal constrained probability of candidate {} being collectively exclusively a new species: {}".format(desc_noun, total_probability_of_exclusive_new_species))
         logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, total_probability_of_new_species))
         logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, total_probability_of_existing_species))
         if total_cumulative_probability + 1e-8 < 1.0:
