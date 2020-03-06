@@ -10,17 +10,17 @@ This approach integrates an explicit model of speciation into the "censored" or 
 -   [Python] (3.7 or greater)
 -   [DendroPy] (4.4.0 or greater)
 
-    If you already have [Python] 3 available, you can install [DendroPy] by:
+    If you already have [Python] 3 available, you can install or upgrade [DendroPy] by:
 
 ~~~
-python3 -m pip install git+https://github.com/jeetsukumaran/DendroPy.git
+python3 -m pip install -U git+https://github.com/jeetsukumaran/DendroPy.git
 ~~~
 
-## Installation
+## Installation or Upgrade
 
-You can run the following command to install DELINEATE directly from the package repositories::
+You can run the following command to install or upgrade DELINEATE directly from the package repositories::
 
-    python3 -m pip install git+https://github.com/jeetsukumaran/delineate.git
+    python3 -m pip install -U git+https://github.com/jeetsukumaran/delineate.git
 
 ## Data Requirements
 

@@ -29,7 +29,7 @@ setup(
     scripts=[
         "bin/delineate-check",
         "bin/delineate-estimate",
-        "bin/delineate-summarize",
+        "bin/delineate-summarize-conspecificity",
         ],
     test_suite = "tests",
     url="https://github.com/jeetsukumaran/delineate/",

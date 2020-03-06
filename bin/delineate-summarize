@@ -5,6 +5,9 @@ import os
 import sys
 import json
 import argparse
+import collections
+import json
+import itertools
 from delineate import utility
 from delineate import model
 
@@ -16,37 +19,185 @@ __prog__ = os.path.basename(__file__)
 __author__ = 'Jeet Sukumaran and Mark T. Holder'
 __copyright__ = 'Copyright (C) 2019 Jeet Sukumaran and Mark T. Holder.'
 
+def execute_conspecific_probability_summarization(args):
+    pass
+
 def main():
-    parser = argparse.ArgumentParser(description=__description__)
-    parser.add_argument("results_file",
+    main_parser = argparse.ArgumentParser(description=__doc__)
+    try:
+        main_parser._optionals.title = "Program Options"
+    except AttributeError:
+        pass
+    cmd_parser = main_parser.add_subparsers(title="Commands", dest="command")
+
+    results_file_options = argparse.ArgumentParser(add_help=False)
+    results_file_options.add_argument("-r", "--results-file",
             action="store",
-            help="Path to results data (JSON); specify '-' for standard input.")
-    # parser.add_argument("-t", "--tree_file",
-    #         default=None,
-    #         help="Path to tree file (optional; for validation)")
-    # parser.add_argument("-f", "--tree-format",
-    #         dest="tree_format",
-    #         type=str,
-    #         default="nexus",
-    #         choices=["nexus", "newick"],
-    #         help="Tree file data format (default='%(default)s').")
-    parser.add_argument("-o", "--output-prefix",
-            action="store",
-            default=None,
-            help="Prefix for output file.")
-    parser.add_argument("--output-format",
-            choices=["json", "tsv", "csv"],
-            default="json",
-            help="Format for output file (default='%(default)s').")
-    args = parser.parse_args()
+            help="Path to results data (JSON).")
+    output_options = argparse.ArgumentParser(add_help=False)
+    output_options.add_argument("-q", "--quiet",
+            action="store_true",
+            default=False,
+            help="Run quietly.")
+
+
+    command_cli = collections.OrderedDict()
+    command_cli["conspecificity"] = {
+        "parents": [results_file_options, output_options],
+        "desc":
+                "Given a path to a DELINEATE JSON results file, and a set"
+                " of taxon labels, report the marginal probability that those"
+                " taxa are conspecific.",
+        "func": execute_conspecific_probability_summarization}
+    command_parsers = collections.OrderedDict()
+    for key in command_cli:
+        kwargs = {}
+        if command_cli[key]["parents"]:
+            kwargs["parents"] = command_cli[key]["parents"]
+        kwargs["help"] = command_cli[key]["desc"]
+        kwargs["description"] = kwargs["help"]
+        cmd_options_parser = cmd_parser.add_parser(
+            key,
+            **kwargs)
+        cmd_options_parser.set_defaults(func=command_cli[key]["func"])
+        try:
+            cmd_options_parser._optionals.title = "Command Options"
+            cmd_options_parser._positionals.title = "Command Targets"
+        except AttributeError:
+            pass
+        # add_source_options(cmd_options_parser)
+        # add_output_options(cmd_options_parser)
+        command_parsers[key] = cmd_options_parser
+
+    ## setup rate estimation options
+    c1_parser = command_parsers["conspecificity"]
+    conspecificity_options = c1_parser.add_argument_group("Conspecificity options")
+    conspecificity_options.add_argument("taxon_label",
+            metavar="TAXON-LABEL",
+            nargs="+",
+            help="Labels of taxa. Specify '-' to read from standard input or 'file://' to read from file.",)
+    # output_options = c2_parser._output_options
+    # output_options.add_argument("-I", "--tree-info",
+    #         action="store_true",
+    #         help="Output additional information about the tree",)
+
+    if len(sys.argv) == 1:
+        msg = []
+        msg.append("Please specify one of the following operations:")
+        msg.append("")
+        msg.append("    delineate-summarize conspecificity")
+        msg.append("")
+        msg.append("Or type '--help' for help:")
+        msg.append("")
+        msg.append("    delineate-summarize --help")
+        msg.append("    delineate-summarize conspecificity --help")
+        msg.append("")
+        msg = "\n".join(msg)
+        sys.exit(msg)
+
+    args = main_parser.parse_args()
+    # controller.is_quiet = getattr(args, "quiet", True)
+
+    if hasattr(args, 'func'):
+        args.func(args=args)
+    else:
+        pass
+        # args.status_targets = "short"
+        # execute_status_command(controller=controller, args=args)
+    if args.results_file is None:
+        sys.exit("Need to specify path to DELINEATE JSON-format results file")
+    results_file = os.path.expanduser(os.path.expandvars(args.results_file))
     logger = utility.RunLogger(name="delineate-summarize",
             is_include_name=True,
             is_include_timestamp=False,
             log_to_stderr=True,
             stderr_logging_level=utility.logging.INFO,
-            log_to_file=False,
+            is_log_to_file=False,
             file_logging_level=utility.logging.INFO,
             )
+    if not os.path.exists(results_file):
+        logger.error("ERROR: File not found: '{}'".format(results_file))
+        sys.exit(1)
+    with open(results_file) as src:
+        results = json.load(src)
 
-if __name__ == "__main__":
+    try:
+        partitions = results["partitions"]
+    except KeyError:
+        logger.error("ERROR: 'partitions' key not found in results file.")
+        sys.exit(1)
+    if len(partitions) < 0:
+        logger.error("ERROR: No data under 'partitions' key")
+        sys.exit(1)
+    all_taxa_labels = set(itertools.chain.from_iterable(partitions[0]["species_leafsets"]))
+    if not args.quiet:
+        logger.info("{} taxa defined in results file: {}".format(len(all_taxa_labels), ", ".join("'{}'".format(t) for t in sorted(all_taxa_labels))))
+    total_cumulative_probability = partitions[-1]["constrained_cumulative_probability"]
+    if not args.quiet:
+        logger.info("{} partitions found in results file, with total constrained cumulative probability of {}".format(
+            len(partitions),
+            total_cumulative_probability,
+            ))
+    conspecific_taxa_labels = args.taxon_label
+    if args.taxon_label[0] == "-":
+        logger.info("Reading conspecific taxa from standard input")
+        conspecific_taxa_labels = []
+        for line in sys.stdin:
+            if line:
+                conspecific_taxa_labels.append(line.strip())
+    elif args.taxon_label[0].startswith("file://"):
+        fpath = os.path.expandvars(os.path.expandargs(args.taxon_label[7:]))
+        logger.info("Reading conspecific taxa from file: '{}'".format(fpath))
+        conspecific_taxa_labels = []
+        with open(fpath) as taxf:
+            for line in taxf:
+                if line:
+                    conspecific_taxa_labels.append(line.strip())
+    else:
+        logger.info("Reading conspecific taxa from arguments")
+        conspecific_taxa_labels = args.taxon_label
+    if not conspecific_taxa_labels:
+        logger.error("ERROR: Conspecific taxa not defined or read in any source")
+        sys.exit(1)
+    conspecific_taxa_labels = sorted(conspecific_taxa_labels)
+    logger.info("{} conspecific taxa defined: {}".format(len(conspecific_taxa_labels),
+            ", ".join("'{}'".format(t) for t in conspecific_taxa_labels)))
+    not_found = []
+    for ct in conspecific_taxa_labels:
+        if ct not in all_taxa_labels:
+            not_found.append(ct)
+    if not_found:
+        logger.error("ERROR: {} of {} conspecific taxa not defined in results: {}".format(
+            len(not_found),
+            len(conspecific_taxa_labels),
+            ", ".join("'{}'".format(t) for t in not_found)))
+        sys.exit(1)
+    conspecific_parts = []
+    conspecific_probabilities = []
+    conspecifics_in_confidence_interval = 0
+    conspecifics_not_in_confidence_interval = 0
+    for partition_idx, partition in enumerate(partitions):
+        for species_leafset in partition["species_leafsets"]:
+            s = set(species_leafset)
+            is_conspecific = True
+            for ct in conspecific_taxa_labels:
+                if ct not in s:
+                    is_conspecific = False
+            if is_conspecific:
+                conspecific_parts.append(partition)
+                conspecific_probabilities.append(partition["constrained_probability"])
+                if partition["is_in_confidence_interval"]:
+                    conspecifics_in_confidence_interval += 1
+                else:
+                    conspecifics_not_in_confidence_interval += 1
+    if not args.quiet:
+        logger.info("{} out of {} partitions found with specified taxa conspecific".format(
+            len(conspecific_probabilities),
+            len(partitions),
+            ))
+
+
+
+
+if __name__ == '__main__':
     main()
