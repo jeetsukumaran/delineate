@@ -200,7 +200,7 @@ def main():
             len(conspecific_probabilities),
             len(partitions),
             ))
-        logger.info("Marginal probability of taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
+        logger.info("Marginal constrained probability of taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
     sys.stdout.write("{}".format(total_marginal_probability_of_conspecificity))
 
 if __name__ == '__main__':
