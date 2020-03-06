@@ -498,7 +498,6 @@ def main():
             action="store_true",
             help="Output additional information about the tree",)
 
-
     if len(sys.argv) == 1:
         msg = []
         msg.append("Please specify one of the following operations:")

@@ -8,6 +8,7 @@ import argparse
 import collections
 import json
 import itertools
+import delineate
 from delineate import utility
 from delineate import model
 
@@ -214,11 +215,8 @@ def summarize_conspecificity(
     return d
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("-q", "--quiet",
-            action="store_true",
-            default=False,
-            help="Run quietly.")
+    parser = argparse.ArgumentParser(description=__doc__,
+            parents=[delineate.get_metadata_parser_opts()])
     parser.add_argument("-r", "--results-file",
             action="store",
             help="Path to results data (JSON).")
@@ -226,8 +224,17 @@ def main():
             metavar="TAXON-LABEL",
             nargs="+",
             help="Labels of taxa. Specify '-' to read from standard input or 'file://' to read from file.",)
-
+    parser.add_argument("-q", "--quiet",
+            action="store_true",
+            default=False,
+            help="Run quietly.")
     args = parser.parse_args()
+    if args.describe:
+        delineate.description()
+        sys.exit(0)
+    if args.version:
+        print(delineate.name())
+        sys.exit(0)
     # controller.is_quiet = getattr(args, "quiet", True)
     if args.results_file is None:
         sys.exit("Need to specify path to DELINEATE JSON-format results file")
