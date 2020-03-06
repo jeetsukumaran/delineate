@@ -24,12 +24,13 @@ def execute_newspp_probability_summarization(args,
         partitions_d,
         logger,
         ):
-    return summarize_conspecificity(
+    d = summarize_conspecificity(
             args=args,
             results_d=results_d,
             partitions_d=partitions_d,
             logger=logger,
             is_calc_new_species_probability=True)
+    sys.stdout.write("{}".format(d["total_marginal_probability_of_new_species"]))
 
 def execute_conspecific_probability_summarization(
         args,
@@ -37,12 +38,13 @@ def execute_conspecific_probability_summarization(
         partitions_d,
         logger,
         ):
-    return summarize_conspecificity(
+    d = summarize_conspecificity(
             args=args,
             results_d=results_d,
             partitions_d=partitions_d,
             logger=logger,
             is_calc_new_species_probability=False)
+    sys.stdout.write("{}".format(d["total_marginal_probability_of_conspecificity"]))
 
 def summarize_conspecificity(
         args,
@@ -57,6 +59,8 @@ def summarize_conspecificity(
         all_taxa_labels = set(itertools.chain.from_iterable(partitions_d[0]["species_leafsets"]))
     if is_calc_new_species_probability:
         species_constrained_lineage_map = results_d["species_constraints"]["species_constrained_lineage_map"]
+    else:
+        species_constrained_lineage_map = None
     if not args.quiet:
         logger.info("{} taxa defined in results file: {}".format(len(all_taxa_labels), ", ".join("'{}'".format(t) for t in sorted(all_taxa_labels))))
     total_cumulative_probability = partitions_d[-1]["constrained_cumulative_probability"]
@@ -109,13 +113,15 @@ def summarize_conspecificity(
         sys.exit(1)
     conspecific_probabilities = []
     new_species_probabilities = []
+    existing_species_probabilities = []
     conspecifics_in_confidence_interval = 0
     conspecifics_not_in_confidence_interval = 0
     new_spp_in_confidence_interval = 0
     new_spp_not_in_confidence_interval = 0
     for partition_idx, partition in enumerate(partitions_d):
         is_conspecific = True
-        for species_leafset in partition["species_leafsets"].values():
+        for species_label in partition["species_leafsets"]:
+            species_leafset = partition["species_leafsets"][species_label]
             s = set(species_leafset)
             num_in_leafset = 0
             for ct in conspecific_taxa_labels:
@@ -127,20 +133,41 @@ def summarize_conspecificity(
             elif num_in_leafset == len(conspecific_taxa_labels):
                 break
         if is_conspecific:
-            conspecific_probabilities.append(partition["constrained_probability"])
+            partition_probability = partition["constrained_probability"]
+            conspecific_probabilities.append(partition_probability)
             if partition["is_in_confidence_interval"]:
                 conspecifics_in_confidence_interval += 1
             else:
                 conspecifics_not_in_confidence_interval += 1
+            if is_calc_new_species_probability:
+                if species_label in species_constrained_lineage_map:
+                    existing_species_probabilities.append(partition_probability)
+                else:
+                    new_species_probabilities.append(partition_probability)
     total_marginal_probability_of_conspecificity = sum(conspecific_probabilities)
     if not args.quiet:
         logger.info("{} out of {} partitions found with candidate taxa conspecific".format(
             len(conspecific_probabilities),
             len(partitions_d),
             ))
-        logger.info("Marginal constrained probability of taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
-    sys.stdout.write("{}".format(total_marginal_probability_of_conspecificity))
+        logger.info("Marginal constrained probability of candidate taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
+        if total_cumulative_probability + 1e-8 < 1.0:
+            logger.warning("WARNING: cumulative constrained probability in results file is only {} --- not all partitions might have been included, and probability summarizations reported should not be considered as accurate".format(total_cumulative_probability))
+        if is_calc_new_species_probability:
+            total_probability_of_new_species = sum(new_species_probabilities)
+            total_probability_of_existing_species = sum(existing_species_probabilities)
+            logger.info("Marginal constrained probability of candidate taxa being collectively *part* (i.e., non-exclusively) of a new species: {}".format(total_probability_of_new_species))
+            logger.info("Marginal constrained probability of candidate taxa being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(total_probability_of_existing_species))
+        else:
+            total_probability_of_new_species = None
+            total_probability_of_existing_species = None
 
+    d = {
+        "total_marginal_probability_of_conspecificity": total_marginal_probability_of_conspecificity,
+        "total_marginal_probability_of_new_species": total_probability_of_new_species,
+        "total_marginal_probability_of_existing_species": total_probability_of_new_species,
+    }
+    return d
 
 def main():
     main_parser = argparse.ArgumentParser(description=__doc__)
@@ -251,8 +278,6 @@ def main():
                 )
     else:
         pass
-        # args.status_targets = "short"
-        # execute_status_command(controller=controller, args=args)
 
 if __name__ == '__main__':
     main()
