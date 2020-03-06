@@ -195,6 +195,8 @@ def main():
             if num_in_leafset > 0 and num_in_leafset < len(conspecific_taxa_labels):
                 is_conspecific = False
                 break
+            elif num_in_leafset == len(conspecific_taxa_labels):
+                break
         if is_conspecific:
             conspecific_parts.append(partition)
             conspecific_probabilities.append(partition["constrained_probability"])
