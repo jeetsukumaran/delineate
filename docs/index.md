@@ -79,13 +79,13 @@ Note that the species labels are ignored for population lineages with a "0" stat
 Given a population lineage tree file, "population-tree.nex", and a species assignment table file "species-mappings.tsv", then the following command will run a DELINEATE analysis on the data::
 
 ~~~
-delineate-estimate partitions --tree-file population-tree.nex --config-file data1.tsv"
+delineate-estimate partitions --tree-file population-tree.nex --config-file data1.tsv
 ~~~
 
 or, using the short-form options:
 
 ~~~
-delineate-estimate partitions -t population-tree.nex -c data1.tsv"
+delineate-estimate partitions -t population-tree.nex -c data1.tsv
 ~~~
 
 This command has the following components:
@@ -124,6 +124,32 @@ Most important of this is ``species``, i.e., the label corresponding to the iden
 In the case of species assignments that are constrained (i.e., status indicated by "1"), these will be identical to the assignment and invariant across all partitions, of course.
 However, in the case of population lineages of *unknown* species affinities (i.e., status indicated by "0"), this may be an existing species label (if the population lineage was assigned to an existing species in the partition under consideration) or a new, arbitrary species label (if the population lineage was assigned to a new distinct species in the partition under consideration).
 In addition, in [FigTree] you can also choose to have the branches colored by "status", and this will highlight population lineages of (*a priori*) known vs unknown species affinities, and thus quickly identify the assigned species identities of the lineages of interest.
+
+### Calculating the Marginal Probability of Conspecificity for a Subset of Taxa
+
+An analysis estimating the probabilities of different partition gives the the \textit{joint} probability for different organizations of population lineages into subsets, each constituting a distinct species.
+We might be interested, instead, in the marginal probability of conspecificity of a few population lineages.
+That is, we are asking the question, "What is the probability that the following population lineages are conspecific?"
+To answer the question we simply have to sum up the probabilities of individual partitions in which those population lineages are found to be conspecific.
+We provide an application to this, ``delineate-summarize``.
+To run it, you simply need to provide it the JSON results file that is produced by a ``delineate-estimate`` analysis, followed by the list of taxa for which you want to calculate the marginal probability of conspecificity.
+Note that if your taxon labels have spaces or special characters in them (tsk tsk), you need to wrap your labels in quotes.
+E.g., assuming you have run a DELINEATE analysis using ``delineate-estimate``, and the analysis produced the two following files:
+
+-   "*dyna1.delimitation-results.json*"
+-   "*dyna1.delimitation-results.trees*"
+
+Then, to calculate the marginal probability that, for e.g., the population lineages "DGRP1" and "DGRR1" are conspecific, you would run the following command:
+
+~~~
+delineate-summarize conspecificity -r dyna1.delimitation-results.json DGRP1 DGRR1
+~~~
+
+Or the marginal probability that the population lineages "DhtT9", "Dhy3Br", "Dhy6", and "Dhym5" are conspecific:
+
+~~~
+delineate-summarize conspecificity -r dyna1.delimitation-results.json DhtT9 Dhy3Br Dhy6 Dhym5
+~~~
 
 [Python]: https://www.python.org/
 [DendroPy]: https://dendropy.org/
