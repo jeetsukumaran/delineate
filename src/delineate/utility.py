@@ -155,7 +155,7 @@ def error_exit(msg, logger):
 def compose_output_prefix(input_filepath, default):
     if not input_filepath:
         return default
-    return os.path.splitext(os.path.expanduser(os.path.expandvars(input_filepath)))[0]
+    return os.path.basename(os.path.expanduser(os.path.expandvars(input_filepath)))
 
 def compose_table(**kwargs):
     return "\n".join(compose_table_rows(**kwargs))

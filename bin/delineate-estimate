@@ -349,7 +349,7 @@ def open_output_file(args,
         if suffix is None:
             suffix = ""
         outpath = "{}{}.{}".format(
-                os.path.expanduser(os.path.expandvars(args.output_prefix)),
+                args.output_prefix,
                 suffix,
                 extension)
         return outpath, open(outpath, "w")
