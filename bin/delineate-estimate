@@ -42,6 +42,14 @@ from delineate import control
 from delineate import utility
 # }}}1
 
+# Support Functions {{{1
+def sorted_dict(d):
+    d2 = {}
+    for k in sorted(d.keys()):
+        d2[k] = d[k]
+    return d2
+# }}}1
+
 # Species Partition Estimation {{{1
 def execute_species_partition_estimation(args):
     controller = control.get_controller(
@@ -106,9 +114,8 @@ def execute_species_partition_estimation(args):
     result_dict["speciation_completion_rate"] = speciation_completion_rate
     result_dict["speciation_completion_rate_source"] = speciation_completion_rate_source
     result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
-    if species_constraints_desc:
-        result_dict["species_constraints"] = species_constraints_desc
-    result_dict["constrained_tree"] = constrained_tree
+    result_dict["species_constraints"] = species_constraints_desc
+    result_dict["constrained_lineage_tree"] = constrained_tree
     species_partition_info = []
     probability_index = 2
     for k in partition_probability_map:
@@ -169,7 +176,15 @@ def execute_species_partition_estimation(args):
             if args.report_mle_only and key_idx > 0:
                 break
             p = collections.OrderedDict()
-            p["species_leafsets"] = key_as_list
+            lineage_species_name_map = controller.compile_postanalysis_lineage_species_name_map(postanalysis_species_leafset_labels=key_as_list)
+            p["lineage_species_name_map"] = sorted_dict(lineage_species_name_map)
+            species_lineage_name_map = {}
+            for lineage in lineage_species_name_map:
+                try:
+                    species_lineage_name_map[lineage_species_name_map[lineage]].append(lineage)
+                except KeyError:
+                    species_lineage_name_map[lineage_species_name_map[lineage]] = [lineage]
+            p["species_leafsets"] = sorted_dict(species_lineage_name_map)
             p["constrained_probability"] = None
             p["constrained_cumulative_probability"] = None
             p["is_in_confidence_interval"] = None
@@ -204,9 +219,6 @@ def execute_species_partition_estimation(args):
             p["unconstrained_cumulative_probability"] = tree.as_float(cumulative_probability)
             p["constrained_cumulative_probability"] = tree.as_float(cumulative_probability_given_constr)
 
-            result_dict["partitions"].append(p)
-
-            lineage_species_name_map = controller.compile_postanalysis_lineage_species_name_map(postanalysis_species_leafset_labels=key_as_list)
             for key in (
                     "constrained_probability",
                     "constrained_cumulative_probability",
@@ -228,6 +240,8 @@ def execute_species_partition_estimation(args):
                     suppress_annotations=False,
                     taxon_token_map=taxon_token_map,
                     )))
+
+            result_dict["partitions"].append(p)
             # print("--")
             # print(lineage_species_name_map)
         treefile.write("END TREES;\n")
