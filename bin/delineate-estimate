@@ -54,27 +54,41 @@ def execute_species_partition_estimation(args):
     if controller.has_species_constraints:
         species_constraints = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
         tree.set_node_constraints(species_constraints)
-
-    if speciation_completion_rate is None:
-        if controller.has_species_constraints:
-            induced_tree = tree.extract_tree_with_taxa_labels(
-                    labels=controller.constrained_lineage_leaf_labels)
-            mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
-                    tree=induced_tree,
-                    species_leafset_labels=species_constraints,
-                    initial_speciation_rate=controller.config_d.get("initial_speciation_rate", 0.01),
-                    min_speciation_rate=controller.config_d.get("min_speciation_rate", 1e-8),
-                    max_speciation_rate=controller.config_d.get("max_speciation_rate", 2.00))
-            speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
-            speciation_completion_rate = speciation_completion_rate_estimate
-            speciation_completion_rate_source = "estimated"
+        induced_tree = tree.extract_tree_with_taxa_labels(
+                labels=controller.constrained_lineage_leaf_labels)
+        mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
+                tree=induced_tree,
+                species_leafset_labels=species_constraints,
+                initial_speciation_rate=controller.config_d.get("initial_speciation_rate", 0.01),
+                min_speciation_rate=controller.config_d.get("min_speciation_rate", 1e-8),
+                max_speciation_rate=controller.config_d.get("max_speciation_rate", 2.00))
+        constrained_tree = induced_tree.as_string(
+                schema="newick",
+                )
+        speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
+        speciation_completion_rate = speciation_completion_rate_estimate
+        speciation_completion_rate_source = "estimated"
+        # species_constraints_desc = controller.species_leafset_constraint_labels
+        try:
+            species_constraints_desc = dict(controller.config_d["configuration_table"])
+            try:
+                del species_constraints_desc["lineages"]
+            except KeyError:
+                pass
+        except KeyError:
+            # probably given a JSON file here;
+            # TODO: pull out what we can
+            species_constraints_desc = None
     else:
-        speciation_completion_rate_source = "specified"
-        speciation_completion_rate_estimate_lnl = 0.0
-    if speciation_completion_rate is None:
-        controller.logger.error("ERROR: Speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
+        constrained_tree = None
+        species_constraints_desc = None
+    if speciation_completion_rate is None and not controller.has_species_constraints:
+        controller.logger.error("ERROR: With no constraints given, speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
         controller.logger.critical("Terminating due to error")
         sys.exit(1)
+    elif speciation_completion_rate is not None and not controller.has_species_constraints:
+        speciation_completion_rate_source = "specified"
+        speciation_completion_rate_estimate_lnl = 0.0
     tree.speciation_completion_rate = speciation_completion_rate
 
     partition_probability_map = tree.calc_label_partition_probability_map()
@@ -88,9 +102,13 @@ def execute_species_partition_estimation(args):
     extra_fields = utility.parse_fieldname_and_value(args.label)
     if extra_fields:
         result_dict.update(extra_fields)
+    result_dict["lineages"] = [txn.label for txn in tree.taxon_namespace]
     result_dict["speciation_completion_rate"] = speciation_completion_rate
     result_dict["speciation_completion_rate_source"] = speciation_completion_rate_source
     result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
+    if species_constraints_desc:
+        result_dict["species_constraints"] = species_constraints_desc
+    result_dict["constrained_tree"] = constrained_tree
     species_partition_info = []
     probability_index = 2
     for k in partition_probability_map:

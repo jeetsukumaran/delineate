@@ -440,16 +440,16 @@ class Controller(object):
                 utility.error_exit(
                         msg="Required field '{}' not found in configuration source".format(required_field),
                         logger=logger)
-        species_lineage_map = {}
+        species_constrained_lineage_map = {}
         lineage_species_map = {}
         known = []
         unknown = []
         for entry in src_data:
             if entry[STATUS_FIELDNAME] == "1":
                 try:
-                    species_lineage_map[entry[SPECIES_ID_FIELDNAME]].append(entry[LINEAGE_ID_FIELDNAME])
+                    species_constrained_lineage_map[entry[SPECIES_ID_FIELDNAME]].append(entry[LINEAGE_ID_FIELDNAME])
                 except KeyError:
-                    species_lineage_map[entry[SPECIES_ID_FIELDNAME]] = [entry[LINEAGE_ID_FIELDNAME]]
+                    species_constrained_lineage_map[entry[SPECIES_ID_FIELDNAME]] = [entry[LINEAGE_ID_FIELDNAME]]
                 known.append(entry[LINEAGE_ID_FIELDNAME])
                 lineage_species_map[entry[LINEAGE_ID_FIELDNAME]] = entry[SPECIES_ID_FIELDNAME]
             elif entry[STATUS_FIELDNAME] == "0":
@@ -461,9 +461,9 @@ class Controller(object):
                         msg="Unrecognized status: '{}'".format(entry[STATUS_FIELDNAME]),
                         logger=self.logger)
         species_leafset_constraints = []
-        for key in species_lineage_map:
-            species_leafset_constraints.append(species_lineage_map[key])
-        assert len(species_leafset_constraints) == len(species_lineage_map)
+        for key in species_constrained_lineage_map:
+            species_leafset_constraints.append(species_constrained_lineage_map[key])
+        assert len(species_leafset_constraints) == len(species_constrained_lineage_map)
         self.config_d = {}
         self.config_d[SPECIES_LEAFSET_CONSTRAINTS_KEY] = species_leafset_constraints
         self.config_d["configuration_table"] = {}
@@ -472,7 +472,7 @@ class Controller(object):
         self.config_d["configuration_table"]["unconstrained_lineages"] = unknown
         self.config_d["configuration_table"]["lineage_species_map"] = lineage_species_map
         self.config_d["configuration_table"]["constrained_lineage_species_map"] = {lineage_name:lineage_species_map[lineage_name] for lineage_name in known}
-        self.config_d["configuration_table"]["species_lineage_map"] = species_lineage_map
+        self.config_d["configuration_table"]["species_constrained_lineage_map"] = species_constrained_lineage_map
         return self.config_d
 
     def register_names(self):
@@ -494,7 +494,7 @@ class Controller(object):
         self.registry.validate_lineage_names()
 
     def register_preanalysis_species_names(self):
-        species_lineage_map = {}
+        species_constrained_lineage_map = {}
         constrained_lineage_species_map = {}
         full_lineage_species_map = {}
         seen_lineages = set()
