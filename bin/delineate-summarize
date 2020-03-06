@@ -140,27 +140,31 @@ def main():
             ))
     conspecific_taxa_labels = args.taxon_label
     if args.taxon_label[0] == "-":
-        logger.info("Reading candidate conspecific taxa from standard input")
+        if not args.quiet:
+            logger.info("Reading candidate conspecific taxa from standard input")
         conspecific_taxa_labels = []
         for line in sys.stdin:
             if line:
                 conspecific_taxa_labels.append(line.strip())
     elif args.taxon_label[0].startswith("file://"):
         fpath = os.path.expandvars(os.path.expandargs(args.taxon_label[7:]))
-        logger.info("Reading candidate conspecific taxa from file: '{}'".format(fpath))
+        if not args.quiet:
+            logger.info("Reading candidate conspecific taxa from file: '{}'".format(fpath))
         conspecific_taxa_labels = []
         with open(fpath) as taxf:
             for line in taxf:
                 if line:
                     conspecific_taxa_labels.append(line.strip())
     else:
-        logger.info("Reading candidate conspecific taxa from arguments")
+        if not args.quiet:
+            logger.info("Reading candidate conspecific taxa from arguments")
         conspecific_taxa_labels = args.taxon_label
     if not conspecific_taxa_labels:
         logger.error("ERROR: Candidate onspecific taxa not defined or read in any source")
         sys.exit(1)
     conspecific_taxa_labels = sorted(conspecific_taxa_labels)
-    logger.info("{} candidate conspecific taxa defined: {}".format(len(conspecific_taxa_labels),
+    if not args.quiet:
+        logger.info("{} candidate conspecific taxa defined: {}".format(len(conspecific_taxa_labels),
             ", ".join("'{}'".format(t) for t in conspecific_taxa_labels)))
     not_found = []
     for ct in conspecific_taxa_labels:
@@ -198,9 +202,6 @@ def main():
             ))
         logger.info("Marginal probability of taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
     sys.stdout.write("{}".format(total_marginal_probability_of_conspecificity))
-
-
-
 
 if __name__ == '__main__':
     main()
