@@ -98,17 +98,24 @@ def summarize_conspecificity(
         logger.error("ERROR: At least two conspecific taxa must be defined, but only one given: '{}'".format(
             conspecific_taxa_labels[0]))
         sys.exit(1)
+    if len(conspecific_taxa_labels) == 1:
+        desc_noun = "taxon"
+    else:
+        desc_noun = "taxa"
     if not args.quiet:
-        logger.info("{} candidate taxa defined: {}".format(len(conspecific_taxa_labels),
+        logger.info("{} candidate {} defined: {}".format(
+            len(conspecific_taxa_labels),
+            desc_noun,
             ", ".join("'{}'".format(t) for t in conspecific_taxa_labels)))
     not_found = []
     for ct in conspecific_taxa_labels:
         if ct not in all_taxa_labels:
             not_found.append(ct)
     if not_found:
-        logger.error("ERROR: {} of {} conspecific taxa not defined in results: {}".format(
+        logger.error("ERROR: {} of {} {} not defined in results: {}".format(
             len(not_found),
             len(conspecific_taxa_labels),
+            desc_noun,
             ", ".join("'{}'".format(t) for t in not_found)))
         sys.exit(1)
     conspecific_probabilities = []
@@ -146,21 +153,22 @@ def summarize_conspecificity(
                     new_species_probabilities.append(partition_probability)
     total_marginal_probability_of_conspecificity = sum(conspecific_probabilities)
     if not args.quiet:
-        logger.info("{} out of {} partitions found with candidate taxa conspecific".format(
-            len(conspecific_probabilities),
-            len(partitions_d),
-            ))
-        logger.info("Marginal constrained probability of candidate taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
-        if total_cumulative_probability + 1e-8 < 1.0:
-            logger.warning("WARNING: cumulative constrained probability in results file is only {} --- not all partitions might have been included, and probability summarizations reported should not be considered as accurate".format(total_cumulative_probability))
+        if len(conspecific_taxa_labels) > 1:
+            logger.info("{} out of {} partitions found with candidate taxa conspecific".format(
+                len(conspecific_probabilities),
+                len(partitions_d),
+                ))
+            logger.info("Marginal constrained probability of candidate taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
         if is_calc_new_species_probability:
             total_probability_of_new_species = sum(new_species_probabilities)
             total_probability_of_existing_species = sum(existing_species_probabilities)
-            logger.info("Marginal constrained probability of candidate taxa being collectively *part* (i.e., non-exclusively) of a new species: {}".format(total_probability_of_new_species))
-            logger.info("Marginal constrained probability of candidate taxa being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(total_probability_of_existing_species))
+            logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, total_probability_of_new_species))
+            logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, total_probability_of_existing_species))
         else:
             total_probability_of_new_species = None
             total_probability_of_existing_species = None
+        if total_cumulative_probability + 1e-8 < 1.0:
+            logger.warning("WARNING: cumulative constrained probability in results file is only {} --- not all partitions might have been included, and probability summarizations reported should not be considered as accurate".format(total_cumulative_probability))
 
     d = {
         "total_marginal_probability_of_conspecificity": total_marginal_probability_of_conspecificity,
