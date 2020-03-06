@@ -160,9 +160,13 @@ def main():
             logger.info("Reading candidate conspecific taxa from arguments")
         conspecific_taxa_labels = args.taxon_label
     if not conspecific_taxa_labels:
-        logger.error("ERROR: Candidate onspecific taxa not defined or read in any source")
+        logger.error("ERROR: Candidate conspecific taxa not defined or read in any source")
         sys.exit(1)
-    conspecific_taxa_labels = sorted(conspecific_taxa_labels)
+    conspecific_taxa_labels = sorted(set(conspecific_taxa_labels))
+    if len(conspecific_taxa_labels) == 1:
+        logger.error("ERROR: At least two conspecific taxa must be defined, but only one given: '{}'".format(
+            conspecific_taxa_labels[0]))
+        sys.exit(1)
     if not args.quiet:
         logger.info("{} candidate conspecific taxa defined: {}".format(len(conspecific_taxa_labels),
             ", ".join("'{}'".format(t) for t in conspecific_taxa_labels)))
@@ -181,19 +185,23 @@ def main():
     conspecifics_in_confidence_interval = 0
     conspecifics_not_in_confidence_interval = 0
     for partition_idx, partition in enumerate(partitions):
+        is_conspecific = True
         for species_leafset in partition["species_leafsets"]:
             s = set(species_leafset)
-            is_conspecific = True
+            num_in_leafset = 0
             for ct in conspecific_taxa_labels:
-                if ct not in s:
-                    is_conspecific = False
-            if is_conspecific:
-                conspecific_parts.append(partition)
-                conspecific_probabilities.append(partition["constrained_probability"])
-                if partition["is_in_confidence_interval"]:
-                    conspecifics_in_confidence_interval += 1
-                else:
-                    conspecifics_not_in_confidence_interval += 1
+                if ct in s:
+                    num_in_leafset += 1
+            if num_in_leafset > 0 and num_in_leafset < len(conspecific_taxa_labels):
+                is_conspecific = False
+                break
+        if is_conspecific:
+            conspecific_parts.append(partition)
+            conspecific_probabilities.append(partition["constrained_probability"])
+            if partition["is_in_confidence_interval"]:
+                conspecifics_in_confidence_interval += 1
+            else:
+                conspecifics_not_in_confidence_interval += 1
     total_marginal_probability_of_conspecificity = sum(conspecific_probabilities)
     if not args.quiet:
         logger.info("{} out of {} partitions found with candidate taxa conspecific".format(
