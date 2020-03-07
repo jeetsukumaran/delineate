@@ -125,7 +125,134 @@ In the case of species assignments that are constrained (i.e., status indicated 
 However, in the case of population lineages of *unknown* species affinities (i.e., status indicated by "0"), this may be an existing species label (if the population lineage was assigned to an existing species in the partition under consideration) or a new, arbitrary species label (if the population lineage was assigned to a new distinct species in the partition under consideration).
 In addition, in [FigTree] you can also choose to have the branches colored by "status", and this will highlight population lineages of (*a priori*) known vs unknown species affinities, and thus quickly identify the assigned species identities of the lineages of interest.
 
-### Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa
+### More Options
+
+All subcommands for ``delineate-estimate`` will be shown with ``--help`` option:
+
+~~~
+delineate-estimate --help
+~~~
+
+While special options for the ``partitions`` will be shown by:
+
+~~~
+delineate-estimate partitions --help
+~~~
+
+which results in:
+
+~~~
+Given a known population tree and optionally a speciation completion rate,
+calculate the probability of different partitions of population lineages into
+species, with the partition of the highest probability corresponding to the
+maximum likelihood species delimitation estimate.
+
+Command Options:
+  -h, --help            show this help message and exit
+
+Source Options:
+  -t TREE_FILE, --tree-file TREE_FILE
+                        Path to tree file.
+  -c CONFIG_FILE, --config-file CONFIG_FILE
+                        Path to configuration file.
+  -f {nexus,newick}, --tree-format {nexus,newick}
+                        Tree file data format (default='nexus').
+
+Output Options:
+  -o OUTPUT_PREFIX, --output-prefix OUTPUT_PREFIX
+                        Prefix for output file(s).
+  -l LABEL, --label LABEL
+                        Label to append to output (in format <FIELD-NAME>:value;)
+  --no-header-row       Do not write a header row.
+  --append              Append to output file if it already exists instead of
+                        overwriting.
+  --field-separator OUTPUT_FIELD_SEPARATOR
+                        Field separator or delimiter character [default: tab].
+  --no-translate-tree-tokens
+                        Write tree statements using full taxon names rather than
+                        numerical indices.
+  -I, --tree-info       Output additional information about the tree.
+
+Estimation Options:
+  -u, --underflow-protection
+                        Try to protect against underflow by using special number
+                        handling classes (slow).
+
+Model Options:
+  -s SPECIATION_COMPLETION_RATE, --speciation-completion-rate SPECIATION_COMPLETION_RATE
+                        The speciation completion rate (overrides that given in
+                        configuration file, if any; default: None).
+
+Report Options:
+  -P #.##, --report-cumulative-probability-threshold #.##
+                        Do not report on partitions outside of this constrained
+                        (conditional) cumulative probability.
+  --report-mle-only     Only report maximum likelihood estimate.
+  -p #.##, --report-probability-threshold #.##
+                        Do not report on partitions with constrained
+                        (conditional) probability below this threshold.
+~~~
+
+Some of these options are explained in detail below:
+
+*   ``-o`` or ``--output-prefix``
+
+    By default ``delineate-estimate`` will create output files in the current
+    (working) directory with a filename stem given by the filename stem of the
+    configuration file. If you out want to specify a different path and/or
+    directory, you would use this option. For e.g.,
+
+    ~~~
+    delineate-estimate partitions \
+        -t population-tree.nex \
+        -c data1.tsv \
+        -o /arrakis/workspace/results/run1
+    ~~~
+
+    or
+
+    ~~~
+    delineate-estimate partitions \
+        --tree-file population-tree.nex \
+        --config-file data1.tsv \
+        --output-preifx /arrakis/workspace/results/run1
+    ~~~
+
+    will result in output being written to the following locations:
+
+    -   "*/arrakis/workspace/results/run1.delimitation-results.json*"
+    -   "*/arrakis/workspace/results/run1.delimitation-results.trees*"
+
+*   ``-P`` or ``report-probability-threshold``
+
+    By default, ``delineate-estimate`` will enumerate *all* possible partitions and their probabilities.
+    For many studies, this will result in massive datafiles, hundreds to thousands of gigabytes, as millions or millions of millions or more partitions are written out.
+    Remember, the number of partitions for a dataset of $n$ lineages is the $n^{th}$ Bell number.
+    For most studies, the vast majority of these partitions will be of very, very, very low probability.
+    Considerable savings in time, disk space, and a significant slow down of the heat death of the universe can be achieved by restricting the report to only most probable partitions that collectively contribute to most of the probability.
+    This option allows you to effect this restriction and achieve these saving.
+    To restrict the report to the most probable partitions that collectively result in a cumulative probability of 0.95, for e.g.,
+
+    ~~~
+    delineate-estimate partitions \
+        -t population-tree.nex \
+        -c data1.tsv \
+        -P 0.95
+    ~~~
+
+    or
+
+    ~~~
+    delineate-estimate partitions \
+        --tree-file population-tree.nex \
+        --config-file data1.tsv \
+        --report-cumulative-probability-threshold 0.95
+    ~~~
+
+    Note that one issue that might result from this restriction is that, when summing up the marginal probabilities of the statues of a particular lineage or collection of lineages (new species, conspecificity, etc.), exclusion of these lower probability partitions may have an effect on the accuracy of the marginal probabilties.
+    However, in most cases this is probably not going to be very consequential, especially with a high enough threshold.
+
+## Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa
 
 An analysis estimating the probabilities of different partition gives the \textit{joint} probability for different organizations of population lineages into subsets, with each subset constituting a distinct species.
 The maximum likelihood estimate of the species delimitation is given by the partition with the highest probability, and this is easily available from the JSON results file or the tree file (it is the first partition in the JSON file, and the first tree in the tree file).

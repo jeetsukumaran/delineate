@@ -447,36 +447,31 @@ def main():
             type=float,
             default=None,
             help="The speciation completion rate (overrides that given in configuration file, if any; default: None).",)
-    output_options = c1_parser._output_options
-    output_options.add_argument("-p", "--report-probability-threshold",
-            dest="report_constrained_probability_threshold",
-            default=None,
-            type=float,
-            help="Do not report on partitions with constrained (conditional) probability below this threshold.")
-    output_options.add_argument("-P", "--report-cumulative-probability-threshold",
+
+    report_options = c1_parser.add_argument_group("Report Options")
+    report_options.add_argument("-P", "--report-cumulative-probability-threshold",
             dest="report_constrained_cumulative_probability_threshold",
+            metavar="#.##",
             default=None,
             type=float,
-            help="Do not report on partitions outside of this constrained (conditional) cumulative probability below this threshold.")
-    output_options.add_argument("--no-translate-tree-tokens",
-            action="store_true",
-            default=False,
-            help="Write tree statements using full taxon names rather than numerical indices.")
-    # output_options.add_argument("-q", "--report-unconstrained-probability-threshold",
-    #         dest="report_unconstrained_probability_threshold",
-    #         default=None,
-    #         type=float,
-    #         help="Do not report on partitions with unconstrained probability below this threshold.")
-    # output_options.add_argument("-Q", "--report-unconstrained-cumulative-probability-threshold",
-    #         dest="report_unconstrained_cumulative_probability_threshold",
-    #         default=None,
-    #         type=float,
-    #         help="Do not report on partitions outside of this cumulative probability below this threshold.")
-    output_options.add_argument("--report-mle-only",
+            help="Do not report on partitions outside of this constrained (conditional) cumulative probability.")
+    report_options.add_argument("--report-mle-only",
             dest="report_mle_only",
             action="store_true",
             default=False,
             help="Only report maximum likelihood estimate.",)
+    report_options.add_argument("-p", "--report-probability-threshold",
+            dest="report_constrained_probability_threshold",
+            metavar="#.##",
+            default=None,
+            type=float,
+            help="Do not report on partitions with constrained (conditional) probability below this threshold.")
+
+    output_options = c1_parser._output_options
+    output_options.add_argument("--no-translate-tree-tokens",
+            action="store_true",
+            default=False,
+            help="Write tree statements using full taxon names rather than numerical indices.")
     output_options.add_argument("-I", "--tree-info",
             action="store_true",
             help="Output additional information about the tree.",)
