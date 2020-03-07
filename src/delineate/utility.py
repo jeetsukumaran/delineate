@@ -166,7 +166,11 @@ def error_exit(msg, logger):
 def compose_output_prefix(input_filepath, default):
     if not input_filepath:
         return default
-    return os.path.basename(os.path.expanduser(os.path.expandvars(input_filepath)))
+    s = os.path.splitext(os.path.basename(os.path.expanduser(os.path.expandvars(input_filepath))))[0]
+    s = s.strip()
+    if not s or s.startswith("."):
+        s = "delineate"
+    return s
 
 def compose_table(**kwargs):
     return "\n".join(compose_table_rows(**kwargs))
