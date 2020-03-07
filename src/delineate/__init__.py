@@ -30,7 +30,7 @@
 ##############################################################################
 
 __project__ = "DELINEATE"
-__version__ = "1.1.1"
+__version__ = "1.2.0"
 
 def revision_description():
     import os
