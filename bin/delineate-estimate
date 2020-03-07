@@ -302,16 +302,19 @@ def execute_speciation_completion_rate_estimation(args):
         sys.exit(1)
     # species_constraints = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
     species_leafset_labels = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
-    initial_speciation_rate = controller.config_d.pop("initial_speciation_rate", 0.01)
-    min_speciation_rate = controller.config_d.pop("min_speciation_rate", 1e-8)
-    controller.tree.birth_rate = birthdeath.fit_pure_birth_model_to_tree(tree=controller.tree)["birth_rate"]
-    max_speciation_rate = controller.config_d.pop("max_speciation_rate", controller.tree.birth_rate * 10)
+    speciation_completion_rate_estimation_initial = controller.speciation_completion_rate_estimation_initial
+    speciation_completion_rate_estimation_min = controller.speciation_completion_rate_estimation_min
+    speciation_completion_rate_estimation_max = controller.speciation_completion_rate_estimation_max
+    controller.logger.info("Speciation completion rate estimation window minimum: {}".format(speciation_completion_rate_estimation_min))
+    controller.logger.info("Speciation completion rate estimation window maximum: {}".format(speciation_completion_rate_estimation_max))
+    controller.logger.info("Speciation completion rate estimation initial: {}".format(speciation_completion_rate_estimation_initial))
     mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
             tree=tree,
             species_leafset_labels=species_leafset_labels,
-            initial_speciation_rate=initial_speciation_rate,
-            min_speciation_rate=min_speciation_rate,
-            max_speciation_rate=max_speciation_rate)
+            initial_speciation_rate=speciation_completion_rate_estimation_initial,
+            min_speciation_rate=speciation_completion_rate_estimation_min,
+            max_speciation_rate=speciation_completion_rate_estimation_max,
+            )
     speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
     extra_fields = utility.parse_fieldname_and_value(args.label)
     out_path, out = open_output_file(
@@ -385,6 +388,40 @@ def add_output_options(parser, output_options=None):
     parser._output_options = output_options
     return parser
 
+def add_estimation_options(parser, estimation_options=None):
+    if not estimation_options:
+        estimation_options = parser.add_argument_group("Estimation Options")
+    estimation_options.add_argument("-u", "--underflow-protection",
+            action="store_true",
+            default=False,
+            help="Try to protect against underflow by using special number handling classes (slow).",)
+    estimation_options.add_argument(
+            "--speciation-completion-rate-estimation-min",
+            "--smin",
+            metavar="#.##",
+            type=float,
+            dest="speciation_completion_rate_estimation_min",
+            default=1e-8,
+            help="If estimating speciation completion rate, minimum boundary for optimization window  [default: %(default)s].")
+    estimation_options.add_argument(
+            "--speciation-completion-rate-estimation-max",
+            "--smax",
+            metavar="#.##",
+            type=float,
+            dest="speciation_completion_rate_estimation_max",
+            default=None,
+            help="If estimating speciation completion rate, maximum boundary for optimization window [default: 10 x lineage tree pure birth rate].")
+    estimation_options.add_argument(
+            "--speciation-completion-rate-estimation-initial",
+            "--sinit",
+            metavar="#.##",
+            type=float,
+            dest="speciation_completion_rate_estimation_initial",
+            default=None,
+            help="If estimating speciation completion rate, initial value for optimizer [default: 0.01 x lineage tree pure birth rate].")
+    parser._estimation_options = estimation_options
+    return estimation_options
+
 def open_output_file(args,
         suffix,
         extension,
@@ -454,40 +491,12 @@ def main():
         except AttributeError:
             pass
         add_source_options(cmd_options_parser)
+        add_estimation_options(cmd_options_parser)
         add_output_options(cmd_options_parser)
         command_parsers[key] = cmd_options_parser
 
     ## setup partition options
     c1_parser = command_parsers["partitions"]
-    estimation_options = c1_parser.add_argument_group("Estimation Options")
-    estimation_options.add_argument("-u", "--underflow-protection",
-            action="store_true",
-            default=False,
-            help="Try to protect against underflow by using special number handling classes (slow).",)
-    estimation_options.add_argument(
-            "--speciation-completion-rate-estimation-min",
-            "--smin",
-            metavar="#.##",
-            type=float,
-            dest="speciation_completion_rate_estimation_min",
-            default=1e-8,
-            help="Minimum value boundary for maximum likelihood optimization of speciation rate if speciation completion rate is not specified [default: %(default)s].")
-    estimation_options.add_argument(
-            "--speciation-completion-rate-estimation-max",
-            "--smax",
-            metavar="#.##",
-            type=float,
-            dest="speciation_completion_rate_estimation_max",
-            default=None,
-            help="Maximum value boundary for maximum likelihood optimization of speciation rate if speciation completion rate is not specified [default: 10 x lineage tree pure birth rate].")
-    estimation_options.add_argument(
-            "--speciation-completion-rate-estimation-initial",
-            "--sinit",
-            metavar="#.##",
-            type=float,
-            dest="speciation_completion_rate_estimation_initial",
-            default=None,
-            help="Initial value for maximum likelihood optimization of speciation rate if speciation completion rate is not specified [default: 0.01 x lineage tree pure birth rate].")
     model_options = c1_parser.add_argument_group("Model Options")
     model_options.add_argument("-s", "--speciation-completion-rate",
             type=float,
@@ -528,14 +537,10 @@ def main():
 
     ## setup rate estimation options
     c2_parser = command_parsers["rates"]
-    estimation_options = c2_parser.add_argument_group("Estimation options")
+    estimation_options = c2_parser._estimation_options
     estimation_options.add_argument("-i", "--intervals", "--confidence-intervals",
             action="store_true",
             help="Calculate confidence intervals.",)
-    estimation_options.add_argument("-u", "--underflow-protection",
-            action="store_true",
-            default=False,
-            help="Try to protect against underflow by using special number handling classes (slow).",)
     output_options = c2_parser._output_options
     output_options.add_argument( "--no-header-row",
             action="store_true",
