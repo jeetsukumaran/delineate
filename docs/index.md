@@ -189,7 +189,7 @@ Report Options:
                         (conditional) cumulative probability.
   --report-mle-only     Only report maximum likelihood estimate.
   -p #.##, --report-probability-threshold #.##
-                        Do not report on partitions with constrained
+                        Do not report on partitions with individual constrained
                         (conditional) probability below this threshold.
 ~~~
 
@@ -204,7 +204,7 @@ Some of these options are explained in detail below:
 
     ~~~
     delineate-estimate partitions \
-        -t population-tree.nex \
+        -t poptree.nex \
         -c data1.tsv \
         -o /arrakis/workspace/results/run1
     ~~~
@@ -213,7 +213,7 @@ Some of these options are explained in detail below:
 
     ~~~
     delineate-estimate partitions \
-        --tree-file population-tree.nex \
+        --tree-file poptree.nex \
         --config-file data1.tsv \
         --output-preifx /arrakis/workspace/results/run1
     ~~~
@@ -234,23 +234,36 @@ Some of these options are explained in detail below:
     To restrict the report to the most probable partitions that collectively result in a cumulative probability of 0.95, for e.g.,
 
     ~~~
-    delineate-estimate partitions \
-        -t population-tree.nex \
-        -c data1.tsv \
-        -P 0.95
+    delineate-estimate partitions -t poptree.nex -c data1.tsv -P 0.95
     ~~~
 
     or
 
     ~~~
-    delineate-estimate partitions \
-        --tree-file population-tree.nex \
-        --config-file data1.tsv \
-        --report-cumulative-probability-threshold 0.95
+    delineate-estimate partitions --tree-file poptree.nex --config-file data1.tsv --report-cumulative-probability-threshold 0.95
     ~~~
 
     Note that one issue that might result from this restriction is that, when summing up the marginal probabilities of the statues of a particular lineage or collection of lineages (new species, conspecificity, etc.), exclusion of these lower probability partitions may have an effect on the accuracy of the marginal probabilties.
-    However, in most cases this is probably not going to be very consequential, especially with a high enough threshold.
+    However, in most cases this is probably not going to be very consequential, especially with a sufficiently high threshold such that there is very little probability mass remaining in the unreported part of the parameter space.
+
+*   ``-u`` or ``--underflow-protection``
+
+    For some data sets, especially largers ones with relatively few constraints, ``delineate-estimate`` may crash due to underflow errors: the probabilities of some of the partitions are simply too low to be handled correctly by our silicon counterparts (and log-transforming is not possible as we are summing some of this sub-probabilities).
+    The wonderful [Python] Standard Library provides a really elegant solution to handling all sorts of numerical woes including this -- a specialized number class ([Decimal]).
+    While I have not done extensive benchmarking, however, I am pretty sure that usage of this class instead of the ``float`` primitive brings with it a performance cost.
+    As such, ``delineate-estimate`` does not use [Decimal] by default.
+    However, if you *do* find your analysis crashing due to underflow errors, then you may have to take the performance hit to see the journey's end.
+    In these cases, specifying the underflow protection flag will (hopefully) get you to that end through a more robust albeit slower road.
+
+    ~~~
+    delineate-estimate partitions -t poptree.nex -c data1.tsv -u
+    ~~~
+
+    or
+
+    ~~~
+    delineate-estimate partitions --tree-file poptree.nex --config-file data1.tsv --underflow-protection
+    ~~~
 
 ## Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa
 
@@ -353,4 +366,4 @@ delineate-summarize -r biologicalconcept.delimitation-results.json DhtT9
 [DendroPy]: https://dendropy.org/
 [JSON]: https://en.wikipedia.org/wiki/JSON
 [FigTree]: http://tree.bio.ed.ac.uk/software/figtree/
-
+[Decimal]: https://docs.python.org/3.8/library/decimal.html#decimal-objects

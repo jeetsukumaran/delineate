@@ -465,7 +465,7 @@ def main():
             metavar="#.##",
             default=None,
             type=float,
-            help="Do not report on partitions with constrained (conditional) probability below this threshold.")
+            help="Do not report on partitions with individual constrained (conditional) probability below this threshold.")
 
     output_options = c1_parser._output_options
     output_options.add_argument("--no-translate-tree-tokens",
