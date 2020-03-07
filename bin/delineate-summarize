@@ -222,6 +222,10 @@ def main():
             metavar="LINEAGE",
             nargs="+",
             help="Labels of population lineages to consider as focal lineages in summarization. Specify '-' to read from standard input or 'file://' to read from file.",)
+    parser.add_argument("-f", "--output-format",
+            choices=["json", "table"],
+            default="json",
+            help="Format for output [default=%(default)s].")
     parser.add_argument("-q", "--quiet",
             action="store_true",
             default=False,
@@ -259,12 +263,29 @@ def main():
         logger.error("ERROR: No data under 'partitions' key")
         sys.exit(1)
 
-    d = summarize_conspecificity(
+    summary_d = summarize_conspecificity(
             args=args,
             results_d=results_d,
             partitions_d=partitions_d,
             logger=logger,
             )
+    with sys.stdout as out:
+        if args.output_format == "json":
+            json.dump(summary_d, out)
+        elif args.output_format == "table":
+            delimiter = "\t"
+            header_row = []
+            entry_row = []
+            for field_name in summary_d:
+                header_row.append(field_name)
+                value = summary_d[field_name]
+                if isinstance(value, list):
+                    value = ", ".join(value)
+                else:
+                    value = str(value)
+                entry_row.append(value)
+            out.write("{}\n".format(delimiter.join(header_row)))
+            out.write("{}\n".format(delimiter.join(entry_row)))
 
 if __name__ == '__main__':
     main()
