@@ -352,18 +352,6 @@ def add_output_options(parser, output_options=None):
     output_options.add_argument("-l", "--label",
             action="append",
             help="Label to append to output (in format <FIELD-NAME>:value;)")
-    output_options.add_argument( "--no-header-row",
-            action="store_true",
-            default=False,
-            help="Do not write a header row.")
-    output_options.add_argument( "--append",
-            action="store_true",
-            default=False,
-            help="Append to output file if it already exists instead of overwriting.")
-    output_options.add_argument( "--field-separator",
-            default="\t",
-            dest="output_field_separator",
-            help="Field separator or delimiter character [default: tab].")
     parser._output_options = output_options
     return parser
 
@@ -385,7 +373,11 @@ def open_output_file(args,
                 args.output_prefix,
                 suffix,
                 extension)
-        return outpath, open(outpath, "w")
+        if getattr(args, "append", False):
+            fmode = "a"
+        else:
+            fmode = "w"
+        return outpath, open(outpath, fmode)
 # }}}1
 
 # Main CLI {{{1
@@ -491,6 +483,18 @@ def main():
             default=False,
             help="Try to protect against underflow by using special number handling classes (slow).",)
     output_options = c2_parser._output_options
+    output_options.add_argument( "--no-header-row",
+            action="store_true",
+            default=False,
+            help="Do not write a header row.")
+    output_options.add_argument( "--field-separator",
+            default="\t",
+            dest="output_field_separator",
+            help="Field separator or delimiter character [default: tab].")
+    output_options.add_argument( "--append",
+            action="store_true",
+            default=False,
+            help="Append to output file if it already exists instead of overwriting.")
     output_options.add_argument("-I", "--tree-info",
             action="store_true",
             help="Output additional information about the tree",)

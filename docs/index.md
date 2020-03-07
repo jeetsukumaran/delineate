@@ -163,11 +163,6 @@ Output Options:
                         Prefix for output file(s).
   -l LABEL, --label LABEL
                         Label to append to output (in format <FIELD-NAME>:value;)
-  --no-header-row       Do not write a header row.
-  --append              Append to output file if it already exists instead of
-                        overwriting.
-  --field-separator OUTPUT_FIELD_SEPARATOR
-                        Field separator or delimiter character [default: tab].
   --no-translate-tree-tokens
                         Write tree statements using full taxon names rather than
                         numerical indices.
