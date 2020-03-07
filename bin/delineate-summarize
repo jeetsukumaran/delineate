@@ -184,31 +184,31 @@ def summarize_conspecificity(
                 new_species_probabilities.append(partition_probability)
                 if is_exclusive:
                     exclusive_new_species_probabilities.append(partition_probability)
-    total_marginal_probability_of_conspecificity = sum(conspecific_probabilities)
-    total_marginal_probability_of_exclusive_conspecificity = sum(exclusive_conspecific_probabilities)
-    total_probability_of_new_species = sum(new_species_probabilities)
-    total_probability_of_existing_species = sum(existing_species_probabilities)
-    total_probability_of_exclusive_new_species = sum(exclusive_new_species_probabilities)
+    marginal_probability_of_conspecificity = sum(conspecific_probabilities)
+    marginal_probability_of_exclusive_conspecificity = sum(exclusive_conspecific_probabilities)
+    marginal_probability_of_new_species = sum(new_species_probabilities)
+    marginal_probability_of_existing_species = sum(existing_species_probabilities)
+    marginal_probability_of_exclusive_new_species = sum(exclusive_new_species_probabilities)
     if not args.quiet:
         if len(focal_lineages) > 1:
             logger.info("{} out of {} partitions found with focal lineages conspecific".format(
                 len(conspecific_probabilities),
                 len(partitions_d),
                 ))
-            logger.info("Marginal constrained probability of focal lineages conspecificity: {}".format(total_marginal_probability_of_conspecificity))
-            logger.info("Marginal constrained probability of focal lineages *exclusive* conspecificity: {}".format(total_marginal_probability_of_exclusive_conspecificity))
-        logger.info("Marginal constrained probability of focal {} being collectively an exclusive new species: {}".format(desc_noun, total_probability_of_exclusive_new_species))
-        logger.info("Marginal constrained probability of focal {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, total_probability_of_new_species))
-        logger.info("Marginal constrained probability of focal {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, total_probability_of_existing_species))
+            logger.info("Marginal constrained probability of focal lineages conspecificity: {}".format(marginal_probability_of_conspecificity))
+            logger.info("Marginal constrained probability of focal lineages *exclusive* conspecificity: {}".format(marginal_probability_of_exclusive_conspecificity))
+        logger.info("Marginal constrained probability of focal {} being collectively an exclusive new species: {}".format(desc_noun, marginal_probability_of_exclusive_new_species))
+        logger.info("Marginal constrained probability of focal {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, marginal_probability_of_new_species))
+        logger.info("Marginal constrained probability of focal {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, marginal_probability_of_existing_species))
         if total_cumulative_probability + 1e-8 < 1.0:
             logger.warning("WARNING: cumulative constrained probability in results file is only {}. Not all partitions might have been included, and probability summarizations reported should not be considered as accurate.".format(total_cumulative_probability))
     d = {
         "lineages": focal_lineages,
-        "total_marginal_probability_of_conspecificity": total_marginal_probability_of_conspecificity,
-        "total_marginal_probability_of_exclusive_conspecificity": total_marginal_probability_of_exclusive_conspecificity,
-        "total_probability_of_new_species": total_probability_of_new_species,
-        "total_probability_of_existing_species": total_probability_of_existing_species,
-        "total_probability_of_exclusive_new_species": total_probability_of_exclusive_new_species,
+        "marginal_probability_of_conspecificity": marginal_probability_of_conspecificity,
+        "marginal_probability_of_exclusive_conspecificity": marginal_probability_of_exclusive_conspecificity,
+        "marginal_probability_of_new_species": marginal_probability_of_new_species,
+        "marginal_probability_of_existing_species": marginal_probability_of_existing_species,
+        "marginal_probability_of_exclusive_new_species": marginal_probability_of_exclusive_new_species,
     }
     return d
 
@@ -222,14 +222,22 @@ def main():
             metavar="LINEAGE",
             nargs="+",
             help="Labels of population lineages to consider as focal lineages in summarization. Specify '-' to read from standard input or 'file://' to read from file.",)
-    parser.add_argument("-f", "--output-format",
-            choices=["json", "table"],
-            default="json",
-            help="Format for output [default=%(default)s].")
     parser.add_argument("-q", "--quiet",
             action="store_true",
             default=False,
             help="Run quietly.")
+    output_options = parser.add_argument_group("Output Options")
+    output_options.add_argument("-f", "--output-format",
+            choices=["json", "table"],
+            default="json",
+            help="Format for output [default=%(default)s].")
+    output_options.add_argument("-d", "--table-delimiter",
+            default="\t",
+            help="Column delimiter if outputting to table [default=TAB].")
+    output_options.add_argument("--no-header-row",
+            action="store_true",
+            default=False,
+            help="Suppress header row if outputting to table [default=TAB].")
     args = parser.parse_args()
     if args.describe:
         delineate.description()
@@ -273,7 +281,7 @@ def main():
         if args.output_format == "json":
             json.dump(summary_d, out)
         elif args.output_format == "table":
-            delimiter = "\t"
+            delimiter = args.table_delimiter
             header_row = []
             entry_row = []
             for field_name in summary_d:
@@ -284,7 +292,8 @@ def main():
                 else:
                     value = str(value)
                 entry_row.append(value)
-            out.write("{}\n".format(delimiter.join(header_row)))
+            if not args.no_header_row:
+                out.write("{}\n".format(delimiter.join(header_row)))
             out.write("{}\n".format(delimiter.join(entry_row)))
 
 if __name__ == '__main__':
