@@ -96,6 +96,9 @@ def summarize_conspecificity(
             len(partitions_d),
             total_cumulative_probability,
             ))
+    if not args.lineage_labels:
+        logger.info("No focal lineages specified for consideration")
+        sys.exit(0)
     focal_lineages = args.lineage_labels
     if args.lineage_labels[0] == "-":
         if not args.quiet:
@@ -220,7 +223,7 @@ def main():
             help="Path to results data (JSON).")
     parser.add_argument("lineage_labels",
             metavar="LINEAGE",
-            nargs="+",
+            nargs="*",
             help="Labels of population lineages to consider as focal lineages in summarization. Specify '-' to read from standard input or 'file://' to read from file.",)
     parser.add_argument("-q", "--quiet",
             action="store_true",
