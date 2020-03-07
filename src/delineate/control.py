@@ -40,6 +40,25 @@ def get_controller(
     controller.parse_configuration_file(
             config_filepath=args.config_file,
             delimiter=None)
+    for param in (
+            "speciation_completion_rate_estimation_initial",
+            "speciation_completion_rate_estimation_min",
+            "speciation_completion_rate_estimation_max",
+            ):
+        value = None
+        if param in controller.config_d:
+            value = controller.config_d[param]
+        av = getattr(args, param, None)
+        if av is not None:
+            value = av
+        setattr(controller, param, value)
+    controller.tree.birth_rate = birthdeath.fit_pure_birth_model_to_tree(tree=controller.tree)["birth_rate"]
+    if controller.speciation_completion_rate_estimation_initial is None:
+        controller.speciation_completion_rate_estimation_initial = 0.01 * controller.tree.birth_rate
+    if controller.speciation_completion_rate_estimation_min is None:
+        controller.speciation_completion_rate_estimation_min = 1e-8
+    if controller.speciation_completion_rate_estimation_max is None:
+        controller.speciation_completion_rate_estimation_max = controller.tree.birth_rate * 10
     controller.register_names()
     return controller
 

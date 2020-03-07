@@ -67,21 +67,19 @@ def execute_species_partition_estimation(args):
         tree.set_node_constraints(species_constraints)
         induced_tree = tree.extract_tree_with_taxa_labels(
                 labels=controller.constrained_lineage_leaf_labels)
-        induced_tree.birth_rate = birthdeath.fit_pure_birth_model_to_tree(tree=induced_tree)["birth_rate"]
-        mle_initial_speciation_rate = controller.config_d.get("initial_speciation_rate", 0.01)
-        mle_min_speciation_rate = controller.config_d.get("min_speciation_rate", 1e-8)
-        mle_max_speciation_rate = controller.config_d.pop("max_speciation_rate", tree.birth_rate * 10)
+        speciation_completion_rate_estimation_initial = controller.speciation_completion_rate_estimation_initial
+        speciation_completion_rate_estimation_min = controller.speciation_completion_rate_estimation_min
+        speciation_completion_rate_estimation_max = controller.speciation_completion_rate_estimation_max
         mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
                 tree=induced_tree,
                 species_leafset_labels=species_constraints,
-                initial_speciation_rate=mle_initial_speciation_rate,
-                min_speciation_rate=mle_min_speciation_rate,
-                max_speciation_rate=mle_max_speciation_rate,
+                initial_speciation_rate=speciation_completion_rate_estimation_initial,
+                min_speciation_rate=speciation_completion_rate_estimation_min,
+                max_speciation_rate=speciation_completion_rate_estimation_max,
                 )
         constrained_tree = induced_tree.as_string(
                 schema="newick",
                 )
-        constrained_tree_birth_rate = induced_tree.birth_rate
         speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
         speciation_completion_rate = speciation_completion_rate_estimate
         speciation_completion_rate_source = "estimated"
@@ -111,11 +109,10 @@ def execute_species_partition_estimation(args):
                     "constrained_lineage_species_map": constrained_lineage_species_map,
             }
     else:
-        mle_initial_speciation_rate = None
-        mle_min_speciation_rate = None
-        mle_max_speciation_rate = None
+        speciation_completion_rate_estimation_initial = None
+        speciation_completion_rate_estimation_min = None
+        speciation_completion_rate_estimation_max = None
         constrained_tree = None
-        constrained_tree_birth_rate = None
         species_constraints_desc = None
     if speciation_completion_rate is None and not controller.has_species_constraints:
         controller.logger.error("ERROR: With no constraints given, speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
@@ -141,11 +138,10 @@ def execute_species_partition_estimation(args):
     result_dict["speciation_completion_rate"] = speciation_completion_rate
     result_dict["speciation_completion_rate_source"] = speciation_completion_rate_source
     result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
-    result_dict["speciation_completion_rate_estimation_initial"] = mle_initial_speciation_rate
-    result_dict["speciation_completion_rate_estimation_min"] = mle_min_speciation_rate
-    result_dict["speciation_completion_rate_estimation_max"] = mle_max_speciation_rate
+    result_dict["speciation_completion_rate_estimation_initial"] = speciation_completion_rate_estimation_initial
+    result_dict["speciation_completion_rate_estimation_min"] = speciation_completion_rate_estimation_min
+    result_dict["speciation_completion_rate_estimation_max"] = speciation_completion_rate_estimation_max
     result_dict["lineage_tree_birth_rate"] = controller.tree.birth_rate
-    result_dict["constrained_tree_birth_rate"] = constrained_tree_birth_rate
     result_dict["constrained_lineage_tree"] = constrained_tree
     result_dict["species_constraints"] = species_constraints_desc
     species_partition_info = []
@@ -468,6 +464,30 @@ def main():
             action="store_true",
             default=False,
             help="Try to protect against underflow by using special number handling classes (slow).",)
+    estimation_options.add_argument(
+            "--speciation-completion-rate-estimation-min",
+            "--smin",
+            metavar="#.##",
+            type=float,
+            dest="speciation_completion_rate_estimation_min",
+            default=1e-8,
+            help="Minimum value boundary for maximum likelihood optimization of speciation rate if speciation completion rate is not specified [default: %(default)s].")
+    estimation_options.add_argument(
+            "--speciation-completion-rate-estimation-max",
+            "--smax",
+            metavar="#.##",
+            type=float,
+            dest="speciation_completion_rate_estimation_max",
+            default=None,
+            help="Maximum value boundary for maximum likelihood optimization of speciation rate if speciation completion rate is not specified [default: 10 x lineage tree pure birth rate].")
+    estimation_options.add_argument(
+            "--speciation-completion-rate-estimation-initial",
+            "--sinit",
+            metavar="#.##",
+            type=float,
+            dest="speciation_completion_rate_estimation_initial",
+            default=None,
+            help="Initial value for maximum likelihood optimization of speciation rate if speciation completion rate is not specified [default: 0.01 x lineage tree pure birth rate].")
     model_options = c1_parser.add_argument_group("Model Options")
     model_options.add_argument("-s", "--speciation-completion-rate",
             type=float,
