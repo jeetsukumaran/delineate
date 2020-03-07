@@ -8,6 +8,7 @@ import csv
 import json
 import os
 import sys
+import textwrap
 from delineate import __project__, __version__
 
 _LOGGING_LEVEL_ENVAR = "DELINEATE_LOGGING_LEVEL"
@@ -78,23 +79,32 @@ class RunLogger(object):
         else:
             prefix = ""
         f = logging.Formatter("{}{}".format(prefix, "%(message)s"))
+        self.subsequent_indent = " " * len(prefix)
         f.datefmt='%Y-%m-%d %H:%M:%S'
         return f
 
-    def debug(self, msg):
-        self._log.debug("[DEBUG] {}".format(msg))
+    def format_message(self, msg, is_wrap):
+        if is_wrap:
+            return textwrap.fill(msg,
+                subsequent_indent=self.subsequent_indent,
+                width=78)
+        else:
+            return msg
 
-    def info(self, msg):
-        self._log.info(msg)
+    def debug(self, msg, is_wrap=False):
+        self._log.debug("[DEBUG] {}".format(self.format_message(msg, is_wrap=is_wrap)))
 
-    def warning(self, msg):
-        self._log.warning(msg)
+    def info(self, msg, is_wrap=False):
+        self._log.info(self.format_message(msg, is_wrap=is_wrap))
 
-    def error(self, msg):
-        self._log.error(msg)
+    def warning(self, msg, is_wrap=False):
+        self._log.warning(self.format_message(msg, is_wrap=is_wrap))
 
-    def critical(self, msg):
-        self._log.critical(msg)
+    def error(self, msg, is_wrap=False):
+        self._log.error(self.format_message(msg, is_wrap=is_wrap))
+
+    def critical(self, msg, is_wrap=False):
+        self._log.critical(self.format_message(msg, is_wrap=is_wrap))
 
 class ColorMap(object):
     """
