@@ -41,7 +41,7 @@ def revision_description():
         desc = subprocess.check_output(
                 ["git", "log", "-1", "--pretty=format:%h, %ci"],
                 stderr=subprocess.PIPE,
-                cwd=cwd).strip().decode(sys.encoding)[:-6]
+                cwd=cwd).strip().decode(sys.stdout.encoding)[:-6]
     except:
         return ""
     if desc:
