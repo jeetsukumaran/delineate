@@ -36,6 +36,7 @@ import itertools
 import collections
 import json
 from dendropy.dataio import nexusprocessing
+from dendropy.model import birthdeath
 import delineate
 from delineate import model
 from delineate import estimate
@@ -60,20 +61,27 @@ def execute_species_partition_estimation(args):
         controller.speciation_completion_rate = args.speciation_completion_rate
     speciation_completion_rate = controller.speciation_completion_rate
     tree = controller.tree
+    tree.birth_rate = birthdeath.fit_pure_birth_model_to_tree(tree=tree)["birth_rate"]
     if controller.has_species_constraints:
         species_constraints = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
         tree.set_node_constraints(species_constraints)
         induced_tree = tree.extract_tree_with_taxa_labels(
                 labels=controller.constrained_lineage_leaf_labels)
+        induced_tree.birth_rate = birthdeath.fit_pure_birth_model_to_tree(tree=induced_tree)["birth_rate"]
+        mle_initial_speciation_rate = controller.config_d.get("initial_speciation_rate", 0.01)
+        mle_min_speciation_rate = controller.config_d.get("min_speciation_rate", 1e-8)
+        mle_max_speciation_rate = controller.config_d.pop("max_speciation_rate", tree.birth_rate * 10)
         mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
                 tree=induced_tree,
                 species_leafset_labels=species_constraints,
-                initial_speciation_rate=controller.config_d.get("initial_speciation_rate", 0.01),
-                min_speciation_rate=controller.config_d.get("min_speciation_rate", 1e-8),
-                max_speciation_rate=controller.config_d.get("max_speciation_rate", 2.00))
+                initial_speciation_rate=mle_initial_speciation_rate,
+                min_speciation_rate=mle_min_speciation_rate,
+                max_speciation_rate=mle_max_speciation_rate,
+                )
         constrained_tree = induced_tree.as_string(
                 schema="newick",
                 )
+        constrained_tree_birth_rate = induced_tree.birth_rate
         speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
         speciation_completion_rate = speciation_completion_rate_estimate
         speciation_completion_rate_source = "estimated"
@@ -103,7 +111,11 @@ def execute_species_partition_estimation(args):
                     "constrained_lineage_species_map": constrained_lineage_species_map,
             }
     else:
+        mle_initial_speciation_rate = None
+        mle_min_speciation_rate = None
+        mle_max_speciation_rate = None
         constrained_tree = None
+        constrained_tree_birth_rate = None
         species_constraints_desc = None
     if speciation_completion_rate is None and not controller.has_species_constraints:
         controller.logger.error("ERROR: With no constraints given, speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
@@ -129,8 +141,13 @@ def execute_species_partition_estimation(args):
     result_dict["speciation_completion_rate"] = speciation_completion_rate
     result_dict["speciation_completion_rate_source"] = speciation_completion_rate_source
     result_dict["speciation_completion_rate_estimate_lnl"] = speciation_completion_rate_estimate_lnl
-    result_dict["species_constraints"] = species_constraints_desc
+    result_dict["speciation_completion_rate_estimation_initial"] = mle_initial_speciation_rate
+    result_dict["speciation_completion_rate_estimation_min"] = mle_min_speciation_rate
+    result_dict["speciation_completion_rate_estimation_max"] = mle_max_speciation_rate
+    result_dict["lineage_tree_birth_rate"] = controller.tree.birth_rate
+    result_dict["constrained_tree_birth_rate"] = constrained_tree_birth_rate
     result_dict["constrained_lineage_tree"] = constrained_tree
+    result_dict["species_constraints"] = species_constraints_desc
     species_partition_info = []
     probability_index = 2
     for k in partition_probability_map:
@@ -291,7 +308,8 @@ def execute_speciation_completion_rate_estimation(args):
     species_leafset_labels = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
     initial_speciation_rate = controller.config_d.pop("initial_speciation_rate", 0.01)
     min_speciation_rate = controller.config_d.pop("min_speciation_rate", 1e-8)
-    max_speciation_rate = controller.config_d.pop("max_speciation_rate", 2.00)
+    controller.tree.birth_rate = birthdeath.fit_pure_birth_model_to_tree(tree=controller.tree)["birth_rate"]
+    max_speciation_rate = controller.config_d.pop("max_speciation_rate", controller.tree.birth_rate * 10)
     mle = estimate.SpeciationCompletionRateMaximumLikelihoodEstimator(
             tree=tree,
             species_leafset_labels=species_leafset_labels,

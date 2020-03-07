@@ -9,6 +9,7 @@ from delineate import model
 from delineate import utility
 from delineate import summarize
 from dendropy.utility.container import OrderedCaselessDict
+from dendropy.model import birthdeath
 
 SPECIES_LEAFSET_CONSTRAINTS_KEY = "species_leafset_constraints"
 LINEAGE_ID_FIELDNAME = "lineage"
@@ -399,6 +400,8 @@ class Controller(object):
                 schema=schema,
                 )
         self.tree.is_use_decimal_value_type = underflow_protection
+        # self.tree.birth_rate = birthdeath.fit_pure_birth_model_to_tree(
+        #         tree=self.tree)["birth_rate"]
         return self.tree
 
     def parse_configuration_file(self,
