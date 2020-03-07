@@ -93,10 +93,10 @@ def execute_species_partition_estimation(args):
             constrained_lineage_species_map = {}
             slcd = controller.config_d["species_leafset_constraints"]
             for spidx in range(len(slcd)):
-                splabel = "Sp{:03d}".format(spidx+1)
-                species_constrained_lineage_map[splabel] = list(slcd[spidx])
+                species_name = "ConstrainedSp{:03d}".format(spidx+1)
+                species_constrained_lineage_map[species_name] = list(slcd[spidx])
                 for lineage in slcd[spidx]:
-                    constrained_lineage_species_map[lineage] = splabel
+                    constrained_lineage_species_map[lineage] = species_name
 
             species_constraints_desc = {
                     "species_constrained_lineage_map": species_constrained_lineage_map,
@@ -284,7 +284,9 @@ def execute_speciation_completion_rate_estimation(args):
             args=args)
     tree = controller.tree
     if not controller.has_species_constraints:
-        sys.exit("Neither 'species_leafsets' nor '{}' specified in configuration".format(utility.SPECIES_LEAFSET_CONSTRAINTS_KEY))
+        controller.logger.error("ERROR: Species constraints must be fully specifed for rates estimation, but no constraints were found.")
+        controller.logger.critical("Terminating due to error")
+        sys.exit(1)
     # species_constraints = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
     species_leafset_labels = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
     initial_speciation_rate = controller.config_d.pop("initial_speciation_rate", 0.01)
