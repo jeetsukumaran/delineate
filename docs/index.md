@@ -198,7 +198,22 @@ which might result in something like this:
 [delineate-summarize] Marginal constrained probability of focal lineages being collectively *part* (i.e., non-exclusively) of a new species: 0.3777092230039129
 [delineate-summarize] Marginal constrained probability of focal lineages being collectively *part* (i.e., non-exclusively) of a predefined species: 0.4537864414152871
 [delineate-summarize] WARNING: cumulative constrained probability in results file is only 0.9500004131628125. Not all partitions might have been included, and probability summarizations reported should not be considered as accurate.
-{"lineages": ["DHHG2", "DhhD1", "DhrM1"], "marginal_probability_of_conspecificity": 0.8314956644192, "marginal_probability_of_exclusive_conspecificity": 0.05232352098265284, "marginal_probability_of_new_species": 0.3777092230039129, "marginal_probability_of_existing_species": 0.4537864414152871, "marginal_probability_of_exclusive_new_species": 0.05232352098265284}
+{
+    "lineages": ["DHHG2", "DhhD1", "DhrM1"],
+    "marginal_probability_of_conspecificity": 0.8314956644192,
+    "marginal_probability_of_exclusive_conspecificity": 0.05232352098265284,
+    "marginal_probability_of_new_species": 0.3777092230039129,
+    "marginal_probability_of_existing_species": 0.4537864414152871,
+    "marginal_probability_of_exclusive_new_species": 0.05232352098265284
+}
+~~~
+
+As can be seen, the complete report includes details on the configuration constraints etc. as well as the various summarized marginal probabilities.
+The final result is written (by default) in JSON format to the standard output.
+The output format and details can be changed by specifying different options to the ``delineate-summarize`` program. For a full list of these, type:
+
+~~~
+delineate-summarize --help
 ~~~
 
 Note that the results also report the marginal probabilities that the set of taxa constitute collectively part of a new species (i.e., a species definition not provided to DELINEATE as part of the constraints). So we can also just pass in the name of a single population lineage to see the marginal probability it was placed in a species distinct from any named in the contraints:
