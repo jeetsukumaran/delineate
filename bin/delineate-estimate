@@ -87,7 +87,21 @@ def execute_species_partition_estimation(args):
         except KeyError:
             # probably given a JSON file here;
             # TODO: pull out what we can
-            species_constraints_desc = None
+            # species_constrained_lineage_map
+            # constrained_lineage_species_map
+            species_constrained_lineage_map = {}
+            constrained_lineage_species_map = {}
+            slcd = controller.config_d["species_leafset_constraints"]
+            for spidx in range(len(slcd)):
+                splabel = "Sp{:03d}".format(spidx+1)
+                species_constrained_lineage_map[splabel] = list(slcd[spidx])
+                for lineage in slcd[spidx]:
+                    constrained_lineage_species_map[lineage] = splabel
+
+            species_constraints_desc = {
+                    "species_constrained_lineage_map": species_constrained_lineage_map,
+                    "constrained_lineage_species_map": constrained_lineage_species_map,
+            }
     else:
         constrained_tree = None
         species_constraints_desc = None
