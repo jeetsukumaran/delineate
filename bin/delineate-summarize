@@ -204,7 +204,7 @@ def summarize_conspecificity(
         logger.info("Marginal constrained probability of focal {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, marginal_probability_of_new_species))
         logger.info("Marginal constrained probability of focal {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, marginal_probability_of_existing_species))
         if total_cumulative_probability + 1e-8 < 1.0:
-            logger.warning("WARNING: cumulative constrained probability in results file is only {}. Not all partitions might have been included, and probability summarizations reported should not be considered as accurate.".format(total_cumulative_probability))
+            logger.warning("WARNING: cumulative constrained probability in results file is only {}. Probability summarizations reported may not be accurate.".format(total_cumulative_probability))
     d = {
         "lineages": focal_lineages,
         "marginal_probability_of_conspecificity": marginal_probability_of_conspecificity,
