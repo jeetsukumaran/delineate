@@ -125,7 +125,7 @@ In the case of species assignments that are constrained (i.e., status indicated 
 However, in the case of population lineages of *unknown* species affinities (i.e., status indicated by "0"), this may be an existing species label (if the population lineage was assigned to an existing species in the partition under consideration) or a new, arbitrary species label (if the population lineage was assigned to a new distinct species in the partition under consideration).
 In addition, in [FigTree] you can also choose to have the branches colored by "status", and this will highlight population lineages of (*a priori*) known vs unknown species affinities, and thus quickly identify the assigned species identities of the lineages of interest.
 
-### Calculating the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa
+### Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa
 
 An analysis estimating the probabilities of different partition gives the \textit{joint} probability for different organizations of population lineages into subsets, with each subset constituting a distinct species.
 The maximum likelihood estimate of the species delimitation is given by the partition with the highest probability, and this is easily available from the JSON results file or the tree file (it is the first partition in the JSON file, and the first tree in the tree file).
@@ -143,8 +143,8 @@ To run it, you simply need to provide it the JSON results file that is produced 
 Note that if your taxon labels have spaces or special characters in them (tsk tsk), you need to wrap your labels in quotes.
 E.g., assuming you have run a DELINEATE analysis using ``delineate-estimate``, and the analysis produced the two following files:
 
--   "*dyna1.delimitation-results.json*"
--   "*dyna1.delimitation-results.trees*"
+-   "*biologicalconcept.delimitation-results.json*"
+-   "*biologicalconcept.delimitation-results.trees*"
 
 Then, to calculate the marginal probability that, for e.g., the population lineages "DhrM1", "DHHG2", and "DHHG2" are conspecific, exclusively conspecfic, are part of a new species, or form an exclusive new species you would run the following command:
 
@@ -152,10 +152,59 @@ Then, to calculate the marginal probability that, for e.g., the population linea
 delineate-summarize -r biologicalconcept.conf.delimitation-results.json DhrM1 DHHG2 DhhD1
 ~~~
 
+which might result in something like this:
+~~~
+[delineate-summarize] 25 lineages defined in results file: 'CCVO1', 'DGRP1', 'DGRR1', 'DHHG2', 'DhbV2', 'DheCO6', 'DheP8', 'DhhD1', 'DhlCO1', 'DhlP7', 'DhmB2Br', 'DhpB1Br', 'DhrM1', 'DhrSL5', 'DhsG1', 'DhsH3', 'DhsP1', 'DhtT9', 'Dhy3Br', 'Dhy6', 'Dhym5', 'Dma2', 'DtTN1', 'ERVL2', 'YSNE1'
+[delineate-summarize] 5 species defined in configuration constraints, with 12 lineages assigned:
+    [  1/5  ] 'ecu'    (3 lineages)
+    [  2/5  ] 'hy'     (2 lineages)
+    [  3/5  ] 'lic'    (3 lineages)
+    [  4/5  ] 'ma'     (1 lineages)
+    [  5/5  ] 'sep'    (3 lineages)
+[delineate-summarize] 12 out of 25 lineages assigned by constraints to 5 species:
+    [  1/12 ] 'DheCO6'    (SPECIES: 'ecu')
+    [  2/12 ] 'DheP8'     (SPECIES: 'ecu')
+    [  3/12 ] 'YSNE1'     (SPECIES: 'ecu')
+    [  4/12 ] 'Dhy3Br'    (SPECIES: 'hy')
+    [  5/12 ] 'Dhy6'      (SPECIES: 'hy')
+    [  6/12 ] 'DhlCO1'    (SPECIES: 'lic')
+    [  7/12 ] 'DhlP7'     (SPECIES: 'lic')
+    [  8/12 ] 'ERVL2'     (SPECIES: 'lic')
+    [  9/12 ] 'Dma2'      (SPECIES: 'ma')
+    [ 10/12 ] 'DhsG1'     (SPECIES: 'sep')
+    [ 11/12 ] 'DhsH3'     (SPECIES: 'sep')
+    [ 12/12 ] 'DhsP1'     (SPECIES: 'sep')
+[delineate-summarize] 13 out of 25 lineages not constrained by species assignments:
+    [  1/13 ] 'CCVO1'
+    [  2/13 ] 'DGRP1'
+    [  3/13 ] 'DGRR1'
+    [  4/13 ] 'DHHG2'
+    [  5/13 ] 'DhbV2'
+    [  6/13 ] 'DhhD1'
+    [  7/13 ] 'DhmB2Br'
+    [  8/13 ] 'DhpB1Br'
+    [  9/13 ] 'DhrM1'
+    [ 10/13 ] 'DhrSL5'
+    [ 11/13 ] 'DhtT9'
+    [ 12/13 ] 'Dhym5'
+    [ 13/13 ] 'DtTN1'
+[delineate-summarize] 80271 partitions found in results file, with total constrained cumulative probability of 0.9500004131628125
+[delineate-summarize] Reading focal lineages from arguments
+[delineate-summarize] 3 focal lineages defined: 'DHHG2', 'DhhD1', 'DhrM1'
+[delineate-summarize] 52642 out of 80271 partitions found with focal lineages conspecific
+[delineate-summarize] Marginal constrained probability of focal lineages conspecificity: 0.8314956644192
+[delineate-summarize] Marginal constrained probability of focal lineages *exclusive* conspecificity: 0.05232352098265284
+[delineate-summarize] Marginal constrained probability of focal lineages being collectively an exclusive new species: 0.05232352098265284
+[delineate-summarize] Marginal constrained probability of focal lineages being collectively *part* (i.e., non-exclusively) of a new species: 0.3777092230039129
+[delineate-summarize] Marginal constrained probability of focal lineages being collectively *part* (i.e., non-exclusively) of a predefined species: 0.4537864414152871
+[delineate-summarize] WARNING: cumulative constrained probability in results file is only 0.9500004131628125. Not all partitions might have been included, and probability summarizations reported should not be considered as accurate.
+{"lineages": ["DHHG2", "DhhD1", "DhrM1"], "marginal_probability_of_conspecificity": 0.8314956644192, "marginal_probability_of_exclusive_conspecificity": 0.05232352098265284, "marginal_probability_of_new_species": 0.3777092230039129, "marginal_probability_of_existing_species": 0.4537864414152871, "marginal_probability_of_exclusive_new_species": 0.05232352098265284}
+~~~
+
 Note that the results also report the marginal probabilities that the set of taxa constitute collectively part of a new species (i.e., a species definition not provided to DELINEATE as part of the constraints). So we can also just pass in the name of a single population lineage to see the marginal probability it was placed in a species distinct from any named in the contraints:
 
 ~~~
-delineate-summarize -r dyna1.delimitation-results.json DhtT9
+delineate-summarize -r biologicalconcept.delimitation-results.json DhtT9
 ~~~
 
 [Python]: https://www.python.org/
