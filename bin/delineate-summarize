@@ -96,52 +96,48 @@ def summarize_conspecificity(
             len(partitions_d),
             total_cumulative_probability,
             ))
-    conspecific_taxa_labels = args.taxon_label
-    if args.taxon_label[0] == "-":
+    focal_lineages = args.lineage_labels
+    if args.lineage_labels[0] == "-":
         if not args.quiet:
-            logger.info("Reading candidate taxa from standard input")
-        conspecific_taxa_labels = []
+            logger.info("Reading focal lineages from standard input")
+        focal_lineages = []
         for line in sys.stdin:
             if line:
-                conspecific_taxa_labels.append(line.strip())
-    elif args.taxon_label[0].startswith("file://"):
-        fpath = os.path.expandvars(os.path.expandargs(args.taxon_label[7:]))
+                focal_lineages.append(line.strip())
+    elif args.lineage_labels[0].startswith("file://"):
+        fpath = os.path.expandvars(os.path.expandargs(args.lineage_labels[7:]))
         if not args.quiet:
-            logger.info("Reading candidate taxa from file: '{}'".format(fpath))
-        conspecific_taxa_labels = []
-        with open(fpath) as taxf:
-            for line in taxf:
+            logger.info("Reading focal lineages from file: '{}'".format(fpath))
+        focal_lineages = []
+        with open(fpath) as lineagef:
+            for line in lineagef:
                 if line:
-                    conspecific_taxa_labels.append(line.strip())
+                    focal_lineages.append(line.strip())
     else:
         if not args.quiet:
-            logger.info("Reading candidate taxa from arguments")
-        conspecific_taxa_labels = args.taxon_label
-    if not conspecific_taxa_labels:
-        logger.error("ERROR: Candidate conspecific taxa not defined or read in any source")
+            logger.info("Reading focal lineages from arguments")
+        focal_lineages = args.lineage_labels
+    if not focal_lineages:
+        logger.error("ERROR: Focal lineages not defined or read in any source")
         sys.exit(1)
-    conspecific_taxa_labels = sorted(set(conspecific_taxa_labels))
-    # if len(conspecific_taxa_labels) == 1:
-    #     logger.error("ERROR: At least two conspecific taxa must be defined, but only one given: '{}'".format(
-    #         conspecific_taxa_labels[0]))
-    #     sys.exit(1)
-    if len(conspecific_taxa_labels) == 1:
-        desc_noun = "taxon"
+    focal_lineages = sorted(set(focal_lineages))
+    if len(focal_lineages) == 1:
+        desc_noun = "lineage"
     else:
-        desc_noun = "taxa"
+        desc_noun = "lineages"
     if not args.quiet:
-        logger.info("{} candidate {} defined: {}".format(
-            len(conspecific_taxa_labels),
+        logger.info("{} focal {} defined: {}".format(
+            len(focal_lineages),
             desc_noun,
-            ", ".join("'{}'".format(t) for t in conspecific_taxa_labels)))
+            ", ".join("'{}'".format(t) for t in focal_lineages)))
     not_found = []
-    for ct in conspecific_taxa_labels:
+    for ct in focal_lineages:
         if ct not in all_lineage_labels:
             not_found.append(ct)
     if not_found:
         logger.error("ERROR: {} of {} {} not defined in results: {}".format(
             len(not_found),
-            len(conspecific_taxa_labels),
+            len(focal_lineages),
             desc_noun,
             ", ".join("'{}'".format(t) for t in not_found)))
         sys.exit(1)
@@ -159,18 +155,18 @@ def summarize_conspecificity(
             species_leafset = partition["species_leafsets"][species_label]
             s = set(species_leafset)
             num_in_leafset = 0
-            for ct in conspecific_taxa_labels:
+            for ct in focal_lineages:
                 if ct in s:
                     num_in_leafset += 1
-            if num_in_leafset > 0 and num_in_leafset < len(conspecific_taxa_labels):
+            if num_in_leafset > 0 and num_in_leafset < len(focal_lineages):
                 is_conspecific = False
                 break
-            elif num_in_leafset == len(conspecific_taxa_labels):
+            elif num_in_leafset == len(focal_lineages):
                 found_in_species_label = species_label
                 break
         if is_conspecific:
             assert found_in_species_label is not None
-            if len(partition["species_leafsets"][species_label]) == len(conspecific_taxa_labels):
+            if len(partition["species_leafsets"][species_label]) == len(focal_lineages):
                 is_exclusive = True
             else:
                 is_exclusive = False
@@ -194,23 +190,25 @@ def summarize_conspecificity(
     total_probability_of_existing_species = sum(existing_species_probabilities)
     total_probability_of_exclusive_new_species = sum(exclusive_new_species_probabilities)
     if not args.quiet:
-        if len(conspecific_taxa_labels) > 1:
-            logger.info("{} out of {} partitions found with candidate taxa conspecific".format(
+        if len(focal_lineages) > 1:
+            logger.info("{} out of {} partitions found with focal lineages conspecific".format(
                 len(conspecific_probabilities),
                 len(partitions_d),
                 ))
-            logger.info("Marginal constrained probability of candidate taxa conspecificity: {}".format(total_marginal_probability_of_conspecificity))
-            logger.info("Marginal constrained probability of candidate taxa *exclusive* conspecificity: {}".format(total_marginal_probability_of_exclusive_conspecificity))
-        logger.info("Marginal constrained probability of candidate {} being collectively exclusively a new species: {}".format(desc_noun, total_probability_of_exclusive_new_species))
-        logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, total_probability_of_new_species))
-        logger.info("Marginal constrained probability of candidate {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, total_probability_of_existing_species))
+            logger.info("Marginal constrained probability of focal lineages conspecificity: {}".format(total_marginal_probability_of_conspecificity))
+            logger.info("Marginal constrained probability of focal lineages *exclusive* conspecificity: {}".format(total_marginal_probability_of_exclusive_conspecificity))
+        logger.info("Marginal constrained probability of focal {} being collectively an exclusive new species: {}".format(desc_noun, total_probability_of_exclusive_new_species))
+        logger.info("Marginal constrained probability of focal {} being collectively *part* (i.e., non-exclusively) of a new species: {}".format(desc_noun, total_probability_of_new_species))
+        logger.info("Marginal constrained probability of focal {} being collectively *part* (i.e., non-exclusively) of a predefined species: {}".format(desc_noun, total_probability_of_existing_species))
         if total_cumulative_probability + 1e-8 < 1.0:
-            logger.warning("WARNING: cumulative constrained probability in results file is only {} --- not all partitions might have been included, and probability summarizations reported should not be considered as accurate".format(total_cumulative_probability))
-
+            logger.warning("WARNING: cumulative constrained probability in results file is only {}. Not all partitions might have been included, and probability summarizations reported should not be considered as accurate.".format(total_cumulative_probability))
     d = {
+        "lineages": focal_lineages,
         "total_marginal_probability_of_conspecificity": total_marginal_probability_of_conspecificity,
-        "total_marginal_probability_of_new_species": total_probability_of_new_species,
-        "total_marginal_probability_of_existing_species": total_probability_of_new_species,
+        "total_marginal_probability_of_exclusive_conspecificity": total_marginal_probability_of_exclusive_conspecificity,
+        "total_probability_of_new_species": total_probability_of_new_species,
+        "total_probability_of_existing_species": total_probability_of_existing_species,
+        "total_probability_of_exclusive_new_species": total_probability_of_exclusive_new_species,
     }
     return d
 
@@ -220,10 +218,10 @@ def main():
     parser.add_argument("-r", "--results-file",
             action="store",
             help="Path to results data (JSON).")
-    parser.add_argument("taxon_label",
-            metavar="TAXON-LABEL",
+    parser.add_argument("lineage_labels",
+            metavar="LINEAGE",
             nargs="+",
-            help="Labels of taxa. Specify '-' to read from standard input or 'file://' to read from file.",)
+            help="Labels of population lineages to consider as focal lineages in summarization. Specify '-' to read from standard input or 'file://' to read from file.",)
     parser.add_argument("-q", "--quiet",
             action="store_true",
             default=False,
