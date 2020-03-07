@@ -128,30 +128,31 @@ In addition, in [FigTree] you can also choose to have the branches colored by "s
 ### Calculating the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa
 
 An analysis estimating the probabilities of different partition gives the \textit{joint} probability for different organizations of population lineages into subsets, with each subset constituting a distinct species.
-We might be interested, instead, in the marginal probability of conspecificity of a few population lineages.
-That is, we are asking the question, "What is the probability that the following population lineages are conspecific?"
-To answer the question we simply have to sum up the probabilities of individual partitions in which those population lineages are found to be conspecific.
+The maximum likelihood estimate of the species delimitation is given by the partition with the highest probability, and this is easily available from the JSON results file or the tree file (it is the first partition in the JSON file, and the first tree in the tree file).
+
+However, we might be interested instead in a number of other questions, such as:
+
+*   What the marginal probability of conspecificity of a particular set of population lineages? That is, we are asking the question, "What is the probability that the following population lineages are conspecific?"
+*   Or we might be interested in a stricter condition, i.e. *exclusive conspecificity*, i.e., the marginal probability that a group of lineages form an exclusive complete species unto themselves, including no other lineages.
+*   Or we might like to know the marginal probability that one or more lineages might be assigned to new species, not provided by us as known identity in the constraints to the analysis.
+*   Or we might like to know the marginal probability that one or more lineages might form a distinct, self-contained, *exclusive* AND *new* species (as opposed to just an exclusive species, or just a non-exclusive part of new species)
+
+These questions are readily answered by summing the probabilities of various partitions that meet the above conditions as given in the results file.
 We provide an application to this, ``delineate-summarize``.
-To run it, you simply need to provide it the JSON results file that is produced by a ``delineate-estimate`` analysis, followed by the list of taxa for which you want to calculate the marginal probability of conspecificity.
+To run it, you simply need to provide it the JSON results file that is produced by a ``delineate-estimate`` analysis, followed by the list of lineages for which you want to calculate the marginal probabilities for one or more of the above conditions.
 Note that if your taxon labels have spaces or special characters in them (tsk tsk), you need to wrap your labels in quotes.
 E.g., assuming you have run a DELINEATE analysis using ``delineate-estimate``, and the analysis produced the two following files:
 
 -   "*dyna1.delimitation-results.json*"
 -   "*dyna1.delimitation-results.trees*"
 
-Then, to calculate the marginal probability that, for e.g., the population lineages "DGRP1" and "DGRR1" are conspecific, you would run the following command:
+Then, to calculate the marginal probability that, for e.g., the population lineages "DhrM1", "DHHG2", and "DHHG2" are conspecific, exclusively conspecfic, are part of a new species, or form an exclusive new species you would run the following command:
 
 ~~~
-delineate-summarize -r dyna1.delimitation-results.json DGRP1 DGRR1
+delineate-summarize -r biologicalconcept.conf.delimitation-results.json DhrM1 DHHG2 DhhD1
 ~~~
 
-Or the marginal probability that the population lineages "DhtT9", "Dhy3Br", "Dhy6", and "Dhym5" are conspecific:
-
-~~~
-delineate-summarize -r dyna1.delimitation-results.json DhtT9 Dhy3Br Dhy6 Dhym5
-~~~
-
-Note that the results also report the marginal probabilities that the set of taxa constitute collectively part of a new species (i.e., a species definition not provided to DELINEATE as part of the constraints). So we can also just pass in the name of a single population lineage to see the marginal probability is was placed in a species distinct from any contraints:
+Note that the results also report the marginal probabilities that the set of taxa constitute collectively part of a new species (i.e., a species definition not provided to DELINEATE as part of the constraints). So we can also just pass in the name of a single population lineage to see the marginal probability it was placed in a species distinct from any named in the contraints:
 
 ~~~
 delineate-summarize -r dyna1.delimitation-results.json DhtT9
