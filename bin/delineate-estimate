@@ -392,6 +392,16 @@ def add_source_options(parser, source_options=None):
             default="nexus",
             choices=["nexus", "newick"],
             help="Tree file data format (default='%(default)s').")
+    parser.add_argument(
+            "--underscores-to-spaces",
+            "--no-preserve-underscores",
+            action="store_false",
+            dest="preserve_underscores",
+            default=True,
+            help="Convert underscores to spaces in tree lineage labels (if not proected by quotes). "
+                 "in the configuration file will not be modified either way. You should ensure "
+                 "consistency in labels between the tree file and the configuration file."
+            )
     parser._source_options = source_options
     return parser
 

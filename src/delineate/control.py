@@ -36,7 +36,9 @@ def get_controller(
     controller.read_tree(
             tree_filepath=args.tree_file,
             schema=args.tree_format,
-            underflow_protection=getattr(args, "underflow_protection", False))
+            preserve_underscores=getattr(args, "preserve_underscores", True),
+            underflow_protection=getattr(args, "underflow_protection", False),
+            )
     controller.parse_configuration_file(
             config_filepath=args.config_file,
             delimiter=None)
@@ -413,10 +415,13 @@ class Controller(object):
     def read_tree(self,
             tree_filepath,
             schema,
-            underflow_protection=True):
+            preserve_underscores=True,
+            underflow_protection=True,
+            ):
         self.tree = model.LineageTree.get(
                 path=tree_filepath,
                 schema=schema,
+                preserve_underscores=preserve_underscores,
                 )
         self.tree.is_use_decimal_value_type = underflow_protection
         # self.tree.birth_rate = birthdeath.fit_pure_birth_model_to_tree(
