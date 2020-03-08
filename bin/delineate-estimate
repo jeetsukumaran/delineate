@@ -45,6 +45,20 @@ from delineate import utility
 # }}}1
 
 # Support Functions {{{1
+
+def _check_labels_in_tree(labels, tree):
+    """
+    Used to make sure the internal labels are consistent.
+    This should be after all normalization of labels is done.
+    By this point, all space/underscore issues, casing, etc. should be homogenous or accounted for.
+    """
+    tree_lineage_labels = set([tx.label for tx in tree.taxon_namespace])
+    not_found = []
+    for label in labels:
+        if label not in tree_lineage_labels:
+            not_found.append(label)
+    return not_found
+
 def sorted_dict(d):
     d2 = {}
     for k in sorted(d.keys()):
@@ -65,6 +79,11 @@ def execute_species_partition_estimation(args):
     if controller.has_species_constraints:
         species_constraints = model._Partition.compile_lookup_key(controller.species_leafset_constraint_labels)
         tree.set_node_constraints(species_constraints)
+        check_labels = _check_labels_in_tree(
+                labels=controller.constrained_lineage_leaf_labels,
+                tree=tree)
+        if check_labels:
+            raise ValueError("Lineage labels not normalized or invalid: {}".format(check_labels))
         induced_tree = tree.extract_tree_with_taxa_labels(
                 labels=controller.constrained_lineage_leaf_labels)
         speciation_completion_rate_estimation_initial = controller.speciation_completion_rate_estimation_initial
