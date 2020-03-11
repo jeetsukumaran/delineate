@@ -150,7 +150,7 @@ def execute_species_partition_estimation(args):
         result_dict["num_tips"] = len(tree.taxon_namespace)
         tree.calc_node_ages()
         result_dict["root_age"] = "{}".format(tree.seed_node.age)
-    extra_fields = utility.parse_fieldname_and_value(args.label)
+    extra_fields = utility.parse_fieldname_and_value(args.extra_info_field_value)
     if extra_fields:
         result_dict.update(extra_fields)
     result_dict["lineages"] = [txn.label for txn in tree.taxon_namespace]
@@ -276,6 +276,9 @@ def execute_species_partition_estimation(args):
                 tree.annotations[key] = p[key]
             for nd in leaf_nodes:
                 nd.annotations["species"] = lineage_species_name_map[nd.taxon.label]
+                if args.figtree_display_label != "clear":
+                    nd.annotations["lineage-species"] = "{} ({})".format(nd.taxon.label, lineage_species_name_map[nd.taxon.label])
+                    nd.annotations["species-lineage"] = "{} ({})".format(lineage_species_name_map[nd.taxon.label], nd.taxon.label)
                 if nd.taxon.label in controller.registry.preanalysis_constrained_lineage_species_map:
                     nd.annotations["status"] = "constrained"
                 else:
@@ -292,6 +295,15 @@ def execute_species_partition_estimation(args):
             # print("--")
             # print(lineage_species_name_map)
         treefile.write("END TREES;\n")
+        if args.figtree_display_label != "clear":
+            treefile.write("\n\nbegin figtree;\n")
+            if args.figtree_display_label == "species":
+                treefile.write('set tipLabels.displayAttribute="species";\n');
+            elif args.figtree_display_label == "species-lineage":
+                treefile.write('set tipLabels.displayAttribute="species-lineage";\n');
+            elif args.figtree_display_label == "lineage-species":
+                treefile.write('set tipLabels.displayAttribute="lineage-species";\n');
+            treefile.write("end figtree;\n")
 
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
     if True: # args.write_json
@@ -335,7 +347,7 @@ def execute_speciation_completion_rate_estimation(args):
             max_speciation_rate=speciation_completion_rate_estimation_max,
             )
     speciation_completion_rate_estimate, speciation_completion_rate_estimate_lnl = mle.estimate_speciation_rate()
-    extra_fields = utility.parse_fieldname_and_value(args.label)
+    extra_fields = utility.parse_fieldname_and_value(args.extra_info_field_value)
     out_path, out = open_output_file(
             args=args,
             suffix=".rate-results",
@@ -411,9 +423,10 @@ def add_output_options(parser, output_options=None):
     output_options.add_argument("-o", "--output-prefix",
             default=None,
             help="Prefix for output file(s).")
-    output_options.add_argument("-l", "--label",
+    output_options.add_argument("--extra-info",
+            dest="extra_info_field_value",
             action="append",
-            help="Label to append to output (in format <FIELD-NAME>:value;)")
+            help="Extra information to append to output (in format <FIELD-NAME>:value;)")
     parser._output_options = output_options
     return parser
 
@@ -559,6 +572,10 @@ def main():
     output_options.add_argument("-I", "--tree-info",
             action="store_true",
             help="Output additional information about the tree.",)
+    output_options.add_argument("-l", "--figtree-display-label",
+            choices=["lineage", "species", "lineage-species", "species-lineage", "clear"],
+            default="species-lineage",
+            help="Default label to display in FigTree.",)
     # output_options.add_argument("--output-format",
     #         default="json-compact",
     #         choices=["json", "json-compact"],
