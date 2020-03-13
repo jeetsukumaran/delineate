@@ -46,6 +46,9 @@ from delineate import utility
 
 # Support Functions {{{1
 
+def _node_label_compose_fn(node, key):
+    return node.annotations.get_value(key, None)
+
 def _check_labels_in_tree(labels, tree):
     """
     Used to make sure the internal labels are consistent.
@@ -204,6 +207,17 @@ def execute_species_partition_estimation(args):
             suffix=".delimitation-results",
             extension="trees",)
     leaf_nodes = [nd for nd in tree.leaf_node_iter()]
+    if args.store_relabeled_trees is not None:
+        relabeled_trees_path, rltf = open_output_file(
+            args=args,
+            suffix=".delimitation-results.relabeled",
+            extension="trees",)
+        if args.store_relabeled_trees == "species-lineage":
+            relabel_key = "species-lineage"
+        elif args.store_relabeled_trees == "lineage-species":
+            relabel_key = "lineage-species"
+        else:
+            raise ValueError(args.store_relabeled_trees)
     with treefile:
         tree.taxon_namespace.write(file=treefile, schema="nexus")
         treefile.write("BEGIN TREES;\n")
@@ -290,7 +304,12 @@ def execute_species_partition_estimation(args):
                     suppress_annotations=False,
                     taxon_token_map=taxon_token_map,
                     )))
-
+            if args.store_relabeled_trees is not None:
+                rltf.write(tree.as_string(
+                    schema="newick",
+                    suppress_annotations=True,
+                    node_label_compose_fn=lambda node: _node_label_compose_fn(node, relabel_key),
+                    ))
             result_dict["partitions"].append(p)
             # print("--")
             # print(lineage_species_name_map)
@@ -565,17 +584,22 @@ def main():
             help="Do not report on partitions with individual constrained (conditional) probability below this threshold.")
 
     output_options = c1_parser._output_options
-    output_options.add_argument("--no-translate-tree-tokens",
-            action="store_true",
-            default=False,
-            help="Write tree statements using full taxon names rather than numerical indices.")
     output_options.add_argument("-I", "--tree-info",
             action="store_true",
             help="Output additional information about the tree.",)
-    output_options.add_argument("-l", "--figtree-display-label",
+    trees_options = c1_parser.add_argument_group("Tree Output Options")
+    trees_options.add_argument("--no-translate-tree-tokens",
+            action="store_true",
+            default=False,
+            help="Write tree statements using full taxon names rather than numerical indices.")
+    trees_options.add_argument("-l", "--figtree-display-label",
             choices=["lineage", "species", "lineage-species", "species-lineage", "clear"],
             default="species-lineage",
-            help="Default label to display in FigTree.",)
+            help="Default label to display in FigTree for the trees in the main result file.",)
+    trees_options.add_argument("--store-relabeled-trees",
+            default=None,
+            choices=["species", "lineage-species", "species-lineage"],
+            help="Create an additional result file, where trees are written with their labels actually changed to the option selected here.")
     # output_options.add_argument("--output-format",
     #         default="json-compact",
     #         choices=["json", "json-compact"],
