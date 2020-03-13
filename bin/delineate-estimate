@@ -598,7 +598,7 @@ def main():
             help="Default label to display in FigTree for the trees in the main result file.",)
     trees_options.add_argument("--store-relabeled-trees",
             default=None,
-            choices=["species", "lineage-species", "species-lineage"],
+            choices=["lineage-species", "species-lineage"],
             help="Create an additional result file, where trees are written with their labels actually changed to the option selected here.")
     # output_options.add_argument("--output-format",
     #         default="json-compact",
