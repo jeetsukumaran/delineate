@@ -36,5 +36,9 @@ setup(
     license="LICENSE.txt",
     description="Model-based species delimitation.",
     long_description=_read(["README.txt"]),
-    # install_requires=[ ],
+    install_requires=[
+        "numpy>=1.18.1",
+        "scipy>=1.4.1",
+        "DendroPy @ git+git@github.com:jeetsukumaran/DendroPy.git",
+        ],
 )
