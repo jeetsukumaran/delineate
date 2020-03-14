@@ -5,12 +5,43 @@
 DELINEATE is a program that implements the DELINEATE approach to species delimitation (Sukumaran, Holder, and Knowles, 2019).
 This approach integrates an explicit model of speciation into the "censored" or "multispecies" coalescent model to organize a set of population lineages sampled from one or more species into mutually-exclusive and jointly-comprehensive subsets, where each subset of population lineages represents a distinct species.
 
-## Requirements
+## Prerequisites
+
+### Requirements
 
 -   [Python] (3.7 or greater)
--   [DendroPy] (4.4.0 or greater)
 
-    If you already have [Python] 3 available, you can install or upgrade [DendroPy] by:
+    Make sure you have [Python 3.7 or higher][Python-download] available on your system. You can check this by typing the following in your operating system shell:
+
+    ~~~
+    python3
+    ~~~
+
+    **NOTE**: I highly recommend that you consider using [Anaconda] instead of the system [Python] installation. As a general best practice, you should keep your operating system Python environments isolated from yours. Admittedly, this does require some extra effort and learning on your part (not just how to use Python, but how to manage Python environments using the [Anaconda] system). But it *really* is worth it! Please visit the [Anaconda] site for details on how to setup and use [Anaconda] on your system.
+
+    If you get a response indicating that the operating system could not find or understand that command, or if it shows that the version is Python 3.6 or lesser, then please install an appropriate version of [Python3] from: https://www.python.org/downloads/ .
+
+-   [pip] (for Python 3, i.e. ``pip3``)
+
+    [pip] should be installed by default along with your [Python] for all newer Python versions (> 3.4), except, frustratingly enough, in the case of operating system Python's for some flavors of Linux. As I note above, I really encourage *all* users to use [Anaconda] for their Python usage rather than the operating system Python. But if you *do* wish to use the operating system Python, then you will have to use your operating system package manager to install [pip]:
+
+    ~~~
+    sudo apt install python3-pip
+    ~~~
+
+    Note that, rather confusingly, Python 2 has its own version of [pip], so if your operating system has Python 2 in addition to Python 3 side-by-side, you should ensure that you specifically have and will be running the Python 3 version by using the full version-qualified command name of ``pip3`` rather than just ``pip``. Type ``pip3 --version`` in your operation system shell to check:
+
+    ~~~
+    pip3 --version
+    ~~~
+
+### Dependencies
+
+-   [DendroPy] (4.4.0 or greater)
+-   [SciPy] (1.18.1 or greater)
+-   [NumPy] (1.4.1 or greater)
+
+If you already have [Python] 3 available, you can install or upgrade [DendroPy] by:
 
 ~~~
 python3 -m pip install -U git+https://github.com/jeetsukumaran/DendroPy.git
@@ -401,8 +432,13 @@ Note that the results also report the marginal probabilities that the set of tax
 delineate-summarize -r biologicalconcept.delimitation-results.json DhtT9
 ~~~
 
+[Anaconda]: https://www.anaconda.com
 [Python]: https://www.python.org/
+[Python-download]: https://www.python.org/downloads/
 [DendroPy]: https://dendropy.org/
 [JSON]: https://en.wikipedia.org/wiki/JSON
 [FigTree]: http://tree.bio.ed.ac.uk/software/figtree/
 [Decimal]: https://docs.python.org/3.8/library/decimal.html#decimal-objects
+[SciPy]: https://www.scipy.org/
+[NumPy]: https://numpy.org/
+[pip]: https://docs.python.org/3/installing/index.html
