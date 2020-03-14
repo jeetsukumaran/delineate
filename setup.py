@@ -19,6 +19,10 @@ project_init = _read(["src", "delineate", "__init__.py"])
 __version__ = re.match(r".*^__version__\s*=\s*['\"](.*?)['\"]\s*$.*", project_init, re.S | re.M).group(1)
 __project__ = re.match(r".*^__project__\s*=\s*['\"](.*?)['\"]\s*$.*", project_init, re.S | re.M).group(1)
 
+requirements = [line.strip()
+                    for line in open('requirements.txt').readlines()
+                    if line.strip() and not line.startswith('#')]
+
 setup(
     name=__project__,
     version=__version__,
@@ -36,9 +40,5 @@ setup(
     license="LICENSE.txt",
     description="Model-based species delimitation.",
     long_description=_read(["README.txt"]),
-    install_requires=[
-        "numpy>=1.18.1",
-        "scipy>=1.4.1",
-        "DendroPy @ git+git@github.com:jeetsukumaran/DendroPy.git",
-        ],
+    install_requires=requirements,
 )
