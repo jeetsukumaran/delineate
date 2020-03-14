@@ -1,4 +1,4 @@
-git+https@github.com:jeetsukumaran/DendroPy.git=DendroPy
+git+git:github.com:jeetsukumaran/DendroPy.git=DendroPy
 numpy>=1.18.1
 scipy>=1.4.1
 
