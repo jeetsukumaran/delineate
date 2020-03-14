@@ -445,7 +445,8 @@ def add_output_options(parser, output_options=None):
     output_options.add_argument("--extra-info",
             dest="extra_info_field_value",
             action="append",
-            help="Extra information to append to output (in format <FIELD-NAME>:value;)")
+            help="Extra information to append to output (in format "
+                 "'<FIELD-NAME>:value'; e.g. '--extra-info taxonomy:accepted')")
     parser._output_options = output_options
     return parser
 
