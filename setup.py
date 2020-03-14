@@ -43,6 +43,8 @@ project_init = _read(["src", "delineate", "__init__.py"])
 __version__ = re.match(r".*^__version__\s*=\s*['\"](.*?)['\"]\s*$.*", project_init, re.S | re.M).group(1)
 __project__ = re.match(r".*^__project__\s*=\s*['\"](.*?)['\"]\s*$.*", project_init, re.S | re.M).group(1)
 
+reqs, deps = _get_reqs_and_deps()
+
 setup(
     name=__project__,
     version=__version__,
