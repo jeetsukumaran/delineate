@@ -1,4 +1,0 @@
-git+https://github.com:jeetsukumaran/DendroPy.git#egg=DendroPy
-numpy>=1.18.1
-scipy>=1.4.1
-
