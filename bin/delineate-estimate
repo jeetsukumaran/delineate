@@ -558,11 +558,11 @@ def main():
 
     ## setup partition options
     c1_parser = command_parsers["partitions"]
-    model_options = c1_parser.add_argument_group("Model Options")
-    model_options.add_argument("-s", "--speciation-completion-rate",
+    c1_parser._estimation_options.add_argument("-s", "--speciation-completion-rate",
             type=float,
             default=None,
-            help="The speciation completion rate (overrides that given in configuration file, if any; default: None).",)
+            help="The speciation completion rate. If specified, then the speciation completion rate "
+                 " will *not* be estimated, but fixed to this.",)
 
     report_options = c1_parser.add_argument_group("Report Options")
     report_options.add_argument("-P", "--report-cumulative-probability-threshold",

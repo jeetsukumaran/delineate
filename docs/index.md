@@ -121,6 +121,7 @@ Basically this is a collection of trees, with one tree for each partition consid
 The topology of the trees are identical, corresponding to the topology of the input tree (i.e., the population lineage tree), as are the tip labels.
 However, the tips have associated with them some extra metadata that will be available for viewing in a program like [FigTree].
 Most important of this is ``species``, i.e., the label corresponding to the identity of the species assignment in that partition.
+You can also have the tip labels to displayed both the assigned species as well as the population label together ("species-lineage" or "lineage-species" options).
 In the case of species assignments that are constrained (i.e., status indicated by "1"), these will be identical to the assignment and invariant across all partitions, of course.
 However, in the case of population lineages of *unknown* species affinities (i.e., status indicated by "0"), this may be an existing species label (if the population lineage was assigned to an existing species in the partition under consideration) or a new, arbitrary species label (if the population lineage was assigned to a new distinct species in the partition under consideration).
 In addition, in [FigTree] you can also choose to have the branches colored by "status", and this will highlight population lineages of (*a priori*) known vs unknown species affinities, and thus quickly identify the assigned species identities of the lineages of interest.
@@ -142,6 +143,20 @@ delineate-estimate partitions --help
 which results in:
 
 ~~~
+usage: delineate-estimate partitions [-h] -t TREE_FILE [-c CONFIG_FILE]
+                                     [-f {nexus,newick}]
+                                     [--underscores-to-spaces] [-u]
+                                     [--speciation-completion-rate-estimation-min #.##]
+                                     [--speciation-completion-rate-estimation-max #.##]
+                                     [--speciation-completion-rate-estimation-initial #.##]
+                                     [-o OUTPUT_PREFIX]
+                                     [--extra-info EXTRA_INFO_FIELD_VALUE]
+                                     [-s SPECIATION_COMPLETION_RATE] [-P #.##]
+                                     [--report-mle-only] [-p #.##] [-I]
+                                     [--no-translate-tree-tokens]
+                                     [-l {lineage,species,lineage-species,species-lineage,clear}]
+                                     [--store-relabeled-trees {lineage-species,species-lineage}]
+
 Given a known population tree and optionally a speciation completion rate,
 calculate the probability of different partitions of population lineages into
 species, with the partition of the highest probability corresponding to the
@@ -149,6 +164,12 @@ maximum likelihood species delimitation estimate.
 
 Command Options:
   -h, --help            show this help message and exit
+  --underscores-to-spaces, --no-preserve-underscores
+                        Convert underscores to spaces in tree lineage labels (if
+                        not proected by quotes). in the configuration file will
+                        not be modified either way. You should ensure consistency
+                        in labels between the tree file and the configuration
+                        file.
 
 Source Options:
   -t TREE_FILE, --tree-file TREE_FILE
@@ -158,25 +179,35 @@ Source Options:
   -f {nexus,newick}, --tree-format {nexus,newick}
                         Tree file data format (default='nexus').
 
-Output Options:
-  -o OUTPUT_PREFIX, --output-prefix OUTPUT_PREFIX
-                        Prefix for output file(s).
-  -l LABEL, --label LABEL
-                        Label to append to output (in format <FIELD-NAME>:value;)
-  --no-translate-tree-tokens
-                        Write tree statements using full taxon names rather than
-                        numerical indices.
-  -I, --tree-info       Output additional information about the tree.
-
 Estimation Options:
   -u, --underflow-protection
                         Try to protect against underflow by using special number
                         handling classes (slow).
+  --speciation-completion-rate-estimation-min #.##, --smin #.##
+                        If estimating speciation completion rate, minimum
+                        boundary for optimization window [default: 1e-08].
+  --speciation-completion-rate-estimation-max #.##, --smax #.##
+                        If estimating speciation completion rate, maximum
+                        boundary for optimization window [default: 10 x lineage
+                        tree pure birth rate].
+  --speciation-completion-rate-estimation-initial #.##, --sinit #.##
+                        If estimating speciation completion rate, initial value
+                        for optimizer [default: 0.01 x lineage tree pure birth
+                        rate].
+
+Output Options:
+  -o OUTPUT_PREFIX, --output-prefix OUTPUT_PREFIX
+                        Prefix for output file(s).
+  --extra-info EXTRA_INFO_FIELD_VALUE
+                        Extra information to append to output (in format <FIELD-
+                        NAME>:value;)
+  -I, --tree-info       Output additional information about the tree.
 
 Model Options:
   -s SPECIATION_COMPLETION_RATE, --speciation-completion-rate SPECIATION_COMPLETION_RATE
-                        The speciation completion rate (overrides that given in
-                        configuration file, if any; default: None).
+                        The speciation completion rate. If specified, then the
+                        speciation completion rate will *not* be estimated, but
+                        fixed to this.
 
 Report Options:
   -P #.##, --report-cumulative-probability-threshold #.##
@@ -186,6 +217,19 @@ Report Options:
   -p #.##, --report-probability-threshold #.##
                         Do not report on partitions with individual constrained
                         (conditional) probability below this threshold.
+
+Tree Output Options:
+  --no-translate-tree-tokens
+                        Write tree statements using full taxon names rather than
+                        numerical indices.
+  -l {lineage,species,lineage-species,species-lineage,clear},
+  --figtree-display-label {lineage,species,lineage-species,species-lineage,clear}
+                        Default label to display in FigTree for the trees in the
+                        main result file.
+  --store-relabeled-trees {lineage-species,species-lineage}
+                        Create an additional result file, where trees are written
+                        with their labels actually changed to the option selected
+                        here.
 ~~~
 
 Some of these options are explained in detail below:
