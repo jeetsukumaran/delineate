@@ -5,7 +5,7 @@ Overview and Quick Start
 Data Requirements
 -----------------
 
-DELINEATE requires two items of data:
+DELINEATE requires the following input:
 
 -  A *population tree*
 -  A *species assignment table*
