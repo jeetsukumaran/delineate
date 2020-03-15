@@ -7,6 +7,7 @@ SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
+ARGS=$(@)
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -17,11 +18,20 @@ help:
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
+	@echo === Executing Sphinx build ...
+	@echo
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@echo
+	@echo === Copying files to deploy directory ...
+	@echo
+	@if [ "$@" = "html" ]; then \
+		mkdir -p "../../docs"; \
+		rsync -ap --progress --delete $(wildcard $(BUILDDIR)/html/*) "../../docs/"; \
+	else \
+		echo "(Not copying not HTML target)"; \
+	fi
 
 publish:
-	@mkdir -p "../../docs"
-	@rsync -ap --progress --delete $(wildcard $(BUILDDIR)/html/*) "../../docs/"
 	git add source "../../docs"
 	git commit
 	git push

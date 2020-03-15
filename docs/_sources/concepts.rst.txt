@@ -58,16 +58,15 @@ To understand that we have to understand how |delineate| models the diversificat
 -   *population extinction*
 -   *evolution of reproductive isolation of an independent population lineage*
 
-.. figure:: images/diversification.png
-
 Population splitting, i.e. the fragmentation of an ancestral population lineage into two independent daughter lineages, corresponds to a birth event on a tree of populations (from one or more species) .
 Each of the two daughter lineages proceeds on its own independent trajectory, still part of the same species as the parent population lineages, until they either themselves split into further daughter lineages, go extinct (corresponding to death events on a tree of populations), or develop into a distinct species (from either parent or sister population).
 As modeled by |delineate| the formation of new independent population lineages (birth events on a tree), the loss of these lineages due to extinction (death events on a tree), and the development of a lineage into a full independent species, are modeled as three independent processes, each with their own distinct rate.
 Birth events on a tree can be considered the (potential) origin of a new species, and the the development of full independent species status as the completion of this phenomenon.
 As such, with |delineate| speciation is not an instantaneous event (such as that modeled by a simple birth-death branching model underlying a species tree), but an extended process, starting with the lineeage splitting and ending with the speciation completion event.
 
-We can imagine the speciation completion process to "play out" over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.
+We can consider the speciation completion process to "play out" over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.
 
+.. figure:: images/diversification.png
 
 
 Sampling Design
