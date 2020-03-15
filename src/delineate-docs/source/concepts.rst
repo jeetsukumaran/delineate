@@ -5,33 +5,38 @@ Fundamental Concepts
 "Partitions"
 ============
 
-The primary output of |delineate| is essentially calculation of the probabilities of different *partitions* of the population lineages in the study.
+The primary output of |delineate| is essentially calculation of the probabilities of different *partitions* of the population lineages in the study into distinct species.
+Each partition represents a different collection of assignments of species identities to each of the population lineages.
 The term "partition" here comes from basic set theory: it is a division of a set of elements into a set of *mutually exclusive* and *jointly comprehensive* subsets.
 In this application, we are considering the population lineages (i.e., the tips of the population tree we give as input to |delineate|) as the elements of the initial set.
 We want to organize this set of populations into distinct subsets, where each subset corresponds to a distinct species.
 
-For example, imagine that that we have a system consisting of three populations: A, B, and C.
-How many different "species delimitations" are possible with this system?
-That is, how many different ways can we organize this set of populations in to species?
-One way would be to assign all the populations to the same species, i.e.::
+For example, imagine that that we have a system consisting of three populations, A, B, and C, which can be represented by the following set of three elements::
 
-{{A,B,C}}
+    {A, B, C}
 
-Another way might be to assign each population to its own distinct species, i.e.::
+What are the different "species delimitations" are possible with this system?
+That is, what are the different ways we can we organize this set of populations in to species?
 
-{{A},{B},{C}}
+    1.  One way would be to lump all the populations to the same species, i.e.::
 
-Another way might be to have A and B assigned to the same species, but C to a different one::
+        {{A,B,C}}
 
-{{A,B},{C}}
+    2.  Another way might be to split off each population to its own distinct species, i.e.::
 
-Or, alternatively, A and C to the same species, but B to a different one::
+        {{A},{B},{C}}
 
-{{A,C},{B}}
+    3.  Another way might be to have A and B assigned to the same species, but C to a different one::
 
-Or, finally, B and C to the same species, but A to a different one::
+        {{A,B},{C}}
 
-{{A},{B,C}}
+    4.  Or, alternatively, A and C to the same species, but B to a different one::
+
+        {{A,C},{B}}
+
+    5.  Or, finally, B and C to the same species, but A to a different one::
+
+        {{A},{B,C}}
 
 Each of these five arrangements is a distinct partition of the original set of three elements.
 Thus, each possible partition of set of population lineages represents a different way of organizing that set of population lineages into species.
