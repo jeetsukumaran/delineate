@@ -56,10 +56,15 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 
 rst_epilog = """
-.. |Python| replace:: Python
-.. _Python: https://www.python.org/
 .. |Anaconda| replace:: Anaconda
 .. _Anaconda: https://www.anaconda.com/
+.. |BPP| replace:: BP&P
+.. _BPP: https://github.com/bpp/bpp
+.. |delineate| replace:: DELINEATE
 .. |pip| replace:: pip
 .. _pip: https://docs.python.org/3/installing/index.html
+.. |Python| replace:: Python
+.. _Python: https://www.python.org/
+.. |StarBeast2| replace:: StarBeast2
+.. _StarBeast2: https://taming-the-beast.org/tutorials/starbeast2-tutorial/
 """

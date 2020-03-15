@@ -1,6 +1,6 @@
-####################
-Installing DELINEATE
-####################
+############
+Installation
+############
 
 System Requirements
 ===================
@@ -66,7 +66,7 @@ System Requirements
 Library Dependencies
 ====================
 
-DELINEATE makes use of the following Python libraries.
+|delineate| makes use of the following Python libraries.
 
 -  `DendroPy <https://dendropy.org/>`__ (4.4.0 or greater)
 -  `SciPy <https://www.scipy.org/>`__ (1.18.1 or greater)
@@ -86,7 +86,7 @@ install these dependencies yourself by running:
 Installation or Upgrade
 =======================
 
-You can run the following command to install or upgrade DELINEATE
+You can run the following command to install or upgrade |delineate|
 directly from the package repositories::
 
 ::

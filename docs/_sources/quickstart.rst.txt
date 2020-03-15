@@ -1,11 +1,11 @@
-########################
-Overview and Quick Start
-########################
+###########
+Quick Start
+###########
 
 Data Requirements
 -----------------
 
-DELINEATE requires the following input:
+|delineate| requires the following input:
 
 -  A *population tree*
 -  A *species assignment table*
@@ -16,7 +16,7 @@ Input Data: Population Tree
 This is rooted ultrametric tree where each tip lineage represents a
 population or deme. This tree is typically obtained through a classical
 "censored" or "multispecies" coalescent analysis, such as results from
-BP&P (either mode A01 or A10) or StarBeast. The tree can be be specified
+|BPP| (either mode A01 or A10) or |StarBeast2|. The tree can be be specified
 either in NEXUS or Newick format.
 
 Input Data: Species Assignment Table
@@ -30,7 +30,7 @@ This is a tab-delimited plain text file with at least three columns:
 
 There may be more than these three columns, but these columns are
 mandatory (and all other columns will be ignored). The order of columns
-does not matter, as the DELINEATE programs will use the labels specified
+does not matter, as the |delineate| programs will use the labels specified
 in the header row (see below) to identify the columns.
 
 The first row is the header row: i.e., column labels. Subsequent rows
@@ -77,7 +77,7 @@ the following labels: "able1", "able2", "able3", "new1", "baker1",
 "baker2", "easy1", "easy2", "oboe1", "oboe2". The "1's" in the "status"
 column indicate species assignments that should be taken as known *a
 priori* by the program. The "0's" in the "status" column indicate
-populations of unknown species uncertainties: DELINEATE will assign
+populations of unknown species uncertainties: |delineate| will assign
 species identities to these lineages (either existing ones, such as
 "R\_able" or "R\_baker", or establish entirely new species identities
 for them). Note that the species labels are ignored for population
@@ -92,7 +92,7 @@ Basic Run
 
 Given a population lineage tree file, "population-tree.nex", and a
 species assignment table file "species-mappings.tsv", then the following
-command will run a DELINEATE analysis on the data::
+command will run a |delineate| analysis on the data:
 
 ::
 
@@ -130,7 +130,7 @@ This command has the following components:
 Basic Run Output
 ~~~~~~~~~~~~~~~~
 
-Executing this command will run the DELINEATE analysis and will produce
+Executing this command will run the |delineate| analysis and will produce
 the following output files:
 
 -  "*data1.delimitation-results.json*"
@@ -426,7 +426,7 @@ followed by the list of lineages for which you want to calculate the
 marginal probabilities for one or more of the above conditions. Note
 that if your taxon labels have spaces or special characters in them (tsk
 tsk), you need to wrap your labels in quotes. E.g., assuming you have
-run a DELINEATE analysis using ``delineate-estimate``, and the analysis
+run a |delineate| analysis using ``delineate-estimate``, and the analysis
 produced the two following files:
 
 -  "*biologicalconcept.delimitation-results.json*"
@@ -502,7 +502,7 @@ program. For a full list of these, type:
 
 Note that the results also report the marginal probabilities that the
 set of taxa constitute collectively part of a new species (i.e., a
-species definition not provided to DELINEATE as part of the
+species definition not provided to |delineate| as part of the
 constraints). So we can also just pass in the name of a single
 population lineage to see the marginal probability it was placed in a
 species distinct from any named in the contraints:
