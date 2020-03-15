@@ -21,13 +21,14 @@ help:
 	@echo === Executing Sphinx build ...
 	@echo
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	@echo
-	@echo === Copying files to deploy directory ...
-	@echo
 	@if [ "$@" = "html" ]; then \
+		echo ;\
+		echo === Copying files to deploy directory ... ;\
+		echo ;\
 		mkdir -p "../../docs"; \
 		rsync -ap --progress --delete $(wildcard $(BUILDDIR)/html/*) "../../docs/"; \
 	else \
+		echo ;\
 		echo "(Not copying not HTML target)"; \
 	fi
 
