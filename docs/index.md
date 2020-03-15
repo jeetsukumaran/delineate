@@ -17,9 +17,9 @@ This approach integrates an explicit model of speciation into the "censored" or 
     python3
     ~~~
 
-    **NOTE**: I highly recommend that you consider using [Anaconda] instead of the system [Python] installation. As a general best practice, you should keep your operating system Python environments isolated from yours. Admittedly, this does require some extra effort and learning on your part (not just how to use Python, but how to manage Python environments using the [Anaconda] system). But it *really* is worth it! Please visit the [Anaconda] site for details on how to setup and use [Anaconda] on your system.
-
     If you get a response indicating that the operating system could not find or understand that command, or if it shows that the version is Python 3.6 or lesser, then please install an appropriate version of [Python3] from: https://www.python.org/downloads/ .
+
+    (**NOTE**: I highly recommend that you consider using [Anaconda] instead of the system [Python] installation. As a general best practice, you should keep your operating system Python environments isolated from yours. Admittedly, this does require some extra effort and learning on your part (not just how to use Python, but how to manage Python environments using the [Anaconda] system). But it *really* is worth it! Please visit the [Anaconda] site for details on how to setup and use [Anaconda] on your system.)
 
 -   [pip] (for Python 3, i.e. ``pip3``)
 
@@ -439,6 +439,47 @@ Note that the results also report the marginal probabilities that the set of tax
 delineate-summarize -r biologicalconcept.delimitation-results.json DhtT9
 ~~~
 
+## Study Design and Workflow
+
+<!--- DELINEATE works with a population tree as input. -->
+<!--- The configuration file, also provided to DELINEATE as input (specified with the ``-c`` or ``--config-file`` flag) provides constraints on the species assignments of *some* of the lineages. -->
+<!--- DELINEATE will calculate and report the probabilities of different species assignments of the remaining lineages. -->
+
+1. Sampling Design
+
+    DELINEATE requires a fundamentally different way to thinking how we sample data for species delimitation studies.
+
+    DELINEATE ideally should be provided with data that *includes samples from as many populations as possible across the system* being studied.
+    This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included.
+    The theoretical ideal would be to include *every* population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events.
+    Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to.
+    The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.
+
+    DELINEATE also requires that we have know the species identities of at least *some* of our population lineages.
+    This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities.
+    With DELINEATE we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities.
+    These other species --- or, to be more precise, population lineages for which the species identities are known --- are critical to allowing DELINEATE to "learn" about the speciation process.
+
+2.  From Individuals to a Populations
+
+    We would typically hope to sample at least a few genes from two to ten individuals per population per species.
+    We would then use [BPP] to organize these individuals into populations.
+    Note that [BPP] terminology uses the term "species" and "populations" interchangeably.
+    This can be confusing, but it is important to keep this in mind.
+
+3.  Estimating the Population Tree
+
+    Once we have decided what our population units are, we will use [StarBeast2] to infer an ultrametric population tree to use as input.
+    Here, again, while [StarBeast2] uses the terminology "species" to reference to groupings of individuals, we should bear in mind that we are still dealing with population.
+    We will use the units identified as populations by BPP as the "species" grouping in [StartBeast2].
+
+4.  Estimating the Probability of Species Assignments
+
+    The population tree resulting from [StarBeast2] forms the one of the mandatory inputs for DELINEATE.
+    The species identities for the subset of population lineages for which these are known forms the other.
+    Running DELINEATE will then report on the probabilities of different species assignments for the remaining lineages, i.e. for the ones for which we do not know or specifies the species identities.
+
+
 [Anaconda]: https://www.anaconda.com
 [Python]: https://www.python.org/
 [Python-download]: https://www.python.org/downloads/
@@ -449,3 +490,5 @@ delineate-summarize -r biologicalconcept.delimitation-results.json DhtT9
 [SciPy]: https://www.scipy.org/
 [NumPy]: https://numpy.org/
 [pip]: https://docs.python.org/3/installing/index.html
+[BPP]: https://github.com/bpp/bpp
+[StarBeast2]: https://taming-the-beast.org/tutorials/starbeast2-tutorial/
