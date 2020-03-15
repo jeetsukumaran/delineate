@@ -64,8 +64,9 @@ As modeled by |delineate| the formation of new independent population lineages (
 Birth events on a tree can be considered the (potential) origin of a new species, and the the development of full independent species status as the completion of this phenomenon.
 As such, with |delineate| speciation is not an instantaneous event (such as that modeled by a simple birth-death branching model underlying a species tree), but an extended process, starting with the lineeage splitting and ending with the speciation completion event.
 
-We can imagine the speciation completion process to "play out" over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.
+We can consider the speciation completion process to "play out" over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.
 
+.. figure:: images/diversification.png
 
 
 Sampling Design
