@@ -22,6 +22,6 @@ help:
 publish:
 	@mkdir -p "../../docs"
 	@rsync -ap --progress --delete $(wildcard $(BUILDDIR)/html/*) "../../docs/"
-	git add "../../docs"
+	git add source "../../docs"
 	git commit
 	git push
