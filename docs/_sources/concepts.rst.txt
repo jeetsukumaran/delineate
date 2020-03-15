@@ -2,6 +2,74 @@
 Fundamental Concepts
 ####################
 
+"Partitions"
+============
+
+The primary output of |delineate| is essentially calculation of the probabilities of different *partitions* of the population lineages in the study into distinct species.
+Each partition represents a different collection of assignments of species identities to each of the population lineages.
+The term "partition" here comes from basic set theory: it is a division of a set of elements into a set of *mutually exclusive* and *jointly comprehensive* subsets.
+In this application, we are considering the population lineages (i.e., the tips of the population tree we give as input to |delineate|) as the elements of the initial set.
+We want to organize this set of populations into distinct subsets, where each subset corresponds to a distinct species.
+
+For example, imagine that that we have a system consisting of three populations, A, B, and C, which can be represented by the following set of three elements::
+
+    {A, B, C}
+
+What are the different "species delimitations" are possible with this system?
+That is, what are the different ways we can we organize this set of populations in to species?
+
+    1.  One way would be to lump all the populations to the same species, i.e.::
+
+        {{A,B,C}}
+
+    2.  Another way might be to split off each population to its own distinct species, i.e.::
+
+        {{A},{B},{C}}
+
+    3.  Another way might be to have A and B assigned to the same species, but C to a different one::
+
+        {{A,B},{C}}
+
+    4.  Or, alternatively, A and C to the same species, but B to a different one::
+
+        {{A,C},{B}}
+
+    5.  Or, finally, B and C to the same species, but A to a different one::
+
+        {{A},{B,C}}
+
+Each of these five arrangements is a distinct partition of the original set of three elements.
+Thus, each possible partition of set of population lineages represents a different way of organizing that set of population lineages into species.
+|delineate| will report the probabilities of each of these partitions for your data.
+The partition with the highest probability represents the maximum likelihood estimate (MLE) of the species identities of the populations in your system.
+
+..
+    The number of partitions possible for a set increases with the number of elements in the set.
+    In fact, it increases very, very, very, very, very, very, `*very* rapidly <https://mathworld.wolfram.com/BellNumber.html>`_.
+
+The Diversification Process
+===========================
+
+How are the probabilities of these different partitions of population lineages calculated?
+To understand that we have to understand how |delineate| models the diversification process.
+|delineate| models diversification with the following events:
+
+-   *population splitting*
+-   *population extinction*
+-   *evolution of reproductive isolation of an independent population lineage*
+
+.. figure:: images/diversification.png
+
+Population splitting, i.e. the fragmentation of an ancestral population lineage into two independent daughter lineages, corresponds to a birth event on a tree of populations (from one or more species) .
+Each of the two daughter lineages proceeds on its own independent trajectory, still part of the same species as the parent population lineages, until they either themselves split into further daughter lineages, go extinct (corresponding to death events on a tree of populations), or develop into a distinct species (from either parent or sister population).
+As modeled by |delineate| the formation of new independent population lineages (birth events on a tree), the loss of these lineages due to extinction (death events on a tree), and the development of a lineage into a full independent species, are modeled as three independent processes, each with their own distinct rate.
+Birth events on a tree can be considered the (potential) origin of a new species, and the the development of full independent species status as the completion of this phenomenon.
+As such, with |delineate| speciation is not an instantaneous event (such as that modeled by a simple birth-death branching model underlying a species tree), but an extended process, starting with the lineeage splitting and ending with the speciation completion event.
+
+We can imagine the speciation completion process to "play out" over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.
+
+
+
 Sampling Design
 ===============
 
@@ -28,3 +96,4 @@ A typical species delimitation analysis would consist of the following three ste
 
     3.  **Calculating the Probability of Species Assignments:** Finally, the actual species delimitation analysis itself: a |delineate| analysis to calculate the probabilities of different groupings of population tips of the population tree into species.
         The population tree resulting from |StarBeast2|_ forms the one of the mandatory inputs for |delineate|. The species identities for the subset of population lineages for which these are known forms the other. Running |delineate| will then report on the probabilities of different species assignments for the remaining lineages, i.e. for the ones for which we do not know or specifies the species identities.
+

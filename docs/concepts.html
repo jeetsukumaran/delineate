@@ -35,6 +35,73 @@
             
   <div class="section" id="fundamental-concepts">
 <h1>Fundamental Concepts<a class="headerlink" href="#fundamental-concepts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="partitions">
+<h2>“Partitions”<a class="headerlink" href="#partitions" title="Permalink to this headline">¶</a></h2>
+<p>The primary output of DELINEATE is essentially calculation of the probabilities of different <em>partitions</em> of the population lineages in the study into distinct species.
+Each partition represents a different collection of assignments of species identities to each of the population lineages.
+The term “partition” here comes from basic set theory: it is a division of a set of elements into a set of <em>mutually exclusive</em> and <em>jointly comprehensive</em> subsets.
+In this application, we are considering the population lineages (i.e., the tips of the population tree we give as input to DELINEATE) as the elements of the initial set.
+We want to organize this set of populations into distinct subsets, where each subset corresponds to a distinct species.</p>
+<p>For example, imagine that that we have a system consisting of three populations, A, B, and C, which can be represented by the following set of three elements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>What are the different “species delimitations” are possible with this system?
+That is, what are the different ways we can we organize this set of populations in to species?</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>One way would be to lump all the populations to the same species, i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">}}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Another way might be to split off each population to its own distinct species, i.e.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">},{</span><span class="n">B</span><span class="p">},{</span><span class="n">C</span><span class="p">}}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Another way might be to have A and B assigned to the same species, but C to a different one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">},{</span><span class="n">C</span><span class="p">}}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Or, alternatively, A and C to the same species, but B to a different one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">,</span><span class="n">C</span><span class="p">},{</span><span class="n">B</span><span class="p">}}</span>
+</pre></div>
+</div>
+</li>
+<li><p>Or, finally, B and C to the same species, but A to a different one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">},{</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">}}</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div></blockquote>
+<p>Each of these five arrangements is a distinct partition of the original set of three elements.
+Thus, each possible partition of set of population lineages represents a different way of organizing that set of population lineages into species.
+DELINEATE will report the probabilities of each of these partitions for your data.
+The partition with the highest probability represents the maximum likelihood estimate (MLE) of the species identities of the populations in your system.</p>
+</div>
+<div class="section" id="the-diversification-process">
+<h2>The Diversification Process<a class="headerlink" href="#the-diversification-process" title="Permalink to this headline">¶</a></h2>
+<p>How are the probabilities of these different partitions of population lineages calculated?
+To understand that we have to understand how DELINEATE models the diversification process.
+DELINEATE models diversification with the following events:</p>
+<ul class="simple">
+<li><p><em>population splitting</em></p></li>
+<li><p><em>population extinction</em></p></li>
+<li><p><em>evolution of reproductive isolation of an independent population lineage</em></p></li>
+</ul>
+<div class="figure align-default">
+<img alt="_images/diversification.png" src="_images/diversification.png" />
+</div>
+<p>Population splitting, i.e. the fragmentation of an ancestral population lineage into two independent daughter lineages, corresponds to a birth event on a tree of populations (from one or more species) .
+Each of the two daughter lineages proceeds on its own independent trajectory, still part of the same species as the parent population lineages, until they either themselves split into further daughter lineages, go extinct (corresponding to death events on a tree of populations), or develop into a distinct species (from either parent or sister population).
+As modeled by DELINEATE the formation of new independent population lineages (birth events on a tree), the loss of these lineages due to extinction (death events on a tree), and the development of a lineage into a full independent species, are modeled as three independent processes, each with their own distinct rate.
+Birth events on a tree can be considered the (potential) origin of a new species, and the the development of full independent species status as the completion of this phenomenon.
+As such, with DELINEATE speciation is not an instantaneous event (such as that modeled by a simple birth-death branching model underlying a species tree), but an extended process, starting with the lineeage splitting and ending with the speciation completion event.</p>
+<p>We can imagine the speciation completion process to “play out” over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.</p>
+</div>
 <div class="section" id="sampling-design">
 <h2>Sampling Design<a class="headerlink" href="#sampling-design" title="Permalink to this headline">¶</a></h2>
 <p>DELINEATE requires a fundamentally different way to thinking how we sample data for species delimitation studies.</p>
@@ -80,6 +147,8 @@ The population tree resulting from <a class="reference external" href="https://t
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Fundamental Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#partitions">“Partitions”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-diversification-process">The Diversification Process</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sampling-design">Sampling Design</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#from-individuals-to-populations-to-species">From Individuals to Populations to Species</a></li>
 </ul>
