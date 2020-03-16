@@ -2,6 +2,13 @@
 Installation
 ############
 
+Installation or Upgrade
+=======================
+
+Providing you have all the system requirements (see below), you can use the following command to install or upgrade |delineate| directly from the package repositories::
+
+    python3 -m pip install -U git+https://github.com/jeetsukumaran/delineate.git
+
 System Requirements
 ===================
 
@@ -82,14 +89,3 @@ install these dependencies yourself by running:
         scipy \
         numpy \
         git+https://github.com/jeetsukumaran/DendroPy.git
-
-Installation or Upgrade
-=======================
-
-You can run the following command to install or upgrade |delineate|
-directly from the package repositories::
-
-::
-
-    python3 -m pip install -U git+https://github.com/jeetsukumaran/delineate.git
-

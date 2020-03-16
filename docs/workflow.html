@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Study Design and Workflow &#8212; DELINEATE 1.2.3 documentation</title>
+    <title>Workflow &#8212; DELINEATE 1.2.3 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -15,7 +15,8 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Overview and Quick Start" href="quickstart.html" />
+    <link rel="next" title="Quick Start" href="quickstart.html" />
+    <link rel="prev" title="Fundamental Concepts" href="concepts.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -32,68 +33,31 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="study-design-and-workflow">
-<h1>Study Design and Workflow<a class="headerlink" href="#study-design-and-workflow" title="Permalink to this headline">¶</a></h1>
-<ol class="arabic">
-<li><p>Sampling Design</p>
-<p>DELINEATE requires a fundamentally different way to thinking how we
-sample data for species delimitation studies.</p>
-<p>DELINEATE ideally should be provided with data that <em>includes samples
-from as many populations as possible across the system</em> being
-studied. This is in contrast from standard practice from other
-approaches, in which typically one or two examplar population sample
-per putative species are included. The theoretical ideal would be to
-include <em>every</em> population of all species in the system, known or
-unknown, i.e., to capture all population isolation or splitting
-events. Of course, we do not expect to achieve this theoretical ideal
-in practice, but it is certainly something to aspire to. The key
-point is restricting our population/species sampling to a few
-examplar populations per species is something we want to move away
-from.</p>
-<p>DELINEATE also requires that we have know the species identities of
-at least <em>some</em> of our population lineages. This is, again, in
-contrast to other approaches to species delimitation, which might be
-quite happy analyzing an entire data set with no known fixed species
-identities. With DELINEATE we should design our sampling scheme to
-including a much broader range of species than just the ones we are
-interested in delimiting, and should include populations belong to
-species in which we are quite confident regarding their species
-identities. These other species — or, to be more precise,
-population lineages for which the species identities are known —
-are critical to allowing DELINEATE to “learn” about the speciation
-process.</p>
-</li>
-<li><p>From Individuals to a Populations</p>
-<p>We would typically hope to sample at least a few genes from two to
-ten individuals per population per species. We would then use
-<a class="reference external" href="https://github.com/bpp/bpp">BPP</a> to organize these individuals
-into populations. Note that <a class="reference external" href="https://github.com/bpp/bpp">BPP</a>
-terminology uses the term “species” and “populations”
-interchangeably. This can be confusing, but it is important to keep
-this in mind.</p>
-</li>
-<li><p>Estimating the Population Tree</p>
-<p>Once we have decided what our population units are, we will use
-<a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a>
-to infer an ultrametric population tree to use as input. Here, again,
-while
-<a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a>
-uses the terminology “species” to reference to groupings of
-individuals, we should bear in mind that we are still dealing with
-population. We will use the units identified as populations by BPP as
-the “species” grouping in [StartBeast2].</p>
-</li>
-<li><p>Estimating the Probability of Species Assignments</p>
-<p>The population tree resulting from
-<a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a>
-forms the one of the mandatory inputs for DELINEATE. The species
-identities for the subset of population lineages for which these are
-known forms the other. Running DELINEATE will then report on the
-probabilities of different species assignments for the remaining
-lineages, i.e. for the ones for which we do not know or specifies the
-species identities.</p>
-</li>
+  <div class="section" id="workflow">
+<h1>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sampling-design">
+<h2>Sampling Design<a class="headerlink" href="#sampling-design" title="Permalink to this headline">¶</a></h2>
+<p>DELINEATE requires a fundamentally different way to thinking how we sample data for species delimitation studies.</p>
+<p>DELINEATE ideally should be provided with data that <em>includes samples from as many populations as possible across the system</em> being studied. This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included. The theoretical ideal would be to include <em>every</em> population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events. Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to. The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.</p>
+<p>DELINEATE also requires that we have know the species identities of at least <em>some</em> of our population lineages. This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities. With DELINEATE we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities. These other species — or, to be more precise, population lineages for which the species identities are known — are critical to allowing DELINEATE to “learn” about the speciation process.</p>
+</div>
+<div class="section" id="from-individuals-to-populations-to-species">
+<h2>From Individuals to Populations to Species<a class="headerlink" href="#from-individuals-to-populations-to-species" title="Permalink to this headline">¶</a></h2>
+<p>The DELINEATE package itself represents the final step in an analytical pipeline.
+Starting with a collection of genetic alignments representing multiple genes sampled from multiple individuals from multiple populations, each step of the pipeline groups the data into successively higher levels of organization, from populations to species.</p>
+<p>A typical species delimitation analysis would consist of the following three steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><strong>Identification (Delimitation) of *Population* Units:</strong> First, we would carry out a <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis to identify population units by aggregating individuals into populations under the multipopulation coalescent model. We would typically hope to sample at least a few genes from two to ten individuals per population, with multiple populations per putative species.
+We would then use <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> to organize these individuals into populations.
+Note that <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> terminology uses the term “species” and “populations” interchangeably. This can be confusing, but it is important to keep this in mind.</p></li>
+<li><p><strong>Organization of the Population Units into a Population Phylogeny:</strong> Then, we would carry out a <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> analysis using the groupings identified by BP&amp;P as “species”, to estimate an ultrametric phylogeny with those groupings as tips (i.e, a population phylogeny).
+Once we have decided what our population units are, we will use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to infer an ultrametric population tree to use as input. Here, again, while StarBeast2 uses the terminology “species” to reference to groupings of individuals, we should bear in mind that we are still dealing with population. We will use the units identified as populations by BPP as the “species” grouping in StarBeast2.</p></li>
+<li><p><strong>Calculating the Probability of Species Assignments:</strong> Finally, the actual species delimitation analysis itself: a DELINEATE analysis to calculate the probabilities of different groupings of population tips of the population tree into species.
+The population tree resulting from <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> forms the one of the mandatory inputs for DELINEATE. The species identities for the subset of population lineages for which these are known forms the other. Running DELINEATE will then report on the probabilities of different species assignments for the remaining lineages, i.e. for the ones for which we do not know or specifies the species identities.</p></li>
 </ol>
+</div></blockquote>
+</div>
 </div>
 
 
@@ -114,17 +78,22 @@ species identities.</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installing DELINEATE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Overview and Quick Start</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Study Design and Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Fundamental Concepts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sampling-design">Sampling Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-individuals-to-populations-to-species">From Individuals to Populations to Species</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="quickstart.html" title="previous chapter">Overview and Quick Start</a></li>
+      <li>Previous: <a href="concepts.html" title="previous chapter">Fundamental Concepts</a></li>
+      <li>Next: <a href="quickstart.html" title="next chapter">Quick Start</a></li>
   </ul></li>
 </ul>
 </div>
