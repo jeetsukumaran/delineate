@@ -43,6 +43,12 @@ Thus, each possible partition of set of population lineages represents a differe
 |delineate| will report the probabilities of each of these partitions for your data.
 The partition with the highest probability represents the maximum likelihood estimate (MLE) of the species identities of the populations in your system.
 
+For a given set of lineages, there are as many possible partitions as there are distinct groupings of lineages into subsets.
+Each subset of lineages in a particular partition represents a distinct species, and, conversely, the membership of a particular lineage in a particular subset of a given partition is an assignment of that lineage to the species identity represented by that subset.
+Thus, each partition represents a particular delimitation of lineages into species.
+The boundaries between species then simply correspond to the boundaries between the subsets of the preferred partition.
+The goal of our analysis is to identify the partition that best fits our data.
+
 ..
     The number of partitions possible for a set increases with the number of elements in the set.
     In fact, it increases very, very, very, very, very, very, `*very* rapidly <https://mathworld.wolfram.com/BellNumber.html>`_.
@@ -64,35 +70,33 @@ As modeled by |delineate| the formation of new independent population lineages (
 Birth events on a tree can be considered the (potential) origin of a new species, and the the development of full independent species status as the completion of this phenomenon.
 As such, with |delineate| speciation is not an instantaneous event (such as that modeled by a simple birth-death branching model underlying a species tree), but an extended process, starting with the lineeage splitting and ending with the speciation completion event.
 
+Formation of New Species
+========================
+
 We can consider the speciation completion process to "play out" over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.
+Seen in this way, the tree of population lineages grows through a standard birth-death process, with a fixed birth rate and death rate representing the rate of population lineage splitting and extinction  respectively.
+As noted above, a splitting event on this phylogeny does *not* represent a speciation event --- it just represents an ancestral population fragmenting into two isolated daughter populations.
+Both daughter populations (as well as the nominally extinct ancestor population) belong to the same species.
+The splitting event can be considered the initiation of potential speciation, however, as the isolation of the two daughter lineages essentially provides an opportunity for one or both of them to develop full reproductive isolation and thus achieve full independent species status.
+
+Development of full independent species status is when a *speciation completion event* occurs on one of the daughter lineages before it goes extinct or itself split.
+Seen in this way, a "species" in |delineate| is a set of population lineages on the population tree in which there is *no* speciation completion event on the edges connecting them on the tree.
+If there is at least one speciation completion event on the edge path between two lineages, then the two lineage are in different species.
 
 .. figure:: images/diversification.png
+    :alt: The diversification process as modeled by |delineate|.
 
+    Lineage splitting events correspond to the formation of new population lineages, not species, through restrictions in gene flow in an ancestral population (V1).
+    These lineages may themselves give rise to other population lineages (V2 through V9), or go extinct (X1 through X3).
+    Population lineages develop into an independent species at a fixed background rate, providing they are not otherwise lost  (i.e., there is duration between the initiation and completion of speciation).
+    Changes in status from incipient to full or good species are marked by speciation completion events, shown by the blue bars.
+    A "species" is thus made up of one or more population lineages not separated from one another by a speciation event.
+    In this example, five speciation completion events divide the seven extant populations into four species: {A,B}, {C}, {D,E}, and {F,G}.
 
-Sampling Design
-===============
+The Speciation Completion Rate
+==============================
 
-|delineate| requires a fundamentally different way to thinking how we sample data for species delimitation studies.
-
-|delineate| ideally should be provided with data that *includes samples from as many populations as possible across the system* being studied. This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included. The theoretical ideal would be to include *every* population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events. Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to. The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.
-
-|delineate| also requires that we have know the species identities of at least *some* of our population lineages. This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities. With |delineate| we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities. These other species --- or, to be more precise, population lineages for which the species identities are known --- are critical to allowing |delineate| to "learn" about the speciation process.
-
-From Individuals to Populations to Species
-==========================================
-
-The |delineate| package itself represents the final step in an analytical pipeline.
-Starting with a collection of genetic alignments representing multiple genes sampled from multiple individuals from multiple populations, each step of the pipeline groups the data into successively higher levels of organization, from populations to species.
-
-A typical species delimitation analysis would consist of the following three steps:
-
-    1.  **Identification (Delimitation) of *Population* Units:** First, we would carry out a |BPP|_ analysis to identify population units by aggregating individuals into populations under the multipopulation coalescent model. We would typically hope to sample at least a few genes from two to ten individuals per population, with multiple populations per putative species.
-        We would then use |BPP|_ to organize these individuals into populations.
-        Note that |BPP|_ terminology uses the term "species" and "populations" interchangeably. This can be confusing, but it is important to keep this in mind.
-
-    2.  **Organization of the Population Units into a Population Phylogeny:** Then, we would carry out a |StarBeast2|_ analysis using the groupings identified by |BPP| as "species", to estimate an ultrametric phylogeny with those groupings as tips (i.e, a population phylogeny).
-        Once we have decided what our population units are, we will use |StarBeast2|_ to infer an ultrametric population tree to use as input. Here, again, while |StarBeast2| uses the terminology "species" to reference to groupings of individuals, we should bear in mind that we are still dealing with population. We will use the units identified as populations by BPP as the "species" grouping in |StarBeast2|.
-
-    3.  **Calculating the Probability of Species Assignments:** Finally, the actual species delimitation analysis itself: a |delineate| analysis to calculate the probabilities of different groupings of population tips of the population tree into species.
-        The population tree resulting from |StarBeast2|_ forms the one of the mandatory inputs for |delineate|. The species identities for the subset of population lineages for which these are known forms the other. Running |delineate| will then report on the probabilities of different species assignments for the remaining lineages, i.e. for the ones for which we do not know or specifies the species identities.
-
+Speciation completion, i.e. the transition of an incipient species to full species status, completing a trajectory that started with its original splitting from a parent or sister population, proceeds at a rate given by the *speciation completion rate*.
+This rate is one of the critical parameters that inform the probability of different species partitions, i.e. the different possible combinations of assignments of species identities to the various population lineages in the system.
+For example, with a high species completion rate, partitions with more species would be more probable than partitions with fewer species as we would expect there to be more speciation completion events to have occured on the tree.
+Conversely, with a low species completion rate, partitions with fewer species would be more probably than partitions with more species.

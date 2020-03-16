@@ -15,7 +15,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quick Start" href="quickstart.html" />
+    <link rel="next" title="Workflow" href="workflow.html" />
     <link rel="prev" title="Installation" href="install.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -81,6 +81,11 @@ That is, what are the different ways we can we organize this set of populations 
 Thus, each possible partition of set of population lineages represents a different way of organizing that set of population lineages into species.
 DELINEATE will report the probabilities of each of these partitions for your data.
 The partition with the highest probability represents the maximum likelihood estimate (MLE) of the species identities of the populations in your system.</p>
+<p>For a given set of lineages, there are as many possible partitions as there are distinct groupings of lineages into subsets.
+Each subset of lineages in a particular partition represents a distinct species, and, conversely, the membership of a particular lineage in a particular subset of a given partition is an assignment of that lineage to the species identity represented by that subset.
+Thus, each partition represents a particular delimitation of lineages into species.
+The boundaries between species then simply correspond to the boundaries between the subsets of the preferred partition.
+The goal of our analysis is to identify the partition that best fits our data.</p>
 </div>
 <div class="section" id="the-diversification-process">
 <h2>The Diversification Process<a class="headerlink" href="#the-diversification-process" title="Permalink to this headline">¶</a></h2>
@@ -97,33 +102,30 @@ Each of the two daughter lineages proceeds on its own independent trajectory, st
 As modeled by DELINEATE the formation of new independent population lineages (birth events on a tree), the loss of these lineages due to extinction (death events on a tree), and the development of a lineage into a full independent species, are modeled as three independent processes, each with their own distinct rate.
 Birth events on a tree can be considered the (potential) origin of a new species, and the the development of full independent species status as the completion of this phenomenon.
 As such, with DELINEATE speciation is not an instantaneous event (such as that modeled by a simple birth-death branching model underlying a species tree), but an extended process, starting with the lineeage splitting and ending with the speciation completion event.</p>
-<p>We can consider the speciation completion process to “play out” over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.</p>
-<div class="figure align-default">
-<img alt="_images/diversification.png" src="_images/diversification.png" />
+</div>
+<div class="section" id="formation-of-new-species">
+<h2>Formation of New Species<a class="headerlink" href="#formation-of-new-species" title="Permalink to this headline">¶</a></h2>
+<p>We can consider the speciation completion process to “play out” over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.
+Seen in this way, the tree of population lineages grows through a standard birth-death process, with a fixed birth rate and death rate representing the rate of population lineage splitting and extinction  respectively.
+As noted above, a splitting event on this phylogeny does <em>not</em> represent a speciation event — it just represents an ancestral population fragmenting into two isolated daughter populations.
+Both daughter populations (as well as the nominally extinct ancestor population) belong to the same species.
+The splitting event can be considered the initiation of potential speciation, however, as the isolation of the two daughter lineages essentially provides an opportunity for one or both of them to develop full reproductive isolation and thus achieve full independent species status.</p>
+<p>Development of full independent species status is when a <em>speciation completion event</em> occurs on one of the daughter lineages before it goes extinct or itself split.
+Seen in this way, a “species” in DELINEATE is a set of population lineages on the population tree in which there is <em>no</em> speciation completion event on the edges connecting them on the tree.
+If there is at least one speciation completion event on the edge path between two lineages, then the two lineage are in different species.</p>
+<div class="figure align-default" id="id1">
+<img alt="The diversification process as modeled by |delineate|." src="_images/diversification.png" />
+<p class="caption"><span class="caption-text">Lineage splitting events correspond to the formation of new population lineages, not species, through restrictions in gene flow in an ancestral population (V1).
+These lineages may themselves give rise to other population lineages (V2 through V9), or go extinct (X1 through X3).
+Population lineages develop into an independent species at a fixed background rate, providing they are not otherwise lost  (i.e., there is duration between the initiation and completion of speciation).
+Changes in status from incipient to full or good species are marked by speciation completion events, shown by the blue bars.
+A “species” is thus made up of one or more population lineages not separated from one another by a speciation event.
+In this example, five speciation completion events divide the seven extant populations into four species: {A,B}, {C}, {D,E}, and {F,G}.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
-<div class="section" id="sampling-design">
-<h2>Sampling Design<a class="headerlink" href="#sampling-design" title="Permalink to this headline">¶</a></h2>
-<p>DELINEATE requires a fundamentally different way to thinking how we sample data for species delimitation studies.</p>
-<p>DELINEATE ideally should be provided with data that <em>includes samples from as many populations as possible across the system</em> being studied. This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included. The theoretical ideal would be to include <em>every</em> population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events. Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to. The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.</p>
-<p>DELINEATE also requires that we have know the species identities of at least <em>some</em> of our population lineages. This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities. With DELINEATE we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities. These other species — or, to be more precise, population lineages for which the species identities are known — are critical to allowing DELINEATE to “learn” about the speciation process.</p>
-</div>
-<div class="section" id="from-individuals-to-populations-to-species">
-<h2>From Individuals to Populations to Species<a class="headerlink" href="#from-individuals-to-populations-to-species" title="Permalink to this headline">¶</a></h2>
-<p>The DELINEATE package itself represents the final step in an analytical pipeline.
-Starting with a collection of genetic alignments representing multiple genes sampled from multiple individuals from multiple populations, each step of the pipeline groups the data into successively higher levels of organization, from populations to species.</p>
-<p>A typical species delimitation analysis would consist of the following three steps:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p><strong>Identification (Delimitation) of *Population* Units:</strong> First, we would carry out a <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis to identify population units by aggregating individuals into populations under the multipopulation coalescent model. We would typically hope to sample at least a few genes from two to ten individuals per population, with multiple populations per putative species.
-We would then use <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> to organize these individuals into populations.
-Note that <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> terminology uses the term “species” and “populations” interchangeably. This can be confusing, but it is important to keep this in mind.</p></li>
-<li><p><strong>Organization of the Population Units into a Population Phylogeny:</strong> Then, we would carry out a <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> analysis using the groupings identified by BP&amp;P as “species”, to estimate an ultrametric phylogeny with those groupings as tips (i.e, a population phylogeny).
-Once we have decided what our population units are, we will use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to infer an ultrametric population tree to use as input. Here, again, while StarBeast2 uses the terminology “species” to reference to groupings of individuals, we should bear in mind that we are still dealing with population. We will use the units identified as populations by BPP as the “species” grouping in StarBeast2.</p></li>
-<li><p><strong>Calculating the Probability of Species Assignments:</strong> Finally, the actual species delimitation analysis itself: a DELINEATE analysis to calculate the probabilities of different groupings of population tips of the population tree into species.
-The population tree resulting from <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> forms the one of the mandatory inputs for DELINEATE. The species identities for the subset of population lineages for which these are known forms the other. Running DELINEATE will then report on the probabilities of different species assignments for the remaining lineages, i.e. for the ones for which we do not know or specifies the species identities.</p></li>
-</ol>
-</div></blockquote>
+<div class="section" id="the-speciation-completion-rate">
+<h2>The Speciation Completion Rate<a class="headerlink" href="#the-speciation-completion-rate" title="Permalink to this headline">¶</a></h2>
+<p>Speciation completion, i.e. the transition of an incipient species to full species status, completing a trajectory that started with its original splitting from a parent or sister population, proceeds at a rate given by the <em>speciation completion rate</em>.</p>
 </div>
 </div>
 
@@ -149,10 +151,11 @@ The population tree resulting from <a class="reference external" href="https://t
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Fundamental Concepts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#partitions">“Partitions”</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-diversification-process">The Diversification Process</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sampling-design">Sampling Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#from-individuals-to-populations-to-species">From Individuals to Populations to Species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#formation-of-new-species">Formation of New Species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-speciation-completion-rate">The Speciation Completion Rate</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 </ul>
 
@@ -161,7 +164,7 @@ The population tree resulting from <a class="reference external" href="https://t
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="install.html" title="previous chapter">Installation</a></li>
-      <li>Next: <a href="quickstart.html" title="next chapter">Quick Start</a></li>
+      <li>Next: <a href="workflow.html" title="next chapter">Workflow</a></li>
   </ul></li>
 </ul>
 </div>
