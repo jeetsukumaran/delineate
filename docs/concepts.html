@@ -128,7 +128,148 @@ In this example, five speciation completion events divide the seven extant popul
 <p>Speciation completion, i.e. the transition of an incipient species to full species status, completing a trajectory that started with its original splitting from a parent or sister population, proceeds at a rate given by the <em>speciation completion rate</em>.
 This rate is one of the critical parameters that inform the probability of different species partitions, i.e. the different possible combinations of assignments of species identities to the various population lineages in the system.
 For example, with a high species completion rate, partitions with more species would be more probable than partitions with fewer species as we would expect there to be more speciation completion events to have occured on the tree.
-Conversely, with a low species completion rate, partitions with fewer species would be more probably than partitions with more species.</p>
+Conversely, with a low species completion rate, partitions with fewer species would be more probable than partitions with more species.</p>
+<p>Of course, other things, such as tree structure and branch lengths, in addition to the speciation completion rate, determine the exact probability of particular partition.
+As membership in one species or another (i.e., the species identity of population lineages) is determined by species boundaries between lineages, and as species boundaries are effectively established by speciation completion events on branches on paths between lineages (see above), we can see how tree structure, branch lengths, <em>and</em> the speciation completion interact to determine the probability of different partitions.
+For example, a higher speciation completion rate will mean that it is more probably that a speciation completion event occurs on a particular branch.
+Similarly, the longer a particular branch, the more probable a speciation completion event will occur on it for a particular speciation completion rate.</p>
+</div>
+<div class="section" id="estimating-the-speciation-completion-rate">
+<h2>Estimating the Speciation Completion Rate<a class="headerlink" href="#estimating-the-speciation-completion-rate" title="Permalink to this headline">¶</a></h2>
+<p>So, we have seen how critical the speciation completion rate is in determining the probability of different partitions, and, consequently, the species identities of our populations.</p>
+<p>Where do we get the speciation completion rate from?</p>
+<p>We get it from our data.</p>
+<p>Now, at this point, you may be wondering, if we do not know <em>any</em> of the species identities of the populations in our system, how are we going to estimate the speciation completion rate?</p>
+<p>The answer is that, under these circumstances, we <em>cannot</em>.</p>
+<p>We <em>might</em> be able to estimate this rate under the same model on a different but related system and then use the rate over here, analogous to estimating the time-calibrated mutation rate on, say, warblers and using it on finches.
+But a better approach is available, and is the way that we recommend that DELINEATE be used.</p>
+</div>
+<div class="section" id="a-different-way-of-doing-business">
+<h2>A Different Way of Doing Business<a class="headerlink" href="#a-different-way-of-doing-business" title="Permalink to this headline">¶</a></h2>
+<p>When designing a study to use DELINEATE, you include a broad sampling of populations, including many populations whose species identities that you <em>do</em> know or are reasonably certain of.
+You them communicate to DELINEATE the species identities of the population lineages you are fixing to known values as “constraints”.
+When running the analysis, DELINEATE will use these constrainted species identities to estimate the speciation completion rate, and then use this value to calculate the probabilities of all possible <em>remaining</em> partitions.
+These “possible partitions” are the partitions that remain valid while meeting the provided constraints.</p>
+<p>For example, consider a system of six populations: “A”, “B”, “C”, “D”, and “E”.
+We actually do know the species identities of three of these populations (“A” through “C”), and are only uncertain about “D” and “E”.
+So, current taxonomy that we agree with places “A” and “B” into one species (say, “S1”) and “C” in another (say, “S2”).
+Our collection efforts have picked up two new population lineages “D” and “E”, and it is the species identities of <em>these</em> that we are interested in determining through a DELINEATE analysis.
+They could be (new) independent species, or they could belong to one of the two species that we already know about (“S1” or “S2”).
+When running the DELINEATE analysis, we provide the following constraints:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 35%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>lineage</p></th>
+<th class="head"><p>species</p></th>
+<th class="head"><p>status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>S1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>S1</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>S2</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p>?</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>E</p></td>
+<td><p>?</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen, with the “1” value in the “status” column for population lineages “A”, “B”, and “C”, we constrain their species identities to the species with the label given in the “species” field.
+At the same time, with the “0” value in the “status” column for population lineages “D” and “E”, we tell DELINEATE that the species identities of the these population lineages are unconstrained, and DELINEATE should calculate the probabilities of all possible species identities for these species.
+In the subsequent analysis, then any partition that does NOT have a subset (“species”) that includes “A” and “B” will be excluded, as will any partition that places “C” in the same subset (“species”) as “A” and “B”.
+However, the probabilities of all other possible partitions, with all other combinations of placements of “D” and “E” will be calculated:</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 88%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><ol class="arabic simple">
+<li></li>
+</ol>
+</td>
+<td><p>{ {A,B},     {C},    {D,E} }</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="2">
+<li></li>
+</ol>
+</td>
+<td><p>{ {A,B,D},   {C},    {E}   }</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="3">
+<li></li>
+</ol>
+</td>
+<td><p>{ {A,B}      {C,D}   {E}   }</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="4">
+<li></li>
+</ol>
+</td>
+<td><p>{ {A,B,E},   {C},    {D}   }</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="5">
+<li></li>
+</ol>
+</td>
+<td><p>{ {A,B}      {C,E}   {D}   }</p></td>
+</tr>
+<tr class="row-even"><td><ol class="arabic simple" start="6">
+<li></li>
+</ol>
+</td>
+<td><p>{ {A,B,D,E}  {C} }</p></td>
+</tr>
+<tr class="row-odd"><td><ol class="arabic simple" start="7">
+<li></li>
+</ol>
+</td>
+<td><p>{ {A,B}      {C,D,E} }</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="sampling-design">
+<h2>Sampling Design<a class="headerlink" href="#sampling-design" title="Permalink to this headline">¶</a></h2>
+<p>DELINEATE requires a fundamentally different way to thinking how we sample data for species delimitation studies.</p>
+<p>DELINEATE ideally should be provided with data that <em>includes samples from as many populations as possible across the system</em> being studied. This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included. The theoretical ideal would be to include <em>every</em> population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events. Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to. The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.</p>
+<p>DELINEATE also requires that we have know the species identities of at least <em>some</em> of our population lineages. This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities. With DELINEATE we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities. These other species — or, to be more precise, population lineages for which the species identities are known — are critical to allowing DELINEATE to “learn” about the speciation process.</p>
+</div>
+<div class="section" id="from-individuals-to-populations-to-species">
+<h2>From Individuals to Populations to Species<a class="headerlink" href="#from-individuals-to-populations-to-species" title="Permalink to this headline">¶</a></h2>
+<p>The DELINEATE package itself represents the final step in an analytical pipeline.
+Starting with a collection of genetic alignments representing multiple genes sampled from multiple individuals from multiple populations, each step of the pipeline groups the data into successively higher levels of organization, from populations to species.</p>
+<p>A typical species delimitation analysis would consist of the following three steps:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><strong>Identification (Delimitation) of *Population* Units:</strong> First, we would carry out a <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis to identify population units by aggregating individuals into populations under the multipopulation coalescent model. We would typically hope to sample at least a few genes from two to ten individuals per population, with multiple populations per putative species.
+We would then use <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> to organize these individuals into populations.
+Note that <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> terminology uses the term “species” and “populations” interchangeably. This can be confusing, but it is important to keep this in mind.</p></li>
+<li><p><strong>Organization of the Population Units into a Population Phylogeny:</strong> Then, we would carry out a <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> analysis using the groupings identified by BP&amp;P as “species”, to estimate an ultrametric phylogeny with those groupings as tips (i.e, a population phylogeny).
+Once we have decided what our population units are, we will use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to infer an ultrametric population tree to use as input. Here, again, while StarBeast2 uses the terminology “species” to reference to groupings of individuals, we should bear in mind that we are still dealing with population. We will use the units identified as populations by BPP as the “species” grouping in StarBeast2.</p></li>
+<li><p><strong>Calculating the Probability of Species Assignments:</strong> Finally, the actual species delimitation analysis itself: a DELINEATE analysis to calculate the probabilities of different groupings of population tips of the population tree into species.
+The population tree resulting from <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> forms the one of the mandatory inputs for DELINEATE. The species identities for the subset of population lineages for which these are known forms the other. Running DELINEATE will then report on the probabilities of different species assignments for the remaining lineages, i.e. for the ones for which we do not know or specifies the species identities.</p></li>
+</ol>
+</div></blockquote>
 </div>
 </div>
 
@@ -156,6 +297,10 @@ Conversely, with a low species completion rate, partitions with fewer species wo
 <li class="toctree-l2"><a class="reference internal" href="#the-diversification-process">The Diversification Process</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#formation-of-new-species">Formation of New Species</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-speciation-completion-rate">The Speciation Completion Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estimating-the-speciation-completion-rate">Estimating the Speciation Completion Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-different-way-of-doing-business">A Different Way of Doing Business</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sampling-design">Sampling Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#from-individuals-to-populations-to-species">From Individuals to Populations to Species</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflow</a></li>

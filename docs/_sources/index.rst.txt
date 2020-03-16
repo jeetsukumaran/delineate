@@ -7,6 +7,9 @@ DELINEATE: Species Delimitation
 |delineate| requires |Python|_ 3.7 or greater to run.
 Package and dependency management is greatly simplified if |pip|_ is installed as well.
 
+Installation
+============
+
 Providing you have all the system requirements (see :doc:`the installation guide </install>`), you can use the following command to install or upgrade |delineate| directly from the package repositories::
 
     python3 -m pip install -U git+https://github.com/jeetsukumaran/delineate.git
@@ -20,7 +23,6 @@ Documentation
 
     install.rst
     concepts.rst
-    workflow.rst
     quickstart.rst
 
 

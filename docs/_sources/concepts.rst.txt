@@ -99,4 +99,105 @@ The Speciation Completion Rate
 Speciation completion, i.e. the transition of an incipient species to full species status, completing a trajectory that started with its original splitting from a parent or sister population, proceeds at a rate given by the *speciation completion rate*.
 This rate is one of the critical parameters that inform the probability of different species partitions, i.e. the different possible combinations of assignments of species identities to the various population lineages in the system.
 For example, with a high species completion rate, partitions with more species would be more probable than partitions with fewer species as we would expect there to be more speciation completion events to have occured on the tree.
-Conversely, with a low species completion rate, partitions with fewer species would be more probably than partitions with more species.
+Conversely, with a low species completion rate, partitions with fewer species would be more probable than partitions with more species.
+
+Of course, other things, such as tree structure and branch lengths, in addition to the speciation completion rate, determine the exact probability of particular partition.
+As membership in one species or another (i.e., the species identity of population lineages) is determined by species boundaries between lineages, and as species boundaries are effectively established by speciation completion events on branches on paths between lineages (see above), we can see how tree structure, branch lengths, *and* the speciation completion interact to determine the probability of different partitions.
+For example, a higher speciation completion rate will mean that it is more probably that a speciation completion event occurs on a particular branch.
+Similarly, the longer a particular branch, the more probable a speciation completion event will occur on it for a particular speciation completion rate.
+
+Estimating the Speciation Completion Rate
+=========================================
+
+So, we have seen how critical the speciation completion rate is in determining the probability of different partitions, and, consequently, the species identities of our populations.
+
+Where do we get the speciation completion rate from?
+
+We get it from our data.
+
+Now, at this point, you may be wondering, if we do not know *any* of the species identities of the populations in our system, how are we going to estimate the speciation completion rate?
+
+The answer is that, under these circumstances, we *cannot*.
+
+We *might* be able to estimate this rate under the same model on a different but related system and then use the rate over here, analogous to estimating the time-calibrated mutation rate on, say, warblers and using it on finches.
+But a better approach is available, and is the way that we recommend that |delineate| be used.
+
+A Different Way of Doing Business
+=================================
+
+When designing a study to use |delineate|, you include a broad sampling of populations, including many populations whose species identities that you *do* know or are reasonably certain of.
+You them communicate to |delineate| the species identities of the population lineages you are fixing to known values as "constraints".
+When running the analysis, |delineate| will use these constrainted species identities to estimate the speciation completion rate, and then use this value to calculate the probabilities of all possible *remaining* partitions.
+These "possible partitions" are the partitions that remain valid while meeting the provided constraints.
+
+For example, consider a system of six populations: "A", "B", "C", "D", and "E".
+We actually do know the species identities of three of these populations ("A" through "C"), and are only uncertain about "D" and "E".
+So, current taxonomy that we agree with places "A" and "B" into one species (say, "S1") and "C" in another (say, "S2").
+Our collection efforts have picked up two new population lineages "D" and "E", and it is the species identities of *these* that we are interested in determining through a |delineate| analysis.
+They could be (new) independent species, or they could belong to one of the two species that we already know about ("S1" or "S2").
+When running the |delineate| analysis, we provide the following constraints:
+
++---------+---------+--------+
+| lineage | species | status |
++=========+=========+========+
+| A       | S1      | 1      |
++---------+---------+--------+
+| B       | S1      | 1      |
++---------+---------+--------+
+| C       | S2      | 1      |
++---------+---------+--------+
+| D       | ?       | 0      |
++---------+---------+--------+
+| E       | ?       | 0      |
++---------+---------+--------+
+
+As can be seen, with the "1" value in the "status" column for population lineages "A", "B", and "C", we constrain their species identities to the species with the label given in the "species" field.
+At the same time, with the "0" value in the "status" column for population lineages "D" and "E", we tell |delineate| that the species identities of the these population lineages are unconstrained, and |delineate| should calculate the probabilities of all possible species identities for these species.
+In the subsequent analysis, then any partition that does NOT have a subset ("species") that includes "A" and "B" will be excluded, as will any partition that places "C" in the same subset ("species") as "A" and "B".
+However, the probabilities of all other possible partitions, with all other combinations of placements of "D" and "E" will be calculated:
+
+    +----+------------------------------+
+    | 1. | { {A,B},     {C},    {D,E} } |
+    +----+------------------------------+
+    | 2. | { {A,B,D},   {C},    {E}   } |
+    +----+------------------------------+
+    | 3. | { {A,B}      {C,D}   {E}   } |
+    +----+------------------------------+
+    | 4. | { {A,B,E},   {C},    {D}   } |
+    +----+------------------------------+
+    | 5. | { {A,B}      {C,E}   {D}   } |
+    +----+------------------------------+
+    | 6. | { {A,B,D,E}  {C} }           |
+    +----+------------------------------+
+    | 7. | { {A,B}      {C,D,E} }       |
+    +----+------------------------------+
+
+
+Sampling Design
+===============
+
+|delineate| requires a fundamentally different way to thinking how we sample data for species delimitation studies.
+
+|delineate| ideally should be provided with data that *includes samples from as many populations as possible across the system* being studied. This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included. The theoretical ideal would be to include *every* population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events. Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to. The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.
+
+|delineate| also requires that we have know the species identities of at least *some* of our population lineages. This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities. With |delineate| we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities. These other species --- or, to be more precise, population lineages for which the species identities are known --- are critical to allowing |delineate| to "learn" about the speciation process.
+
+From Individuals to Populations to Species
+==========================================
+
+The |delineate| package itself represents the final step in an analytical pipeline.
+Starting with a collection of genetic alignments representing multiple genes sampled from multiple individuals from multiple populations, each step of the pipeline groups the data into successively higher levels of organization, from populations to species.
+
+A typical species delimitation analysis would consist of the following three steps:
+
+    1.  **Identification (Delimitation) of *Population* Units:** First, we would carry out a |BPP|_ analysis to identify population units by aggregating individuals into populations under the multipopulation coalescent model. We would typically hope to sample at least a few genes from two to ten individuals per population, with multiple populations per putative species.
+        We would then use |BPP|_ to organize these individuals into populations.
+        Note that |BPP|_ terminology uses the term "species" and "populations" interchangeably. This can be confusing, but it is important to keep this in mind.
+
+    2.  **Organization of the Population Units into a Population Phylogeny:** Then, we would carry out a |StarBeast2|_ analysis using the groupings identified by |BPP| as "species", to estimate an ultrametric phylogeny with those groupings as tips (i.e, a population phylogeny).
+        Once we have decided what our population units are, we will use |StarBeast2|_ to infer an ultrametric population tree to use as input. Here, again, while |StarBeast2| uses the terminology "species" to reference to groupings of individuals, we should bear in mind that we are still dealing with population. We will use the units identified as populations by BPP as the "species" grouping in |StarBeast2|.
+
+    3.  **Calculating the Probability of Species Assignments:** Finally, the actual species delimitation analysis itself: a |delineate| analysis to calculate the probabilities of different groupings of population tips of the population tree into species.
+        The population tree resulting from |StarBeast2|_ forms the one of the mandatory inputs for |delineate|. The species identities for the subset of population lineages for which these are known forms the other. Running |delineate| will then report on the probabilities of different species assignments for the remaining lineages, i.e. for the ones for which we do not know or specifies the species identities.
+
+
