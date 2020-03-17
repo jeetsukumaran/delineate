@@ -11,32 +11,55 @@ The term "partition" here comes from basic set theory: it is a division of a set
 In this application, we are considering the population lineages (i.e., the tips of the population tree we give as input to |delineate|) as the elements of the initial set.
 We want to organize this set of populations into distinct subsets, where each subset corresponds to a distinct species.
 
-For example, imagine that that we have a system consisting of three populations, A, B, and C, which can be represented by the following set of three elements::
+For example, imagine that that we have a system consisting of three populations, A, B, and C, which can be represented by the following set of three elements:
 
-    {A, B, C}
+.. role:: raw-html(raw)
+   :format: html
+
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{A, B, C}</div>`
+
+
 
 What are the different "species delimitations" are possible with this system?
 That is, what are the different ways we can we organize this set of populations in to species?
 
-    1.  One way would be to lump all the populations to the same species, i.e.::
+    1.  One way might be to split off each population to its own distinct species, i.e.:
 
-        {{A,B,C}}
+.. role:: raw-html(raw)
+   :format: html
 
-    2.  Another way might be to split off each population to its own distinct species, i.e.::
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A}, {B}, {C} }</div>`
 
-        {{A},{B},{C}}
 
-    3.  Another way might be to have A and B assigned to the same species, but C to a different one::
+    2.  Another way would be to lump all the populations to the same species, i.e.:
 
-        {{A,B},{C}}
+.. role:: raw-html(raw)
+   :format: html
 
-    4.  Or, alternatively, A and C to the same species, but B to a different one::
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A,B,C} }</div>`
 
-        {{A,C},{B}}
+    3.  Another way might be to have A and B assigned to the same species, but C to a different one:
 
-    5.  Or, finally, B and C to the same species, but A to a different one::
+.. role:: raw-html(raw)
+   :format: html
 
-        {{A},{B,C}}
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A,B}, {C} }</div>`
+
+    4.  Or, alternatively, A and C to the same species, but B to a different one:
+
+.. role:: raw-html(raw)
+   :format: html
+
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A,C}, {B} }</div>`
+
+
+    5.  Or, finally, B and C to the same species, but A to a different one:
+
+.. role:: raw-html(raw)
+   :format: html
+
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A}, {B,C} }</div>`
+
 
 Each of these five arrangements is a distinct partition of the original set of three elements.
 Thus, each possible partition of set of population lineages represents a different way of organizing that set of population lineages into species.

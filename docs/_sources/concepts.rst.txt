@@ -1,6 +1,6 @@
-####################
-Fundamental Concepts
-####################
+##############
+Basic Concepts
+##############
 
 "Partitions"
 ============
@@ -11,32 +11,55 @@ The term "partition" here comes from basic set theory: it is a division of a set
 In this application, we are considering the population lineages (i.e., the tips of the population tree we give as input to |delineate|) as the elements of the initial set.
 We want to organize this set of populations into distinct subsets, where each subset corresponds to a distinct species.
 
-For example, imagine that that we have a system consisting of three populations, A, B, and C, which can be represented by the following set of three elements::
+For example, imagine that that we have a system consisting of three populations, A, B, and C, which can be represented by the following set of three elements:
 
-    {A, B, C}
+.. role:: raw-html(raw)
+   :format: html
+
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{A, B, C}</div>`
+
+
 
 What are the different "species delimitations" are possible with this system?
 That is, what are the different ways we can we organize this set of populations in to species?
 
-    1.  One way would be to lump all the populations to the same species, i.e.::
+    1.  One way might be to split off each population to its own distinct species, i.e.:
 
-        {{A,B,C}}
+.. role:: raw-html(raw)
+   :format: html
 
-    2.  Another way might be to split off each population to its own distinct species, i.e.::
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A}, {B}, {C} }</div>`
 
-        {{A},{B},{C}}
 
-    3.  Another way might be to have A and B assigned to the same species, but C to a different one::
+    2.  Another way would be to lump all the populations to the same species, i.e.:
 
-        {{A,B},{C}}
+.. role:: raw-html(raw)
+   :format: html
 
-    4.  Or, alternatively, A and C to the same species, but B to a different one::
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A,B,C} }</div>`
 
-        {{A,C},{B}}
+    3.  Another way might be to have A and B assigned to the same species, but C to a different one:
 
-    5.  Or, finally, B and C to the same species, but A to a different one::
+.. role:: raw-html(raw)
+   :format: html
 
-        {{A},{B,C}}
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A,B}, {C} }</div>`
+
+    4.  Or, alternatively, A and C to the same species, but B to a different one:
+
+.. role:: raw-html(raw)
+   :format: html
+
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A,C}, {B} }</div>`
+
+
+    5.  Or, finally, B and C to the same species, but A to a different one:
+
+.. role:: raw-html(raw)
+   :format: html
+
+:raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{ {A}, {B,C} }</div>`
+
 
 Each of these five arrangements is a distinct partition of the original set of three elements.
 Thus, each possible partition of set of population lineages represents a different way of organizing that set of population lineages into species.
@@ -125,7 +148,8 @@ But a better approach is available, and is the way that we recommend that |delin
 A Different Way of Doing Business
 =================================
 
-When designing a study to use |delineate|, you include a broad sampling of populations, including many populations whose species identities that you *do* know or are reasonably certain of.
+|delineate| requires a fundamentally different way to thinking how we sample data for species delimitation studies.
+When designing a study to use |delineate|, you should include a broad sampling of populations, including many populations whose species identities that you *do* know or are reasonably certain of in addition to the population lineages whose species identities you wish to estimate.
 You them communicate to |delineate| the species identities of the population lineages you are fixing to known values as "constraints".
 When running the analysis, |delineate| will use these constrainted species identities to estimate the speciation completion rate, and then use this value to calculate the probabilities of all possible *remaining* partitions.
 These "possible partitions" are the partitions that remain valid while meeting the provided constraints.
@@ -172,18 +196,15 @@ However, the probabilities of all other possible partitions, with all other comb
     | 7. | { {A,B}      {C,D,E} }       |
     +----+------------------------------+
 
-
 Sampling Design
 ===============
-
-|delineate| requires a fundamentally different way to thinking how we sample data for species delimitation studies.
 
 |delineate| ideally should be provided with data that *includes samples from as many populations as possible across the system* being studied. This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included. The theoretical ideal would be to include *every* population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events. Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to. The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.
 
 |delineate| also requires that we have know the species identities of at least *some* of our population lineages. This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities. With |delineate| we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities. These other species --- or, to be more precise, population lineages for which the species identities are known --- are critical to allowing |delineate| to "learn" about the speciation process.
 
-From Individuals to Populations to Species
-==========================================
+Workflow: From Individuals to Populations to Species
+====================================================
 
 The |delineate| package itself represents the final step in an analytical pipeline.
 Starting with a collection of genetic alignments representing multiple genes sampled from multiple individuals from multiple populations, each step of the pipeline groups the data into successively higher levels of organization, from populations to species.

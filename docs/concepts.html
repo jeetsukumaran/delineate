@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Fundamental Concepts &#8212; DELINEATE 1.2.3 documentation</title>
+    <title>Basic Concepts &#8212; DELINEATE 1.2.3 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -15,7 +15,7 @@
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Workflow" href="workflow.html" />
+    <link rel="next" title="Quick Start" href="quickstart.html" />
     <link rel="prev" title="Installation" href="install.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -33,8 +33,8 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="fundamental-concepts">
-<h1>Fundamental Concepts<a class="headerlink" href="#fundamental-concepts" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="basic-concepts">
+<h1>Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="partitions">
 <h2>“Partitions”<a class="headerlink" href="#partitions" title="Permalink to this headline">¶</a></h2>
 <p>The primary output of DELINEATE is essentially calculation of the probabilities of different <em>partitions</em> of the population lineages in the study into distinct species.
@@ -43,40 +43,39 @@ The term “partition” here comes from basic set theory: it is a division of a
 In this application, we are considering the population lineages (i.e., the tips of the population tree we give as input to DELINEATE) as the elements of the initial set.
 We want to organize this set of populations into distinct subsets, where each subset corresponds to a distinct species.</p>
 <p>For example, imagine that that we have a system consisting of three populations, A, B, and C, which can be represented by the following set of three elements:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">}</span>
-</pre></div>
-</div>
+<p><span class="raw-html"><div style="font-weight: bold; color: blue; text-align: center;">{A, B, C}</div></span></p>
 <p>What are the different “species delimitations” are possible with this system?
 That is, what are the different ways we can we organize this set of populations in to species?</p>
 <blockquote>
-<div><ol class="arabic">
-<li><p>One way would be to lump all the populations to the same species, i.e.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">}}</span>
-</pre></div>
-</div>
-</li>
-<li><p>Another way might be to split off each population to its own distinct species, i.e.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">},{</span><span class="n">B</span><span class="p">},{</span><span class="n">C</span><span class="p">}}</span>
-</pre></div>
-</div>
-</li>
-<li><p>Another way might be to have A and B assigned to the same species, but C to a different one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">},{</span><span class="n">C</span><span class="p">}}</span>
-</pre></div>
-</div>
-</li>
-<li><p>Or, alternatively, A and C to the same species, but B to a different one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">,</span><span class="n">C</span><span class="p">},{</span><span class="n">B</span><span class="p">}}</span>
-</pre></div>
-</div>
-</li>
-<li><p>Or, finally, B and C to the same species, but A to a different one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">A</span><span class="p">},{</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">}}</span>
-</pre></div>
-</div>
-</li>
+<div><ol class="arabic simple">
+<li><p>One way might be to split off each population to its own distinct species, i.e.:</p></li>
 </ol>
 </div></blockquote>
+<p><span class="raw-html"><div style="font-weight: bold; color: blue; text-align: center;">{ {A}, {B}, {C} }</div></span></p>
+<blockquote>
+<div><ol class="arabic simple" start="2">
+<li><p>Another way would be to lump all the populations to the same species, i.e.:</p></li>
+</ol>
+</div></blockquote>
+<p><span class="raw-html"><div style="font-weight: bold; color: blue; text-align: center;">{ {A,B,C} }</div></span></p>
+<blockquote>
+<div><ol class="arabic simple" start="3">
+<li><p>Another way might be to have A and B assigned to the same species, but C to a different one:</p></li>
+</ol>
+</div></blockquote>
+<p><span class="raw-html"><div style="font-weight: bold; color: blue; text-align: center;">{ {A,B}, {C} }</div></span></p>
+<blockquote>
+<div><ol class="arabic simple" start="4">
+<li><p>Or, alternatively, A and C to the same species, but B to a different one:</p></li>
+</ol>
+</div></blockquote>
+<p><span class="raw-html"><div style="font-weight: bold; color: blue; text-align: center;">{ {A,C}, {B} }</div></span></p>
+<blockquote>
+<div><ol class="arabic simple" start="5">
+<li><p>Or, finally, B and C to the same species, but A to a different one:</p></li>
+</ol>
+</div></blockquote>
+<p><span class="raw-html"><div style="font-weight: bold; color: blue; text-align: center;">{ {A}, {B,C} }</div></span></p>
 <p>Each of these five arrangements is a distinct partition of the original set of three elements.
 Thus, each possible partition of set of population lineages represents a different way of organizing that set of population lineages into species.
 DELINEATE will report the probabilities of each of these partitions for your data.
@@ -146,7 +145,8 @@ But a better approach is available, and is the way that we recommend that DELINE
 </div>
 <div class="section" id="a-different-way-of-doing-business">
 <h2>A Different Way of Doing Business<a class="headerlink" href="#a-different-way-of-doing-business" title="Permalink to this headline">¶</a></h2>
-<p>When designing a study to use DELINEATE, you include a broad sampling of populations, including many populations whose species identities that you <em>do</em> know or are reasonably certain of.
+<p>DELINEATE requires a fundamentally different way to thinking how we sample data for species delimitation studies.
+When designing a study to use DELINEATE, you should include a broad sampling of populations, including many populations whose species identities that you <em>do</em> know or are reasonably certain of in addition to the population lineages whose species identities you wish to estimate.
 You them communicate to DELINEATE the species identities of the population lineages you are fixing to known values as “constraints”.
 When running the analysis, DELINEATE will use these constrainted species identities to estimate the speciation completion rate, and then use this value to calculate the probabilities of all possible <em>remaining</em> partitions.
 These “possible partitions” are the partitions that remain valid while meeting the provided constraints.</p>
@@ -250,12 +250,11 @@ However, the probabilities of all other possible partitions, with all other comb
 </div>
 <div class="section" id="sampling-design">
 <h2>Sampling Design<a class="headerlink" href="#sampling-design" title="Permalink to this headline">¶</a></h2>
-<p>DELINEATE requires a fundamentally different way to thinking how we sample data for species delimitation studies.</p>
 <p>DELINEATE ideally should be provided with data that <em>includes samples from as many populations as possible across the system</em> being studied. This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included. The theoretical ideal would be to include <em>every</em> population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events. Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to. The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.</p>
 <p>DELINEATE also requires that we have know the species identities of at least <em>some</em> of our population lineages. This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities. With DELINEATE we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities. These other species — or, to be more precise, population lineages for which the species identities are known — are critical to allowing DELINEATE to “learn” about the speciation process.</p>
 </div>
-<div class="section" id="from-individuals-to-populations-to-species">
-<h2>From Individuals to Populations to Species<a class="headerlink" href="#from-individuals-to-populations-to-species" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="workflow-from-individuals-to-populations-to-species">
+<h2>Workflow: From Individuals to Populations to Species<a class="headerlink" href="#workflow-from-individuals-to-populations-to-species" title="Permalink to this headline">¶</a></h2>
 <p>The DELINEATE package itself represents the final step in an analytical pipeline.
 Starting with a collection of genetic alignments representing multiple genes sampled from multiple individuals from multiple populations, each step of the pipeline groups the data into successively higher levels of organization, from populations to species.</p>
 <p>A typical species delimitation analysis would consist of the following three steps:</p>
@@ -292,7 +291,7 @@ The population tree resulting from <a class="reference external" href="https://t
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Fundamental Concepts</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Concepts</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#partitions">“Partitions”</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-diversification-process">The Diversification Process</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#formation-of-new-species">Formation of New Species</a></li>
@@ -300,10 +299,9 @@ The population tree resulting from <a class="reference external" href="https://t
 <li class="toctree-l2"><a class="reference internal" href="#estimating-the-speciation-completion-rate">Estimating the Speciation Completion Rate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#a-different-way-of-doing-business">A Different Way of Doing Business</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sampling-design">Sampling Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#from-individuals-to-populations-to-species">From Individuals to Populations to Species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workflow-from-individuals-to-populations-to-species">Workflow: From Individuals to Populations to Species</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 </ul>
 
@@ -312,7 +310,7 @@ The population tree resulting from <a class="reference external" href="https://t
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="install.html" title="previous chapter">Installation</a></li>
-      <li>Next: <a href="workflow.html" title="next chapter">Workflow</a></li>
+      <li>Next: <a href="quickstart.html" title="next chapter">Quick Start</a></li>
   </ul></li>
 </ul>
 </div>
