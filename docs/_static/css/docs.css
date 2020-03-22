@@ -1,0 +1,48 @@
+.figure-image {
+    background: #eeeeee;
+    padding: 10px;
+}
+
+.float-right {
+    float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+/* usage:
+ *
+ *  Declare
+ *
+ *      ..role:: red-text
+ *
+ *  somewhere in the document and anywhere where
+ *  you want to apply this:
+ *
+ *      The traditional phrase is: red-text:`hello, world'
+ *
+ */
+.red-text {
+    text-color: red;
+}
+
+/* usage:
+ *
+ *      ..  rst-class:: figure-caption
+ *
+ *          This is the block to which
+ *          the class will be applied.
+ */
+.figure-caption {
+    font-size: x-small ;
+    font-style: italic ;
+    padding-left: 10px;
+    padding-bottom: 0px;
+    padding-right: 10px;
+    padding-top: 0px;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 0px;
+    border: none;
+}

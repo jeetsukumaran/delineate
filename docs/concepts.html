@@ -7,6 +7,7 @@
     <title>Basic Concepts &#8212; DELINEATE 1.2.3 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/docs.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -112,15 +113,15 @@ The splitting event can be considered the initiation of potential speciation, ho
 <p>Development of full independent species status is when a <em>speciation completion event</em> occurs on one of the daughter lineages before it goes extinct or itself split.
 Seen in this way, a “species” in DELINEATE is a set of population lineages on the population tree in which there is <em>no</em> speciation completion event on the edges connecting them on the tree.
 If there is at least one speciation completion event on the edge path between two lineages, then the two lineage are in different species.</p>
-<div class="figure align-default" id="id1">
-<img alt="The diversification process as modeled by |delineate|." src="_images/diversification.png" />
-<p class="caption"><span class="caption-text">Lineage splitting events correspond to the formation of new population lineages, not species, through restrictions in gene flow in an ancestral population (V1).
+<div class="figure align-default">
+<img alt="The diversification process as modeled by |delineate|." class="figure-image" src="_images/diversification.png" />
+</div>
+<p class="figure-caption">Lineage splitting events correspond to the formation of new population lineages, not species, through restrictions in gene flow in an ancestral population (V1).
 These lineages may themselves give rise to other population lineages (V2 through V9), or go extinct (X1 through X3).
 Population lineages develop into an independent species at a fixed background rate, providing they are not otherwise lost  (i.e., there is duration between the initiation and completion of speciation).
 Changes in status from incipient to full or good species are marked by speciation completion events, shown by the blue bars.
 A “species” is thus made up of one or more population lineages not separated from one another by a speciation event.
-In this example, five speciation completion events divide the seven extant populations into four species: {A,B}, {C}, {D,E}, and {F,G}.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+In this example, five speciation completion events divide the seven extant populations into four species: {A,B}, {C}, {D,E}, and {F,G}.</p>
 </div>
 <div class="section" id="the-speciation-completion-rate">
 <h2>The Speciation Completion Rate<a class="headerlink" href="#the-speciation-completion-rate" title="Permalink to this headline">¶</a></h2>
@@ -128,14 +129,11 @@ In this example, five speciation completion events divide the seven extant popul
 This rate is one of the critical parameters that inform the probability of different species partitions, i.e. the different possible combinations of assignments of species identities to the various population lineages in the system.
 For example, with a high species completion rate, partitions with more species would be more probable than partitions with fewer species as we would expect there to be more speciation completion events to have occured on the tree.
 Conversely, with a low species completion rate, partitions with fewer species would be more probable than partitions with more species.</p>
-<div class="figure align-default" id="id2">
-<img alt="A higher speciation completion rate results in more species." src="_images/delineate-docs-poptree1.png" />
-<p class="caption"><span class="caption-text">A lower speciation completion rate means that fewer population lineages develop into full species status by the present day.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<div class="figure align-default">
+<a class="figure-image reference internal image-reference" href="_images/delineate-docs-poptree-both.png"><img alt="A higher speciation completion rate results in more species, while a lower speciation completion rate results in fewer species." class="figure-image" src="_images/delineate-docs-poptree-both.png" style="width: 100%;" /></a>
 </div>
-<div class="figure align-default" id="id3">
-<img alt="A lower speciation completion rate results in fewer species." src="_images/delineate-docs-poptree2.png" />
-<p class="caption"><span class="caption-text">A lower speciation completion rate means that fewer population lineages develop into full species status by the present day. Note that “Species 3” is paraphyletic due to the population lineage branching off from it developing into full species. Paraphyletic species can arise through a range of natural processes including classic ones such as allopatric speciation. We are not afraid of (and can model quite well) paraphyletic species.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
-</div>
+<p class="figure-caption"><strong>Figure</strong>:  (a) A higher speciation completion rate results in more species, while a lower speciation completion rate results in fewer species, while (b) conversely, a lower speciation completion rate means that fewer population lineages develop into full species status by the present day.
+Note that “Species 3” in scenario (b) is paraphyletic due to the population lineage branching off from it developing into full species. Paraphyletic species can arise through a range of natural processes including classic ones such as allopatric speciation. We are not afraid of (and can model quite well) paraphyletic species.</p>
 <p>Of course, other things, such as tree structure and branch lengths, in addition to the speciation completion rate, determine the exact probability of particular partition.
 As membership in one species or another (i.e., the species identity of population lineages) is determined by species boundaries between lineages, and as species boundaries are effectively established by speciation completion events on branches on paths between lineages (see above), we can see how tree structure, branch lengths, <em>and</em> the speciation completion interact to determine the probability of different partitions.
 For example, a higher speciation completion rate will mean that it is more probably that a speciation completion event occurs on a particular branch.

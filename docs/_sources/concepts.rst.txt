@@ -2,6 +2,8 @@
 Basic Concepts
 ##############
 
+ .. role:: red-text
+
 "Partitions"
 ============
 
@@ -106,6 +108,9 @@ If there is at least one speciation completion event on the edge path between tw
 
 .. figure:: images/diversification.png
     :alt: The diversification process as modeled by |delineate|.
+    :class: figure-image
+
+..  rst-class:: figure-caption
 
     Lineage splitting events correspond to the formation of new population lineages, not species, through restrictions in gene flow in an ancestral population (V1).
     These lineages may themselves give rise to other population lineages (V2 through V9), or go extinct (X1 through X3).
@@ -122,15 +127,15 @@ This rate is one of the critical parameters that inform the probability of diffe
 For example, with a high species completion rate, partitions with more species would be more probable than partitions with fewer species as we would expect there to be more speciation completion events to have occured on the tree.
 Conversely, with a low species completion rate, partitions with fewer species would be more probable than partitions with more species.
 
-.. figure:: images/delineate-docs-poptree1.png
-    :alt: A higher speciation completion rate results in more species.
+.. figure:: images/delineate-docs-poptree-both.png
+    :alt: A higher speciation completion rate results in more species, while a lower speciation completion rate results in fewer species.
+    :width: 100%
+    :class: figure-image
 
-    A lower speciation completion rate means that fewer population lineages develop into full species status by the present day.
+..  rst-class:: figure-caption
 
-.. figure:: images/delineate-docs-poptree2.png
-    :alt: A lower speciation completion rate results in fewer species.
-
-    A lower speciation completion rate means that fewer population lineages develop into full species status by the present day. Note that "Species 3" is paraphyletic due to the population lineage branching off from it developing into full species. Paraphyletic species can arise through a range of natural processes including classic ones such as allopatric speciation. We are not afraid of (and can model quite well) paraphyletic species.
+        **Figure**:  (a) A higher speciation completion rate results in more species, while a lower speciation completion rate results in fewer species, while (b) conversely, a lower speciation completion rate means that fewer population lineages develop into full species status by the present day.
+        Note that "Species 3" in scenario (b) is paraphyletic due to the population lineage branching off from it developing into full species. Paraphyletic species can arise through a range of natural processes including classic ones such as allopatric speciation. We are not afraid of (and can model quite well) paraphyletic species.
 
 Of course, other things, such as tree structure and branch lengths, in addition to the speciation completion rate, determine the exact probability of particular partition.
 As membership in one species or another (i.e., the species identity of population lineages) is determined by species boundaries between lineages, and as species boundaries are effectively established by speciation completion events on branches on paths between lineages (see above), we can see how tree structure, branch lengths, *and* the speciation completion interact to determine the probability of different partitions.
