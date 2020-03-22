@@ -5,8 +5,8 @@ Basic Concepts
 "Partitions"
 ============
 
-The primary output of |delineate| is essentially calculation of the probabilities of different *partitions* of the population lineages in the study into distinct species.
-Each partition represents a different collection of assignments of species identities to each of the population lineages.
+The primary output of |delineate| is calculation of the probabilities of different *partitions* of the population lineages in the study into distinct species.
+Each partition represents a different combination of assignments of species identities to each of the population lineages.
 The term "partition" here comes from basic set theory: it is a division of a set of elements into a set of *mutually exclusive* and *jointly comprehensive* subsets.
 In this application, we are considering the population lineages (i.e., the tips of the population tree we give as input to |delineate|) as the elements of the initial set.
 We want to organize this set of populations into distinct subsets, where each subset corresponds to a distinct species.
@@ -17,8 +17,6 @@ For example, imagine that that we have a system consisting of three populations,
    :format: html
 
 :raw-html:`<div style="font-weight: bold; color: blue; text-align: center;">{A, B, C}</div>`
-
-
 
 What are the different "species delimitations" are possible with this system?
 That is, what are the different ways we can we organize this set of populations in to species?
@@ -123,6 +121,16 @@ Speciation completion, i.e. the transition of an incipient species to full speci
 This rate is one of the critical parameters that inform the probability of different species partitions, i.e. the different possible combinations of assignments of species identities to the various population lineages in the system.
 For example, with a high species completion rate, partitions with more species would be more probable than partitions with fewer species as we would expect there to be more speciation completion events to have occured on the tree.
 Conversely, with a low species completion rate, partitions with fewer species would be more probable than partitions with more species.
+
+.. figure:: images/delineate-docs-poptree1.png
+    :alt: A higher speciation completion rate results in more species.
+
+    A lower speciation completion rate means that fewer population lineages develop into full species status by the present day.
+
+.. figure:: images/delineate-docs-poptree2.png
+    :alt: A lower speciation completion rate results in fewer species.
+
+    A lower speciation completion rate means that fewer population lineages develop into full species status by the present day. Note that "Species 3" is paraphyletic due to the population lineage branching off from it developing into full species. Paraphyletic species can arise through a range of natural processes including classic ones such as allopatric speciation. We are not afraid of (and can model quite well) paraphyletic species.
 
 Of course, other things, such as tree structure and branch lengths, in addition to the speciation completion rate, determine the exact probability of particular partition.
 As membership in one species or another (i.e., the species identity of population lineages) is determined by species boundaries between lineages, and as species boundaries are effectively established by speciation completion events on branches on paths between lineages (see above), we can see how tree structure, branch lengths, *and* the speciation completion interact to determine the probability of different partitions.
