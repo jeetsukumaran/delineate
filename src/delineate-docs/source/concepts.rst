@@ -134,7 +134,7 @@ Conversely, with a low species completion rate, partitions with fewer species wo
 
 ..  rst-class:: figure-caption
 
-        **Figure**:  (a) A higher speciation completion rate results in more species, while a lower speciation completion rate results in fewer species, while (b) conversely, a lower speciation completion rate means that fewer population lineages develop into full species status by the present day.
+        **Figure**:  A higher speciation completion rate results in more species, as speciation completion events occur on more population lineages (a), while, conversely, a lower speciation completion rate means that fewer population lineages develop into full species status by the present day (b).
         Note that "Species 3" in scenario (b) is paraphyletic due to the population lineage branching off from it developing into full species. Paraphyletic species can arise through a range of natural processes including classic ones such as allopatric speciation. We are not afraid of (and can model quite well) paraphyletic species.
 
 Of course, other things, such as tree structure and branch lengths, in addition to the speciation completion rate, determine the exact probability of particular partition.
