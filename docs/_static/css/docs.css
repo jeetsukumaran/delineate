@@ -1,6 +1,10 @@
 .figure-image {
-    background: #eeeeee;
+    border: solid 1px black;
     padding: 10px;
+}
+
+a.figure-image, a.figure-image:link, a.figure-image:hover {
+    border: none;
 }
 
 .float-right {
@@ -35,6 +39,7 @@
  *          the class will be applied.
  */
 .figure-caption {
+    border: solid 1px black;
     font-size: x-small ;
     font-style: italic ;
     padding-left: 10px;
