@@ -1,0 +1,428 @@
+Analysis started at: Mon Mar  2 18:45:45 2020
+Using BPP version: 4.1.4
+Command: bpp --cfile bpprun.input.ctl 
+
+COMPRESSED ALIGNMENTS
+
+13 7 P
+^L_australerasa_CA_Martin_Meadow_3838       uucaaxx
+^L_australerasa_CA_Carson_Spur_3839         uucauxx
+^L_australerasa_CA_Carson_Spur_3840         uucauxx
+^L_australerasa_CA_Carson_Spur_3841         uucguxx
+^L_australerasa_CA_Oyster_Lake_3844         uucauxx
+^L_australerasa_CA_Oyster_Lake_3845         uuuauxx
+^L_australerasa_CA_Nanny_Creek_3864         uucguxx
+^L_australerasa_CA_Nanny_Creek_3896         uucauxx
+^L_australerasa_CA_Mill_Creek_5212          uucaugx
+^L_australerasa_CA_Mill_Creek_5213          uxcgugx
+^L_australerasa_CA_Homewood_Canyon_5214     uucguxx
+^L_australerasa_OR_Crater_Lake_4984         uucauxx
+^L_australerasa_OR_Crater_Lake_4986         uucauxx
+637 18 1 1 1 77 32
+
+13 3 P
+^L_australerasa_CA_Martin_Meadow_3838       xxx
+^L_australerasa_CA_Carson_Spur_3839         xxx
+^L_australerasa_CA_Carson_Spur_3840         xxx
+^L_australerasa_CA_Carson_Spur_3841         xxx
+^L_australerasa_CA_Oyster_Lake_3844         axx
+^L_australerasa_CA_Oyster_Lake_3845         xxx
+^L_australerasa_CA_Nanny_Creek_3864         agx
+^L_australerasa_CA_Nanny_Creek_3896         xxx
+^L_australerasa_CA_Mill_Creek_5212          xxx
+^L_australerasa_CA_Mill_Creek_5213          xxx
+^L_australerasa_CA_Homewood_Canyon_5214     xxx
+^L_australerasa_OR_Crater_Lake_4984         xxx
+^L_australerasa_OR_Crater_Lake_4986         xxx
+1949 25 38
+
+13 16 P
+^L_australerasa_CA_Martin_Meadow_3838       uguaacccgu ykxxxx
+^L_australerasa_CA_Carson_Spur_3839         uguaaccsgw cgaucx
+^L_australerasa_CA_Carson_Spur_3840         uguaaccggu cgauxx
+^L_australerasa_CA_Carson_Spur_3841         uguaacccgu ckaxxx
+^L_australerasa_CA_Oyster_Lake_3844         uguaacmcru cgaucx
+^L_australerasa_CA_Oyster_Lake_3845         uguaacccgu cgaucx
+^L_australerasa_CA_Nanny_Creek_3864         uguamxcsgw cgaucx
+^L_australerasa_CA_Nanny_Creek_3896         uaxxaxccgw cgaucx
+^L_australerasa_CA_Mill_Creek_5212          uguaacccgu cgaucx
+^L_australerasa_CA_Mill_Creek_5213          uguxaxccgu cgaucx
+^L_australerasa_CA_Homewood_Canyon_5214     uguaacccgu cgaucx
+^L_australerasa_OR_Crater_Lake_4984         uguaaccsgw cgaucx
+^L_australerasa_OR_Crater_Lake_4986         uguaacmcru cgaucx
+651 1 28 13 1 3 1 1 1 1 1 1 1 21 17 101
+
+13 4 P
+^L_australerasa_CA_Martin_Meadow_3838       xxxx
+^L_australerasa_CA_Carson_Spur_3839         xxxx
+^L_australerasa_CA_Carson_Spur_3840         xxxx
+^L_australerasa_CA_Carson_Spur_3841         xxxx
+^L_australerasa_CA_Oyster_Lake_3844         cugx
+^L_australerasa_CA_Oyster_Lake_3845         xxxx
+^L_australerasa_CA_Nanny_Creek_3864         ccxx
+^L_australerasa_CA_Nanny_Creek_3896         xxxx
+^L_australerasa_CA_Mill_Creek_5212          xxxx
+^L_australerasa_CA_Mill_Creek_5213          xxxx
+^L_australerasa_CA_Homewood_Canyon_5214     xxxx
+^L_australerasa_OR_Crater_Lake_4984         xxxx
+^L_australerasa_OR_Crater_Lake_4986         xxxx
+714 4 2 27
+
+13 27 P
+^L_australerasa_CA_Martin_Meadow_3838       xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_australerasa_CA_Carson_Spur_3839         xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_australerasa_CA_Carson_Spur_3840         xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_australerasa_CA_Carson_Spur_3841         gaacgcccaa ucuccccggg uuuuuux
+^L_australerasa_CA_Oyster_Lake_3844         gaacgccagr xxxccccggr uuuyyyx
+^L_australerasa_CA_Oyster_Lake_3845         xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_australerasa_CA_Nanny_Creek_3864         gaacgcccrr ucxccmygga uwyuuyx
+^L_australerasa_CA_Nanny_Creek_3896         xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_australerasa_CA_Mill_Creek_5212          xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_australerasa_CA_Mill_Creek_5213          xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_australerasa_CA_Homewood_Canyon_5214     gaacgxxarr uxxcyccggr yuuuuyx
+^L_australerasa_OR_Crater_Lake_4984         gaaxxxxxga xxxycccgrr uuuuuux
+^L_australerasa_OR_Crater_Lake_4986         grxcxcxarx xxxccccrga uuuwycx
+771 1 27 30 19 2 14 1 1 1 10 2 1 3 1 1 1 1 1 1 2 1 1 1 1 1 19
+
+13 10 P
+^L_australerasa_CA_Martin_Meadow_3838       xxxxxxxxxx
+^L_australerasa_CA_Carson_Spur_3839         xxxxxxxxxx
+^L_australerasa_CA_Carson_Spur_3840         xxxxxxxxxx
+^L_australerasa_CA_Carson_Spur_3841         xxxxxxxxxx
+^L_australerasa_CA_Oyster_Lake_3844         aaaccmyyyx
+^L_australerasa_CA_Oyster_Lake_3845         xxxxxxxxxx
+^L_australerasa_CA_Nanny_Creek_3864         aarxccccux
+^L_australerasa_CA_Nanny_Creek_3896         xxxxxxxxxx
+^L_australerasa_CA_Mill_Creek_5212          axgxcccxux
+^L_australerasa_CA_Mill_Creek_5213          axaxyccxyx
+^L_australerasa_CA_Homewood_Canyon_5214     xxxxxxxxxx
+^L_australerasa_OR_Crater_Lake_4984         xxxxxxxxxx
+^L_australerasa_OR_Crater_Lake_4986         aaaccccuux
+448 32 1 1 1 1 1 1 1 3
+
+13 46 P
+^L_australerasa_CA_Martin_Meadow_3838       gcaaaaaaaa cccccggggg gggrruuuuu uuuwwwwwyy xxxxxx
+^L_australerasa_CA_Carson_Spur_3839         gcaaaaamru ccccmagggg ggrgguuuuu wyyaaauwuy gugggu
+^L_australerasa_CA_Carson_Spur_3840         gcaaaaraau ccyyaggggg rsggguuuuu uuuaawuwuc guaggu
+^L_australerasa_CA_Carson_Spur_3841         gcaaaaaaaw ccccsggggg grggguuuuu uuyaaawwuc gurgru
+^L_australerasa_CA_Oyster_Lake_3844         gcaaarrmau cccccrgggg rgggguuuuy uuuawwuuuy gugggu
+^L_australerasa_CA_Oyster_Lake_3845         gcaaraaaau ccccagggru rcggguuuuc uuuaaauuuy guaggc
+^L_australerasa_CA_Nanny_Creek_3864         gcaraaraau ccccmrgrgk rmggguuuuy uuuawuuuuc guaggu
+^L_australerasa_CA_Nanny_Creek_3896         gcwaaaraau cyccaggggk rrggguuuwy auuaaauauc guaggu
+^L_australerasa_CA_Mill_Creek_5212          gxaaaaaaaw cccxagkggg ggggruuuuu uuuauawuuc gxaggx
+^L_australerasa_CA_Mill_Creek_5213          gxwaaaaaau mccxargggk ggggguuwuu uuuaaauwuc gxrggx
+^L_australerasa_CA_Homewood_Canyon_5214     gxaaaaaaaw cccxaggggg rggggwyuuu uuuaaauuuc gxaggx
+^L_australerasa_OR_Crater_Lake_4984         gcaaaaraau ccccaggggu gcggguuuuu uuuaaauuuc guargy
+^L_australerasa_OR_Crater_Lake_4986         gcaaaaamau ccccargggk gggggwuuuu uuuaawuwuc gurggu
+719 16 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 20 10 1 1 1 1
+
+13 15 P
+^L_australerasa_CA_Martin_Meadow_3838       gcugacccgu xxxxx
+^L_australerasa_CA_Carson_Spur_3839         gcugacccgx xxxxx
+^L_australerasa_CA_Carson_Spur_3840         gcugacccgu ccxxx
+^L_australerasa_CA_Carson_Spur_3841         gcugacccxu ccxxx
+^L_australerasa_CA_Oyster_Lake_3844         gcugaccxxu ccxxx
+^L_australerasa_CA_Oyster_Lake_3845         gcugacxxxu ccxxx
+^L_australerasa_CA_Nanny_Creek_3864         gcugaccxxu cxxxx
+^L_australerasa_CA_Nanny_Creek_3896         gcugacccgu cxxxx
+^L_australerasa_CA_Mill_Creek_5212          gcugxxccgx xxaxx
+^L_australerasa_CA_Mill_Creek_5213          gcugaxccgx xxaux
+^L_australerasa_CA_Homewood_Canyon_5214     gcugaxccgx xxaux
+^L_australerasa_OR_Crater_Lake_4984         gcxxxxxxxx xxxxx
+^L_australerasa_OR_Crater_Lake_4986         gxuxxxxxxx xxxxx
+1003 3 1 34 5 9 4 7 1 7 1 1 10 1 105
+
+COMPRESSED ALIGNMENTS AFTER PHASING OF DIPLOID SEQUENCES
+
+26 7 P
+^L_australerasa_CA_Martin_Meadow_3838.1       uucaaxx
+^L_australerasa_CA_Martin_Meadow_3838.2       uucaaxx
+^L_australerasa_CA_Carson_Spur_3839.1         uucauxx
+^L_australerasa_CA_Carson_Spur_3839.2         uucauxx
+^L_australerasa_CA_Carson_Spur_3840.1         uucauxx
+^L_australerasa_CA_Carson_Spur_3840.2         uucauxx
+^L_australerasa_CA_Carson_Spur_3841.1         uucguxx
+^L_australerasa_CA_Carson_Spur_3841.2         uucguxx
+^L_australerasa_CA_Oyster_Lake_3844.1         uucauxx
+^L_australerasa_CA_Oyster_Lake_3844.2         uucauxx
+^L_australerasa_CA_Oyster_Lake_3845.1         uuuauxx
+^L_australerasa_CA_Oyster_Lake_3845.2         uuuauxx
+^L_australerasa_CA_Nanny_Creek_3864.1         uucguxx
+^L_australerasa_CA_Nanny_Creek_3864.2         uucguxx
+^L_australerasa_CA_Nanny_Creek_3896.1         uucauxx
+^L_australerasa_CA_Nanny_Creek_3896.2         uucauxx
+^L_australerasa_CA_Mill_Creek_5212.1          uucaugx
+^L_australerasa_CA_Mill_Creek_5212.2          uucaugx
+^L_australerasa_CA_Mill_Creek_5213.1          uxcgugx
+^L_australerasa_CA_Mill_Creek_5213.2          uxcgugx
+^L_australerasa_CA_Homewood_Canyon_5214.1     uucguxx
+^L_australerasa_CA_Homewood_Canyon_5214.2     uucguxx
+^L_australerasa_OR_Crater_Lake_4984.1         uucauxx
+^L_australerasa_OR_Crater_Lake_4984.2         uucauxx
+^L_australerasa_OR_Crater_Lake_4986.1         uucauxx
+^L_australerasa_OR_Crater_Lake_4986.2         uucauxx
+1 1 1 1 1 1 1
+
+26 3 P
+^L_australerasa_CA_Martin_Meadow_3838.1       xxx
+^L_australerasa_CA_Martin_Meadow_3838.2       xxx
+^L_australerasa_CA_Carson_Spur_3839.1         xxx
+^L_australerasa_CA_Carson_Spur_3839.2         xxx
+^L_australerasa_CA_Carson_Spur_3840.1         xxx
+^L_australerasa_CA_Carson_Spur_3840.2         xxx
+^L_australerasa_CA_Carson_Spur_3841.1         xxx
+^L_australerasa_CA_Carson_Spur_3841.2         xxx
+^L_australerasa_CA_Oyster_Lake_3844.1         axx
+^L_australerasa_CA_Oyster_Lake_3844.2         axx
+^L_australerasa_CA_Oyster_Lake_3845.1         xxx
+^L_australerasa_CA_Oyster_Lake_3845.2         xxx
+^L_australerasa_CA_Nanny_Creek_3864.1         agx
+^L_australerasa_CA_Nanny_Creek_3864.2         agx
+^L_australerasa_CA_Nanny_Creek_3896.1         xxx
+^L_australerasa_CA_Nanny_Creek_3896.2         xxx
+^L_australerasa_CA_Mill_Creek_5212.1          xxx
+^L_australerasa_CA_Mill_Creek_5212.2          xxx
+^L_australerasa_CA_Mill_Creek_5213.1          xxx
+^L_australerasa_CA_Mill_Creek_5213.2          xxx
+^L_australerasa_CA_Homewood_Canyon_5214.1     xxx
+^L_australerasa_CA_Homewood_Canyon_5214.2     xxx
+^L_australerasa_OR_Crater_Lake_4984.1         xxx
+^L_australerasa_OR_Crater_Lake_4984.2         xxx
+^L_australerasa_OR_Crater_Lake_4986.1         xxx
+^L_australerasa_OR_Crater_Lake_4986.2         xxx
+1 1 1
+
+26 23 P
+^L_australerasa_CA_Martin_Meadow_3838.1       uguaaacgcg cuuuuccgux xxx
+^L_australerasa_CA_Martin_Meadow_3838.2       uguaaacgcg cuuuucuucx xxx
+^L_australerasa_CA_Carson_Spur_3839.1         uguaaacgcg caaaagcgca ucx
+^L_australerasa_CA_Carson_Spur_3839.2         uguaaacgcg guuuuccgca ucx
+^L_australerasa_CA_Carson_Spur_3840.1         uguaaacgcg guuuugcgca uxx
+^L_australerasa_CA_Carson_Spur_3840.2         uguaaacgcg guuuugcgca uxx
+^L_australerasa_CA_Carson_Spur_3841.1         uguaaacgcg cuuuuccgca xxx
+^L_australerasa_CA_Carson_Spur_3841.2         uguaaacgcg cuuuuccuca xxx
+^L_australerasa_CA_Oyster_Lake_3844.1         uguaaacgaa cuuuuccgca ucx
+^L_australerasa_CA_Oyster_Lake_3844.2         uguaaacacg cuuuuccgca ucx
+^L_australerasa_CA_Oyster_Lake_3845.1         uguaaacgcg cuuuuccgca ucx
+^L_australerasa_CA_Oyster_Lake_3845.2         uguaaacgcg cuuuuccgca ucx
+^L_australerasa_CA_Nanny_Creek_3864.1         uguaacxgcg cuuaaccgca ucx
+^L_australerasa_CA_Nanny_Creek_3864.2         uguacaxgcg gaauugcgca ucx
+^L_australerasa_CA_Nanny_Creek_3896.1         uaxxaaxgcg caaaaccgca ucx
+^L_australerasa_CA_Nanny_Creek_3896.2         uaxxaaxgcg cuuuuccgca ucx
+^L_australerasa_CA_Mill_Creek_5212.1          uguaaacgcg cuuuuccgca ucx
+^L_australerasa_CA_Mill_Creek_5212.2          uguaaacgcg cuuuuccgca ucx
+^L_australerasa_CA_Mill_Creek_5213.1          uguxaaxgcg cuuuuccgca ucx
+^L_australerasa_CA_Mill_Creek_5213.2          uguxaaxgcg cuuuuccgca ucx
+^L_australerasa_CA_Homewood_Canyon_5214.1     uguaaacgcg cuuuuccgca ucx
+^L_australerasa_CA_Homewood_Canyon_5214.2     uguaaacgcg cuuuuccgca ucx
+^L_australerasa_OR_Crater_Lake_4984.1         uguaaacgcg cuauaccgca ucx
+^L_australerasa_OR_Crater_Lake_4984.2         uguaaacgcg gauaugcgca ucx
+^L_australerasa_OR_Crater_Lake_4986.1         uguaaacaca cuuuuccgca ucx
+^L_australerasa_OR_Crater_Lake_4986.2         uguaaacgag cuuuuccgca ucx
+1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+26 4 P
+^L_australerasa_CA_Martin_Meadow_3838.1       xxxx
+^L_australerasa_CA_Martin_Meadow_3838.2       xxxx
+^L_australerasa_CA_Carson_Spur_3839.1         xxxx
+^L_australerasa_CA_Carson_Spur_3839.2         xxxx
+^L_australerasa_CA_Carson_Spur_3840.1         xxxx
+^L_australerasa_CA_Carson_Spur_3840.2         xxxx
+^L_australerasa_CA_Carson_Spur_3841.1         xxxx
+^L_australerasa_CA_Carson_Spur_3841.2         xxxx
+^L_australerasa_CA_Oyster_Lake_3844.1         cugx
+^L_australerasa_CA_Oyster_Lake_3844.2         cugx
+^L_australerasa_CA_Oyster_Lake_3845.1         xxxx
+^L_australerasa_CA_Oyster_Lake_3845.2         xxxx
+^L_australerasa_CA_Nanny_Creek_3864.1         ccxx
+^L_australerasa_CA_Nanny_Creek_3864.2         ccxx
+^L_australerasa_CA_Nanny_Creek_3896.1         xxxx
+^L_australerasa_CA_Nanny_Creek_3896.2         xxxx
+^L_australerasa_CA_Mill_Creek_5212.1          xxxx
+^L_australerasa_CA_Mill_Creek_5212.2          xxxx
+^L_australerasa_CA_Mill_Creek_5213.1          xxxx
+^L_australerasa_CA_Mill_Creek_5213.2          xxxx
+^L_australerasa_CA_Homewood_Canyon_5214.1     xxxx
+^L_australerasa_CA_Homewood_Canyon_5214.2     xxxx
+^L_australerasa_OR_Crater_Lake_4984.1         xxxx
+^L_australerasa_OR_Crater_Lake_4984.2         xxxx
+^L_australerasa_OR_Crater_Lake_4986.1         xxxx
+^L_australerasa_OR_Crater_Lake_4986.2         xxxx
+1 1 1 1
+
+26 41 P
+^L_australerasa_CA_Martin_Meadow_3838.1       xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Martin_Meadow_3838.2       xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Carson_Spur_3839.1         xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Carson_Spur_3839.2         xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Carson_Spur_3840.1         xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Carson_Spur_3840.2         xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Carson_Spur_3841.1         ggaacgcguc ccucuuuuaa uauagguuuu uuggcaaucu x
+^L_australerasa_CA_Carson_Spur_3841.2         ggaacgcguc ccucuuuuaa uauagguuuu uuggcaaucu x
+^L_australerasa_CA_Oyster_Lake_3844.1         ggaacgcguc ccucuuuuaa uauaggcccc ccaaaggxxx x
+^L_australerasa_CA_Oyster_Lake_3844.2         ggaacgcguc ccucccccgg cgcgaauuuu uuggaggxxx x
+^L_australerasa_CA_Oyster_Lake_3845.1         xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Oyster_Lake_3845.2         xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Nanny_Creek_3864.1         ggaacgcguc ccuuuuuuaa cgcgaauuuu ccaacagucx x
+^L_australerasa_CA_Nanny_Creek_3864.2         ggaacgcguc ccacuuuugg uauaaauuuu uuaacgaucx x
+^L_australerasa_CA_Nanny_Creek_3896.1         xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Nanny_Creek_3896.2         xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Mill_Creek_5212.1          xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Mill_Creek_5212.2          xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Mill_Creek_5213.1          xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Mill_Creek_5213.2          xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx x
+^L_australerasa_CA_Homewood_Canyon_5214.1     ggaacgcguu xxucuuuuag uacggauuuu ucgaaaauxx x
+^L_australerasa_CA_Homewood_Canyon_5214.2     ggaacgcgcc xxucuuuuga cguaaguuuu cuagagguxx x
+^L_australerasa_OR_Crater_Lake_4984.1         ggaacaxxuc xxucuuuuaa uauaaauuuu uuaaxggxxx x
+^L_australerasa_OR_Crater_Lake_4984.2         ggaaugxxuc xxucuuuuaa uauagguuuu uuggxggxxx x
+^L_australerasa_OR_Crater_Lake_4986.1         gggxcgcxuc cxucuucaxx cxcxaauuca ccaaaaaxxx x
+^L_australerasa_OR_Crater_Lake_4986.2         gaaxcgcxuc cxuccauuxx cxcxaacauu ccaaaggxxx x
+1 2 2 1 2 2 1 1 2 2 1 1 4 4 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+26 12 P
+^L_australerasa_CA_Martin_Meadow_3838.1       xxxxxxxxxx xx
+^L_australerasa_CA_Martin_Meadow_3838.2       xxxxxxxxxx xx
+^L_australerasa_CA_Carson_Spur_3839.1         xxxxxxxxxx xx
+^L_australerasa_CA_Carson_Spur_3839.2         xxxxxxxxxx xx
+^L_australerasa_CA_Carson_Spur_3840.1         xxxxxxxxxx xx
+^L_australerasa_CA_Carson_Spur_3840.2         xxxxxxxxxx xx
+^L_australerasa_CA_Carson_Spur_3841.1         xxxxxxxxxx xx
+^L_australerasa_CA_Carson_Spur_3841.2         xxxxxxxxxx xx
+^L_australerasa_CA_Oyster_Lake_3844.1         accaaccccu ux
+^L_australerasa_CA_Oyster_Lake_3844.2         accaacuuuc cx
+^L_australerasa_CA_Oyster_Lake_3845.1         xxxxxxxxxx xx
+^L_australerasa_CA_Oyster_Lake_3845.2         xxxxxxxxxx xx
+^L_australerasa_CA_Nanny_Creek_3864.1         accaaxccuc cx
+^L_australerasa_CA_Nanny_Creek_3864.2         accagxccuc cx
+^L_australerasa_CA_Nanny_Creek_3896.1         xxxxxxxxxx xx
+^L_australerasa_CA_Nanny_Creek_3896.2         xxxxxxxxxx xx
+^L_australerasa_CA_Mill_Creek_5212.1          accxgxcxuc xx
+^L_australerasa_CA_Mill_Creek_5212.2          accxgxcxuc xx
+^L_australerasa_CA_Mill_Creek_5213.1          acuxaxcxcc xx
+^L_australerasa_CA_Mill_Creek_5213.2          aucxaxcxuc xx
+^L_australerasa_CA_Homewood_Canyon_5214.1     xxxxxxxxxx xx
+^L_australerasa_CA_Homewood_Canyon_5214.2     xxxxxxxxxx xx
+^L_australerasa_OR_Crater_Lake_4984.1         xxxxxxxxxx xx
+^L_australerasa_OR_Crater_Lake_4984.2         xxxxxxxxxx xx
+^L_australerasa_OR_Crater_Lake_4986.1         accaaccuuc ux
+^L_australerasa_OR_Crater_Lake_4986.2         accaaccuuc ux
+1 1 1 1 1 1 2 1 1 2 1 1
+
+26 174 P
+^L_australerasa_CA_Martin_Meadow_3838.1       guuuuuucug gccaauaaaa gggggggggg auuuuauuuu ccaaaagggg ggggccaaaa gggggggguu aaaauucccc guaaaauucc ccgggggggg aaaauggaaa auuuuaaaaa aaaccccaaa aaaaauuuuu uuuuuuuaaa auuuuaauxx xxxxxxxxxx xxxx
+^L_australerasa_CA_Martin_Meadow_3838.2       guuuuuucug gccaauaaaa gggggggggg auuuuauuuu ccaaaagggg ggggccaaaa gggggggguu aaaauucccc guaaaauucc ccgggggggg aaaacaauuu uaaaauuuuu uuuuuuuuuu uuuuucccca aaaaaaauuu uaaaaggaxx xxxxxxxxxx xxxx
+^L_australerasa_CA_Carson_Spur_3839.1         guuuuuucug gccaauaaaa gggggggggg auuuuauuuu ccaaaagggg ggggccaaaa gggggggguu aaaauucccc aaccccccaa aaaaaaaaaa uuuuuggaaa auuuuaaaaa aaaccccaaa auuuucccca aaaaaaauuu uaaaaggagg guuugggggg gggg
+^L_australerasa_CA_Carson_Spur_3839.2         guuuuuucug gccaauaaaa gggggggggg auuuuauuuu ccaaaagggg ggggccaaaa ggggggggca ccccccaaaa guaaaauucc ccaaaaaaaa uuuuuggaaa auuuuaaaaa aaauuuuuuu uaaaauuuua aaaaaaauuu uaaaaggagg guuugggggg gggg
+^L_australerasa_CA_Carson_Spur_3840.1         guuuuuucug gccaauaaaa gggggggggg auuuuauuuu ccaaaagggg gggguugggg aaaaccccuu aaaauuaaaa guaaaauuaa aagggggggg uuuuuggaaa auuuuaaaau uuuccccaaa aaaaaccccu uuuaaaauuu uaaaaggagg guuuggaaaa aaaa
+^L_australerasa_CA_Carson_Spur_3840.2         guuuuuucug gccaauaaaa gggggggggg auuuuauuuu uuggggaaaa ccccccaaaa gggggggguu aaaauuaaaa guaaaauuaa aagggggggg uuuuuggaaa auuuuuuuua aaaccccuuu uuuuucccca aaauuuuuuu uaaaaggagg guuuggaaaa aaaa
+^L_australerasa_CA_Carson_Spur_3841.1         guuuuuucug gccaauaaaa gggggggggg auuuuauuuu ccaaaagggg aaaaccaaaa ggggaaaauu aaaaucccgg guaaaauccc gggggggggg aauuuggaaa auuaaaaaaa aaaccccaau uaauucccca aaaaaaaaau uaaaaggagg guuugagggg aaaa
+^L_australerasa_CA_Carson_Spur_3841.2         guuuuuucug gccaauaaaa gggggggggg auuuuauuuu ccaaaagggg ggggccaaaa gggggggguu aaaacuggcc guaaaacugg ccgggggggg uuaauggaaa aaauuaaaaa aaaccccuua auuaacccca aaaaaaauua aaaaaggagg guuuagaaaa gggg
+^L_australerasa_CA_Oyster_Lake_3844.1         guuuuuucug gccaauaaaa gggggggggg auuuugcccc ccaaggaaaa ggggccaagg aaaagggguu aaccuucccc guaaccuucc ccggggaaaa uuuuuggaau uuuuuaauua auuccuuuuu uuuuuuuccu uaauuaauuu uuuaaggagg guuugggggg gggg
+^L_australerasa_CA_Oyster_Lake_3844.2         guuuuuucug gccaauaaaa gggggggggg gccccauuuu ccggaagggg ggggccggaa gggggggguu ccaauucccc guccaauucc ccaaaagggg uuuuugguua auuuuuuaau uaauuccuuu uuuuuccuua auuaauuuuu uaauuggagg guuugggggg gggg
+^L_australerasa_CA_Oyster_Lake_3845.1         guuuuuucug gccaauaaaa gauuuuuuuu accccacccc ccaaaaaaaa ccccccaaaa aaaaccccuu aaaauuaaaa guaaaauuaa aagggggggg uuuuuggaaa auuuuaaaaa aaacucuuuu uuuuuucuca aaaaaaauuu uaaaaggagg guccggaaaa aaaa
+^L_australerasa_CA_Oyster_Lake_3845.2         guuuuuucug gccaauaaaa aguuuuuuuu accccacccc ccaaaagggg ccccccaaaa ggggccccuu aaaauuaaaa guaaaauuaa aagggggggg uuuuuggaaa auuuuaaaaa aaaucucuuu uuuuucucua aaaaaaauuu uaaaaggagg guccggaaaa aaaa
+^L_australerasa_CA_Nanny_Creek_3864.1         guuuuuucug gccaauaaag gggggggggg auuccauucc ccagagggaa ccaaccagag ggaaccaauu aaaauucaca guaaaauuca caggaaggaa uuuuuggaua uuuuuuuuuu uuuccccuuu uuuuuccccu uuuuuuuuuu uuauaggagg guuuggaaaa aaaa
+^L_australerasa_CA_Nanny_Creek_3864.2         guuuuuucug gccaauaaga gguuuuuuuu accuuaccuu ccgagaaagg aaccccgaga aaggaaccuu aaaauuacac guaaaauuac acaaggaagg uuuuugguau auuuuuuuuu uuuccccuuu uuuuuccccu uuuuuuuuuu uauauggagg guuuggaaaa aaaa
+^L_australerasa_CA_Nanny_Creek_3896.1         guuuuuucug gccaaauuaa gggggguuuu aucucaucuc ccaaaagaga gagaccaaaa gagagagaua aaaauuaaaa gaaaaauuaa aagggggggg uuuuuggaaa auuuuaaaaa aaaccccaaa aaaaacccca aaaaaaauuu uaaaaggagg guuuggaaaa aaaa
+^L_australerasa_CA_Nanny_Creek_3896.2         guuuuuucug gcuuuuaaaa gguuuugggg acucuacucu ccggggagag agagccgggg agagagagua aaaauuaaaa gaaaaauuaa aagggggggg uuuuuggaaa auuuuaaaaa aaaccccaaa aaaaacccca aaaaaaauuu uaaaaggagg guuuggaaaa aaaa
+^L_australerasa_CA_Mill_Creek_5212.1          guuuuuucug uxcaauaaaa gggggggggg auuuuauuuu cxaaaagggg ggggcxaaaa gggggggguu aaaauuaaaa guaaaauuaa aagggggggg aaaaugauuu uuauaaaaaa aaaccccuuu uuuuucccca aaaaaaaaua uuuuuagagg gxxxggaaaa aaaa
+^L_australerasa_CA_Mill_Creek_5212.2          guuuuuucuu gxcaauaaaa gggggggggg auuuuauuuu cxaaaagggg ggggcxaaaa gggggggguu aaaauuaaaa guaaaauuaa aagggggggg uuuuuaguuu uauauaaaaa aaaccccuuu uuuuucccca aaaaaaauau auuuugaagg gxxxggaaaa aaaa
+^L_australerasa_CA_Mill_Creek_5213.1          guuuuuucag gxcauuauaa gggguugguu auuuuauuuu cxaaaagggg ggggcxaaaa gggggggguu aaaauuaaaa guaaaauuaa aagagagaga uuuuuggaaa auuuuaaaaa aaaccccaaa aaaaacccca aaaaaaauuu uaaaaggagg gxxxggggaa ggaa
+^L_australerasa_CA_Mill_Creek_5213.2          guuuuuuaug gxcuauuaaa gguugguugg auuuuauuuu cxaaaagggg ggggcxaaaa gggggggguu aaaauuaaaa guaaaauuaa aaagagagag uuuuuggaaa auuuuaaaaa aaaccccuuu uuuuucccca aaaaaaauuu uaaaaggagg gxxxggaagg aagg
+^L_australerasa_CA_Homewood_Canyon_5214.1     guuucaacug gxcaauaaaa gggggggggg auuuuauuuu cxaaaaaaaa ggggcxaaaa aaaagggguu aaaauuaaaa guaaaauuaa aagggggggg auauuggaaa auuuuaaaaa aaaccccuuu uuuuucccca aaaaaaauuu uaaaaggagg gxxxggaaaa aaaa
+^L_australerasa_CA_Homewood_Canyon_5214.2     gcaauuucug gxcaauaaaa gggggggggg auuuuauuuu cxaaaagggg ggggcxaaaa gggggggguu aaaauuaaaa guaaaauuaa aagggggggg uauauggaaa auuuuaaaaa aaaccccuuu uuuuucccca aaaaaaauuu uaaaaggagg gxxxggaaaa aaaa
+^L_australerasa_OR_Crater_Lake_4984.1         guuuuuucug gccaauaaaa gguuuuuuuu auuuuauuuu ccaaaagggg ccccccaaaa ggggccccuu aaaauuaaaa guaaaauuaa aagggggggg uuuuuggaaa auuuuaaaaa aaaccccuuu uuuuucccca aaaaaaauuu uaaaaggagg auucggaaaa aaaa
+^L_australerasa_OR_Crater_Lake_4984.2         guuuuuucug gccaauaaaa gguuuuuuuu auuuuauuuu ccgggggggg ccccccgggg ggggccccuu aaaauuaaaa guaaaauuaa aagggggggg uuuuuggaaa auuuuaaaaa aaaccccuuu uuuuucccca aaaaaaauuu uaaaaggaga gucuggaaaa aaaa
+^L_australerasa_OR_Crater_Lake_4986.1         guuauuacug gccaauaaaa gggugugugu auuuuauuuu ccaaaagggg ggggccaaaa gggggggguu acacuuaaaa guacacuuaa aaaaaaaaaa uuuuuggaaa auuuuauaua uauccccaua uauauccccu auauauauuu uaaaaggagg guuugggaga gaga
+^L_australerasa_OR_Crater_Lake_4986.2         guauuaucug gccaauaaaa ggugugugug auuuuauuuu ccaaaagggg ggggccaaaa gggggggguu cacauuaaaa gucacauuaa aagggggggg uuuuuggaaa auuuuuauau auaccccuau auauacccca uauauauuuu uaaaaggagg guuuggagag agag
+1 1 1 1 1 1 1 2 2 1 1 1 2 1 1 2 1 1 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+26 15 P
+^L_australerasa_CA_Martin_Meadow_3838.1       gcugacccgu xxxxx
+^L_australerasa_CA_Martin_Meadow_3838.2       gcugacccgu xxxxx
+^L_australerasa_CA_Carson_Spur_3839.1         gcugacccgx xxxxx
+^L_australerasa_CA_Carson_Spur_3839.2         gcugacccgx xxxxx
+^L_australerasa_CA_Carson_Spur_3840.1         gcugacccgu ccxxx
+^L_australerasa_CA_Carson_Spur_3840.2         gcugacccgu ccxxx
+^L_australerasa_CA_Carson_Spur_3841.1         gcugacccxu ccxxx
+^L_australerasa_CA_Carson_Spur_3841.2         gcugacccxu ccxxx
+^L_australerasa_CA_Oyster_Lake_3844.1         gcugaccxxu ccxxx
+^L_australerasa_CA_Oyster_Lake_3844.2         gcugaccxxu ccxxx
+^L_australerasa_CA_Oyster_Lake_3845.1         gcugacxxxu ccxxx
+^L_australerasa_CA_Oyster_Lake_3845.2         gcugacxxxu ccxxx
+^L_australerasa_CA_Nanny_Creek_3864.1         gcugaccxxu cxxxx
+^L_australerasa_CA_Nanny_Creek_3864.2         gcugaccxxu cxxxx
+^L_australerasa_CA_Nanny_Creek_3896.1         gcugacccgu cxxxx
+^L_australerasa_CA_Nanny_Creek_3896.2         gcugacccgu cxxxx
+^L_australerasa_CA_Mill_Creek_5212.1          gcugxxccgx xxaxx
+^L_australerasa_CA_Mill_Creek_5212.2          gcugxxccgx xxaxx
+^L_australerasa_CA_Mill_Creek_5213.1          gcugaxccgx xxaux
+^L_australerasa_CA_Mill_Creek_5213.2          gcugaxccgx xxaux
+^L_australerasa_CA_Homewood_Canyon_5214.1     gcugaxccgx xxaux
+^L_australerasa_CA_Homewood_Canyon_5214.2     gcugaxccgx xxaux
+^L_australerasa_OR_Crater_Lake_4984.1         gcxxxxxxxx xxxxx
+^L_australerasa_OR_Crater_Lake_4984.2         gcxxxxxxxx xxxxx
+^L_australerasa_OR_Crater_Lake_4986.1         gxuxxxxxxx xxxxx
+^L_australerasa_OR_Crater_Lake_4986.2         gxuxxxxxxx xxxxx
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+
+Per-locus sequences in data and 'species&tree' tag:
+C.File | Data |                Status                | Population
+-------+------+--------------------------------------+-----------
+     2 |    2 | [OK]                                 | L_australerasa_CA_Martin_Meadow
+     6 |    6 | [OK]                                 | L_australerasa_CA_Carson_Spur
+     4 |    4 | [OK]                                 | L_australerasa_CA_Oyster_Lake
+     4 |    4 | [OK]                                 | L_australerasa_CA_Nanny_Creek
+     4 |    4 | [OK]                                 | L_australerasa_CA_Mill_Creek
+     2 |    2 | [OK]                                 | L_australerasa_CA_Homewood_Canyon
+     4 |    4 | [OK]                                 | L_australerasa_OR_Crater_Lake
+
+
+Current Pjump:      0.65414  0.22085  0.00000  0.14976  0.17250
+Current finetune:   5.00000  0.00100  0.00100  0.00100  0.30000
+New finetune:      16.24942  0.00071  0.00001  0.00047  0.16356
+
+
+Current Pjump:      0.60274  0.24627  0.00000  0.08837  0.38350
+Current finetune:  16.24942  0.00071  0.00001  0.00047  0.16356
+New finetune:      44.29351  0.00057  0.00000  0.00013  0.22075
+
+
+Current Pjump:      0.61528  0.28521  0.00000  0.44338  0.26700
+Current finetune:  44.29351  0.00057  0.00000  0.00013  0.22075
+New finetune:      99.00000  0.00054  0.00000  0.00021  0.19316
+
+
+Current Pjump:      0.60700  0.28382  0.00000  0.28872  0.30900
+Current finetune:  99.00000  0.00054  0.00000  0.00021  0.19316
+New finetune:      99.00000  0.00050  0.00000  0.00020  0.19996
+
+Summarizing the species-delimitation sample in file results.mcmc.txt
+
+Number of species-delimitation models = 12
+
+     model    prior    posterior
+   1 000000   0.083333   0.000000
+   2 100000   0.083333   0.000000
+   3 110000   0.083333   0.538000
+   4 110100   0.083333   0.070000
+   5 110101   0.083333   0.041000
+   6 110110   0.083333   0.064000
+   7 110111   0.083333   0.065000
+   8 111000   0.083333   0.179000
+   9 111100   0.083333   0.021000
+  10 111101   0.083333   0.005000
+  11 111110   0.083333   0.007000
+  12 111111   0.083333   0.010000
+
+Order of ancestral nodes:
+  L_australerasa_CA_Martin_MeadowL_australerasa_CA_Mill_CreekL_australerasa_CA_Homewood_CanyonL_australerasa_CA_Oyster_LakeL_australerasa_CA_Carson_SpurL_australerasa_OR_Crater_LakeL_australerasa_CA_Nanny_Creek
+  L_australerasa_CA_Mill_CreekL_australerasa_CA_Homewood_CanyonL_australerasa_CA_Oyster_LakeL_australerasa_CA_Carson_SpurL_australerasa_OR_Crater_LakeL_australerasa_CA_Nanny_Creek
+  L_australerasa_CA_Mill_CreekL_australerasa_CA_Homewood_Canyon
+  L_australerasa_CA_Oyster_LakeL_australerasa_CA_Carson_SpurL_australerasa_OR_Crater_LakeL_australerasa_CA_Nanny_Creek
+  L_australerasa_CA_Oyster_LakeL_australerasa_CA_Carson_Spur
+  L_australerasa_OR_Crater_LakeL_australerasa_CA_Nanny_Creek
+
+Guide tree with posterior probability for presence of nodes:
+(L_australerasa_CA_Martin_Meadow, ((L_australerasa_CA_Mill_Creek, L_australerasa_CA_Homewood_Canyon)#0.222000, ((L_australerasa_CA_Oyster_Lake, L_australerasa_CA_Carson_Spur)#0.146000, (L_australerasa_OR_Crater_Lake, L_australerasa_CA_Nanny_Creek)#0.121000)#0.283000)#1.000000)#1.000000;;

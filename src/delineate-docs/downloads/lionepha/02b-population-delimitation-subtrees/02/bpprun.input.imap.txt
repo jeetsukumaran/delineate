@@ -1,0 +1,10 @@
+L_disjuncta_BC_Summit_Creek_1896    L_disjuncta_BC_Summit_Creek
+L_disjuncta_BC_Summit_Creek_3090    L_disjuncta_BC_Summit_Creek
+L_disjuncta_CA_Lily_Lake_3069    L_disjuncta_CA_Lily_Lake
+L_disjuncta_CA_Trinity_Alps_4115    L_disjuncta_CA_Trinity_Alps
+L_disjuncta_CA_Emerson_Creek_4122    L_disjuncta_CA_Emerson_Creek
+L_disjuncta_CA_Salmon_Creek_4133    L_disjuncta_CA_Salmon_Creek
+L_disjuncta_ID_Salmon_River_4780    L_disjuncta_ID_Salmon_River
+L_disjuncta_MT_Mill_Creek_4716    L_disjuncta_MT_Mill_Creek
+L_disjuncta_OR_Lostine_River_3848    L_disjuncta_OR_Lostine_River
+L_disjuncta_OR_Mt_Hood_4143    L_disjuncta_OR_Mt_Hood

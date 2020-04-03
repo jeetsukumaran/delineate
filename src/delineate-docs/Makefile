@@ -7,6 +7,8 @@ SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
 BUILDDIR      = build
+DOWNLOADSRC	  = downloads
+DOWNLOADDEST  = ${SOURCEDIR}/downloads
 
 # Put it first so that "make" without argument is like "make help".
 help:
@@ -19,19 +21,33 @@ help:
 %: Makefile
 	@echo === Executing Sphinx build ...
 	@echo
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	@if [ "$@" = "html" ]; then \
-		echo ;\
-		echo === Copying files to deploy directory ... ;\
-		echo ;\
-		mkdir -p "../../docs"; \
-		rsync -ap --progress --delete $(wildcard $(BUILDDIR)/html/*) "../../docs/"; \
-	else \
-		echo ;\
-		echo "(Not copying not HTML target)"; \
+	@if [ "$@" != "clean" ] \
+		&& [ "$@" != "help" ] \
+		&& [ "$@" != "changes" ] \
+		&& [ "$@" != "linkcheck" ] \
+		&& [ "$@" != "doctest" ] \
+		&& [ "$@" != "coverage" ] ; then \
+			mkdir -p $(DOWNLOADDEST) ; \
+			rm -f $(DOWNLOADDEST)/* ; \
+			echo "*" > $(DOWNLOADDEST)/.gitignore ; \
+			cd $(DOWNLOADSRC); \
+			for downloadsubdir in *; \
+			do \
+				zip ../$(DOWNLOADDEST)/$$downloadsubdir.zip -rX $$downloadsubdir ; \
+			done ; \
+			cd - ;\
 	fi
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 publish:
+	echo ;\
+	echo === Copying files to deploy directory ... ;\
+	echo ;\
+	mkdir -p "../../docs"; \
+	rsync -ap --progress --delete $(wildcard $(BUILDDIR)/html/*) "../../docs/"; \
+	else \
+	echo ;\
+	echo "(Not copying non-HTML target)"; \
 	git add source "../../docs"
 	git commit
 	git push

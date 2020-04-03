@@ -1,0 +1,10 @@
+L_lindrothi_CA_South_Fork_Bishop_Creek_3568    L_lindrothi_CA_South_Fork_Bishop_Creek
+L_lindrothi_CA_Emerald_Lake_4116    L_lindrothi_CA_Emerald_Lake
+L_lindrothi_CA_Emerald_Lake_4117    L_lindrothi_CA_Emerald_Lake
+L_lindrothi_CA_Emerald_Lake_4118    L_lindrothi_CA_Emerald_Lake
+L_lindrothi_CA_East_Fork_Kaweah_River_4120    L_lindrothi_CA_East_Fork_Kaweah_River
+L_lindrothi_CA_Kaiser_Pass_4121    L_lindrothi_CA_Kaiser_Pass
+L_lindrothi_CA_Tioga_Lake_4132    L_lindrothi_CA_Tioga_Lake
+L_lindrothi_CA_Sonora_Pass_4134    L_lindrothi_CA_Sonora_Pass
+L_lindrothi_CA_Deadman_Creek_4140    L_lindrothi_CA_Deadman_Creek
+L_lindrothi_CA_Long_Valley_Creek_5072    L_lindrothi_CA_Long_Valley_Creek

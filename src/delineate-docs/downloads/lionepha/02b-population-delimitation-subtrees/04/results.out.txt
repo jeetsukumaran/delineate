@@ -1,0 +1,395 @@
+Analysis started at: Mon Mar  2 18:45:45 2020
+Using BPP version: 4.1.4
+Command: bpp --cfile bpprun.input.ctl 
+
+COMPRESSED ALIGNMENTS
+
+12 12 P
+^L_kavanaughi_MT_Bitterroot_River_4646         cuuuuauccg gx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648         cuuuuaxykr rx
+^L_kavanaughi_OR_Lostine_River_Valley_4990     cugcccuuua gx
+^L_kavanaughi_OR_Lostine_River_Valley_4992     cugcccuuua gx
+^L_kavanaughi_OR_Lostine_River_Valley_4993     cuuccmuuua gx
+^L_kavanaughi_OR_Lostine_River_4996            cuucccuuua gx
+^L_kavanaughi_OR_Little_Philips_Creek_4998     cuucccuuua gx
+^L_kavanaughi_OR_Lostine_River_Valley_5000     ccuuccuuua gx
+^L_kavanaughi_OR_Lostine_River_Valley_5002     cuucccuuua gx
+^L_kavanaughi_OR_Lostine_River_Valley_5006     cuucccuuua gx
+^L_kavanaughi_OR_Lostine_River_Valley_5008     cuucccuuua gx
+^L_kavanaughi_OR_Lostine_River_Valley_5010     cuucccuuua gx
+634 2 1 1 3 1 10 2 1 2 1 109
+
+12 5 P
+^L_kavanaughi_MT_Bitterroot_River_4646         uuaxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648         xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993     xxxxx
+^L_kavanaughi_OR_Lostine_River_4996            xxxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998     uxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000     uuxgx
+^L_kavanaughi_OR_Lostine_River_Valley_5002     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010     xxxxx
+1939 9 2 1 61
+
+12 18 P
+^L_kavanaughi_MT_Bitterroot_River_4646         gaacccmggg grxxxxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648         gaacccaggg rgcaxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990     gaacyyagrr ggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_4992     gaaccyaggr ggxxggux
+^L_kavanaughi_OR_Lostine_River_Valley_4993     gaayycaggg ggcaggux
+^L_kavanaughi_OR_Lostine_River_4996            gaacyyargr ggcaggux
+^L_kavanaughi_OR_Little_Philips_Creek_4998     gaycycaggg ggcagxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000     gaaccyargr ggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5002     gaacccaggg ggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5006     gawcucaggg ggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5008     gxaccyaggr ggxxggxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010     gawcyyargr ggcxggux
+659 18 1 1 1 1 1 1 1 1 1 1 1 2 9 35 8 101
+
+12 9 P
+^L_kavanaughi_MT_Bitterroot_River_4646         accgacgxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648         accgaurcx
+^L_kavanaughi_OR_Lostine_River_Valley_4990     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992     acuaxcgxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_4996            xxxxxxxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998     acuaacgcx
+^L_kavanaughi_OR_Lostine_River_Valley_5000     agcaacgcx
+^L_kavanaughi_OR_Lostine_River_Valley_5002     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010     xxxxxxxxx
+710 1 1 1 1 1 1 2 29
+
+12 28 P
+^L_kavanaughi_MT_Bitterroot_River_4646         gaacaaucuu gggcccccgu uyyyyxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648         gaacaaucuu gggcccccgu yccuugxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990     xxxxxxxxxx xxxxxxxxxx xxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992     gaacuxxxxx xxxxccyxgu ucxcuxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993     gaacaauxxx xxxxcccxgu ucxcuxxx
+^L_kavanaughi_OR_Lostine_River_4996            xxxxxxxxxx xxxxxxxxxx xxxxxxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998     garxaaxcux xxxxcycxgy uccxuxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000     gugcaaucxu xxxxcccxgu ucccuxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5002     xxxxxxxxxx xxxxxxxxxx xxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006     gaacaaucuu ggxxycyyru ucycuxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008     xxxxxxxxxx xxxxxxxxxx xxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010     garcaaucuu gxgxcccygu ucccugax
+512 2 1 91 1 10 7 33 3 7 113 21 7 19 1 1 1 1 1 1 1 1 1 1 1 3 12 62
+
+12 14 P
+^L_kavanaughi_MT_Bitterroot_River_4646         gcccccgguu yxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648         gcccsygruu yaxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990     xxxxxxxxxx xxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992     gumyccsgck cacx
+^L_kavanaughi_OR_Lostine_River_Valley_4993     gumyccsgyk cacx
+^L_kavanaughi_OR_Lostine_River_4996            xxxxxxxxxx xxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998     gumcccggck cacx
+^L_kavanaughi_OR_Lostine_River_Valley_5000     guaucccgcg cacx
+^L_kavanaughi_OR_Lostine_River_Valley_5002     xxxxxxxxxx xxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006     guayccsgcu cacx
+^L_kavanaughi_OR_Lostine_River_Valley_5008     xxxxxxxxxx xxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010     gumcccggck cacx
+431 3 1 1 3 1 1 1 1 1 1 8 34 3
+
+12 14 P
+^L_kavanaughi_MT_Bitterroot_River_4646         uaccccgruu uyxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648         uaccccgauu ucxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990     uaccccrguu yyau
+^L_kavanaughi_OR_Lostine_River_Valley_4992     uaccccaguu yyax
+^L_kavanaughi_OR_Lostine_River_Valley_4993     uaccccaguu uyau
+^L_kavanaughi_OR_Lostine_River_4996            uaccccaguu yyax
+^L_kavanaughi_OR_Little_Philips_Creek_4998     uaccccaguu cyac
+^L_kavanaughi_OR_Lostine_River_Valley_5000     uxcccyaguu cuxx
+^L_kavanaughi_OR_Lostine_River_Valley_5002     uaccycrguy cuac
+^L_kavanaughi_OR_Lostine_River_Valley_5006     uamyccagwu uuax
+^L_kavanaughi_OR_Lostine_River_Valley_5008     uacccyaguu yyau
+^L_kavanaughi_OR_Lostine_River_Valley_5010     uaccyuaguy cuax
+775 1 1 1 1 1 1 1 2 1 1 1 23 1
+
+12 16 P
+^L_kavanaughi_MT_Bitterroot_River_4646         gaxxxxxxxx xxxxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648         gaucgacxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990     gaucgacgca uxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992     gaucgacgca ucccxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993     gaucgacgca uxxxxx
+^L_kavanaughi_OR_Lostine_River_4996            gaucgaxgxx xccxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998     gaucgacgca xcccxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000     gaucgacgcx xcccxx
+^L_kavanaughi_OR_Lostine_River_Valley_5002     gaucgacgca ucxxux
+^L_kavanaughi_OR_Lostine_River_Valley_5006     gaucgacgca ucccxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008     gaucxxcxca uxxxux
+^L_kavanaughi_OR_Lostine_River_Valley_5010     gxuxgxxxxx xxxxxx
+966 2 8 17 6 2 2 3 1 1 1 4 2 1 1 175
+
+COMPRESSED ALIGNMENTS AFTER PHASING OF DIPLOID SEQUENCES
+
+24 13 P
+^L_kavanaughi_MT_Bitterroot_River_4646.1         cuuauugggg cux
+^L_kavanaughi_MT_Bitterroot_River_4646.2         cuuauugggg cux
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.1         cuuauuggaa gxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.2         cuuauuaagg uxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.1     cugcccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_4990.2     cugcccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_4992.1     cugcccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_4992.2     cugcccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_4993.1     cuuaccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_4993.2     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_4996.1            cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_4996.2            cuucccgaga uux
+^L_kavanaughi_OR_Little_Philips_Creek_4998.1     cuucccgaga uux
+^L_kavanaughi_OR_Little_Philips_Creek_4998.2     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5000.1     ccucucgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5000.2     ccucucgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5002.1     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5002.2     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5006.1     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5006.2     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5008.1     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5008.2     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5010.1     cuucccgaga uux
+^L_kavanaughi_OR_Lostine_River_Valley_5010.2     cuucccgaga uux
+1 1 1 1 1 1 1 2 1 2 1 1 1
+
+24 5 P
+^L_kavanaughi_MT_Bitterroot_River_4646.1         uuaxx
+^L_kavanaughi_MT_Bitterroot_River_4646.2         uuaxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.1         xxxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.2         xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.1     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.2     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.1     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.2     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.1     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.2     xxxxx
+^L_kavanaughi_OR_Lostine_River_4996.1            xxxxx
+^L_kavanaughi_OR_Lostine_River_4996.2            xxxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.1     uxxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.2     uxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.1     uuxgx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.2     uuxgx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.1     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.2     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.1     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.2     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.1     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.2     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.1     xxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.2     xxxxx
+1 1 1 1 1
+
+24 50 P
+^L_kavanaughi_MT_Bitterroot_River_4646.1         gaaaaagggg ggggccgccc cccccccccg gggccccggg gggaxxxxxx
+^L_kavanaughi_MT_Bitterroot_River_4646.2         gaaaaagggg ggggccgccc cccccccccg gggccccggg ggagxxxxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.1         gaaaaagggg ggggccgccc cccccccccg gggccccggg gaggcaxxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.2         gaaaaagggg ggggccgccc cccccccccg gggccccggg ggggcaxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.1     gaaaaagggg ggggccgccc cccccccccg ggauuuuaaa agggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_4990.2     gaaaaagggg ggggccauuu uuuuuuuuua aagccccggg ggggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_4992.1     gaaaaagggg ggggccgccc cccccccccg aagccccgga agggxxggux
+^L_kavanaughi_OR_Lostine_River_Valley_4992.2     gaaaaagggg ggggccgccc cuuuuuuuua gggccccaag ggggxxggux
+^L_kavanaughi_OR_Lostine_River_Valley_4993.1     gaaaaagggg ggggcugccc cccccccccg gggccccggg ggggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_4993.2     gaaaaagggg ggggucguuu uccccccccg ggguuuuggg ggggcaggux
+^L_kavanaughi_OR_Lostine_River_4996.1            gaaaaagggg aaaaccgccu ucccccccca gagccuugag agggcaggux
+^L_kavanaughi_OR_Lostine_River_4996.2            gaaaaaaaaa ggggccguuc cuuuuuuuug agguuccaga ggggcaggux
+^L_kavanaughi_OR_Little_Philips_Creek_4998.1     gauuccgggg ggggccgccc cccccccccg gggccccggg ggggcagxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.2     gaccuugggg ggggccguuu uccccccccg ggguuuuggg ggggcagxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.1     gaaaaaggaa ggaaccgccc cccccuuuua aagccccaaa agggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5000.2     gaaaaaaagg aaggccgccc cuuuuccccg gggccccggg ggggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5002.1     gaaaaagggg ggggccgccc cccccccccg gggccccggg ggggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5002.2     gaaaaagggg ggggccgccc cccccccccg gggccccggg ggggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5006.1     gaaaaagggg ggggccguuu uccccccccg ggguuuuggg ggggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5006.2     gauuuugggg ggggccguuu uccccccccg ggguuuuggg ggggcaggux
+^L_kavanaughi_OR_Lostine_River_Valley_5008.1     gxaaaagggg ggggccgccc cccuuccuua aagccccaaa agggxxggxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.2     gxaaaagggg ggggccgccc cuuccuuccg gggccccggg ggggxxggxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.1     gaauaugaga gagaccgcuc ucucucucua aagcucuaaa agggcxggux
+^L_kavanaughi_OR_Lostine_River_Valley_5010.2     gauauaagag agagccgucu cucucucucg gggucucggg ggggcxggux
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1
+
+24 9 P
+^L_kavanaughi_MT_Bitterroot_River_4646.1         accgagcxx
+^L_kavanaughi_MT_Bitterroot_River_4646.2         accgagcxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.1         accgaaucx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.2         accgagucx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.1     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.2     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.1     acuaxgcxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.2     acuaxgcxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.1     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.2     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_4996.1            xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_4996.2            xxxxxxxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.1     acuaagccx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.2     acuaagccx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.1     agcaagccx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.2     agcaagccx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.1     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.2     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.1     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.2     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.1     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.2     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.1     xxxxxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.2     xxxxxxxxx
+1 1 1 1 1 1 1 1 1
+
+24 32 P
+^L_kavanaughi_MT_Bitterroot_River_4646.1         gccacacccc aaucuuggcc gcuuucccux xx
+^L_kavanaughi_MT_Bitterroot_River_4646.2         gccacacccc aaucuuggcc gcuccuuucx xx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.1         gccacacccc aaucuuggcc gccuuccucg xx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.2         gccacacccc aaucuuggcc gcuuuccucg xx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.1     xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.2     xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.1     gccacacccc uxxxxxxxxx xxuucxxccx xx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.2     gccacaccuu uxxxxxxxxx xxuucxxccx xx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.1     gccacacccc aauxxxxxxx xxuucxxccx xx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.2     gccacacccc aauxxxxxxx xxuucxxccx xx
+^L_kavanaughi_OR_Lostine_River_4996.1            xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_kavanaughi_OR_Lostine_River_4996.2            xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.1     gccacauxcc aaxcuxxxxx xxuuxccxcx xx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.2     gccaugcxcc aaxcuxxxxx xxuuxccxcx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.1     gccucgcccc aaucxuxxxx xxuucccccx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.2     gccucgcccc aaucxuxxxx xxuucccccx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.1     xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.2     xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.1     gcuacacccu aaucuuggcc xxuuccuccx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.2     gucacaccuc aaucuugguu xxuucucccx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.1     xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.2     xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.1     gccacacccc aaucuugxcu gxuucccccg ax
+^L_kavanaughi_OR_Lostine_River_Valley_5010.2     gccacgcccc aaucuugxuc gxuucccccg ax
+1 2 2 1 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 2 1 1 1
+
+24 26 P
+^L_kavanaughi_MT_Bitterroot_River_4646.1         gcgggcccgu ugguuccuuc cccxxx
+^L_kavanaughi_MT_Bitterroot_River_4646.2         gcgggcccgu ugguuccuuc ccuxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.1         gcgggcccgu ugguuccuuc cucaxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.2         gcgggcccgu ugguuccuuc ucuaxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.1     xxxxxxxxxx xxxxxxxxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.2     xxxxxxxxxx xxxxxxxxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.1     gcgggccucg gccggaaccu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.2     gucccaacgu ugguuccccu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.1     gcgccaacgu uccggaaucu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.2     gucggccucg ggguucccuu cccacx
+^L_kavanaughi_OR_Lostine_River_4996.1            xxxxxxxxxx xxxxxxxxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_4996.2            xxxxxxxxxx xxxxxxxxxx xxxxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.1     gcgggaacgu gggugaaccu cccacx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.2     gcgggcccgg uggguccccu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.1     gucccaaucg gccggaaccu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.2     gucccaaucg gccggaaccu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.1     xxxxxxxxxx xxxxxxxxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.2     xxxxxxxxxx xxxxxxxxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.1     gccgcaaccu ugcuuaaccu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.2     gugcgaaugu ucguuaaccu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.1     xxxxxxxxxx xxxxxxxxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.2     xxxxxxxxxx xxxxxxxxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.1     gcgggcacgg gggggcaccu cccacx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.2     gcgggaccgu ugguuacccu cccacx
+1 2 1 2 1 1 1 2 1 1 1 2 1 1 1 1 1 1 1 1 3 3 1 1 1 1
+
+24 24 P
+^L_kavanaughi_MT_Bitterroot_River_4646.1         uccuucucca guuuugcccc agxx
+^L_kavanaughi_MT_Bitterroot_River_4646.2         uccuucucca guuuuguuuu gaxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.1         uccuucucca guuuugcccc aaxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.2         uccuucucca guuuugcccc aaxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.1     uccuucucca gccccaccuu ggau
+^L_kavanaughi_OR_Lostine_River_Valley_4990.2     uccuucucca auuuuguucc ggau
+^L_kavanaughi_OR_Lostine_River_Valley_4992.1     uccuucucca auuccacccc ggax
+^L_kavanaughi_OR_Lostine_River_Valley_4992.2     uccuucucca accuuauuuu ggax
+^L_kavanaughi_OR_Lostine_River_Valley_4993.1     uccuucucca auuuuacccc ggau
+^L_kavanaughi_OR_Lostine_River_Valley_4993.2     uccuucucca auuuuauuuu ggau
+^L_kavanaughi_OR_Lostine_River_4996.1            uccuucucca accccacucu ggax
+^L_kavanaughi_OR_Lostine_River_4996.2            uccuucucca auuuuaucuc ggax
+^L_kavanaughi_OR_Little_Philips_Creek_4998.1     uccuucucca accccacccc ggac
+^L_kavanaughi_OR_Little_Philips_Creek_4998.2     uccuucucca accccauuuu ggac
+^L_kavanaughi_OR_Lostine_River_Valley_5000.1     uccuucuccx accccauuuu ggxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.2     uccuucuuux accccauuuu ggxx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.1     uccuuuccca accccauuuu ggac
+^L_kavanaughi_OR_Lostine_River_Valley_5002.2     ucccccucca gccccguuuu ggac
+^L_kavanaughi_OR_Lostine_River_Valley_5006.1     ucuuucucca auuuuauuuu ggax
+^L_kavanaughi_OR_Lostine_River_Valley_5006.2     uucuucucca auuuuauuuu ggax
+^L_kavanaughi_OR_Lostine_River_Valley_5008.1     uccuucucua aucucacccc ggau
+^L_kavanaughi_OR_Lostine_River_Valley_5008.2     uccuucuuca acucuauuuu ggau
+^L_kavanaughi_OR_Lostine_River_Valley_5010.1     uccucccuua accccauuuu ggax
+^L_kavanaughi_OR_Lostine_River_Valley_5010.2     ucccuuuuua accccauuuu ggax
+1 2 3 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+24 16 P
+^L_kavanaughi_MT_Bitterroot_River_4646.1         gaxxxxxxxx xxxxxx
+^L_kavanaughi_MT_Bitterroot_River_4646.2         gaxxxxxxxx xxxxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.1         gaucgacxxx xxxxxx
+^L_kavanaughi_MT_Lost_Horse_Creek_4648.2         gaucgacxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.1     gaucgacgca uxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4990.2     gaucgacgca uxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.1     gaucgacgca ucccxx
+^L_kavanaughi_OR_Lostine_River_Valley_4992.2     gaucgacgca ucccxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.1     gaucgacgca uxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_4993.2     gaucgacgca uxxxxx
+^L_kavanaughi_OR_Lostine_River_4996.1            gaucgaxgxx xccxxx
+^L_kavanaughi_OR_Lostine_River_4996.2            gaucgaxgxx xccxxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.1     gaucgacgca xcccxx
+^L_kavanaughi_OR_Little_Philips_Creek_4998.2     gaucgacgca xcccxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.1     gaucgacgcx xcccxx
+^L_kavanaughi_OR_Lostine_River_Valley_5000.2     gaucgacgcx xcccxx
+^L_kavanaughi_OR_Lostine_River_Valley_5002.1     gaucgacgca ucxxux
+^L_kavanaughi_OR_Lostine_River_Valley_5002.2     gaucgacgca ucxxux
+^L_kavanaughi_OR_Lostine_River_Valley_5006.1     gaucgacgca ucccxx
+^L_kavanaughi_OR_Lostine_River_Valley_5006.2     gaucgacgca ucccxx
+^L_kavanaughi_OR_Lostine_River_Valley_5008.1     gaucxxcxca uxxxux
+^L_kavanaughi_OR_Lostine_River_Valley_5008.2     gaucxxcxca uxxxux
+^L_kavanaughi_OR_Lostine_River_Valley_5010.1     gxuxgxxxxx xxxxxx
+^L_kavanaughi_OR_Lostine_River_Valley_5010.2     gxuxgxxxxx xxxxxx
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+
+Per-locus sequences in data and 'species&tree' tag:
+C.File | Data |                Status                | Population
+-------+------+--------------------------------------+-----------
+     2 |    2 | [OK]                                 | L_kavanaughi_MT_Bitterroot_River
+     2 |    2 | [OK]                                 | L_kavanaughi_MT_Lost_Horse_Creek
+    16 |   16 | [OK]                                 | L_kavanaughi_OR_Lostine_River_Valley
+     2 |    2 | [OK]                                 | L_kavanaughi_OR_Lostine_River
+     2 |    2 | [OK]                                 | L_kavanaughi_OR_Little_Philips_Creek
+
+
+Current Pjump:      0.66307  0.11566  0.00000  0.08204  0.23500
+Current finetune:   5.00000  0.00100  0.00100  0.00100  0.30000
+New finetune:      16.77730  0.00036  0.00001  0.00025  0.22778
+
+
+Current Pjump:      0.66740  0.25301  0.00000  0.30288  0.35200
+Current finetune:  16.77730  0.00036  0.00001  0.00025  0.22778
+New finetune:      57.18479  0.00030  0.00000  0.00026  0.27589
+
+
+Current Pjump:      0.66674  0.28136  0.00000  0.34092  0.28000
+Current finetune:  57.18479  0.00030  0.00000  0.00026  0.27589
+New finetune:      99.00000  0.00028  0.00000  0.00030  0.25479
+
+
+Current Pjump:      0.66594  0.29346  0.00000  0.29642  0.31000
+Current finetune:  99.00000  0.00028  0.00000  0.00030  0.25479
+New finetune:      99.00000  0.00027  0.00000  0.00030  0.26477
+
+Summarizing the species-delimitation sample in file results.mcmc.txt
+
+Number of species-delimitation models = 7
+
+     model    prior    posterior
+   1 0000   0.142857   0.000000
+   2 1000   0.142857   0.448000
+   3 1010   0.142857   0.037000
+   4 1011   0.142857   0.005000
+   5 1100   0.142857   0.471000
+   6 1110   0.142857   0.033000
+   7 1111   0.142857   0.006000
+
+Order of ancestral nodes:
+  L_kavanaughi_MT_Bitterroot_RiverL_kavanaughi_MT_Lost_Horse_CreekL_kavanaughi_OR_Lostine_River_ValleyL_kavanaughi_OR_Little_Philips_CreekL_kavanaughi_OR_Lostine_River
+  L_kavanaughi_MT_Bitterroot_RiverL_kavanaughi_MT_Lost_Horse_Creek
+  L_kavanaughi_OR_Lostine_River_ValleyL_kavanaughi_OR_Little_Philips_CreekL_kavanaughi_OR_Lostine_River
+  L_kavanaughi_OR_Little_Philips_CreekL_kavanaughi_OR_Lostine_River
+
+Guide tree with posterior probability for presence of nodes:
+((L_kavanaughi_MT_Bitterroot_River, L_kavanaughi_MT_Lost_Horse_Creek)#0.510000, (L_kavanaughi_OR_Lostine_River_Valley, (L_kavanaughi_OR_Little_Philips_Creek, L_kavanaughi_OR_Lostine_River)#0.011000)#0.081000)#1.000000;;

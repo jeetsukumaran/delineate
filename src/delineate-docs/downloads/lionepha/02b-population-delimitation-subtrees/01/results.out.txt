@@ -1,0 +1,351 @@
+Analysis started at: Mon Mar  2 18:45:45 2020
+Using BPP version: 4.1.4
+Command: bpp --cfile bpprun.input.ctl 
+
+COMPRESSED ALIGNMENTS
+
+9 8 P
+^L_casta_AK_Prince_of_Wales_Island_4523     uaaggxxx
+^L_casta_AK_Ketchikan_4894                  uaaggcax
+^L_casta_CA_West_Branch_Mill_Creek_3703     uaaaaxxx
+^L_casta_CA_Mt_Tamalpais_3830               uaagaxxx
+^L_casta_CA_Soda_Creek_4049                 uagaaxxx
+^L_casta_OR_Marys_Peak_2545                 uaaaacxx
+^L_casta_OR_School_Creek_3041               uaaaacxx
+^L_casta_OR_Lost_Prairie_5204               ugaaaxxx
+^L_casta_WA_Taneum_Creek_1400               uaaaaxxx
+653 1 1 1 2 61 47 1
+
+9 5 P
+^L_casta_AK_Prince_of_Wales_Island_4523     aacxx
+^L_casta_AK_Ketchikan_4894                  aacux
+^L_casta_CA_West_Branch_Mill_Creek_3703     xxxxx
+^L_casta_CA_Mt_Tamalpais_3830               xxxxx
+^L_casta_CA_Soda_Creek_4049                 xxxxx
+^L_casta_OR_Marys_Peak_2545                 axyxx
+^L_casta_OR_School_Creek_3041               xxxxx
+^L_casta_OR_Lost_Prairie_5204               xxxxx
+^L_casta_WA_Taneum_Creek_1400               xxxxx
+1948 24 2 17 21
+
+9 12 P
+^L_casta_AK_Prince_of_Wales_Island_4523     gagaaugcux xx
+^L_casta_AK_Ketchikan_4894                  ggxxxxxcux xx
+^L_casta_CA_West_Branch_Mill_Creek_3703     gagaaxxcuu ux
+^L_casta_CA_Mt_Tamalpais_3830               gagaaugcux xx
+^L_casta_CA_Soda_Creek_4049                 gagaaugaux xx
+^L_casta_OR_Marys_Peak_2545                 gagaxxxcuu yu
+^L_casta_OR_School_Creek_3041               gagxxxxcuu cu
+^L_casta_OR_Lost_Prairie_5204               gagaaugcux xx
+^L_casta_WA_Taneum_Creek_1400               gagaauxmyx xx
+245 3 449 4 30 7 2 1 1 91 1 9
+
+9 14 P
+^L_casta_AK_Prince_of_Wales_Island_4523     gcacguacac gcxx
+^L_casta_AK_Ketchikan_4894                  xxxxxxxxxx xxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703     gcacgcgaux xygx
+^L_casta_CA_Mt_Tamalpais_3830               xxxxxxxxxx xxxx
+^L_casta_CA_Soda_Creek_4049                 xxxxxxxxxx xxxx
+^L_casta_OR_Marys_Peak_2545                 gcaaxuaaux xcxx
+^L_casta_OR_School_Creek_3041               xxxxxxxxxx xxxx
+^L_casta_OR_Lost_Prairie_5204               xxxxxxxxxx xxxx
+^L_casta_WA_Taneum_Creek_1400               guxcgugcuc xcxx
+591 1 78 2 4 1 1 1 2 19 17 1 2 27
+
+9 18 P
+^L_casta_AK_Prince_of_Wales_Island_4523     xxxxxxxxxx xxxxxxxx
+^L_casta_AK_Ketchikan_4894                  uaaagauccg guxxxxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703     xxxxxxxxxx xxxxxxxx
+^L_casta_CA_Mt_Tamalpais_3830               uaaagaccyg rycgucgx
+^L_casta_CA_Soda_Creek_4049                 xxxxxxxxxx xxxxxxxx
+^L_casta_OR_Marys_Peak_2545                 urrwxxcccg gccgxxrx
+^L_casta_OR_School_Creek_3041               uaaagxcccg gycxxxgx
+^L_casta_OR_Lost_Prairie_5204               xxxxxxxxxx xxxxxxxx
+^L_casta_WA_Taneum_Creek_1400               uaragxcycr gucguxgx
+549 1 1 1 26 12 2 1 1 1 1 1 270 5 22 16 1 4
+
+9 24 P
+^L_casta_AK_Prince_of_Wales_Island_4523     ggaaauaaac cccmguuuyy yxxx
+^L_casta_AK_Ketchikan_4894                  ggaaacxxxc cxxxguxxux xuxx
+^L_casta_CA_West_Branch_Mill_Creek_3703     gamgrcagrm scucgucyuy yuax
+^L_casta_CA_Mt_Tamalpais_3830               xxxxxxxxxx xxxxxxxxxx xxxx
+^L_casta_CA_Soda_Creek_4049                 xxxxxxxxxx xxxxxxxxxx xxxx
+^L_casta_OR_Marys_Peak_2545                 gaaaacarac csycryycuc yuax
+^L_casta_OR_School_Creek_3041               xxxxxxxxxx xxxxxxxxxx xxxx
+^L_casta_OR_Lost_Prairie_5204               xxxxxxxxxx xxxxxxxxxx xxxx
+^L_casta_WA_Taneum_Creek_1400               gaaracaarm ccycguycyu uuax
+206 1 1 1 1 1 228 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 31 3
+
+9 55 P
+^L_casta_AK_Prince_of_Wales_Island_4523     gacacaauaa aaaaaagggg uaaaaaauua cccccccccc ccccgggggu uuuuu
+^L_casta_AK_Ketchikan_4894                  xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703     gacacaauaa aaaaaaaaau cgrrrwxxxx xacccccccc uyyyaagrxu uuwwy
+^L_casta_CA_Mt_Tamalpais_3830               gacacaauaa aagmwwaaau cgaaaaauux xaccsyyyyy ucyyaaggxu wwuwu
+^L_casta_CA_Soda_Creek_4049                 gacacaauaa xxaaaagaau cgaaaaxxxx xaccucccuu uccuaaagxc uuxuu
+^L_casta_OR_Marys_Peak_2545                 gacacurxxx xxgaaaaaux xragraxxxx xmcyyccycy yuycrrggxu uuxau
+^L_casta_OR_School_Creek_3041               gacauuauaa aaacaagaug cgaagaauux xmccuccccu ucccaaggxu auuuu
+^L_casta_OR_Lost_Prairie_5204               gauucaauxx auaaauaaau xgaaaaaxxa uaccucucuu ucycargggu uuuuu
+^L_casta_WA_Taneum_Creek_1400               grcwcaauam aaaawagaau cgagaaauxa cayyccccuc ucycaargry uuuuu
+672 1 3 1 4 1 1 6 15 1 22 1 1 1 1 1 1 2 1 1 1 2 2 1 1 1 2 9 2 25 1 1 2 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 1 1 1 1 1 1 1
+
+9 13 P
+^L_casta_AK_Prince_of_Wales_Island_4523     cuxxxxxxxx xxx
+^L_casta_AK_Ketchikan_4894                  cugaacuagg uxx
+^L_casta_CA_West_Branch_Mill_Creek_3703     cugxxxxxxx xxx
+^L_casta_CA_Mt_Tamalpais_3830               cugaacuagg xxx
+^L_casta_CA_Soda_Creek_4049                 cugaacuxxx xxx
+^L_casta_OR_Marys_Peak_2545                 cxgaxxxxxx xgx
+^L_casta_OR_School_Creek_3041               cxgaaxxaxx xxx
+^L_casta_OR_Lost_Prairie_5204               cugaacxxxx xgx
+^L_casta_WA_Taneum_Creek_1400               cugaacuxgx xgx
+1000 7 2 13 1 11 1 8 4 47 20 2 76
+
+COMPRESSED ALIGNMENTS AFTER PHASING OF DIPLOID SEQUENCES
+
+18 8 P
+^L_casta_AK_Prince_of_Wales_Island_4523.1     uaaggxxx
+^L_casta_AK_Prince_of_Wales_Island_4523.2     uaaggxxx
+^L_casta_AK_Ketchikan_4894.1                  uaaggcax
+^L_casta_AK_Ketchikan_4894.2                  uaaggcax
+^L_casta_CA_West_Branch_Mill_Creek_3703.1     uaaaaxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.2     uaaaaxxx
+^L_casta_CA_Mt_Tamalpais_3830.1               uaagaxxx
+^L_casta_CA_Mt_Tamalpais_3830.2               uaagaxxx
+^L_casta_CA_Soda_Creek_4049.1                 uagaaxxx
+^L_casta_CA_Soda_Creek_4049.2                 uagaaxxx
+^L_casta_OR_Marys_Peak_2545.1                 uaaaacxx
+^L_casta_OR_Marys_Peak_2545.2                 uaaaacxx
+^L_casta_OR_School_Creek_3041.1               uaaaacxx
+^L_casta_OR_School_Creek_3041.2               uaaaacxx
+^L_casta_OR_Lost_Prairie_5204.1               ugaaaxxx
+^L_casta_OR_Lost_Prairie_5204.2               ugaaaxxx
+^L_casta_WA_Taneum_Creek_1400.1               uaaaaxxx
+^L_casta_WA_Taneum_Creek_1400.2               uaaaaxxx
+1 1 1 1 1 1 1 1
+
+18 6 P
+^L_casta_AK_Prince_of_Wales_Island_4523.1     accaxx
+^L_casta_AK_Prince_of_Wales_Island_4523.2     accaxx
+^L_casta_AK_Ketchikan_4894.1                  accaux
+^L_casta_AK_Ketchikan_4894.2                  accaux
+^L_casta_CA_West_Branch_Mill_Creek_3703.1     xxxxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.2     xxxxxx
+^L_casta_CA_Mt_Tamalpais_3830.1               xxxxxx
+^L_casta_CA_Mt_Tamalpais_3830.2               xxxxxx
+^L_casta_CA_Soda_Creek_4049.1                 xxxxxx
+^L_casta_CA_Soda_Creek_4049.2                 xxxxxx
+^L_casta_OR_Marys_Peak_2545.1                 acuxxx
+^L_casta_OR_Marys_Peak_2545.2                 aucxxx
+^L_casta_OR_School_Creek_3041.1               xxxxxx
+^L_casta_OR_School_Creek_3041.2               xxxxxx
+^L_casta_OR_Lost_Prairie_5204.1               xxxxxx
+^L_casta_OR_Lost_Prairie_5204.2               xxxxxx
+^L_casta_WA_Taneum_Creek_1400.1               xxxxxx
+^L_casta_WA_Taneum_Creek_1400.2               xxxxxx
+1 1 1 1 1 1
+
+18 14 P
+^L_casta_AK_Prince_of_Wales_Island_4523.1     guucagaaug xxxx
+^L_casta_AK_Prince_of_Wales_Island_4523.2     guucagaaug xxxx
+^L_casta_AK_Ketchikan_4894.1                  guucgxxxxx xxxx
+^L_casta_AK_Ketchikan_4894.2                  guucgxxxxx xxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.1     guucagaaxx uuux
+^L_casta_CA_West_Branch_Mill_Creek_3703.2     guucagaaxx uuux
+^L_casta_CA_Mt_Tamalpais_3830.1               guucagaaug xxxx
+^L_casta_CA_Mt_Tamalpais_3830.2               guucagaaug xxxx
+^L_casta_CA_Soda_Creek_4049.1                 guuaagaaug xxxx
+^L_casta_CA_Soda_Creek_4049.2                 guuaagaaug xxxx
+^L_casta_OR_Marys_Peak_2545.1                 guucagaxxx uucu
+^L_casta_OR_Marys_Peak_2545.2                 guucagaxxx ucuu
+^L_casta_OR_School_Creek_3041.1               guucagxxxx uccu
+^L_casta_OR_School_Creek_3041.2               guucagxxxx uccu
+^L_casta_OR_Lost_Prairie_5204.1               guucagaaug xxxx
+^L_casta_OR_Lost_Prairie_5204.2               guucagaaug xxxx
+^L_casta_WA_Taneum_Creek_1400.1               gucaagaaux xxxx
+^L_casta_WA_Taneum_Creek_1400.2               gcucagaaux xxxx
+1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+18 14 P
+^L_casta_AK_Prince_of_Wales_Island_4523.1     gcacgcuaca cgxx
+^L_casta_AK_Prince_of_Wales_Island_4523.2     gcacgcuaca cgxx
+^L_casta_AK_Ketchikan_4894.1                  xxxxxxxxxx xxxx
+^L_casta_AK_Ketchikan_4894.2                  xxxxxxxxxx xxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.1     gcacgccgau xxgx
+^L_casta_CA_West_Branch_Mill_Creek_3703.2     gcacgucgau xxgx
+^L_casta_CA_Mt_Tamalpais_3830.1               xxxxxxxxxx xxxx
+^L_casta_CA_Mt_Tamalpais_3830.2               xxxxxxxxxx xxxx
+^L_casta_CA_Soda_Creek_4049.1                 xxxxxxxxxx xxxx
+^L_casta_CA_Soda_Creek_4049.2                 xxxxxxxxxx xxxx
+^L_casta_OR_Marys_Peak_2545.1                 gcaaxcuaau xxxx
+^L_casta_OR_Marys_Peak_2545.2                 gcaaxcuaau xxxx
+^L_casta_OR_School_Creek_3041.1               xxxxxxxxxx xxxx
+^L_casta_OR_School_Creek_3041.2               xxxxxxxxxx xxxx
+^L_casta_OR_Lost_Prairie_5204.1               xxxxxxxxxx xxxx
+^L_casta_OR_Lost_Prairie_5204.2               xxxxxxxxxx xxxx
+^L_casta_WA_Taneum_Creek_1400.1               guxcgcugcu cxxx
+^L_casta_WA_Taneum_Creek_1400.2               guxcgcugcu cxxx
+1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+18 19 P
+^L_casta_AK_Prince_of_Wales_Island_4523.1     xxxxxxxxxx xxxxxxxxx
+^L_casta_AK_Prince_of_Wales_Island_4523.2     xxxxxxxxxx xxxxxxxxx
+^L_casta_AK_Ketchikan_4894.1                  uccaaagacc uuxxxxxxx
+^L_casta_AK_Ketchikan_4894.2                  uccaaagacc uuxxxxxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.1     xxxxxxxxxx xxxxxxxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.2     xxxxxxxxxx xxxxxxxxx
+^L_casta_CA_Mt_Tamalpais_3830.1               uccaaagacu cccgggucx
+^L_casta_CA_Mt_Tamalpais_3830.2               uccaaagauc uccgggucx
+^L_casta_CA_Soda_Creek_4049.1                 xxxxxxxxxx xxxxxxxxx
+^L_casta_CA_Soda_Creek_4049.2                 xxxxxxxxxx xxxxxxxxx
+^L_casta_OR_Marys_Peak_2545.1                 uccaauxxcc cccggaxxx
+^L_casta_OR_Marys_Peak_2545.2                 uccugaxxcc cccgagxxx
+^L_casta_OR_School_Creek_3041.1               uccaaagxcc cccxggxxx
+^L_casta_OR_School_Creek_3041.2               uccaaagxcc uccxggxxx
+^L_casta_OR_Lost_Prairie_5204.1               xxxxxxxxxx xxxxxxxxx
+^L_casta_OR_Lost_Prairie_5204.2               xxxxxxxxxx xxxxxxxxx
+^L_casta_WA_Taneum_Creek_1400.1               ucuaaagxcc uccggguxx
+^L_casta_WA_Taneum_Creek_1400.2               uucagagxcc uccggguxx
+1 2 2 2 1 2 1 1 2 2 1 1 1 1 1 1 1 1 1
+
+18 39 P
+^L_casta_AK_Prince_of_Wales_Island_4523.1     guucaccaag uaccauauac uacuuucccc cuccuaxxx
+^L_casta_AK_Prince_of_Wales_Island_4523.2     guucaccaag uaccauauac uacuccuuau ucuuccxxx
+^L_casta_AK_Ketchikan_4894.1                  guucaccaag cxxxxxxxxx xxxxuuuuxx xxxxxxuxx
+^L_casta_AK_Ketchikan_4894.2                  guucaccaag cxxxxxxxxx xxxxuuuuxx xxxxxxuxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.1     guuccaagga caccaugcgu cgucuuuucc cuuuccuax
+^L_casta_CA_West_Branch_Mill_Creek_3703.2     guugaccgga caccgcaugu cgucuuuucu ucccucuax
+^L_casta_CA_Mt_Tamalpais_3830.1               xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxx
+^L_casta_CA_Mt_Tamalpais_3830.2               xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxx
+^L_casta_CA_Soda_Creek_4049.1                 xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxx
+^L_casta_CA_Soda_Creek_4049.2                 xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxx
+^L_casta_OR_Marys_Peak_2545.1                 guccaccaaa cacgacacac ugucuuuucc ccccccuax
+^L_casta_OR_Marys_Peak_2545.2                 gcucaccaaa cagcacacgu cacuuuuucc uccuccuax
+^L_casta_OR_School_Creek_3041.1               xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxx
+^L_casta_OR_School_Creek_3041.2               xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxx
+^L_casta_OR_Lost_Prairie_5204.1               xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxx
+^L_casta_OR_Lost_Prairie_5204.2               xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxx
+^L_casta_WA_Taneum_Creek_1400.1               guucacaaga caccacacac caccuccucu uuuuucuax
+^L_casta_WA_Taneum_Creek_1400.2               guucaacgaa caccgcgcau uauucuuccu uuuuucuax
+1 2 2 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+18 87 P
+^L_casta_AK_Prince_of_Wales_Island_4523.1     gcccaacacc accauaaaug aauaaauccc cccccaaccc ccccagaaca ucuccucaaa cauucucgcg gccggagggu auuaggc
+^L_casta_AK_Prince_of_Wales_Island_4523.2     gcccaacacc accauaaaug aauaaauccc cccccaaccc ccccagaaca ucuccucaaa cauucucgcg gccggagggu auuaggc
+^L_casta_AK_Ketchikan_4894.1                  xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_casta_AK_Ketchikan_4894.2                  xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.1     gcccaacacc accauaaaug aauaaauccc cccccaaccc ccccagaaca ucuccucugg ugaauauaaa auaaagaauc xxxxxxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.2     gcccaacacc accauaaaug aauaaauccc cccccaaccc ccccaaggug auauuauaaa cauucucaaa auaaagaauc xxxxxxx
+^L_casta_CA_Mt_Tamalpais_3830.1               gcccaacacc accauaaaug aauaaauccc ccccuucuuu uuggggaaca ucucuauaaa cauucauaaa auaaagaauc auuxxxx
+^L_casta_CA_Mt_Tamalpais_3830.2               gcccaacacc accauaaaug aaauuuauuu uuggcaaccc ccccggaaca uuaucucaaa cauauucaaa auaaagaauc auuxxxx
+^L_casta_CA_Soda_Creek_4049.1                 gcccaacacc accauaaaca xxuaaauccu uuuucaaccu uuuuagaaca xcuucuuaaa caxuuuugaa auaaagaauc xxxxxxx
+^L_casta_CA_Soda_Creek_4049.2                 gcccaacacc accauaaaca xxuaaauccu uuuucaaccu uuuuagaaca xcuucuuaaa caxuuuugaa auaaagaauc xxxxxxx
+^L_casta_OR_Marys_Peak_2545.1                 gcccaacacc guuuxxxxug xxuaaaucuc cucucaacuc cucuggagug xcaccacaag ugxacacacg gcaaagauxx xxxxxxx
+^L_casta_OR_Marys_Peak_2545.2                 gcccaacguu accuxxxxug xxuaaauucc ucuccaaucc ucucgggaug xuacuacaga ugxacacaaa aucggaauxx xxxxxxx
+^L_casta_OR_School_Creek_3041.1               gcccaauacc accuuaaaug aauaaaaccc uuuucacccc uuuuagggca ucuccucagg cauucucgaa auaaagaugc auuxxxx
+^L_casta_OR_School_Creek_3041.2               gcccaauacc accuuaaaug aauaaaaccc uuuucacccc uuuuagggca ucuccucagg cauucucgca aucaagaugc auuxxxx
+^L_casta_OR_Lost_Prairie_5204.1               gccuuucacc accauxxxug auuaauuccu uuuucuaccu uuuuagaaca ucuccucaaa cauucucaag auagagaaux axxaggu
+^L_casta_OR_Lost_Prairie_5204.2               gccuuucacc accauxxxug auuaauuccu uuuucuaccu uuuuagaaca uuucuucaaa cauucucaaa guaaggaaux axxaggu
+^L_casta_WA_Taneum_Creek_1400.1               gcucaucacu acuauaacua aauauauccu cccccaaccu ccccagaacg ucuccucaaa cguucucgaa auaaagaauc auxagac
+^L_casta_WA_Taneum_Creek_1400.2               guccuacauc aucauacacg aauuaauccu cccccaaccu ccccagaacg uuucuucaaa cguucucgaa auaaagaauc auxaagc
+1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 2 1 1 2 2 1 1 1 1 1 1 1 2 2 2 1 1 1 1 1 1 1 1 4 1 1 1 1 1 1 1 1 1 1 1 4 1 1 1 1 1 1 1 1 1 1 1 1 1 3 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1
+
+18 13 P
+^L_casta_AK_Prince_of_Wales_Island_4523.1     cuxxxxxxxx xxx
+^L_casta_AK_Prince_of_Wales_Island_4523.2     cuxxxxxxxx xxx
+^L_casta_AK_Ketchikan_4894.1                  cugaacuagg uxx
+^L_casta_AK_Ketchikan_4894.2                  cugaacuagg uxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.1     cugxxxxxxx xxx
+^L_casta_CA_West_Branch_Mill_Creek_3703.2     cugxxxxxxx xxx
+^L_casta_CA_Mt_Tamalpais_3830.1               cugaacuagg xxx
+^L_casta_CA_Mt_Tamalpais_3830.2               cugaacuagg xxx
+^L_casta_CA_Soda_Creek_4049.1                 cugaacuxxx xxx
+^L_casta_CA_Soda_Creek_4049.2                 cugaacuxxx xxx
+^L_casta_OR_Marys_Peak_2545.1                 cxgaxxxxxx xgx
+^L_casta_OR_Marys_Peak_2545.2                 cxgaxxxxxx xgx
+^L_casta_OR_School_Creek_3041.1               cxgaaxxaxx xxx
+^L_casta_OR_School_Creek_3041.2               cxgaaxxaxx xxx
+^L_casta_OR_Lost_Prairie_5204.1               cugaacxxxx xgx
+^L_casta_OR_Lost_Prairie_5204.2               cugaacxxxx xgx
+^L_casta_WA_Taneum_Creek_1400.1               cugaacuxgx xgx
+^L_casta_WA_Taneum_Creek_1400.2               cugaacuxgx xgx
+1 1 1 1 1 1 1 1 1 1 1 1 1
+
+
+Per-locus sequences in data and 'species&tree' tag:
+C.File | Data |                Status                | Population
+-------+------+--------------------------------------+-----------
+     2 |    2 | [OK]                                 | L_casta_AK_Prince_of_Wales_Island
+     2 |    2 | [OK]                                 | L_casta_AK_Ketchikan
+     2 |    2 | [OK]                                 | L_casta_CA_West_Branch_Mill_Creek
+     2 |    2 | [OK]                                 | L_casta_CA_Mt_Tamalpais
+     2 |    2 | [OK]                                 | L_casta_CA_Soda_Creek
+     2 |    2 | [OK]                                 | L_casta_OR_Marys_Peak
+     2 |    2 | [OK]                                 | L_casta_OR_School_Creek
+     2 |    2 | [OK]                                 | L_casta_OR_Lost_Prairie
+     2 |    2 | [OK]                                 | L_casta_WA_Taneum_Creek
+
+
+Current Pjump:      0.54615  0.23388  0.00000  0.38261  0.10750
+Current finetune:   5.00000  0.00100  0.00100  0.00100  0.30000
+New finetune:      11.34992  0.00076  0.00001  0.00135  0.10038
+
+
+Current Pjump:      0.55315  0.27107  0.00000  0.38261  0.55350
+Current finetune:  11.34992  0.00076  0.00001  0.00135  0.10038
+New finetune:      26.34383  0.00067  0.00000  0.00181  0.23325
+
+
+Current Pjump:      0.54931  0.28155  0.00000  0.37828  0.18700
+Current finetune:  26.34383  0.00067  0.00000  0.00181  0.23325
+New finetune:      60.40384  0.00062  0.00000  0.00240  0.13847
+
+
+Current Pjump:      0.54154  0.29700  0.00000  0.38528  0.39300
+Current finetune:  60.40384  0.00062  0.00000  0.00240  0.13847
+New finetune:      99.00000  0.00062  0.00000  0.00326  0.19292
+
+Summarizing the species-delimitation sample in file results.mcmc.txt
+
+Number of species-delimitation models = 27
+
+     model    prior    posterior
+   1 00000000   0.037037   0.000000
+   2 10000000   0.037037   0.000000
+   3 10000001   0.037037   0.000000
+   4 11000000   0.037037   0.000000
+   5 11000001   0.037037   0.000000
+   6 11000100   0.037037   0.001000
+   7 11000101   0.037037   0.000000
+   8 11000110   0.037037   0.030000
+   9 11000111   0.037037   0.010000
+  10 11100000   0.037037   0.002000
+  11 11100001   0.037037   0.002000
+  12 11100100   0.037037   0.009000
+  13 11100101   0.037037   0.007000
+  14 11100110   0.037037   0.112000
+  15 11100111   0.037037   0.050000
+  16 11110000   0.037037   0.005000
+  17 11110001   0.037037   0.002000
+  18 11110100   0.037037   0.008000
+  19 11110101   0.037037   0.006000
+  20 11110110   0.037037   0.113000
+  21 11110111   0.037037   0.070000
+  22 11111000   0.037037   0.007000
+  23 11111001   0.037037   0.003000
+  24 11111100   0.037037   0.020000
+  25 11111101   0.037037   0.014000
+  26 11111110   0.037037   0.291000
+  27 11111111   0.037037   0.238000
+
+Order of ancestral nodes:
+  L_casta_OR_Lost_PrairieL_casta_OR_School_CreekL_casta_WA_Taneum_CreekL_casta_OR_Marys_PeakL_casta_CA_West_Branch_Mill_CreekL_casta_CA_Mt_TamalpaisL_casta_CA_Soda_CreekL_casta_AK_KetchikanL_casta_AK_Prince_of_Wales_Island
+  L_casta_OR_Lost_PrairieL_casta_OR_School_CreekL_casta_WA_Taneum_CreekL_casta_OR_Marys_PeakL_casta_CA_West_Branch_Mill_CreekL_casta_CA_Mt_TamalpaisL_casta_CA_Soda_Creek
+  L_casta_OR_Lost_PrairieL_casta_OR_School_CreekL_casta_WA_Taneum_CreekL_casta_OR_Marys_Peak
+  L_casta_OR_School_CreekL_casta_WA_Taneum_CreekL_casta_OR_Marys_Peak
+  L_casta_WA_Taneum_CreekL_casta_OR_Marys_Peak
+  L_casta_CA_West_Branch_Mill_CreekL_casta_CA_Mt_TamalpaisL_casta_CA_Soda_Creek
+  L_casta_CA_Mt_TamalpaisL_casta_CA_Soda_Creek
+  L_casta_AK_KetchikanL_casta_AK_Prince_of_Wales_Island
+
+Guide tree with posterior probability for presence of nodes:
+(((L_casta_OR_Lost_Prairie, (L_casta_OR_School_Creek, (L_casta_WA_Taneum_Creek, L_casta_OR_Marys_Peak)#0.573000)#0.777000)#0.959000, (L_casta_CA_West_Branch_Mill_Creek, (L_casta_CA_Mt_Tamalpais, L_casta_CA_Soda_Creek)#0.914000)#0.979000)#1.000000, (L_casta_AK_Ketchikan, L_casta_AK_Prince_of_Wales_Island)#0.402000)#1.000000;;

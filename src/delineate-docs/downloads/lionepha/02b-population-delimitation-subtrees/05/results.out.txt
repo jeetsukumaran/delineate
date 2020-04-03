@@ -1,0 +1,363 @@
+Analysis started at: Mon Mar  2 18:45:45 2020
+Using BPP version: 4.1.4
+Command: bpp --cfile bpprun.input.ctl 
+
+COMPRESSED ALIGNMENTS
+
+10 5 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568     cggax
+^L_lindrothi_CA_Emerald_Lake_4116                cggax
+^L_lindrothi_CA_Emerald_Lake_4117                cggax
+^L_lindrothi_CA_Emerald_Lake_4118                cgggx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120      cggax
+^L_lindrothi_CA_Kaiser_Pass_4121                 cgaax
+^L_lindrothi_CA_Tioga_Lake_4132                  cgaax
+^L_lindrothi_CA_Sonora_Pass_4134                 cggax
+^L_lindrothi_CA_Deadman_Creek_4140               cgaax
+^L_lindrothi_CA_Long_Valley_Creek_5072           caaax
+652 4 1 1 109
+
+10 2 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568     ax
+^L_lindrothi_CA_Emerald_Lake_4116                xx
+^L_lindrothi_CA_Emerald_Lake_4117                xx
+^L_lindrothi_CA_Emerald_Lake_4118                xx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120      xx
+^L_lindrothi_CA_Kaiser_Pass_4121                 xx
+^L_lindrothi_CA_Tioga_Lake_4132                  xx
+^L_lindrothi_CA_Sonora_Pass_4134                 xx
+^L_lindrothi_CA_Deadman_Creek_4140               xx
+^L_lindrothi_CA_Long_Valley_Creek_5072           xx
+1956 56
+
+10 9 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568     aauaccggx
+^L_lindrothi_CA_Emerald_Lake_4116                aauaccggx
+^L_lindrothi_CA_Emerald_Lake_4117                aauaccgrx
+^L_lindrothi_CA_Emerald_Lake_4118                aauaccggx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120      aauacyggx
+^L_lindrothi_CA_Kaiser_Pass_4121                 aauwccggx
+^L_lindrothi_CA_Tioga_Lake_4132                  aauaccggx
+^L_lindrothi_CA_Sonora_Pass_4134                 aauwccrgx
+^L_lindrothi_CA_Deadman_Creek_4140               aaxaccggx
+^L_lindrothi_CA_Long_Valley_Creek_5072           axuaycggx
+687 43 6 1 1 2 1 1 101
+
+10 8 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568     acguuuxx
+^L_lindrothi_CA_Emerald_Lake_4116                acacaucx
+^L_lindrothi_CA_Emerald_Lake_4117                auguaucx
+^L_lindrothi_CA_Emerald_Lake_4118                acacaucx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120      xxxxxxxx
+^L_lindrothi_CA_Kaiser_Pass_4121                 augcaycx
+^L_lindrothi_CA_Tioga_Lake_4132                  acguaucx
+^L_lindrothi_CA_Sonora_Pass_4134                 acgcaucx
+^L_lindrothi_CA_Deadman_Creek_4140               augcaucx
+^L_lindrothi_CA_Long_Valley_Creek_5072           xxxxxxxx
+705 1 1 1 1 1 8 29
+
+10 20 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568     gcaccaaacc ggrswyykxx
+^L_lindrothi_CA_Emerald_Lake_4116                xxxxxxxxxx xxxxxxxxxx
+^L_lindrothi_CA_Emerald_Lake_4117                gcacarrwmy rrrsucugux
+^L_lindrothi_CA_Emerald_Lake_4118                xxxxxxxxxx xxxxxxxxxx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120      xxxxxxxxxx xxxxxxxxxx
+^L_lindrothi_CA_Kaiser_Pass_4121                 xxxxxxxxxx xxxxxxxxxx
+^L_lindrothi_CA_Tioga_Lake_4132                  xxxxxxxxxx xxxxxxxxxx
+^L_lindrothi_CA_Sonora_Pass_4134                 xxxxxxxxxx xxxxxxxxxx
+^L_lindrothi_CA_Deadman_Creek_4140               xxxxxxxxxx xxxxxxxxxx
+^L_lindrothi_CA_Long_Valley_Creek_5072           gurxcaxucc grggucugxx
+805 1 1 32 1 1 1 1 1 2 2 1 1 1 1 1 1 2 12 47
+
+10 19 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568     uaaacccccc grruyyykx
+^L_lindrothi_CA_Emerald_Lake_4116                uaarcccsyy gaguccyux
+^L_lindrothi_CA_Emerald_Lake_4117                uaarcccacc gaguuyyux
+^L_lindrothi_CA_Emerald_Lake_4118                uaarcccsuy gaguyyyux
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120      uaaacccmuc gagyuyyux
+^L_lindrothi_CA_Kaiser_Pass_4121                 uaagcyycyc gaguyucux
+^L_lindrothi_CA_Tioga_Lake_4132                  uaarccucyc gagyycyux
+^L_lindrothi_CA_Sonora_Pass_4134                 uaagcycayy gaguyyuux
+^L_lindrothi_CA_Deadman_Creek_4140               urwrcccmyc raguycuux
+^L_lindrothi_CA_Long_Valley_Creek_5072           uaaryccccc gaauucyux
+470 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3
+
+10 55 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568     aaauaauaaa aacgaaaccu caaaaauucc ccccccccgg ggggguuuuu uuuuu
+^L_lindrothi_CA_Emerald_Lake_4116                aaauaauaaa aacgaaauga acgguxxxcc ccccuuuuag gggggacccu uuuuu
+^L_lindrothi_CA_Emerald_Lake_4117                aaauaauaaa aacgmrxcca amagaxxxcc cccycccuga ggggkaccuu uuuwy
+^L_lindrothi_CA_Emerald_Lake_4118                aaauaauaar wxxxaaxcxa amrgwxxxcc ccycuuyurx gggrgayyyu uuyux
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120      aaauaauawa aaxxaaaccu amrraauxcc cycccyyygx gggruuyyyc uyuuu
+^L_lindrothi_CA_Kaiser_Pass_4121                 aaauaaumaa aacxmaacca acggaauxcc cccccuyuka gggagacuuy uuuau
+^L_lindrothi_CA_Tioga_Lake_4132                  aaauaacaaa aaxxaaacca acgguauxcc cccccucugx aggagacccc ucuuu
+^L_lindrothi_CA_Sonora_Pass_4134                 aaaumruaaa aacgmaxcca acrgwxxxcm ycyccccygg ggrrguycyy uucuy
+^L_lindrothi_CA_Deadman_Creek_4140               aaauaauaaa axcgaaxcxa amrgwxxxyc cccccyyyrr rrgrgwccyc uuuwx
+^L_lindrothi_CA_Long_Valley_Creek_5072           agrxaauaaa aaxxaaacca acggaaxxcc ccycyuyugx rrgagwcucy yyuuu
+693 1 1 21 1 1 1 1 1 1 1 13 16 6 1 2 5 1 1 2 1 1 1 1 1 5 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1
+
+10 14 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568     ccguagaagc aucx
+^L_lindrothi_CA_Emerald_Lake_4116                ccguagaagc xxxx
+^L_lindrothi_CA_Emerald_Lake_4117                ccguagaagc axxx
+^L_lindrothi_CA_Emerald_Lake_4118                ccguaxxxxx xxxx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120      cxxxxgaxxx xxxx
+^L_lindrothi_CA_Kaiser_Pass_4121                 ccxxxgxxxx xxxx
+^L_lindrothi_CA_Tioga_Lake_4132                  ccguagaaxx xuxx
+^L_lindrothi_CA_Sonora_Pass_4134                 ccguagaagx xuxx
+^L_lindrothi_CA_Deadman_Creek_4140               ccguxgaxgc xxxx
+^L_lindrothi_CA_Long_Valley_Creek_5072           ccgxxxxxxx xxxx
+957 1 7 3 2 8 7 1 2 1 6 3 68 126
+
+COMPRESSED ALIGNMENTS AFTER PHASING OF DIPLOID SEQUENCES
+
+20 5 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.1     cggax
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.2     cggax
+^L_lindrothi_CA_Emerald_Lake_4116.1                cggax
+^L_lindrothi_CA_Emerald_Lake_4116.2                cggax
+^L_lindrothi_CA_Emerald_Lake_4117.1                cggax
+^L_lindrothi_CA_Emerald_Lake_4117.2                cggax
+^L_lindrothi_CA_Emerald_Lake_4118.1                cgggx
+^L_lindrothi_CA_Emerald_Lake_4118.2                cgggx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.1      cggax
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.2      cggax
+^L_lindrothi_CA_Kaiser_Pass_4121.1                 cgaax
+^L_lindrothi_CA_Kaiser_Pass_4121.2                 cgaax
+^L_lindrothi_CA_Tioga_Lake_4132.1                  cgaax
+^L_lindrothi_CA_Tioga_Lake_4132.2                  cgaax
+^L_lindrothi_CA_Sonora_Pass_4134.1                 cggax
+^L_lindrothi_CA_Sonora_Pass_4134.2                 cggax
+^L_lindrothi_CA_Deadman_Creek_4140.1               cgaax
+^L_lindrothi_CA_Deadman_Creek_4140.2               cgaax
+^L_lindrothi_CA_Long_Valley_Creek_5072.1           caaax
+^L_lindrothi_CA_Long_Valley_Creek_5072.2           caaax
+1 1 1 1 1
+
+20 2 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.1     ax
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.2     ax
+^L_lindrothi_CA_Emerald_Lake_4116.1                xx
+^L_lindrothi_CA_Emerald_Lake_4116.2                xx
+^L_lindrothi_CA_Emerald_Lake_4117.1                xx
+^L_lindrothi_CA_Emerald_Lake_4117.2                xx
+^L_lindrothi_CA_Emerald_Lake_4118.1                xx
+^L_lindrothi_CA_Emerald_Lake_4118.2                xx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.1      xx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.2      xx
+^L_lindrothi_CA_Kaiser_Pass_4121.1                 xx
+^L_lindrothi_CA_Kaiser_Pass_4121.2                 xx
+^L_lindrothi_CA_Tioga_Lake_4132.1                  xx
+^L_lindrothi_CA_Tioga_Lake_4132.2                  xx
+^L_lindrothi_CA_Sonora_Pass_4134.1                 xx
+^L_lindrothi_CA_Sonora_Pass_4134.2                 xx
+^L_lindrothi_CA_Deadman_Creek_4140.1               xx
+^L_lindrothi_CA_Deadman_Creek_4140.2               xx
+^L_lindrothi_CA_Long_Valley_Creek_5072.1           xx
+^L_lindrothi_CA_Long_Valley_Creek_5072.2           xx
+1 1
+
+20 12 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.1     acauggaccg gx
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.2     acauggaccg gx
+^L_lindrothi_CA_Emerald_Lake_4116.1                acauggaccg gx
+^L_lindrothi_CA_Emerald_Lake_4116.2                acauggaccg gx
+^L_lindrothi_CA_Emerald_Lake_4117.1                acauggaccg ax
+^L_lindrothi_CA_Emerald_Lake_4117.2                acauggacca gx
+^L_lindrothi_CA_Emerald_Lake_4118.1                acauggaccg gx
+^L_lindrothi_CA_Emerald_Lake_4118.2                acauggaccg gx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.1      acauggacug gx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.2      acauggaucg gx
+^L_lindrothi_CA_Kaiser_Pass_4121.1                 acauggaccg gx
+^L_lindrothi_CA_Kaiser_Pass_4121.2                 acaugguccg gx
+^L_lindrothi_CA_Tioga_Lake_4132.1                  acauggaccg gx
+^L_lindrothi_CA_Tioga_Lake_4132.2                  acauggaccg gx
+^L_lindrothi_CA_Sonora_Pass_4134.1                 acaugaaccg gx
+^L_lindrothi_CA_Sonora_Pass_4134.2                 acauaguccg gx
+^L_lindrothi_CA_Deadman_Creek_4140.1               acaxggaccg gx
+^L_lindrothi_CA_Deadman_Creek_4140.2               acaxggaccg gx
+^L_lindrothi_CA_Long_Valley_Creek_5072.1           acxuggaccg gx
+^L_lindrothi_CA_Long_Valley_Creek_5072.2           auxuggaccg gx
+1 1 1 1 1 1 1 1 1 1 1 1
+
+20 8 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.1     aucguuxx
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.2     aucguuxx
+^L_lindrothi_CA_Emerald_Lake_4116.1                aucacacx
+^L_lindrothi_CA_Emerald_Lake_4116.2                aucacacx
+^L_lindrothi_CA_Emerald_Lake_4117.1                auuguacx
+^L_lindrothi_CA_Emerald_Lake_4117.2                auuguacx
+^L_lindrothi_CA_Emerald_Lake_4118.1                aucacacx
+^L_lindrothi_CA_Emerald_Lake_4118.2                aucacacx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.1      xxxxxxxx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.2      xxxxxxxx
+^L_lindrothi_CA_Kaiser_Pass_4121.1                 acugcacx
+^L_lindrothi_CA_Kaiser_Pass_4121.2                 auugcacx
+^L_lindrothi_CA_Tioga_Lake_4132.1                  aucguacx
+^L_lindrothi_CA_Tioga_Lake_4132.2                  aucguacx
+^L_lindrothi_CA_Sonora_Pass_4134.1                 aucgcacx
+^L_lindrothi_CA_Sonora_Pass_4134.2                 aucgcacx
+^L_lindrothi_CA_Deadman_Creek_4140.1               auugcacx
+^L_lindrothi_CA_Deadman_Creek_4140.2               auugcacx
+^L_lindrothi_CA_Long_Valley_Creek_5072.1           xxxxxxxx
+^L_lindrothi_CA_Long_Valley_Creek_5072.2           xxxxxxxx
+1 1 1 1 1 1 1 1
+
+20 21 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.1     gaaccggaag gaacccgacx x
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.2     gaaccggaag gaacugcgux x
+^L_lindrothi_CA_Emerald_Lake_4116.1                xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Emerald_Lake_4116.2                xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Emerald_Lake_4117.1                gaaccggaaa augacccguu x
+^L_lindrothi_CA_Emerald_Lake_4117.2                gaaccaaugg gaaacggauu x
+^L_lindrothi_CA_Emerald_Lake_4118.1                xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Emerald_Lake_4118.2                xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.1      xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.2      xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Kaiser_Pass_4121.1                 xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Kaiser_Pass_4121.2                 xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Tioga_Lake_4132.1                  xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Tioga_Lake_4132.2                  xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Sonora_Pass_4134.1                 xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Sonora_Pass_4134.2                 xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Deadman_Creek_4140.1               xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Deadman_Creek_4140.2               xxxxxxxxxx xxxxxxxxxx x
+^L_lindrothi_CA_Long_Valley_Creek_5072.1           gaguxgauxg auxccgggux x
+^L_lindrothi_CA_Long_Valley_Creek_5072.2           ggauxgguxg guxccgggux x
+1 1 1 1 1 4 1 1 1 4 1 1 1 1 4 2 1 1 4 1 1
+
+20 116 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.1     uccaaccccc cuuuuccccc cccaaaaaaa aaaaaaaaac cccccccccc cccccccccc cccugccccc cccccccccc cccccccccc cccuuuuccc cuuuuuuuuu uuuagx
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.2     uccaaccccc cuuuuccccc cccaaaaaaa aaaaaaaaac cccccccccc cccccccccc cccgauuuuu uuuuuuuuuu uuuuuuuuuu uuuccccuuu uccccccccc cccgux
+^L_lindrothi_CA_Emerald_Lake_4116.1                uccaaccccc cuuuuccccc cccaaaaaaa aaaaaaaaac cccccccuuu uuuuuggggg gggugccccc cccccccccc cccccccccc cccuuuuuuu uccccccccc cccgux
+^L_lindrothi_CA_Emerald_Lake_4116.2                uccaaccccc cuuuuuuuuu uuuggggggg gggggggggg gggggggccc cccccccccc cccugccccc cccccccccc cccccccccu uuuccccccc cuuuuccccc cccgux
+^L_lindrothi_CA_Emerald_Lake_4117.1                uccaaccccc cuuuuccccc cccaaaaaaa agggggggga aaaaaaaccc cccccaaaaa aaaugccccc cccuuuuuuu uuuuuuuuuc cccccccccc cccccuuuuu uuugux
+^L_lindrothi_CA_Emerald_Lake_4117.2                uccaaccccc cuuuuccccc cccggggggg gaaaaaaaaa aaaaaaaccc cccccaaaaa aaauguuuuu uuuccccccc cuuuuuuuuu uuuuuuuuuu uuuuuuuuuu uuugux
+^L_lindrothi_CA_Emerald_Lake_4118.1                uccaaccccc cuuuuccuuu uuuaaaaaaa aaaaaaaaac cccggggccu uuuuuccccg gggugccccu uuuccccuuu uccccuuuuc cuuuuccccu uuuccuuuuc cccgux
+^L_lindrothi_CA_Emerald_Lake_4118.2                uccaaccccc cuuuuuuccu uuuggggggg gggggggggg gggccccuuc cuuuuggggc cccuguuuuc cccuuuuccc cuuuuccccu uccccuuuuc cccuuccccu uuugux
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.1      uccaaccccc cuuccccccu uuuaaaaaaa aaaaaaaaac caaccaaccc cuuuuccaac caaugccuuc cuuccuuccu uuuuuuuuuc cccccccccc cccccuuuuu uuugux
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.2      uccaaccccc cccuuccccu uuuaaaaaaa aaaaaaaaaa accaaccccc cuuuuaacca accuguuccu uccuuccuuc cuuuuuuuuu uuuuuuuuuu uuuuuuuuuu uuugux
+^L_lindrothi_CA_Kaiser_Pass_4121.1                 uccaacccuu uuuuuccccc cuuggggggg gggggggggc cccccccccc cccuuccccc cccuguuuuu uuuuuuuuuu uccccccccc cccccccccc cccccccccc cccgux
+^L_lindrothi_CA_Kaiser_Pass_4121.2                 uccaauuucc cuuuuccccu uccggggggg gggggggggc cccccccccc cuuccccccc cccuguuuuu uuuuuuuuuu uuuuuuuuuc cccccccccc cccccuuuuu uuugux
+^L_lindrothi_CA_Tioga_Lake_4132.1                  uccaaccucc uucucccccc ucuaaaaggg gaaaaggggc cccccccccc ccucuccccc cccugccccc cccccccccc cccccccccc ucuucuccuc uucucccccc cccgux
+^L_lindrothi_CA_Tioga_Lake_4132.2                  uccaaccucc ucucuccccu cucggggaaa aggggaaaac cccccccccc cucucccccc cccugccccc cccccccccc cuuuuuuuuu cuccucuucu ccucuuuuuu uuugux
+^L_lindrothi_CA_Sonora_Pass_4134.1                 uccaacuccu cuuuucucuc cccggggggg ggggggggga aaaaaaacuc uccccaaaaa aaaugcucuc ucucucucuc uccuuccuuu uuuuuuuuuu uuuuuuuccu uccgux
+^L_lindrothi_CA_Sonora_Pass_4134.2                 uccaauccuc cuuuuucucu uuuggggggg ggggggggga aaaaaaaucu cuuuuaaaaa aaaugucucu cucucucucu cuuccuuccu uuuuuuuuuu uuuuuccuuc cuugux
+^L_lindrothi_CA_Deadman_Creek_4140.1               uccagccccc cuuuuccccc cccaaggaag gaaggaaggc acacacaccc ccccccacac acaugccccc cccccccccc ccucucucuu uuuuuuuuuu uuuuuucucu cucgux
+^L_lindrothi_CA_Deadman_Creek_4140.2               uccuaccccc cuuuuccccu uuuggaagga aggaaggaaa cacacacccc cuuuuacaca cacugccccc cccccccccc cucucucucu uuuuuuuuuu uuuuucucuc ucugux
+^L_lindrothi_CA_Long_Valley_Creek_5072.1           ucuaaccccc cuuuuccccc cccagagaga gagagagagc cccccccccc cccccccccc cccuaccccc cccccccccc cuuuuuuuuc cccccccccc cccccuuuuu uuuaux
+^L_lindrothi_CA_Long_Valley_Creek_5072.2           uucaaccccc cuuuuccccc cccgagagag agagagagac cccccccccc cccccccccc cccuaccccc cccccccccc cuuuuuuuuu uuuuuuuuuu uuuuuuuuuu uuuaux
+1 1 1 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1
+
+20 163 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.1     auuaucggcg gaauggggaa cuucuuuuuu uuuuaccccu ggggaccccu ggggacgcaa aauuguuaaa aauuguugga caaaaggggu ccaaaaucca aaaaaaaggg guccuccccc ccccaaaaaa aauuuuuuuu uuuuuuuuuc cccaccccac auu
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.2     auuaucggcg gaauggggaa cuucuuuuuu uuuuaccccu ggggaccccu ggggacgcaa aauuguuaaa aauuguugga caaaaggggu ccaaaaucca aaaaaaaggg guccuccccc ccccaaaaaa aauuuuuuuu uuuuuuuuuc cccaccccac auu
+^L_lindrothi_CA_Emerald_Lake_4116.1                auuaucggcg gaauggggaa cuucuuuuuu uuuuaccccu ggggaccccu ggggacgcaa aauuguuaaa aauuguugga uuuuuaaaac uuggggcuug ggguuuuaaa acuucuuuuu uuugcccccc cccccccccc ccccaaaaau uuuguuuuga xxx
+^L_lindrothi_CA_Emerald_Lake_4116.2                auuaucggcg gaauggggaa cuucuuuuuu uuuuaccccu ggggaccccu ggggacgcaa aauuguuaaa aauuguugga uuuuuaaaac uuggggcuug ggguuuuaaa acuucuuuuu uuugcccccc cccccccccc ccccaaaaau uuuguuuuga xxx
+^L_lindrothi_CA_Emerald_Lake_4117.1                auuaucggcg gaauggggaa cuucuuuuuu uuuuaccccu ggggaccccu ggggacgcaa aauuguugcc ccaauccaax caaaaggggu ccaaaaucca aaaaaaaggg guccuccccc ccccaaaaaa aacccccccc ccccaaaaau uuuguuuuga xxx
+^L_lindrothi_CA_Emerald_Lake_4117.2                auuaucggcg gaauggggaa cuucuuuuuu uuuuaccccu ggggaccccu ggggacgucc ccaauccaaa aauuguuaax caaaaggggu ccaaaaucca aaaaaaaggg guccuccccc cccccccccc cccccccccc ccccaaaaau uuuguuuuga xxx
+^L_lindrothi_CA_Emerald_Lake_4118.1                auuaucggcg gaauggggaa cuucuuuuuu uuuuaccccu gggguuuuuc aaaaxxxcaa aauugxxaaa aauugxxxxx caaaaggggu ccaaaaucca aaauuuuaaa acuucuuuuu uuuxaaaacc ccuuuuuucc ccccaaaaau uuuguuuuga xxx
+^L_lindrothi_CA_Emerald_Lake_4118.2                auuaucggcg gaauggggaa cuucuuuuuu uuuuguuuuc aaaaaccccu ggggxxxcaa aauugxxaaa aauugxxxxx cuuuuaaaac uuggggcuug gggaaaaggg guccuccuuu uuuxccccaa aaccccccuu uuuuaaaaau uuuguuuuga xxx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.1      auuaucggcg gaauggggaa cuuucccccc ccccaccccu aaaaaccccu aaaaaxxcaa aauuuuuaaa aauuuuuxxa caaaaggggu ccaaaacuug gggaaaaggg gucccuuccc cuucaaccaa ccuuucccuu ucccuuuuuc cccauuuuga aux
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.2      auuaucggcg gaauggggaa ucccuucccc ccccaccccu ggggaccccu ggggaxxcaa aauuuuuaaa aauuuuuxxa caaaaggggc uuggggucca aaaaaaaggg gcuuuccccu ucccccaacc aacccuuucc cuuuuuuuuu uuugccccaa aux
+^L_lindrothi_CA_Kaiser_Pass_4121.1                 auuaucggcg gaauggggac cuucuuuuuu ccccaccccu aaaaaccccu aaaaacxcaa ccaaguuaaa ccaaguuaaa caaaagguuu ccgggguccg gggaaaaggu uuccuccccu uuuccccccc ccuccuccuc cuccaaaaau uuuguuuuga aux
+^L_lindrothi_CA_Kaiser_Pass_4121.2                 auuaucggcg gaauggggca cuucuucccc uuuuaccccu aaaaaccccu aaaaacxccc aaaaguuacc aaaaguuaaa caaaauuggu uugggguuug gggaaaauug guuuuuuccu uuuccccccc ccuccuccuc cuccaaaaau uuuguuuuga aux
+^L_lindrothi_CA_Tioga_Lake_4132.1                  auuaucggcg gaacaaaaaa cccccccccc ccccaccccu aaaaaccccu aaaaaxxcaa aauuguuaaa aauuguuxxa cuuuuggggc ccggggcccg ggguuuuggg gccccccccu uuuccccccc cccccccccc ccccaaaaau uuuguuuuga aux
+^L_lindrothi_CA_Tioga_Lake_4132.2                  auuaucggcg gaacaaaaaa cccccccccc ccccaccccu aaaaaccccu aaaaaxxcaa aauuguuaaa aauuguuxxa cuuuuggggc ccggggcccg ggguuuuggg gccccccccu uuuccccccc cccccccccc ccccaaaaau uuuguuuuga aux
+^L_lindrothi_CA_Sonora_Pass_4134.1                 auuaucggcg gacuggggaa cuucuuuucc uuccaccuuc ggaaaccuuc ggaaacgcac acuugucaac acuugucggx caauuggggc ccaaggccca aggaauuggg gccccccccc cccccccccc cccuccuccu ccucuuuuac cuugccuuga xxx
+^L_lindrothi_CA_Sonora_Pass_4134.2                 auuaucggcg ggauggggaa cuucuuccuu ccuuauuccc aaggauuccc aaggacgcca cauugcuaca cauugcuggx cuuaaggggu ccggaauccg gaauuaaggg guccuccccc cccccccccc ccccuccucc uccuuuuuau uccguuccga xxx
+^L_lindrothi_CA_Deadman_Creek_4140.1               auuaucggua aaauggaaaa cuucuucccc ccccaccccu gagaaccccu gagaxcgcaa aauagxxaaa aauagxxgax cauaugagac cuagagccua gagauaugag accuccuccc ucuxacacac accccccccc ccccuuaaac ucugcucuga xxx
+^L_lindrothi_CA_Deadman_Creek_4140.2               auuauuaacg gaauaaggaa cuucuucccc ccccaccccu agagaccccu agagxcgcaa aaaugxxaaa aaaugxxagx cuauaagagu ucgagauucg agauauaaga guucuucccu cucxcacaca cacccccccc ccccaauuau cucgucucga xxx
+^L_lindrothi_CA_Long_Valley_Creek_5072.1           aucgxcgacg aaaugagaaa cuccucucuc ucucacucuu aaaaacucuu aaaaaxxcaa aauuguuaaa aauuguuxxa caaaaggggc ccggggcccg gggaaaaggg gcccccccuu uuuccccccc ccuccuccuc cuccuauaau uuuguuuuga axx
+^L_lindrothi_CA_Long_Valley_Creek_5072.2           acugxcagca gaauagagaa ccuccucucu cucuaucucu aaaaaucucu aaaaaxxcaa aauuguuaaa aauuguuxxa caaaaggggc uuggggcuug gggaaaaggg gcuucuuucu uuuccccccc ccuccuccuc cuccauauau uuuguuuuga axx
+1 2 2 1 1 1 1 1 1 1 1 5 5 1 1 1 1 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+20 14 P
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.1     ccguagaagc aucx
+^L_lindrothi_CA_South_Fork_Bishop_Creek_3568.2     ccguagaagc aucx
+^L_lindrothi_CA_Emerald_Lake_4116.1                ccguagaagc xxxx
+^L_lindrothi_CA_Emerald_Lake_4116.2                ccguagaagc xxxx
+^L_lindrothi_CA_Emerald_Lake_4117.1                ccguagaagc axxx
+^L_lindrothi_CA_Emerald_Lake_4117.2                ccguagaagc axxx
+^L_lindrothi_CA_Emerald_Lake_4118.1                ccguaxxxxx xxxx
+^L_lindrothi_CA_Emerald_Lake_4118.2                ccguaxxxxx xxxx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.1      cxxxxgaxxx xxxx
+^L_lindrothi_CA_East_Fork_Kaweah_River_4120.2      cxxxxgaxxx xxxx
+^L_lindrothi_CA_Kaiser_Pass_4121.1                 ccxxxgxxxx xxxx
+^L_lindrothi_CA_Kaiser_Pass_4121.2                 ccxxxgxxxx xxxx
+^L_lindrothi_CA_Tioga_Lake_4132.1                  ccguagaaxx xuxx
+^L_lindrothi_CA_Tioga_Lake_4132.2                  ccguagaaxx xuxx
+^L_lindrothi_CA_Sonora_Pass_4134.1                 ccguagaagx xuxx
+^L_lindrothi_CA_Sonora_Pass_4134.2                 ccguagaagx xuxx
+^L_lindrothi_CA_Deadman_Creek_4140.1               ccguxgaxgc xxxx
+^L_lindrothi_CA_Deadman_Creek_4140.2               ccguxgaxgc xxxx
+^L_lindrothi_CA_Long_Valley_Creek_5072.1           ccgxxxxxxx xxxx
+^L_lindrothi_CA_Long_Valley_Creek_5072.2           ccgxxxxxxx xxxx
+1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+
+Per-locus sequences in data and 'species&tree' tag:
+C.File | Data |                Status                | Population
+-------+------+--------------------------------------+-----------
+     2 |    2 | [OK]                                 | L_lindrothi_CA_South_Fork_Bishop_Creek
+     6 |    6 | [OK]                                 | L_lindrothi_CA_Emerald_Lake
+     2 |    2 | [OK]                                 | L_lindrothi_CA_East_Fork_Kaweah_River
+     2 |    2 | [OK]                                 | L_lindrothi_CA_Kaiser_Pass
+     2 |    2 | [OK]                                 | L_lindrothi_CA_Tioga_Lake
+     2 |    2 | [OK]                                 | L_lindrothi_CA_Sonora_Pass
+     2 |    2 | [OK]                                 | L_lindrothi_CA_Deadman_Creek
+     2 |    2 | [OK]                                 | L_lindrothi_CA_Long_Valley_Creek
+
+
+Current Pjump:      0.58757  0.23689  0.00000  0.37974  0.11050
+Current finetune:   5.00000  0.00100  0.00100  0.00100  0.30000
+New finetune:      12.96634  0.00077  0.00001  0.00133  0.10324
+
+
+Current Pjump:      0.58351  0.27208  0.00000  0.38957  0.52450
+Current finetune:  12.96634  0.00077  0.00001  0.00133  0.10324
+New finetune:      33.18338  0.00068  0.00000  0.00184  0.21884
+
+
+Current Pjump:      0.58487  0.29160  0.00000  0.38842  0.21450
+Current finetune:  33.18338  0.00068  0.00000  0.00184  0.21884
+New finetune:      85.29900  0.00066  0.00000  0.00252  0.15045
+
+
+Current Pjump:      0.58181  0.28348  0.00000  0.38745  0.36050
+Current finetune:  85.29900  0.00066  0.00000  0.00252  0.15045
+New finetune:      99.00000  0.00062  0.00000  0.00344  0.18771
+
+Summarizing the species-delimitation sample in file results.mcmc.txt
+
+Number of species-delimitation models = 17
+
+     model    prior    posterior
+   1 0000000   0.058824   0.000000
+   2 1000000   0.058824   0.000000
+   3 1000100   0.058824   0.000000
+   4 1000110   0.058824   0.000000
+   5 1000111   0.058824   0.000000
+   6 1100000   0.058824   0.000000
+   7 1100100   0.058824   0.001000
+   8 1100110   0.058824   0.005000
+   9 1100111   0.058824   0.012000
+  10 1110000   0.058824   0.000000
+  11 1110100   0.058824   0.005000
+  12 1110110   0.058824   0.098000
+  13 1110111   0.058824   0.219000
+  14 1111000   0.058824   0.000000
+  15 1111100   0.058824   0.005000
+  16 1111110   0.058824   0.214000
+  17 1111111   0.058824   0.441000
+
+Order of ancestral nodes:
+  L_lindrothi_CA_Tioga_LakeL_lindrothi_CA_Long_Valley_CreekL_lindrothi_CA_Deadman_CreekL_lindrothi_CA_Kaiser_PassL_lindrothi_CA_South_Fork_Bishop_CreekL_lindrothi_CA_Emerald_LakeL_lindrothi_CA_East_Fork_Kaweah_RiverL_lindrothi_CA_Sonora_Pass
+  L_lindrothi_CA_Tioga_LakeL_lindrothi_CA_Long_Valley_CreekL_lindrothi_CA_Deadman_CreekL_lindrothi_CA_Kaiser_Pass
+  L_lindrothi_CA_Long_Valley_CreekL_lindrothi_CA_Deadman_CreekL_lindrothi_CA_Kaiser_Pass
+  L_lindrothi_CA_Deadman_CreekL_lindrothi_CA_Kaiser_Pass
+  L_lindrothi_CA_South_Fork_Bishop_CreekL_lindrothi_CA_Emerald_LakeL_lindrothi_CA_East_Fork_Kaweah_RiverL_lindrothi_CA_Sonora_Pass
+  L_lindrothi_CA_Emerald_LakeL_lindrothi_CA_East_Fork_Kaweah_RiverL_lindrothi_CA_Sonora_Pass
+  L_lindrothi_CA_East_Fork_Kaweah_RiverL_lindrothi_CA_Sonora_Pass
+
+Guide tree with posterior probability for presence of nodes:
+((L_lindrothi_CA_Tioga_Lake, (L_lindrothi_CA_Long_Valley_Creek, (L_lindrothi_CA_Deadman_Creek, L_lindrothi_CA_Kaiser_Pass)#0.660000)#0.982000)#1.000000, (L_lindrothi_CA_South_Fork_Bishop_Creek, (L_lindrothi_CA_Emerald_Lake, (L_lindrothi_CA_East_Fork_Kaweah_River, L_lindrothi_CA_Sonora_Pass)#0.672000)#0.989000)#1.000000)#1.000000;;

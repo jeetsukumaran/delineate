@@ -1,0 +1,374 @@
+Analysis started at: Mon Mar  2 18:45:45 2020
+Using BPP version: 4.1.4
+Command: bpp --cfile bpprun.input.ctl 
+
+COMPRESSED ALIGNMENTS
+
+10 9 P
+^L_disjuncta_BC_Summit_Creek_1896      uguccgcxx
+^L_disjuncta_BC_Summit_Creek_3090      uguccguax
+^L_disjuncta_CA_Lily_Lake_3069         ugucuauax
+^L_disjuncta_CA_Trinity_Alps_4115      uguucauxx
+^L_disjuncta_CA_Emerson_Creek_4122     uguccauxx
+^L_disjuncta_CA_Salmon_Creek_4133      ugcucauxx
+^L_disjuncta_ID_Salmon_River_4780      uguccauxx
+^L_disjuncta_MT_Mill_Creek_4716        uguccauxx
+^L_disjuncta_OR_Lostine_River_3848     uauccauxx
+^L_disjuncta_OR_Mt_Hood_4143           uguccauxx
+652 1 1 1 1 1 1 108 1
+
+10 3 P
+^L_disjuncta_BC_Summit_Creek_1896      crx
+^L_disjuncta_BC_Summit_Creek_3090      xxx
+^L_disjuncta_CA_Lily_Lake_3069         xxx
+^L_disjuncta_CA_Trinity_Alps_4115      xxx
+^L_disjuncta_CA_Emerson_Creek_4122     xxx
+^L_disjuncta_CA_Salmon_Creek_4133      xxx
+^L_disjuncta_ID_Salmon_River_4780      xxx
+^L_disjuncta_MT_Mill_Creek_4716        xxx
+^L_disjuncta_OR_Lostine_River_3848     xxx
+^L_disjuncta_OR_Mt_Hood_4143           xxx
+1950 1 61
+
+10 10 P
+^L_disjuncta_BC_Summit_Creek_1896      guuauggrux
+^L_disjuncta_BC_Summit_Creek_3090      guuaxxgrux
+^L_disjuncta_CA_Lily_Lake_3069         guuxxxagux
+^L_disjuncta_CA_Trinity_Alps_4115      guuaugrgux
+^L_disjuncta_CA_Emerson_Creek_4122     guuaugrgyx
+^L_disjuncta_CA_Salmon_Creek_4133      guuaugggux
+^L_disjuncta_ID_Salmon_River_4780      guxauxggux
+^L_disjuncta_MT_Mill_Creek_4716        guuaugggux
+^L_disjuncta_OR_Lostine_River_3848     guuxxxgaux
+^L_disjuncta_OR_Mt_Hood_4143           gxxaugggxx
+685 39 6 2 4 3 1 1 1 101
+
+10 13 P
+^L_disjuncta_BC_Summit_Creek_1896      cagucugcuc xxx
+^L_disjuncta_BC_Summit_Creek_3090      xxxxxxxxxx xxx
+^L_disjuncta_CA_Lily_Lake_3069         cagggcauxx cux
+^L_disjuncta_CA_Trinity_Alps_4115      cacucuguux ccx
+^L_disjuncta_CA_Emerson_Creek_4122     cagucuauux ccx
+^L_disjuncta_CA_Salmon_Creek_4133      cgcuccauux cux
+^L_disjuncta_ID_Salmon_River_4780      xxxxxxxxxx xxx
+^L_disjuncta_MT_Mill_Creek_4716        xxxxxxxxxx xxx
+^L_disjuncta_OR_Lostine_River_3848     xxxxxxxxxx xxx
+^L_disjuncta_OR_Mt_Hood_4143           cacugcauux ccx
+606 1 1 1 1 1 1 1 27 27 77 1 2
+
+10 20 P
+^L_disjuncta_BC_Summit_Creek_1896      caaaaaaucc cccgggguux
+^L_disjuncta_BC_Summit_Creek_3090      xxxxxxxxxx xxxxxxxxxx
+^L_disjuncta_CA_Lily_Lake_3069         caaarwxxcc cyxgggxcux
+^L_disjuncta_CA_Trinity_Alps_4115      xxxxxxxxxx xxxxxxxxxx
+^L_disjuncta_CA_Emerson_Creek_4122     xxxxxxxxxx xxxxxxxxxx
+^L_disjuncta_CA_Salmon_Creek_4133      xxxxxxxxxx xxxxxxxxxx
+^L_disjuncta_ID_Salmon_River_4780      xxxxxxxxxx xxxxxxxxxx
+^L_disjuncta_MT_Mill_Creek_4716        xxxxxxxxxx xxxxxxxxxx
+^L_disjuncta_OR_Lostine_River_3848     xxxxxxxxxx xxxxxxxxxx
+^L_disjuncta_OR_Mt_Hood_4143           cmrwraaxms ycyrskkyyx
+803 1 10 3 1 1 12 23 5 1 14 1 1 7 3 1 1 1 6 20
+
+10 9 P
+^L_disjuncta_BC_Summit_Creek_1896      gaaaccuxx
+^L_disjuncta_BC_Summit_Creek_3090      xxxxxxxxx
+^L_disjuncta_CA_Lily_Lake_3069         gaauccuux
+^L_disjuncta_CA_Trinity_Alps_4115      ggrucyyux
+^L_disjuncta_CA_Emerson_Creek_4122     ggaagcuux
+^L_disjuncta_CA_Salmon_Creek_4133      ggausyyux
+^L_disjuncta_ID_Salmon_River_4780      xxxxxxxxx
+^L_disjuncta_MT_Mill_Creek_4716        xxxxxxxxx
+^L_disjuncta_OR_Lostine_River_3848     xxxxxxxxx
+^L_disjuncta_OR_Mt_Hood_4143           gaaugcyux
+475 1 1 1 1 1 1 6 3
+
+10 31 P
+^L_disjuncta_BC_Summit_Creek_1896      gauaaaaaau aggcgggrrr ruuuuyyyyx x
+^L_disjuncta_BC_Summit_Creek_3090      gauaaaarrx xxxcgrxagg ruuuycccyu a
+^L_disjuncta_CA_Lily_Lake_3069         gauaaawaax xxxcgaxaag ruuwuccycu g
+^L_disjuncta_CA_Trinity_Alps_4115      gauaaxwaau xxxyggraag ruuuyccucx x
+^L_disjuncta_CA_Emerson_Creek_4122     gauagaaaax xxxcgaxaag auuuuccucu g
+^L_disjuncta_CA_Salmon_Creek_4133      gauraaaaau axxcgagarg gukuuccccu r
+^L_disjuncta_ID_Salmon_River_4780      gauaaaaaru agxcgmgaga auuuycuccu g
+^L_disjuncta_MT_Mill_Creek_4716        gauaaaaaau aggcggaaga auuuucuccu g
+^L_disjuncta_OR_Lostine_River_3848     gacaaauaau aggcgggaag auuuuccccu g
+^L_disjuncta_OR_Mt_Hood_4143           gruaaaaaau axxcragaag gyuuuccycu r
+712 1 2 1 2 6 1 1 1 21 1 11 17 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 17 1
+
+10 29 P
+^L_disjuncta_BC_Summit_Creek_1896      caguguuggu aggccagccg guwxxxxxx
+^L_disjuncta_BC_Summit_Creek_3090      caguguuggu uxxxxxxccg guaaagxxx
+^L_disjuncta_CA_Lily_Lake_3069         caguggxxxx uxxxxxxccg gyaxxxuxx
+^L_disjuncta_CA_Trinity_Alps_4115      caguxuuxxx uggxxxxccg guaxxxxxx
+^L_disjuncta_CA_Emerson_Creek_4122     caguxuuxxx uggccxxccg guaxxxxxx
+^L_disjuncta_CA_Salmon_Creek_4133      caxxxuuxxx uggcxxxccg guaxxxxxx
+^L_disjuncta_ID_Salmon_River_4780      caguguugxx uggccaxccg kuaxxxxxx
+^L_disjuncta_MT_Mill_Creek_4716        cmguguuggx uggccaxsys kuaaxxxxx
+^L_disjuncta_OR_Lostine_River_3848     caguguuggu uggccagccg guaaaxxux
+^L_disjuncta_OR_Mt_Hood_4143           cagxxuuxxx ugxxxxxccg guaxxxxxx
+967 1 1 1 11 1 18 3 6 1 1 7 2 3 3 3 5 3 1 1 1 1 2 1 8 7 1 15 117
+
+COMPRESSED ALIGNMENTS AFTER PHASING OF DIPLOID SEQUENCES
+
+20 9 P
+^L_disjuncta_BC_Summit_Creek_1896.1      uguccgcxx
+^L_disjuncta_BC_Summit_Creek_1896.2      uguccgcxx
+^L_disjuncta_BC_Summit_Creek_3090.1      uguccguax
+^L_disjuncta_BC_Summit_Creek_3090.2      uguccguax
+^L_disjuncta_CA_Lily_Lake_3069.1         ugucuauax
+^L_disjuncta_CA_Lily_Lake_3069.2         ugucuauax
+^L_disjuncta_CA_Trinity_Alps_4115.1      uguucauxx
+^L_disjuncta_CA_Trinity_Alps_4115.2      uguucauxx
+^L_disjuncta_CA_Emerson_Creek_4122.1     uguccauxx
+^L_disjuncta_CA_Emerson_Creek_4122.2     uguccauxx
+^L_disjuncta_CA_Salmon_Creek_4133.1      ugcucauxx
+^L_disjuncta_CA_Salmon_Creek_4133.2      ugcucauxx
+^L_disjuncta_ID_Salmon_River_4780.1      uguccauxx
+^L_disjuncta_ID_Salmon_River_4780.2      uguccauxx
+^L_disjuncta_MT_Mill_Creek_4716.1        uguccauxx
+^L_disjuncta_MT_Mill_Creek_4716.2        uguccauxx
+^L_disjuncta_OR_Lostine_River_3848.1     uauccauxx
+^L_disjuncta_OR_Lostine_River_3848.2     uauccauxx
+^L_disjuncta_OR_Mt_Hood_4143.1           uguccauxx
+^L_disjuncta_OR_Mt_Hood_4143.2           uguccauxx
+1 1 1 1 1 1 1 1 1
+
+20 3 P
+^L_disjuncta_BC_Summit_Creek_1896.1      cax
+^L_disjuncta_BC_Summit_Creek_1896.2      cgx
+^L_disjuncta_BC_Summit_Creek_3090.1      xxx
+^L_disjuncta_BC_Summit_Creek_3090.2      xxx
+^L_disjuncta_CA_Lily_Lake_3069.1         xxx
+^L_disjuncta_CA_Lily_Lake_3069.2         xxx
+^L_disjuncta_CA_Trinity_Alps_4115.1      xxx
+^L_disjuncta_CA_Trinity_Alps_4115.2      xxx
+^L_disjuncta_CA_Emerson_Creek_4122.1     xxx
+^L_disjuncta_CA_Emerson_Creek_4122.2     xxx
+^L_disjuncta_CA_Salmon_Creek_4133.1      xxx
+^L_disjuncta_CA_Salmon_Creek_4133.2      xxx
+^L_disjuncta_ID_Salmon_River_4780.1      xxx
+^L_disjuncta_ID_Salmon_River_4780.2      xxx
+^L_disjuncta_MT_Mill_Creek_4716.1        xxx
+^L_disjuncta_MT_Mill_Creek_4716.2        xxx
+^L_disjuncta_OR_Lostine_River_3848.1     xxx
+^L_disjuncta_OR_Lostine_River_3848.2     xxx
+^L_disjuncta_OR_Mt_Hood_4143.1           xxx
+^L_disjuncta_OR_Mt_Hood_4143.2           xxx
+1 1 1
+
+20 11 P
+^L_disjuncta_BC_Summit_Creek_1896.1      guuuugauga x
+^L_disjuncta_BC_Summit_Creek_1896.2      guuuugaugg x
+^L_disjuncta_BC_Summit_Creek_3090.1      guuuugaxxa x
+^L_disjuncta_BC_Summit_Creek_3090.2      guuuugaxxg x
+^L_disjuncta_CA_Lily_Lake_3069.1         guuuuaxxxg x
+^L_disjuncta_CA_Lily_Lake_3069.2         guuuuaxxxg x
+^L_disjuncta_CA_Trinity_Alps_4115.1      guuuuaaugg x
+^L_disjuncta_CA_Trinity_Alps_4115.2      guuuugaugg x
+^L_disjuncta_CA_Emerson_Creek_4122.1     guuucaaugg x
+^L_disjuncta_CA_Emerson_Creek_4122.2     guucugaugg x
+^L_disjuncta_CA_Salmon_Creek_4133.1      guuuugaugg x
+^L_disjuncta_CA_Salmon_Creek_4133.2      guuuugaugg x
+^L_disjuncta_ID_Salmon_River_4780.1      guxuugauxg x
+^L_disjuncta_ID_Salmon_River_4780.2      guxuugauxg x
+^L_disjuncta_MT_Mill_Creek_4716.1        guuuugaugg x
+^L_disjuncta_MT_Mill_Creek_4716.2        guuuugaugg x
+^L_disjuncta_OR_Lostine_River_3848.1     guuuugxxxa x
+^L_disjuncta_OR_Lostine_River_3848.2     guuuugxxxa x
+^L_disjuncta_OR_Mt_Hood_4143.1           gxxxxgaugg x
+^L_disjuncta_OR_Mt_Hood_4143.2           gxxxxgaugg x
+1 1 1 1 1 1 1 1 1 1 1
+
+20 13 P
+^L_disjuncta_BC_Summit_Creek_1896.1      cagucugcuc xxx
+^L_disjuncta_BC_Summit_Creek_1896.2      cagucugcuc xxx
+^L_disjuncta_BC_Summit_Creek_3090.1      xxxxxxxxxx xxx
+^L_disjuncta_BC_Summit_Creek_3090.2      xxxxxxxxxx xxx
+^L_disjuncta_CA_Lily_Lake_3069.1         cagggcauxx cux
+^L_disjuncta_CA_Lily_Lake_3069.2         cagggcauxx cux
+^L_disjuncta_CA_Trinity_Alps_4115.1      cacucuguux ccx
+^L_disjuncta_CA_Trinity_Alps_4115.2      cacucuguux ccx
+^L_disjuncta_CA_Emerson_Creek_4122.1     cagucuauux ccx
+^L_disjuncta_CA_Emerson_Creek_4122.2     cagucuauux ccx
+^L_disjuncta_CA_Salmon_Creek_4133.1      cgcuccauux cux
+^L_disjuncta_CA_Salmon_Creek_4133.2      cgcuccauux cux
+^L_disjuncta_ID_Salmon_River_4780.1      xxxxxxxxxx xxx
+^L_disjuncta_ID_Salmon_River_4780.2      xxxxxxxxxx xxx
+^L_disjuncta_MT_Mill_Creek_4716.1        xxxxxxxxxx xxx
+^L_disjuncta_MT_Mill_Creek_4716.2        xxxxxxxxxx xxx
+^L_disjuncta_OR_Lostine_River_3848.1     xxxxxxxxxx xxx
+^L_disjuncta_OR_Lostine_River_3848.2     xxxxxxxxxx xxx
+^L_disjuncta_OR_Mt_Hood_4143.1           cacugcauux ccx
+^L_disjuncta_OR_Mt_Hood_4143.2           cacugcauux ccx
+1 1 1 1 1 1 1 1 1 1 1 1 1
+
+20 13 P
+^L_disjuncta_BC_Summit_Creek_1896.1      caccaauuag cux
+^L_disjuncta_BC_Summit_Creek_1896.2      caccaauuag cux
+^L_disjuncta_BC_Summit_Creek_3090.1      xxxxxxxxxx xxx
+^L_disjuncta_BC_Summit_Creek_3090.2      xxxxxxxxxx xxx
+^L_disjuncta_CA_Lily_Lake_3069.1         caccauccxx xxx
+^L_disjuncta_CA_Lily_Lake_3069.2         cacugaccxx xxx
+^L_disjuncta_CA_Trinity_Alps_4115.1      xxxxxxxxxx xxx
+^L_disjuncta_CA_Trinity_Alps_4115.2      xxxxxxxxxx xxx
+^L_disjuncta_CA_Emerson_Creek_4122.1     xxxxxxxxxx xxx
+^L_disjuncta_CA_Emerson_Creek_4122.2     xxxxxxxxxx xxx
+^L_disjuncta_CA_Salmon_Creek_4133.1      xxxxxxxxxx xxx
+^L_disjuncta_CA_Salmon_Creek_4133.2      xxxxxxxxxx xxx
+^L_disjuncta_ID_Salmon_River_4780.1      xxxxxxxxxx xxx
+^L_disjuncta_ID_Salmon_River_4780.2      xxxxxxxxxx xxx
+^L_disjuncta_MT_Mill_Creek_4716.1        xxxxxxxxxx xxx
+^L_disjuncta_MT_Mill_Creek_4716.2        xxxxxxxxxx xxx
+^L_disjuncta_OR_Lostine_River_3848.1     xxxxxxxxxx xxx
+^L_disjuncta_OR_Lostine_River_3848.2     xxxxxxxxxx xxx
+^L_disjuncta_OR_Mt_Hood_4143.1           caucaaucag uxx
+^L_disjuncta_OR_Mt_Hood_4143.2           cuccgacuau cxx
+1 10 10 2 1 2 1 1 1 2 2 1 1
+
+20 13 P
+^L_disjuncta_BC_Summit_Creek_1896.1      gccacacuua axx
+^L_disjuncta_BC_Summit_Creek_1896.2      gccacacuua axx
+^L_disjuncta_BC_Summit_Creek_3090.1      xxxxxxxxxx xxx
+^L_disjuncta_BC_Summit_Creek_3090.2      xxxxxxxxxx xxx
+^L_disjuncta_CA_Lily_Lake_3069.1         gccacacuua uux
+^L_disjuncta_CA_Lily_Lake_3069.2         gccacacuua uux
+^L_disjuncta_CA_Trinity_Alps_4115.1      gccacguccg uux
+^L_disjuncta_CA_Trinity_Alps_4115.2      gccguacuug uux
+^L_disjuncta_CA_Emerson_Creek_4122.1     gggacacuug aux
+^L_disjuncta_CA_Emerson_Creek_4122.2     gggacacuug aux
+^L_disjuncta_CA_Salmon_Creek_4133.1      gcgacacucg uux
+^L_disjuncta_CA_Salmon_Creek_4133.2      ggcauaucug uux
+^L_disjuncta_ID_Salmon_River_4780.1      xxxxxxxxxx xxx
+^L_disjuncta_ID_Salmon_River_4780.2      xxxxxxxxxx xxx
+^L_disjuncta_MT_Mill_Creek_4716.1        xxxxxxxxxx xxx
+^L_disjuncta_MT_Mill_Creek_4716.2        xxxxxxxxxx xxx
+^L_disjuncta_OR_Lostine_River_3848.1     xxxxxxxxxx xxx
+^L_disjuncta_OR_Lostine_River_3848.2     xxxxxxxxxx xxx
+^L_disjuncta_OR_Mt_Hood_4143.1           gggacaccca uux
+^L_disjuncta_OR_Mt_Hood_4143.2           gggacacuua uux
+1 1 1 1 1 1 1 1 1 1 1 1 1
+
+20 55 P
+^L_disjuncta_BC_Summit_Creek_1896.1      ggguuuacca uaauaaaaag gaaauuggug gaggccccgc agucaguaag xxxxx
+^L_disjuncta_BC_Summit_Creek_1896.2      ggguuuacca uaauaaaaag gaaauuggug gagguuuuau gacugacgga xxxxx
+^L_disjuncta_BC_Summit_Creek_3090.1      ggguuuacca uaauaaaaag ggggccaaxx xxxxccccgc aguugacgga uaaaa
+^L_disjuncta_BC_Summit_Creek_3090.2      ggguuuacca uaauaaggga aaaauuggxx xxxxccccgu gaccagugga uaaaa
+^L_disjuncta_CA_Lily_Lake_3069.1         ggguuuacca uaaauuaaaa aaaauuaaxx xxxxcccuac aaccaacaga ugggg
+^L_disjuncta_CA_Lily_Lake_3069.2         ggguuuacca auuuaaaaaa aaaauuaaxx xxxxccucac ggccggcaga ugggg
+^L_disjuncta_CA_Trinity_Alps_4115.1      ggguuuacux uauuauaaag gaaaucggug axxxccuuac aaccaacaga xxxxx
+^L_disjuncta_CA_Trinity_Alps_4115.2      ggguuuaucx uuauuaaaag gaaacuggua gxxxccuuac ggccggcaga xxxxx
+^L_disjuncta_CA_Emerson_Creek_4122.1     ggguuugcca uaauaaaaaa aaaauuaaxx xxxxccuuac aaccaacaga ugggg
+^L_disjuncta_CA_Emerson_Creek_4122.2     ggguuugcca uaauaaaaaa aaaauuaaxx xxxxccuuac aaccaacaga ugggg
+^L_disjuncta_CA_Salmon_Creek_4133.1      ggguugacca uaauaaaaaa aaaauuaaug gaxxccccac ggccggcaga uaagg
+^L_disjuncta_CA_Salmon_Creek_4133.2      ggguguacca uaauaaaaaa aaaauuaaug gaxxccccgc ggccggcgga uggaa
+^L_disjuncta_ID_Salmon_River_4780.1      ggguuuacca uaauaaaaga caagccacug gagxcuccgc aaccaacgaa ugggg
+^L_disjuncta_ID_Salmon_River_4780.2      ggguuuacca uaauaaagac aagauucaug gagxcuccgc aaccaacgaa ugggg
+^L_disjuncta_MT_Mill_Creek_4716.1        ggguuuacca uaauaaaaag gaaauuggua aaggcuccgc aaccaacgaa ugggg
+^L_disjuncta_MT_Mill_Creek_4716.2        ggguuuacca uaauaaaaag gaaauuggua aaggcuccgc aaccaacgaa ugggg
+^L_disjuncta_OR_Lostine_River_3848.1     gggcuuacca uuuuuuaaag gaaauuggug gaggccccac aaccaacaga ugggg
+^L_disjuncta_OR_Lostine_River_3848.2     gggcuuacca uuuuuuaaag gaaauuggug gaggccccac aaccaacaga ugggg
+^L_disjuncta_OR_Mt_Hood_4143.1           ggauuuacca uaauaaaaaa aaaauuaaug gaxxccccac ggccggcaga uagag
+^L_disjuncta_OR_Mt_Hood_4143.2           gaguuuacca uaauaaaaaa aaaauuaaug gaxxccuuac ggccggcaga ugaga
+1 3 3 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1
+
+20 29 P
+^L_disjuncta_BC_Summit_Creek_1896.1      cacgguguuu ugguaggcca gauxxxxxx
+^L_disjuncta_BC_Summit_Creek_1896.2      cacgguguuu ugguaggcca guaxxxxxx
+^L_disjuncta_BC_Summit_Creek_3090.1      cacgguguuu ugguuxxxxx xaaaagxxx
+^L_disjuncta_BC_Summit_Creek_3090.2      cacgguguuu ugguuxxxxx xaaaagxxx
+^L_disjuncta_CA_Lily_Lake_3069.1         cacggugucg xxxxuxxxxx xaaxxxuxx
+^L_disjuncta_CA_Lily_Lake_3069.2         cacggugcug xxxxuxxxxx xaaxxxuxx
+^L_disjuncta_CA_Trinity_Alps_4115.1      cacgguxuuu uxxxuggxxx xaaxxxxxx
+^L_disjuncta_CA_Trinity_Alps_4115.2      cacgguxuuu uxxxuggxxx xaaxxxxxx
+^L_disjuncta_CA_Emerson_Creek_4122.1     cacgguxuuu uxxxuggccx xaaxxxxxx
+^L_disjuncta_CA_Emerson_Creek_4122.2     cacgguxuuu uxxxuggccx xaaxxxxxx
+^L_disjuncta_CA_Salmon_Creek_4133.1      cacgxxxuuu uxxxuggcxx xaaxxxxxx
+^L_disjuncta_CA_Salmon_Creek_4133.2      cacgxxxuuu uxxxuggcxx xaaxxxxxx
+^L_disjuncta_ID_Salmon_River_4780.1      cacgguguuu ugxxuggcca xaaxxxxxx
+^L_disjuncta_ID_Salmon_River_4780.2      cacuguguuu ugxxuggcca xaaxxxxxx
+^L_disjuncta_MT_Mill_Creek_4716.1        caggguguuu uggxuggcca xaaaxxxxx
+^L_disjuncta_MT_Mill_Creek_4716.2        cccuguguuu uggxuggcca xaaaxxxxx
+^L_disjuncta_OR_Lostine_River_3848.1     cacgguguuu ugguuggcca gaaaaxxux
+^L_disjuncta_OR_Lostine_River_3848.2     cacgguguuu ugguuggcca gaaaaxxux
+^L_disjuncta_OR_Mt_Hood_4143.1           cacggxxuuu uxxxugxxxx xaaxxxxxx
+^L_disjuncta_OR_Mt_Hood_4143.2           cacggxxuuu uxxxugxxxx xaaxxxxxx
+1 4 4 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+
+Per-locus sequences in data and 'species&tree' tag:
+C.File | Data |                Status                | Population
+-------+------+--------------------------------------+-----------
+     4 |    4 | [OK]                                 | L_disjuncta_BC_Summit_Creek
+     2 |    2 | [OK]                                 | L_disjuncta_CA_Lily_Lake
+     2 |    2 | [OK]                                 | L_disjuncta_CA_Trinity_Alps
+     2 |    2 | [OK]                                 | L_disjuncta_CA_Emerson_Creek
+     2 |    2 | [OK]                                 | L_disjuncta_CA_Salmon_Creek
+     2 |    2 | [OK]                                 | L_disjuncta_ID_Salmon_River
+     2 |    2 | [OK]                                 | L_disjuncta_MT_Mill_Creek
+     2 |    2 | [OK]                                 | L_disjuncta_OR_Lostine_River
+     2 |    2 | [OK]                                 | L_disjuncta_OR_Mt_Hood
+
+
+Current Pjump:      0.59208  0.23014  0.00000  0.36659  0.12150
+Current finetune:   5.00000  0.00100  0.00100  0.00100  0.30000
+New finetune:      13.15890  0.00074  0.00001  0.00127  0.11375
+
+
+Current Pjump:      0.59078  0.28238  0.00000  0.38009  0.49850
+Current finetune:  13.15890  0.00074  0.00001  0.00127  0.11375
+New finetune:      34.48422  0.00069  0.00000  0.00170  0.22221
+
+
+Current Pjump:      0.59034  0.31239  0.00000  0.38844  0.21950
+Current finetune:  34.48422  0.00069  0.00000  0.00170  0.22221
+New finetune:      90.24105  0.00073  0.00000  0.00233  0.15662
+
+
+Current Pjump:      0.59353  0.29788  0.00000  0.38502  0.35250
+Current finetune:  90.24105  0.00073  0.00000  0.00233  0.15662
+New finetune:      99.00000  0.00072  0.00000  0.00316  0.19003
+
+Summarizing the species-delimitation sample in file results.mcmc.txt
+
+Number of species-delimitation models = 26
+
+     model    prior    posterior
+   1 00000000   0.038462   0.000000
+   2 10000000   0.038462   0.000000
+   3 10000100   0.038462   0.000000
+   4 10000101   0.038462   0.000000
+   5 10000110   0.038462   0.000000
+   6 10000111   0.038462   0.000000
+   7 11000000   0.038462   0.000000
+   8 11000100   0.038462   0.000000
+   9 11000101   0.038462   0.000000
+  10 11000110   0.038462   0.000000
+  11 11000111   0.038462   0.000000
+  12 11100000   0.038462   0.000000
+  13 11100100   0.038462   0.000000
+  14 11100101   0.038462   0.000000
+  15 11100110   0.038462   0.002000
+  16 11100111   0.038462   0.010000
+  17 11110000   0.038462   0.000000
+  18 11110100   0.038462   0.000000
+  19 11110101   0.038462   0.000000
+  20 11110110   0.038462   0.002000
+  21 11110111   0.038462   0.012000
+  22 11111000   0.038462   0.000000
+  23 11111100   0.038462   0.000000
+  24 11111101   0.038462   0.001000
+  25 11111110   0.038462   0.138000
+  26 11111111   0.038462   0.835000
+
+Order of ancestral nodes:
+  L_disjuncta_CA_Emerson_CreekL_disjuncta_OR_Lostine_RiverL_disjuncta_ID_Salmon_RiverL_disjuncta_BC_Summit_CreekL_disjuncta_MT_Mill_CreekL_disjuncta_CA_Lily_LakeL_disjuncta_OR_Mt_HoodL_disjuncta_CA_Salmon_CreekL_disjuncta_CA_Trinity_Alps
+  L_disjuncta_CA_Emerson_CreekL_disjuncta_OR_Lostine_RiverL_disjuncta_ID_Salmon_RiverL_disjuncta_BC_Summit_CreekL_disjuncta_MT_Mill_Creek
+  L_disjuncta_OR_Lostine_RiverL_disjuncta_ID_Salmon_RiverL_disjuncta_BC_Summit_CreekL_disjuncta_MT_Mill_Creek
+  L_disjuncta_ID_Salmon_RiverL_disjuncta_BC_Summit_CreekL_disjuncta_MT_Mill_Creek
+  L_disjuncta_BC_Summit_CreekL_disjuncta_MT_Mill_Creek
+  L_disjuncta_CA_Lily_LakeL_disjuncta_OR_Mt_HoodL_disjuncta_CA_Salmon_CreekL_disjuncta_CA_Trinity_Alps
+  L_disjuncta_CA_Lily_LakeL_disjuncta_OR_Mt_Hood
+  L_disjuncta_CA_Salmon_CreekL_disjuncta_CA_Trinity_Alps
+
+Guide tree with posterior probability for presence of nodes:
+((L_disjuncta_CA_Emerson_Creek, (L_disjuncta_OR_Lostine_River, (L_disjuncta_ID_Salmon_River, (L_disjuncta_BC_Summit_Creek, L_disjuncta_MT_Mill_Creek)#0.974000)#0.988000)#1.000000)#1.000000, ((L_disjuncta_CA_Lily_Lake, L_disjuncta_OR_Mt_Hood)#0.999000, (L_disjuncta_CA_Salmon_Creek, L_disjuncta_CA_Trinity_Alps)#0.858000)#1.000000)#1.000000;;

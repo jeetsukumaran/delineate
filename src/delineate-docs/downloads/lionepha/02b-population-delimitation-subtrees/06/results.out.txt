@@ -1,0 +1,777 @@
+Analysis started at: Mon Mar  2 18:45:45 2020
+Using BPP version: 4.1.4
+Command: bpp --cfile bpprun.input.ctl 
+
+COMPRESSED ALIGNMENTS
+
+16 10 P
+^L_osculans_CA_Cold_Creek_1387                  uucgcgaagx
+^L_osculans_CA_Cold_Creek_1390                  uucgcgaagx
+^L_osculans_CA_Rainbow_1401                     uucgcggxxx
+^L_osculans_CA_Stanislaus_NF_3157               uucgcggxxx
+^L_osculans_CA_Warner_Range_3161                uucgcggxxx
+^L_osculans_CA_Los_Padres_NF_3162               uucgcagagx
+^L_osculans_CA_Strawberry_Creek_3163            uucgcggagx
+^L_osculans_CA_Carson_Spur_3164                 uucgxggagx
+^L_osculans_CA_Nanny_Creek_3721                 uucgcggxxx
+^L_osculans_CA_Pike_County_Gulch_3846           uucgcggxxx
+^L_osculans_OR_School_Creek_2638                uuuacggaax
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095     uxcgxggagx
+^L_osculans_OR_Goodman_Creek_3158               uuuacggxxx
+^L_osculans_OR_Eugene_4593                      uuuacggxxx
+^L_osculans_OR_Walton_Lake_4743                 uucacggxxx
+^L_osculans_OR_Little_Philips_Creek_5001        uucacggxxx
+634 15 1 2 4 1 1 107 1 1
+
+16 2 P
+^L_osculans_CA_Cold_Creek_1387                  xx
+^L_osculans_CA_Cold_Creek_1390                  xx
+^L_osculans_CA_Rainbow_1401                     cx
+^L_osculans_CA_Stanislaus_NF_3157               xx
+^L_osculans_CA_Warner_Range_3161                xx
+^L_osculans_CA_Los_Padres_NF_3162               xx
+^L_osculans_CA_Strawberry_Creek_3163            xx
+^L_osculans_CA_Carson_Spur_3164                 xx
+^L_osculans_CA_Nanny_Creek_3721                 xx
+^L_osculans_CA_Pike_County_Gulch_3846           xx
+^L_osculans_OR_School_Creek_2638                xx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095     xx
+^L_osculans_OR_Goodman_Creek_3158               xx
+^L_osculans_OR_Eugene_4593                      xx
+^L_osculans_OR_Walton_Lake_4743                 xx
+^L_osculans_OR_Little_Philips_Creek_5001        xx
+1909 103
+
+16 14 P
+^L_osculans_CA_Cold_Creek_1387                  aaaaugmggg xxxx
+^L_osculans_CA_Cold_Creek_1390                  aaaaxxyggg acax
+^L_osculans_CA_Rainbow_1401                     aaaauxcggg acax
+^L_osculans_CA_Stanislaus_NF_3157               arxxugcggg xxxg
+^L_osculans_CA_Warner_Range_3161                aaaauxcggk acax
+^L_osculans_CA_Los_Padres_NF_3162               aaaauxcggg acax
+^L_osculans_CA_Strawberry_Creek_3163            aaaaugcgrg acag
+^L_osculans_CA_Carson_Spur_3164                 aaaauxmrgg acax
+^L_osculans_CA_Nanny_Creek_3721                 aaaauxmggg axxx
+^L_osculans_CA_Pike_County_Gulch_3846           aaaauxcggg acax
+^L_osculans_OR_School_Creek_2638                aaaxugcggg xxxx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095     aaaxuxcggg xxxx
+^L_osculans_OR_Goodman_Creek_3158               aaaxugcggg xxxg
+^L_osculans_OR_Eugene_4593                      aaaauxaggg acax
+^L_osculans_OR_Walton_Lake_4743                 aaaauxcggg acax
+^L_osculans_OR_Little_Philips_Creek_5001        aaaauxmggg acxx
+662 1 15 12 39 94 1 1 1 1 3 4 2 7
+
+16 6 P
+^L_osculans_CA_Cold_Creek_1387                  xxxxxx
+^L_osculans_CA_Cold_Creek_1390                  xxxxxx
+^L_osculans_CA_Rainbow_1401                     guagxx
+^L_osculans_CA_Stanislaus_NF_3157               xxxxxx
+^L_osculans_CA_Warner_Range_3161                xxxxxx
+^L_osculans_CA_Los_Padres_NF_3162               xxxxxx
+^L_osculans_CA_Strawberry_Creek_3163            xxxxxx
+^L_osculans_CA_Carson_Spur_3164                 xxxxxx
+^L_osculans_CA_Nanny_Creek_3721                 xxxxxx
+^L_osculans_CA_Pike_County_Gulch_3846           gucxcx
+^L_osculans_OR_School_Creek_2638                ggaxcx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095     xxxxxx
+^L_osculans_OR_Goodman_Creek_3158               xxxxxx
+^L_osculans_OR_Eugene_4593                      xxxxxx
+^L_osculans_OR_Walton_Lake_4743                 xxxxxx
+^L_osculans_OR_Little_Philips_Creek_5001        xxxxxx
+638 1 1 27 78 2
+
+16 10 P
+^L_osculans_CA_Cold_Creek_1387                  xxxxxxxxxx
+^L_osculans_CA_Cold_Creek_1390                  xxxxxxxxxx
+^L_osculans_CA_Rainbow_1401                     xxxxxxxxxx
+^L_osculans_CA_Stanislaus_NF_3157               xxxxxxxxxx
+^L_osculans_CA_Warner_Range_3161                xxxxxxxxxx
+^L_osculans_CA_Los_Padres_NF_3162               xxxxxxxxxx
+^L_osculans_CA_Strawberry_Creek_3163            xxxxxxxxxx
+^L_osculans_CA_Carson_Spur_3164                 xxxxxxxxxx
+^L_osculans_CA_Nanny_Creek_3721                 xxxxxxxxxx
+^L_osculans_CA_Pike_County_Gulch_3846           xxxxxxxxxx
+^L_osculans_OR_School_Creek_2638                aaggrwyyxx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095     xxxxxxxxxx
+^L_osculans_OR_Goodman_Creek_3158               xxxxxxxxxx
+^L_osculans_OR_Eugene_4593                      arrsgccucx
+^L_osculans_OR_Walton_Lake_4743                 xxxxxxxxxx
+^L_osculans_OR_Little_Philips_Creek_5001        xxxxxxxxxx
+835 2 1 1 1 1 1 1 39 33
+
+16 13 P
+^L_osculans_CA_Cold_Creek_1387                  acccgrrsyy yxx
+^L_osculans_CA_Cold_Creek_1390                  xxxxxxxxxx xxx
+^L_osculans_CA_Rainbow_1401                     acuyrgrscu yxx
+^L_osculans_CA_Stanislaus_NF_3157               xxxxxxxxxx xxx
+^L_osculans_CA_Warner_Range_3161                xxxxxxxxxx xxx
+^L_osculans_CA_Los_Padres_NF_3162               xxxxxxxxxx xxx
+^L_osculans_CA_Strawberry_Creek_3163            xxxxxxxxxx xxx
+^L_osculans_CA_Carson_Spur_3164                 xxxxxxxxxx xxx
+^L_osculans_CA_Nanny_Creek_3721                 xxxxxxxxxx xxx
+^L_osculans_CA_Pike_County_Gulch_3846           auccgggccu cgx
+^L_osculans_OR_School_Creek_2638                acccgggccu cgx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095     xxxxxxxxxx xxx
+^L_osculans_OR_Goodman_Creek_3158               xxxxxxxxxx xxx
+^L_osculans_OR_Eugene_4593                      xxxxxxxxxx xxx
+^L_osculans_OR_Walton_Lake_4743                 xxxxxxxxxx xxx
+^L_osculans_OR_Little_Philips_Creek_5001        xxxxxxxxxx xxx
+435 1 1 1 2 1 1 1 1 1 2 40 3
+
+16 25 P
+^L_osculans_CA_Cold_Creek_1387                  aagagauuac ccccggggru uuuux
+^L_osculans_CA_Cold_Creek_1390                  xxxxxxxxxx xxxxxxxxxx xxxxx
+^L_osculans_CA_Rainbow_1401                     aagagauggc ccccgggggu uuuuu
+^L_osculans_CA_Stanislaus_NF_3157               aagagaxuaa cccyagrugu uwyyx
+^L_osculans_CA_Warner_Range_3161                aagagaxugc ccuugggggu uucux
+^L_osculans_CA_Los_Padres_NF_3162               aagrxxxurm cyyygrguru uucux
+^L_osculans_CA_Strawberry_Creek_3163            aaxagwuugc cccugurugu uuuuu
+^L_osculans_CA_Carson_Spur_3164                 argrgaxugc ycycgrgkru kuyux
+^L_osculans_CA_Nanny_Creek_3721                 aagagauugc cccyggguru uuyuu
+^L_osculans_CA_Pike_County_Gulch_3846           aagagauugc ccccggggau uuuuu
+^L_osculans_OR_School_Creek_2638                aagggaxugc ccccgggugu uauux
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095     aagggaxugc ccccgggugu uauux
+^L_osculans_OR_Goodman_Creek_3158               aagagaxugc ccccgggugu uucux
+^L_osculans_OR_Eugene_4593                      aagggauugc ccccggrugu uuyuu
+^L_osculans_OR_Walton_Lake_4743                 aaggxxxugc ccccgggugu uwyux
+^L_osculans_OR_Little_Philips_Creek_5001        aagggauugc ccccrgaury uayuu
+737 1 3 1 48 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1
+
+16 21 P
+^L_osculans_CA_Cold_Creek_1387                  uagauacrxx xxxxxxxxxx x
+^L_osculans_CA_Cold_Creek_1390                  uagauayaxx xxxxxxxxxx x
+^L_osculans_CA_Rainbow_1401                     uagauxcaua uxxxxxxxxx x
+^L_osculans_CA_Stanislaus_NF_3157               uagauacaxx xaagxxxxxx x
+^L_osculans_CA_Warner_Range_3161                uagauacaua uaaxuxxxxx x
+^L_osculans_CA_Los_Padres_NF_3162               uagauacaua uaaxugaaxx x
+^L_osculans_CA_Strawberry_Creek_3163            uagauacaua uaxxugaaux x
+^L_osculans_CA_Carson_Spur_3164                 uagauacrua uaaxugaxxx x
+^L_osculans_CA_Nanny_Creek_3721                 uagauacgua uaagugxxxc x
+^L_osculans_CA_Pike_County_Gulch_3846           uagauacgua uaagugxxxc x
+^L_osculans_OR_School_Creek_2638                uagacacgxx xxxxxxxxxx x
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095     uagxcacgxx xxxxxxxxxx x
+^L_osculans_OR_Goodman_Creek_3158               uagacacgxx xaagxxxxxx x
+^L_osculans_OR_Eugene_4593                      uxxxcacgux xxxxxxxxxx x
+^L_osculans_OR_Walton_Lake_4743                 uagacacgua uxxxxxxxxx x
+^L_osculans_OR_Little_Philips_Creek_5001        uaxxcacgua xxxxxxxxxx x
+1005 9 2 2 3 1 1 1 14 3 1 1 1 24 27 8 7 3 1 1 77
+
+COMPRESSED ALIGNMENTS AFTER PHASING OF DIPLOID SEQUENCES
+
+32 10 P
+^L_osculans_CA_Cold_Creek_1387.1                  uucgcgaagx
+^L_osculans_CA_Cold_Creek_1387.2                  uucgcgaagx
+^L_osculans_CA_Cold_Creek_1390.1                  uucgcgaagx
+^L_osculans_CA_Cold_Creek_1390.2                  uucgcgaagx
+^L_osculans_CA_Rainbow_1401.1                     uucgcggxxx
+^L_osculans_CA_Rainbow_1401.2                     uucgcggxxx
+^L_osculans_CA_Stanislaus_NF_3157.1               uucgcggxxx
+^L_osculans_CA_Stanislaus_NF_3157.2               uucgcggxxx
+^L_osculans_CA_Warner_Range_3161.1                uucgcggxxx
+^L_osculans_CA_Warner_Range_3161.2                uucgcggxxx
+^L_osculans_CA_Los_Padres_NF_3162.1               uucgcagagx
+^L_osculans_CA_Los_Padres_NF_3162.2               uucgcagagx
+^L_osculans_CA_Strawberry_Creek_3163.1            uucgcggagx
+^L_osculans_CA_Strawberry_Creek_3163.2            uucgcggagx
+^L_osculans_CA_Carson_Spur_3164.1                 uucgxggagx
+^L_osculans_CA_Carson_Spur_3164.2                 uucgxggagx
+^L_osculans_CA_Nanny_Creek_3721.1                 uucgcggxxx
+^L_osculans_CA_Nanny_Creek_3721.2                 uucgcggxxx
+^L_osculans_CA_Pike_County_Gulch_3846.1           uucgcggxxx
+^L_osculans_CA_Pike_County_Gulch_3846.2           uucgcggxxx
+^L_osculans_OR_School_Creek_2638.1                uuuacggaax
+^L_osculans_OR_School_Creek_2638.2                uuuacggaax
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.1     uxcgxggagx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.2     uxcgxggagx
+^L_osculans_OR_Goodman_Creek_3158.1               uuuacggxxx
+^L_osculans_OR_Goodman_Creek_3158.2               uuuacggxxx
+^L_osculans_OR_Eugene_4593.1                      uuuacggxxx
+^L_osculans_OR_Eugene_4593.2                      uuuacggxxx
+^L_osculans_OR_Walton_Lake_4743.1                 uucacggxxx
+^L_osculans_OR_Walton_Lake_4743.2                 uucacggxxx
+^L_osculans_OR_Little_Philips_Creek_5001.1        uucacggxxx
+^L_osculans_OR_Little_Philips_Creek_5001.2        uucacggxxx
+1 1 1 1 1 1 1 1 1 1
+
+32 2 P
+^L_osculans_CA_Cold_Creek_1387.1                  xx
+^L_osculans_CA_Cold_Creek_1387.2                  xx
+^L_osculans_CA_Cold_Creek_1390.1                  xx
+^L_osculans_CA_Cold_Creek_1390.2                  xx
+^L_osculans_CA_Rainbow_1401.1                     cx
+^L_osculans_CA_Rainbow_1401.2                     cx
+^L_osculans_CA_Stanislaus_NF_3157.1               xx
+^L_osculans_CA_Stanislaus_NF_3157.2               xx
+^L_osculans_CA_Warner_Range_3161.1                xx
+^L_osculans_CA_Warner_Range_3161.2                xx
+^L_osculans_CA_Los_Padres_NF_3162.1               xx
+^L_osculans_CA_Los_Padres_NF_3162.2               xx
+^L_osculans_CA_Strawberry_Creek_3163.1            xx
+^L_osculans_CA_Strawberry_Creek_3163.2            xx
+^L_osculans_CA_Carson_Spur_3164.1                 xx
+^L_osculans_CA_Carson_Spur_3164.2                 xx
+^L_osculans_CA_Nanny_Creek_3721.1                 xx
+^L_osculans_CA_Nanny_Creek_3721.2                 xx
+^L_osculans_CA_Pike_County_Gulch_3846.1           xx
+^L_osculans_CA_Pike_County_Gulch_3846.2           xx
+^L_osculans_OR_School_Creek_2638.1                xx
+^L_osculans_OR_School_Creek_2638.2                xx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.1     xx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.2     xx
+^L_osculans_OR_Goodman_Creek_3158.1               xx
+^L_osculans_OR_Goodman_Creek_3158.2               xx
+^L_osculans_OR_Eugene_4593.1                      xx
+^L_osculans_OR_Eugene_4593.2                      xx
+^L_osculans_OR_Walton_Lake_4743.1                 xx
+^L_osculans_OR_Walton_Lake_4743.2                 xx
+^L_osculans_OR_Little_Philips_Creek_5001.1        xx
+^L_osculans_OR_Little_Philips_Creek_5001.2        xx
+1 1
+
+32 17 P
+^L_osculans_CA_Cold_Creek_1387.1                  aggggggaaa ugaxxxx
+^L_osculans_CA_Cold_Creek_1387.2                  aggggggaaa ugcxxxx
+^L_osculans_CA_Cold_Creek_1390.1                  aggggggaaa xxcacax
+^L_osculans_CA_Cold_Creek_1390.2                  aggggggaaa xxuacax
+^L_osculans_CA_Rainbow_1401.1                     aggggggaaa uxcacax
+^L_osculans_CA_Rainbow_1401.2                     aggggggaaa uxcacax
+^L_osculans_CA_Stanislaus_NF_3157.1               aggggggaxx ugcxxxg
+^L_osculans_CA_Stanislaus_NF_3157.2               agggggggxx ugcxxxg
+^L_osculans_CA_Warner_Range_3161.1                aggggguaaa uxcacax
+^L_osculans_CA_Warner_Range_3161.2                aggggugaaa uxcacax
+^L_osculans_CA_Los_Padres_NF_3162.1               aggggggaaa uxcacax
+^L_osculans_CA_Los_Padres_NF_3162.2               aggggggaaa uxcacax
+^L_osculans_CA_Strawberry_Creek_3163.1            agggaggaaa ugcacag
+^L_osculans_CA_Strawberry_Creek_3163.2            aggagggaaa ugcacag
+^L_osculans_CA_Carson_Spur_3164.1                 agaggggaaa uxaacax
+^L_osculans_CA_Carson_Spur_3164.2                 aagggggaaa uxcacax
+^L_osculans_CA_Nanny_Creek_3721.1                 aggggggaaa uxaaxxx
+^L_osculans_CA_Nanny_Creek_3721.2                 aggggggaaa uxcaxxx
+^L_osculans_CA_Pike_County_Gulch_3846.1           aggggggaaa uxcacax
+^L_osculans_CA_Pike_County_Gulch_3846.2           aggggggaaa uxcacax
+^L_osculans_OR_School_Creek_2638.1                aggggggaax ugcxxxx
+^L_osculans_OR_School_Creek_2638.2                aggggggaax ugcxxxx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.1     aggggggaax uxcxxxx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.2     aggggggaax uxcxxxx
+^L_osculans_OR_Goodman_Creek_3158.1               aggggggaax ugcxxxg
+^L_osculans_OR_Goodman_Creek_3158.2               aggggggaax ugcxxxg
+^L_osculans_OR_Eugene_4593.1                      aggggggaaa uxaacax
+^L_osculans_OR_Eugene_4593.2                      aggggggaaa uxaacax
+^L_osculans_OR_Walton_Lake_4743.1                 aggggggaaa uxcacax
+^L_osculans_OR_Walton_Lake_4743.2                 aggggggaaa uxcacax
+^L_osculans_OR_Little_Philips_Creek_5001.1        aggggggaaa uxaacxx
+^L_osculans_OR_Little_Philips_Creek_5001.2        aggggggaaa uxcacxx
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+32 6 P
+^L_osculans_CA_Cold_Creek_1387.1                  xxxxxx
+^L_osculans_CA_Cold_Creek_1387.2                  xxxxxx
+^L_osculans_CA_Cold_Creek_1390.1                  xxxxxx
+^L_osculans_CA_Cold_Creek_1390.2                  xxxxxx
+^L_osculans_CA_Rainbow_1401.1                     guagxx
+^L_osculans_CA_Rainbow_1401.2                     guagxx
+^L_osculans_CA_Stanislaus_NF_3157.1               xxxxxx
+^L_osculans_CA_Stanislaus_NF_3157.2               xxxxxx
+^L_osculans_CA_Warner_Range_3161.1                xxxxxx
+^L_osculans_CA_Warner_Range_3161.2                xxxxxx
+^L_osculans_CA_Los_Padres_NF_3162.1               xxxxxx
+^L_osculans_CA_Los_Padres_NF_3162.2               xxxxxx
+^L_osculans_CA_Strawberry_Creek_3163.1            xxxxxx
+^L_osculans_CA_Strawberry_Creek_3163.2            xxxxxx
+^L_osculans_CA_Carson_Spur_3164.1                 xxxxxx
+^L_osculans_CA_Carson_Spur_3164.2                 xxxxxx
+^L_osculans_CA_Nanny_Creek_3721.1                 xxxxxx
+^L_osculans_CA_Nanny_Creek_3721.2                 xxxxxx
+^L_osculans_CA_Pike_County_Gulch_3846.1           gucxcx
+^L_osculans_CA_Pike_County_Gulch_3846.2           gucxcx
+^L_osculans_OR_School_Creek_2638.1                ggaxcx
+^L_osculans_OR_School_Creek_2638.2                ggaxcx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.1     xxxxxx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.2     xxxxxx
+^L_osculans_OR_Goodman_Creek_3158.1               xxxxxx
+^L_osculans_OR_Goodman_Creek_3158.2               xxxxxx
+^L_osculans_OR_Eugene_4593.1                      xxxxxx
+^L_osculans_OR_Eugene_4593.2                      xxxxxx
+^L_osculans_OR_Walton_Lake_4743.1                 xxxxxx
+^L_osculans_OR_Walton_Lake_4743.2                 xxxxxx
+^L_osculans_OR_Little_Philips_Creek_5001.1        xxxxxx
+^L_osculans_OR_Little_Philips_Creek_5001.2        xxxxxx
+1 1 1 1 1 1
+
+32 8 P
+^L_osculans_CA_Cold_Creek_1387.1                  xxxxxxxx
+^L_osculans_CA_Cold_Creek_1387.2                  xxxxxxxx
+^L_osculans_CA_Cold_Creek_1390.1                  xxxxxxxx
+^L_osculans_CA_Cold_Creek_1390.2                  xxxxxxxx
+^L_osculans_CA_Rainbow_1401.1                     xxxxxxxx
+^L_osculans_CA_Rainbow_1401.2                     xxxxxxxx
+^L_osculans_CA_Stanislaus_NF_3157.1               xxxxxxxx
+^L_osculans_CA_Stanislaus_NF_3157.2               xxxxxxxx
+^L_osculans_CA_Warner_Range_3161.1                xxxxxxxx
+^L_osculans_CA_Warner_Range_3161.2                xxxxxxxx
+^L_osculans_CA_Los_Padres_NF_3162.1               xxxxxxxx
+^L_osculans_CA_Los_Padres_NF_3162.2               xxxxxxxx
+^L_osculans_CA_Strawberry_Creek_3163.1            xxxxxxxx
+^L_osculans_CA_Strawberry_Creek_3163.2            xxxxxxxx
+^L_osculans_CA_Carson_Spur_3164.1                 xxxxxxxx
+^L_osculans_CA_Carson_Spur_3164.2                 xxxxxxxx
+^L_osculans_CA_Nanny_Creek_3721.1                 xxxxxxxx
+^L_osculans_CA_Nanny_Creek_3721.2                 xxxxxxxx
+^L_osculans_CA_Pike_County_Gulch_3846.1           xxxxxxxx
+^L_osculans_CA_Pike_County_Gulch_3846.2           xxxxxxxx
+^L_osculans_OR_School_Creek_2638.1                aaguuuxx
+^L_osculans_OR_School_Creek_2638.2                aagccaxx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.1     xxxxxxxx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.2     xxxxxxxx
+^L_osculans_OR_Goodman_Creek_3158.1               xxxxxxxx
+^L_osculans_OR_Goodman_Creek_3158.2               xxxxxxxx
+^L_osculans_OR_Eugene_4593.1                      aaaucccx
+^L_osculans_OR_Eugene_4593.2                      aggucccx
+^L_osculans_OR_Walton_Lake_4743.1                 xxxxxxxx
+^L_osculans_OR_Walton_Lake_4743.2                 xxxxxxxx
+^L_osculans_OR_Little_Philips_Creek_5001.1        xxxxxxxx
+^L_osculans_OR_Little_Philips_Creek_5001.2        xxxxxxxx
+1 2 3 2 3 2 1 1
+
+32 13 P
+^L_osculans_CA_Cold_Creek_1387.1                  accccccucu axx
+^L_osculans_CA_Cold_Creek_1387.2                  accccuucgc gxx
+^L_osculans_CA_Cold_Creek_1390.1                  xxxxxxxxxx xxx
+^L_osculans_CA_Cold_Creek_1390.2                  xxxxxxxxxx xxx
+^L_osculans_CA_Rainbow_1401.1                     accuuccugc gxx
+^L_osculans_CA_Rainbow_1401.2                     acucucuccu gxx
+^L_osculans_CA_Stanislaus_NF_3157.1               xxxxxxxxxx xxx
+^L_osculans_CA_Stanislaus_NF_3157.2               xxxxxxxxxx xxx
+^L_osculans_CA_Warner_Range_3161.1                xxxxxxxxxx xxx
+^L_osculans_CA_Warner_Range_3161.2                xxxxxxxxxx xxx
+^L_osculans_CA_Los_Padres_NF_3162.1               xxxxxxxxxx xxx
+^L_osculans_CA_Los_Padres_NF_3162.2               xxxxxxxxxx xxx
+^L_osculans_CA_Strawberry_Creek_3163.1            xxxxxxxxxx xxx
+^L_osculans_CA_Strawberry_Creek_3163.2            xxxxxxxxxx xxx
+^L_osculans_CA_Carson_Spur_3164.1                 xxxxxxxxxx xxx
+^L_osculans_CA_Carson_Spur_3164.2                 xxxxxxxxxx xxx
+^L_osculans_CA_Nanny_Creek_3721.1                 xxxxxxxxxx xxx
+^L_osculans_CA_Nanny_Creek_3721.2                 xxxxxxxxxx xxx
+^L_osculans_CA_Pike_County_Gulch_3846.1           aucccccccc ggx
+^L_osculans_CA_Pike_County_Gulch_3846.2           aucccccccc ggx
+^L_osculans_OR_School_Creek_2638.1                accccccccc ggx
+^L_osculans_OR_School_Creek_2638.2                accccccccc ggx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.1     xxxxxxxxxx xxx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.2     xxxxxxxxxx xxx
+^L_osculans_OR_Goodman_Creek_3158.1               xxxxxxxxxx xxx
+^L_osculans_OR_Goodman_Creek_3158.2               xxxxxxxxxx xxx
+^L_osculans_OR_Eugene_4593.1                      xxxxxxxxxx xxx
+^L_osculans_OR_Eugene_4593.2                      xxxxxxxxxx xxx
+^L_osculans_OR_Walton_Lake_4743.1                 xxxxxxxxxx xxx
+^L_osculans_OR_Walton_Lake_4743.2                 xxxxxxxxxx xxx
+^L_osculans_OR_Little_Philips_Creek_5001.1        xxxxxxxxxx xxx
+^L_osculans_OR_Little_Philips_Creek_5001.2        xxxxxxxxxx xxx
+1 1 2 2 1 3 2 2 3 1 3 1 1
+
+32 58 P
+^L_osculans_CA_Cold_Creek_1387.1                  auuuugcaag gcaagggaac cccuuuggcc ccuuuggccc cuuuuggccg guuaaaax
+^L_osculans_CA_Cold_Creek_1387.2                  auuuugcaag gcaagggaac cccuuuggcc ccuuuggccc cuuuuggccg guuaaggx
+^L_osculans_CA_Cold_Creek_1390.1                  xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxx
+^L_osculans_CA_Cold_Creek_1390.2                  xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xxxxxxxx
+^L_osculans_CA_Rainbow_1401.1                     auuuugcaag gcaagggaac cccuuuggcc ccuuuggccc cuuuuggccg gugggggu
+^L_osculans_CA_Rainbow_1401.2                     auuuugcaag gcaagggaac cccuuuggcc ccuuuggccc cuuuuggccg gugggggu
+^L_osculans_CA_Stanislaus_NF_3157.1               auuuugcaag gcaagggaac cccuuuggcc cccaaaauuu uccccaaaau uxuaaggx
+^L_osculans_CA_Stanislaus_NF_3157.2               auuuugcaag gcaagggaac ccccaaaauu uuuuuggccc cuuuuaaaau uxuaaggx
+^L_osculans_CA_Warner_Range_3161.1                auuuugcaag gcaagggaau uuuuuugguu uuuuugguuu uccccggccg gxuggggx
+^L_osculans_CA_Warner_Range_3161.2                auuuugcaag gcaagggaau uuuuuugguu uuuuugguuu uccccggccg gxuggggx
+^L_osculans_CA_Los_Padres_NF_3162.1               auuuugcaag guggaaxxxc cuuuuuggcc uuuuuggccu uccccggcau uxuagaax
+^L_osculans_CA_Los_Padres_NF_3162.2               auuuugugga acaaggxxxu uccuuugguu ccuuugguuc cccccggacu uxugaggx
+^L_osculans_CA_Strawberry_Creek_3163.1            auuuuxcaau ucaauugauc cccuuuaauu uuuuuaauuu uuuuuggccu uuuggggu
+^L_osculans_CA_Strawberry_Creek_3163.2            auuuuxcaau ucaauuguac cccuuugguu uuuuugguuu uuuuuggccu uuuggggu
+^L_osculans_CA_Carson_Spur_3164.1                 auuuggcagg acaggagaac ucuuuuggcc ccuuuggccc cuuccggccg uxuggaax
+^L_osculans_CA_Carson_Spur_3164.2                 auugugcgaa gcgaaggaau cucuuuggcc ccuuuggccc cccuuggccu gxuggggx
+^L_osculans_CA_Nanny_Creek_3721.1                 auuuugcaag gcaagggaac cccuuuggcu cuuuuggcuc uucucggccu uuuggaau
+^L_osculans_CA_Nanny_Creek_3721.2                 auuuugcaag gcaagggaac cccuuugguc ucuuuggucu ccucuggccu uuuggggu
+^L_osculans_CA_Pike_County_Gulch_3846.1           auuuugcaag gcaagggaac cccuuuggcc ccuuuggccc cuuuuggccg guuggaau
+^L_osculans_CA_Pike_County_Gulch_3846.2           auuuugcaag gcaagggaac cccuuuggcc ccuuuggccc cuuuuggccg guuggaau
+^L_osculans_OR_School_Creek_2638.1                auuuugcggg gcgggggaac cccuaaggcc ccuaaggccc cuuuuggccu uxuggggx
+^L_osculans_OR_School_Creek_2638.2                auuuugcggg gcgggggaac cccuaaggcc ccuaaggccc cuuuuggccu uxuggggx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.1     auuuugcggg gcgggggaac cccuaaggcc ccuaaggccc cuuuuggccu uxuggggx
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.2     auuuugcggg gcgggggaac cccuaaggcc ccuaaggccc cuuuuggccu uxuggggx
+^L_osculans_OR_Goodman_Creek_3158.1               auuuugcaag gcaagggaac cccuuuggcc ccuuuggccc cccccggccu uxuggggx
+^L_osculans_OR_Goodman_Creek_3158.2               auuuugcaag gcaagggaac cccuuuggcc ccuuuggccc cccccggccu uxuggggx
+^L_osculans_OR_Eugene_4593.1                      auuuugcggg gcgggggaac cccuuugacc ccuuugaccc cccccggccu uuuggggu
+^L_osculans_OR_Eugene_4593.2                      auuuugcggg gcgggggaac cccuuuagcc ccuuuagccc cuuuuggccu uuuggggu
+^L_osculans_OR_Walton_Lake_4743.1                 auuuugcggg gcggggxxxc cccuuaggcc ccuuaggccc cccccggccu uxuggggx
+^L_osculans_OR_Walton_Lake_4743.2                 auuuugcggg gcggggxxxc cccuauggcc ccuauggccc cuuuuggccu uxuggggx
+^L_osculans_OR_Little_Philips_Creek_5001.1        aucuugcggg gcgggggaac cccuaaaacc ccuaaaaccc cccccgaccu uuuggagu
+^L_osculans_OR_Little_Philips_Creek_5001.2        acuuugcggg gcgggggaac cccuaaaacc ccuaaaaccc cuuuuagccu uuugggau
+1 1 1 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+32 21 P
+^L_osculans_CA_Cold_Creek_1387.1                  uagauacaxx xxxxxxxxxx x
+^L_osculans_CA_Cold_Creek_1387.2                  uagauacgxx xxxxxxxxxx x
+^L_osculans_CA_Cold_Creek_1390.1                  uagauacaxx xxxxxxxxxx x
+^L_osculans_CA_Cold_Creek_1390.2                  uagauauaxx xxxxxxxxxx x
+^L_osculans_CA_Rainbow_1401.1                     uagauxcaua uxxxxxxxxx x
+^L_osculans_CA_Rainbow_1401.2                     uagauxcaua uxxxxxxxxx x
+^L_osculans_CA_Stanislaus_NF_3157.1               uagauacaxx xaagxxxxxx x
+^L_osculans_CA_Stanislaus_NF_3157.2               uagauacaxx xaagxxxxxx x
+^L_osculans_CA_Warner_Range_3161.1                uagauacaua uaaxuxxxxx x
+^L_osculans_CA_Warner_Range_3161.2                uagauacaua uaaxuxxxxx x
+^L_osculans_CA_Los_Padres_NF_3162.1               uagauacaua uaaxugaaxx x
+^L_osculans_CA_Los_Padres_NF_3162.2               uagauacaua uaaxugaaxx x
+^L_osculans_CA_Strawberry_Creek_3163.1            uagauacaua uaxxugaaux x
+^L_osculans_CA_Strawberry_Creek_3163.2            uagauacaua uaxxugaaux x
+^L_osculans_CA_Carson_Spur_3164.1                 uagauacaua uaaxugaxxx x
+^L_osculans_CA_Carson_Spur_3164.2                 uagauacgua uaaxugaxxx x
+^L_osculans_CA_Nanny_Creek_3721.1                 uagauacgua uaagugxxxc x
+^L_osculans_CA_Nanny_Creek_3721.2                 uagauacgua uaagugxxxc x
+^L_osculans_CA_Pike_County_Gulch_3846.1           uagauacgua uaagugxxxc x
+^L_osculans_CA_Pike_County_Gulch_3846.2           uagauacgua uaagugxxxc x
+^L_osculans_OR_School_Creek_2638.1                uagacacgxx xxxxxxxxxx x
+^L_osculans_OR_School_Creek_2638.2                uagacacgxx xxxxxxxxxx x
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.1     uagxcacgxx xxxxxxxxxx x
+^L_osculans_OR_Middle_Fork_Berry_Creek_3095.2     uagxcacgxx xxxxxxxxxx x
+^L_osculans_OR_Goodman_Creek_3158.1               uagacacgxx xaagxxxxxx x
+^L_osculans_OR_Goodman_Creek_3158.2               uagacacgxx xaagxxxxxx x
+^L_osculans_OR_Eugene_4593.1                      uxxxcacgux xxxxxxxxxx x
+^L_osculans_OR_Eugene_4593.2                      uxxxcacgux xxxxxxxxxx x
+^L_osculans_OR_Walton_Lake_4743.1                 uagacacgua uxxxxxxxxx x
+^L_osculans_OR_Walton_Lake_4743.2                 uagacacgua uxxxxxxxxx x
+^L_osculans_OR_Little_Philips_Creek_5001.1        uaxxcacgua xxxxxxxxxx x
+^L_osculans_OR_Little_Philips_Creek_5001.2        uaxxcacgua xxxxxxxxxx x
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+
+Per-locus sequences in data and 'species&tree' tag:
+C.File | Data |                Status                | Population
+-------+------+--------------------------------------+-----------
+     4 |    4 | [OK]                                 | L_osculans_CA_Cold_Creek
+     2 |    2 | [OK]                                 | L_osculans_CA_Rainbow
+     2 |    2 | [OK]                                 | L_osculans_CA_Stanislaus_NF
+     2 |    2 | [OK]                                 | L_osculans_CA_Warner_Range
+     2 |    2 | [OK]                                 | L_osculans_CA_Los_Padres_NF
+     2 |    2 | [OK]                                 | L_osculans_CA_Strawberry_Creek
+     2 |    2 | [OK]                                 | L_osculans_CA_Carson_Spur
+     2 |    2 | [OK]                                 | L_osculans_CA_Nanny_Creek
+     2 |    2 | [OK]                                 | L_osculans_CA_Pike_County_Gulch
+     2 |    2 | [OK]                                 | L_osculans_OR_School_Creek
+     2 |    2 | [OK]                                 | L_osculans_OR_Middle_Fork_Berry_Creek
+     2 |    2 | [OK]                                 | L_osculans_OR_Goodman_Creek
+     2 |    2 | [OK]                                 | L_osculans_OR_Eugene
+     2 |    2 | [OK]                                 | L_osculans_OR_Walton_Lake
+     2 |    2 | [OK]                                 | L_osculans_OR_Little_Philips_Creek
+
+
+Current Pjump:      0.65899  0.15325  0.00000  0.36912  0.15250
+Current finetune:   5.00000  0.00100  0.00100  0.00100  0.30000
+New finetune:      16.53304  0.00048  0.00001  0.00129  0.14380
+
+
+Current Pjump:      0.65706  0.31532  0.00000  0.36823  0.45050
+Current finetune:  16.53304  0.00048  0.00001  0.00129  0.14380
+New finetune:      54.29193  0.00051  0.00000  0.00165  0.24143
+
+
+Current Pjump:      0.65868  0.30315  0.00000  0.36985  0.22950
+Current finetune:  54.29193  0.00051  0.00000  0.00165  0.24143
+New finetune:      99.00000  0.00052  0.00000  0.00212  0.17862
+
+
+Current Pjump:      0.65778  0.28518  0.00000  0.34693  0.36900
+Current finetune:  99.00000  0.00052  0.00000  0.00212  0.17862
+New finetune:      99.00000  0.00049  0.00000  0.00252  0.22949
+
+Summarizing the species-delimitation sample in file results.mcmc.txt
+
+Number of species-delimitation models = 273
+
+     model    prior    posterior
+   1 00000000000000   0.003663   0.000000
+   2 10000000000000   0.003663   0.000000
+   3 10000000010000   0.003663   0.000000
+   4 10000000011000   0.003663   0.000000
+   5 10000000011010   0.003663   0.000000
+   6 10000000011011   0.003663   0.000000
+   7 10000000011100   0.003663   0.000000
+   8 10000000011110   0.003663   0.000000
+   9 10000000011111   0.003663   0.000000
+  10 11000000000000   0.003663   0.000000
+  11 11000000010000   0.003663   0.000000
+  12 11000000011000   0.003663   0.000000
+  13 11000000011010   0.003663   0.000000
+  14 11000000011011   0.003663   0.000000
+  15 11000000011100   0.003663   0.000000
+  16 11000000011110   0.003663   0.000000
+  17 11000000011111   0.003663   0.000000
+  18 11000001000000   0.003663   0.000000
+  19 11000001010000   0.003663   0.000000
+  20 11000001011000   0.003663   0.000000
+  21 11000001011010   0.003663   0.000000
+  22 11000001011011   0.003663   0.000000
+  23 11000001011100   0.003663   0.000000
+  24 11000001011110   0.003663   0.000000
+  25 11000001011111   0.003663   0.000000
+  26 11000001100000   0.003663   0.000000
+  27 11000001110000   0.003663   0.000000
+  28 11000001111000   0.003663   0.000000
+  29 11000001111010   0.003663   0.000000
+  30 11000001111011   0.003663   0.000000
+  31 11000001111100   0.003663   0.000000
+  32 11000001111110   0.003663   0.000000
+  33 11000001111111   0.003663   0.000000
+  34 11100000000000   0.003663   0.000000
+  35 11100000010000   0.003663   0.000000
+  36 11100000011000   0.003663   0.000000
+  37 11100000011010   0.003663   0.000000
+  38 11100000011011   0.003663   0.000000
+  39 11100000011100   0.003663   0.000000
+  40 11100000011110   0.003663   0.000000
+  41 11100000011111   0.003663   0.000000
+  42 11100001000000   0.003663   0.000000
+  43 11100001010000   0.003663   0.000000
+  44 11100001011000   0.003663   0.000000
+  45 11100001011010   0.003663   0.000000
+  46 11100001011011   0.003663   0.000000
+  47 11100001011100   0.003663   0.000000
+  48 11100001011110   0.003663   0.000000
+  49 11100001011111   0.003663   0.002000
+  50 11100001100000   0.003663   0.000000
+  51 11100001110000   0.003663   0.000000
+  52 11100001111000   0.003663   0.000000
+  53 11100001111010   0.003663   0.000000
+  54 11100001111011   0.003663   0.000000
+  55 11100001111100   0.003663   0.000000
+  56 11100001111110   0.003663   0.000000
+  57 11100001111111   0.003663   0.000000
+  58 11100010000000   0.003663   0.000000
+  59 11100010010000   0.003663   0.000000
+  60 11100010011000   0.003663   0.004000
+  61 11100010011010   0.003663   0.002000
+  62 11100010011011   0.003663   0.003000
+  63 11100010011100   0.003663   0.000000
+  64 11100010011110   0.003663   0.002000
+  65 11100010011111   0.003663   0.001000
+  66 11100011000000   0.003663   0.000000
+  67 11100011010000   0.003663   0.000000
+  68 11100011011000   0.003663   0.000000
+  69 11100011011010   0.003663   0.001000
+  70 11100011011011   0.003663   0.013000
+  71 11100011011100   0.003663   0.000000
+  72 11100011011110   0.003663   0.000000
+  73 11100011011111   0.003663   0.012000
+  74 11100011100000   0.003663   0.000000
+  75 11100011110000   0.003663   0.000000
+  76 11100011111000   0.003663   0.000000
+  77 11100011111010   0.003663   0.000000
+  78 11100011111011   0.003663   0.003000
+  79 11100011111100   0.003663   0.000000
+  80 11100011111110   0.003663   0.000000
+  81 11100011111111   0.003663   0.002000
+  82 11110000000000   0.003663   0.000000
+  83 11110000010000   0.003663   0.000000
+  84 11110000011000   0.003663   0.000000
+  85 11110000011010   0.003663   0.000000
+  86 11110000011011   0.003663   0.000000
+  87 11110000011100   0.003663   0.000000
+  88 11110000011110   0.003663   0.000000
+  89 11110000011111   0.003663   0.000000
+  90 11110001000000   0.003663   0.000000
+  91 11110001010000   0.003663   0.000000
+  92 11110001011000   0.003663   0.000000
+  93 11110001011010   0.003663   0.000000
+  94 11110001011011   0.003663   0.000000
+  95 11110001011100   0.003663   0.000000
+  96 11110001011110   0.003663   0.000000
+  97 11110001011111   0.003663   0.000000
+  98 11110001100000   0.003663   0.000000
+  99 11110001110000   0.003663   0.000000
+ 100 11110001111000   0.003663   0.000000
+ 101 11110001111010   0.003663   0.000000
+ 102 11110001111011   0.003663   0.002000
+ 103 11110001111100   0.003663   0.000000
+ 104 11110001111110   0.003663   0.000000
+ 105 11110001111111   0.003663   0.001000
+ 106 11110010000000   0.003663   0.000000
+ 107 11110010010000   0.003663   0.002000
+ 108 11110010011000   0.003663   0.000000
+ 109 11110010011010   0.003663   0.001000
+ 110 11110010011011   0.003663   0.004000
+ 111 11110010011100   0.003663   0.001000
+ 112 11110010011110   0.003663   0.001000
+ 113 11110010011111   0.003663   0.005000
+ 114 11110011000000   0.003663   0.000000
+ 115 11110011010000   0.003663   0.002000
+ 116 11110011011000   0.003663   0.005000
+ 117 11110011011010   0.003663   0.001000
+ 118 11110011011011   0.003663   0.007000
+ 119 11110011011100   0.003663   0.004000
+ 120 11110011011110   0.003663   0.005000
+ 121 11110011011111   0.003663   0.015000
+ 122 11110011100000   0.003663   0.000000
+ 123 11110011110000   0.003663   0.002000
+ 124 11110011111000   0.003663   0.005000
+ 125 11110011111010   0.003663   0.001000
+ 126 11110011111011   0.003663   0.007000
+ 127 11110011111100   0.003663   0.002000
+ 128 11110011111110   0.003663   0.002000
+ 129 11110011111111   0.003663   0.007000
+ 130 11110100000000   0.003663   0.000000
+ 131 11110100010000   0.003663   0.001000
+ 132 11110100011000   0.003663   0.000000
+ 133 11110100011010   0.003663   0.000000
+ 134 11110100011011   0.003663   0.001000
+ 135 11110100011100   0.003663   0.000000
+ 136 11110100011110   0.003663   0.000000
+ 137 11110100011111   0.003663   0.001000
+ 138 11110101000000   0.003663   0.000000
+ 139 11110101010000   0.003663   0.000000
+ 140 11110101011000   0.003663   0.000000
+ 141 11110101011010   0.003663   0.000000
+ 142 11110101011011   0.003663   0.001000
+ 143 11110101011100   0.003663   0.002000
+ 144 11110101011110   0.003663   0.001000
+ 145 11110101011111   0.003663   0.000000
+ 146 11110101100000   0.003663   0.000000
+ 147 11110101110000   0.003663   0.000000
+ 148 11110101111000   0.003663   0.000000
+ 149 11110101111010   0.003663   0.001000
+ 150 11110101111011   0.003663   0.002000
+ 151 11110101111100   0.003663   0.000000
+ 152 11110101111110   0.003663   0.000000
+ 153 11110101111111   0.003663   0.000000
+ 154 11110110000000   0.003663   0.000000
+ 155 11110110010000   0.003663   0.007000
+ 156 11110110011000   0.003663   0.008000
+ 157 11110110011010   0.003663   0.006000
+ 158 11110110011011   0.003663   0.007000
+ 159 11110110011100   0.003663   0.007000
+ 160 11110110011110   0.003663   0.001000
+ 161 11110110011111   0.003663   0.006000
+ 162 11110111000000   0.003663   0.000000
+ 163 11110111010000   0.003663   0.016000
+ 164 11110111011000   0.003663   0.012000
+ 165 11110111011010   0.003663   0.016000
+ 166 11110111011011   0.003663   0.023000
+ 167 11110111011100   0.003663   0.008000
+ 168 11110111011110   0.003663   0.008000
+ 169 11110111011111   0.003663   0.013000
+ 170 11110111100000   0.003663   0.002000
+ 171 11110111110000   0.003663   0.011000
+ 172 11110111111000   0.003663   0.013000
+ 173 11110111111010   0.003663   0.017000
+ 174 11110111111011   0.003663   0.023000
+ 175 11110111111100   0.003663   0.006000
+ 176 11110111111110   0.003663   0.005000
+ 177 11110111111111   0.003663   0.019000
+ 178 11111000000000   0.003663   0.000000
+ 179 11111000010000   0.003663   0.000000
+ 180 11111000011000   0.003663   0.000000
+ 181 11111000011010   0.003663   0.000000
+ 182 11111000011011   0.003663   0.000000
+ 183 11111000011100   0.003663   0.000000
+ 184 11111000011110   0.003663   0.000000
+ 185 11111000011111   0.003663   0.000000
+ 186 11111001000000   0.003663   0.000000
+ 187 11111001010000   0.003663   0.000000
+ 188 11111001011000   0.003663   0.000000
+ 189 11111001011010   0.003663   0.000000
+ 190 11111001011011   0.003663   0.000000
+ 191 11111001011100   0.003663   0.001000
+ 192 11111001011110   0.003663   0.000000
+ 193 11111001011111   0.003663   0.001000
+ 194 11111001100000   0.003663   0.000000
+ 195 11111001110000   0.003663   0.000000
+ 196 11111001111000   0.003663   0.000000
+ 197 11111001111010   0.003663   0.001000
+ 198 11111001111011   0.003663   0.000000
+ 199 11111001111100   0.003663   0.001000
+ 200 11111001111110   0.003663   0.001000
+ 201 11111001111111   0.003663   0.003000
+ 202 11111010000000   0.003663   0.000000
+ 203 11111010010000   0.003663   0.005000
+ 204 11111010011000   0.003663   0.005000
+ 205 11111010011010   0.003663   0.014000
+ 206 11111010011011   0.003663   0.016000
+ 207 11111010011100   0.003663   0.003000
+ 208 11111010011110   0.003663   0.008000
+ 209 11111010011111   0.003663   0.010000
+ 210 11111011000000   0.003663   0.000000
+ 211 11111011010000   0.003663   0.003000
+ 212 11111011011000   0.003663   0.007000
+ 213 11111011011010   0.003663   0.007000
+ 214 11111011011011   0.003663   0.016000
+ 215 11111011011100   0.003663   0.001000
+ 216 11111011011110   0.003663   0.003000
+ 217 11111011011111   0.003663   0.013000
+ 218 11111011100000   0.003663   0.000000
+ 219 11111011110000   0.003663   0.004000
+ 220 11111011111000   0.003663   0.006000
+ 221 11111011111010   0.003663   0.010000
+ 222 11111011111011   0.003663   0.012000
+ 223 11111011111100   0.003663   0.002000
+ 224 11111011111110   0.003663   0.003000
+ 225 11111011111111   0.003663   0.003000
+ 226 11111100000000   0.003663   0.000000
+ 227 11111100010000   0.003663   0.000000
+ 228 11111100011000   0.003663   0.001000
+ 229 11111100011010   0.003663   0.000000
+ 230 11111100011011   0.003663   0.004000
+ 231 11111100011100   0.003663   0.001000
+ 232 11111100011110   0.003663   0.000000
+ 233 11111100011111   0.003663   0.001000
+ 234 11111101000000   0.003663   0.000000
+ 235 11111101010000   0.003663   0.000000
+ 236 11111101011000   0.003663   0.000000
+ 237 11111101011010   0.003663   0.000000
+ 238 11111101011011   0.003663   0.006000
+ 239 11111101011100   0.003663   0.002000
+ 240 11111101011110   0.003663   0.001000
+ 241 11111101011111   0.003663   0.004000
+ 242 11111101100000   0.003663   0.000000
+ 243 11111101110000   0.003663   0.001000
+ 244 11111101111000   0.003663   0.000000
+ 245 11111101111010   0.003663   0.001000
+ 246 11111101111011   0.003663   0.002000
+ 247 11111101111100   0.003663   0.000000
+ 248 11111101111110   0.003663   0.000000
+ 249 11111101111111   0.003663   0.003000
+ 250 11111110000000   0.003663   0.000000
+ 251 11111110010000   0.003663   0.011000
+ 252 11111110011000   0.003663   0.014000
+ 253 11111110011010   0.003663   0.031000
+ 254 11111110011011   0.003663   0.017000
+ 255 11111110011100   0.003663   0.010000
+ 256 11111110011110   0.003663   0.011000
+ 257 11111110011111   0.003663   0.013000
+ 258 11111111000000   0.003663   0.000000
+ 259 11111111010000   0.003663   0.023000
+ 260 11111111011000   0.003663   0.028000
+ 261 11111111011010   0.003663   0.031000
+ 262 11111111011011   0.003663   0.030000
+ 263 11111111011100   0.003663   0.012000
+ 264 11111111011110   0.003663   0.020000
+ 265 11111111011111   0.003663   0.024000
+ 266 11111111100000   0.003663   0.000000
+ 267 11111111110000   0.003663   0.010000
+ 268 11111111111000   0.003663   0.015000
+ 269 11111111111010   0.003663   0.036000
+ 270 11111111111011   0.003663   0.050000
+ 271 11111111111100   0.003663   0.012000
+ 272 11111111111110   0.003663   0.020000
+ 273 11111111111111   0.003663   0.025000
+
+Order of ancestral nodes:
+  L_osculans_CA_Stanislaus_NFL_osculans_CA_RainbowL_osculans_CA_Los_Padres_NFL_osculans_CA_Warner_RangeL_osculans_CA_Cold_CreekL_osculans_CA_Strawberry_CreekL_osculans_CA_Carson_SpurL_osculans_CA_Nanny_CreekL_osculans_CA_Pike_County_GulchL_osculans_OR_Little_Philips_CreekL_osculans_OR_Walton_LakeL_osculans_OR_Middle_Fork_Berry_CreekL_osculans_OR_School_CreekL_osculans_OR_EugeneL_osculans_OR_Goodman_Creek
+  L_osculans_CA_Stanislaus_NFL_osculans_CA_RainbowL_osculans_CA_Los_Padres_NFL_osculans_CA_Warner_RangeL_osculans_CA_Cold_CreekL_osculans_CA_Strawberry_CreekL_osculans_CA_Carson_SpurL_osculans_CA_Nanny_CreekL_osculans_CA_Pike_County_Gulch
+  L_osculans_CA_Stanislaus_NFL_osculans_CA_RainbowL_osculans_CA_Los_Padres_NFL_osculans_CA_Warner_RangeL_osculans_CA_Cold_CreekL_osculans_CA_Strawberry_Creek
+  L_osculans_CA_Stanislaus_NFL_osculans_CA_RainbowL_osculans_CA_Los_Padres_NFL_osculans_CA_Warner_Range
+  L_osculans_CA_Stanislaus_NFL_osculans_CA_Rainbow
+  L_osculans_CA_Los_Padres_NFL_osculans_CA_Warner_Range
+  L_osculans_CA_Cold_CreekL_osculans_CA_Strawberry_Creek
+  L_osculans_CA_Carson_SpurL_osculans_CA_Nanny_CreekL_osculans_CA_Pike_County_Gulch
+  L_osculans_CA_Nanny_CreekL_osculans_CA_Pike_County_Gulch
+  L_osculans_OR_Little_Philips_CreekL_osculans_OR_Walton_LakeL_osculans_OR_Middle_Fork_Berry_CreekL_osculans_OR_School_CreekL_osculans_OR_EugeneL_osculans_OR_Goodman_Creek
+  L_osculans_OR_Walton_LakeL_osculans_OR_Middle_Fork_Berry_CreekL_osculans_OR_School_CreekL_osculans_OR_EugeneL_osculans_OR_Goodman_Creek
+  L_osculans_OR_Walton_LakeL_osculans_OR_Middle_Fork_Berry_Creek
+  L_osculans_OR_School_CreekL_osculans_OR_EugeneL_osculans_OR_Goodman_Creek
+  L_osculans_OR_EugeneL_osculans_OR_Goodman_Creek
+
+Guide tree with posterior probability for presence of nodes:
+(((((L_osculans_CA_Stanislaus_NF, L_osculans_CA_Rainbow)#0.629000, (L_osculans_CA_Los_Padres_NF, L_osculans_CA_Warner_Range)#0.714000)#0.955000, (L_osculans_CA_Cold_Creek, L_osculans_CA_Strawberry_Creek)#0.950000)#1.000000, (L_osculans_CA_Carson_Spur, (L_osculans_CA_Nanny_Creek, L_osculans_CA_Pike_County_Gulch)#0.354000)#0.754000)#1.000000, (L_osculans_OR_Little_Philips_Creek, ((L_osculans_OR_Walton_Lake, L_osculans_OR_Middle_Fork_Berry_Creek)#0.351000, (L_osculans_OR_School_Creek, (L_osculans_OR_Eugene, L_osculans_OR_Goodman_Creek)#0.433000)#0.702000)#0.900000)#0.998000)#1.000000;;

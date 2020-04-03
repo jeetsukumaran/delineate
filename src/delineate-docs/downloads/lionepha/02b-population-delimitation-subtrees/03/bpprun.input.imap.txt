@@ -1,0 +1,14 @@
+L_erasa_AK_Thompson_Pass_4059    L_erasa_AK_Thompson_Pass
+L_erasa_BC_Cherryville_4002    L_erasa_BC_Cherryville
+L_erasa_OR_Marys_Peak_2575    L_erasa_OR_Marys_Peak
+L_erasa_OR_Prairie_Peak_2580    L_erasa_OR_Prairie_Peak
+L_erasa_OR_Marys_Peak_2586    L_erasa_OR_Marys_Peak
+L_erasa_OR_Marys_Peak_2615    L_erasa_OR_Marys_Peak
+L_erasa_OR_Marys_Peak_2616    L_erasa_OR_Marys_Peak
+L_erasa_OR_Mount_Hebo_3013    L_erasa_OR_Mount_Hebo
+L_erasa_OR_Mount_Hebo_3016    L_erasa_OR_Mount_Hebo
+L_erasa_OR_Mt_Hood_4144    L_erasa_OR_Mt_Hood
+L_erasa_OR_Lost_Prairie_5197    L_erasa_OR_Lost_Prairie
+L_erasa_OR_Lost_Prairie_5199    L_erasa_OR_Lost_Prairie
+L_erasa_OR_Lost_Prairie_5200    L_erasa_OR_Lost_Prairie
+L_erasa_OR_Lost_Prairie_5201    L_erasa_OR_Lost_Prairie

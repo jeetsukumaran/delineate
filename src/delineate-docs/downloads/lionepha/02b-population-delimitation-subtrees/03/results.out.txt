@@ -1,0 +1,453 @@
+Analysis started at: Mon Mar  2 18:45:45 2020
+Using BPP version: 4.1.4
+Command: bpp --cfile bpprun.input.ctl 
+
+COMPRESSED ALIGNMENTS
+
+14 12 P
+^L_erasa_AK_Thompson_Pass_4059     uucagacguu xx
+^L_erasa_BC_Cherryville_4002       uucagwmkwk xx
+^L_erasa_OR_Marys_Peak_2575        uucagacguu xx
+^L_erasa_OR_Prairie_Peak_2580      uucagacguu xx
+^L_erasa_OR_Marys_Peak_2586        uucagacguu xx
+^L_erasa_OR_Marys_Peak_2615        uucaaacguu xx
+^L_erasa_OR_Marys_Peak_2616        uucggacguu xx
+^L_erasa_OR_Mount_Hebo_3013        uucagacguu gx
+^L_erasa_OR_Mount_Hebo_3016        uucagacguu gx
+^L_erasa_OR_Mt_Hood_4144           uucagacguu xx
+^L_erasa_OR_Lost_Prairie_5197      uuuagacguu xx
+^L_erasa_OR_Lost_Prairie_5199      uccagacguu xx
+^L_erasa_OR_Lost_Prairie_5200      uccagacguu xx
+^L_erasa_OR_Lost_Prairie_5201      uccagacguu xx
+646 2 1 1 1 2 1 2 1 1 108 1
+
+14 14 P
+^L_erasa_AK_Thompson_Pass_4059     acaaaccggu uxxx
+^L_erasa_BC_Cherryville_4002       acmrwsyrky kaax
+^L_erasa_OR_Marys_Peak_2575        xxxxxxxxxx xxxx
+^L_erasa_OR_Prairie_Peak_2580      xxxxxxxxxx xxxx
+^L_erasa_OR_Marys_Peak_2586        xxxxxxxxxx xxxx
+^L_erasa_OR_Marys_Peak_2615        xxxxxxxxxx xxxx
+^L_erasa_OR_Marys_Peak_2616        axaaaccggu uaxx
+^L_erasa_OR_Mount_Hebo_3013        xxxxxxxxxx xxxx
+^L_erasa_OR_Mount_Hebo_3016        xxxxxxxxxx xxxx
+^L_erasa_OR_Mt_Hood_4144           acaaaccggu uxxx
+^L_erasa_OR_Lost_Prairie_5197      xxxxxxxxxx xxxx
+^L_erasa_OR_Lost_Prairie_5199      xxxxxxxxxx xxxx
+^L_erasa_OR_Lost_Prairie_5200      xxxxxxxxxx xxxx
+^L_erasa_OR_Lost_Prairie_5201      xxxxxxxxxx xxxx
+1928 14 2 4 3 1 3 3 3 4 9 2 16 20
+
+14 20 P
+^L_erasa_AK_Thompson_Pass_4059     uaguaauaga ccccgguxxx
+^L_erasa_BC_Cherryville_4002       uaguaauaga ucccggwxxx
+^L_erasa_OR_Marys_Peak_2575        uaguawxxxx cacugguugu
+^L_erasa_OR_Prairie_Peak_2580      uaguawxxxx cacugruugu
+^L_erasa_OR_Marys_Peak_2586        uaxxxaxxxx cacugguuxx
+^L_erasa_OR_Marys_Peak_2615        uaguaauaxx cacugguxxx
+^L_erasa_OR_Marys_Peak_2616        urguaauaga cacurguxxx
+^L_erasa_OR_Mount_Hebo_3013        uaguxaxxxx cacugguugx
+^L_erasa_OR_Mount_Hebo_3016        uaguawuagx cayugguugx
+^L_erasa_OR_Mt_Hood_4144           uaguaauaga ccccgguxxx
+^L_erasa_OR_Lost_Prairie_5197      uagxxaxxxx cmcygguxxx
+^L_erasa_OR_Lost_Prairie_5199      uaguaauxxx cmcygguxxx
+^L_erasa_OR_Lost_Prairie_5200      uaguaauaga ccccgguxxx
+^L_erasa_OR_Lost_Prairie_5201      uaguaauaga ccccgguxxx
+680 1 3 14 1 1 13 5 8 9 1 1 1 1 1 1 1 71 23 7
+
+14 13 P
+^L_erasa_AK_Thompson_Pass_4059     uugcccaguc ccx
+^L_erasa_BC_Cherryville_4002       uugcguxxxx xxx
+^L_erasa_OR_Marys_Peak_2575        xxxxxxxxxx xxx
+^L_erasa_OR_Prairie_Peak_2580      uucucuagcx xxx
+^L_erasa_OR_Marys_Peak_2586        xxxxxxxxxx xxx
+^L_erasa_OR_Marys_Peak_2615        uuguccaxuc xxx
+^L_erasa_OR_Marys_Peak_2616        ucgcgcagcc cxx
+^L_erasa_OR_Mount_Hebo_3013        xxxxxxxxxx xxx
+^L_erasa_OR_Mount_Hebo_3016        xxxxxxxxxx xxx
+^L_erasa_OR_Mt_Hood_4144           uuccccagcc ccx
+^L_erasa_OR_Lost_Prairie_5197      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5199      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5200      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5201      xxxxxxxxxx xxx
+305 1 1 1 1 1 341 10 2 22 3 30 29
+
+14 16 P
+^L_erasa_AK_Thompson_Pass_4059     uauuacaaag uuccgx
+^L_erasa_BC_Cherryville_4002       uauuacaaga ccgugc
+^L_erasa_OR_Marys_Peak_2575        xxxxxxxxxx xxxxxx
+^L_erasa_OR_Prairie_Peak_2580      xxxxxxxxxx xxxxxx
+^L_erasa_OR_Marys_Peak_2586        xxxxxxxxxx xxxxxx
+^L_erasa_OR_Marys_Peak_2615        xxxxxxxxxx xxxxxx
+^L_erasa_OR_Marys_Peak_2616        uauugugxag ccgcax
+^L_erasa_OR_Mount_Hebo_3013        xxxxxxxxxx xxxxxx
+^L_erasa_OR_Mount_Hebo_3016        xxxxxxxxxx xxxxxx
+^L_erasa_OR_Mt_Hood_4144           uaaxacaaaa ucsyrx
+^L_erasa_OR_Lost_Prairie_5197      xxxxxxxxxx xxxxxx
+^L_erasa_OR_Lost_Prairie_5199      uxxxaxrxag ucgyrx
+^L_erasa_OR_Lost_Prairie_5200      xxxxxxxxxx xxxxxx
+^L_erasa_OR_Lost_Prairie_5201      xxxxxxxxxx xxxxxx
+844 13 1 2 1 1 1 24 1 1 1 1 1 1 1 21
+
+14 19 P
+^L_erasa_AK_Thompson_Pass_4059     guaccagccc ccgruuyyx
+^L_erasa_BC_Cherryville_4002       guauuxxxcc cxgauxxxx
+^L_erasa_OR_Marys_Peak_2575        xxxxxxxxxx xxxxxxxxx
+^L_erasa_OR_Prairie_Peak_2580      guaccagxcc cxgayxcyx
+^L_erasa_OR_Marys_Peak_2586        xxxxxxxxxx xxxxxxxxx
+^L_erasa_OR_Marys_Peak_2615        guwccagccc ccrauucux
+^L_erasa_OR_Marys_Peak_2616        guaccagccc cggayucux
+^L_erasa_OR_Mount_Hebo_3013        guaccagccc csgayccux
+^L_erasa_OR_Mount_Hebo_3016        guwccagccm ysgayycux
+^L_erasa_OR_Mt_Hood_4144           guaccagcmc ccgauccyx
+^L_erasa_OR_Lost_Prairie_5197      xxxxxxxxxx xxxxxxxxx
+^L_erasa_OR_Lost_Prairie_5199      gxacuaxxcm cxgayxucx
+^L_erasa_OR_Lost_Prairie_5200      xxxxxxxxxx xxxxxxxxx
+^L_erasa_OR_Lost_Prairie_5201      xxxxxxxxxx xxxxxxxxx
+376 3 1 1 1 66 5 24 1 1 1 1 1 1 1 1 1 1 3
+
+14 29 P
+^L_erasa_AK_Thompson_Pass_4059     uaaaaaaaaa uucaauggau ccggruuuw
+^L_erasa_BC_Cherryville_4002       uaaaaaaaaa uuaxxxxxxx ccggauuuu
+^L_erasa_OR_Marys_Peak_2575        uaaaaaaaaa uxaaauggax ccggauuuu
+^L_erasa_OR_Prairie_Peak_2580      uaaaaaaarx xxaaauxxxx ccguauuuu
+^L_erasa_OR_Marys_Peak_2586        uaaaaaaaaa uxaaaugggx ccguauuuu
+^L_erasa_OR_Marys_Peak_2615        uaaaaaaaaa uuaaxxxxxx cckgauuuu
+^L_erasa_OR_Marys_Peak_2616        uaaaawxxxx xxaaaxxxxx ccgkauuwu
+^L_erasa_OR_Mount_Hebo_3013        uaaaaaaaaa uxaaaugggx ccguauuuu
+^L_erasa_OR_Mount_Hebo_3016        uaaaaaaaaa uxaaauggax ccggaauau
+^L_erasa_OR_Mt_Hood_4144           uaaaraxxxx xxaaauggrx cyggauuuu
+^L_erasa_OR_Lost_Prairie_5197      uaaraaaxxx xxaaaugxax ycggawuwu
+^L_erasa_OR_Lost_Prairie_5199      uaxaaaxxxx xxaaauggax ccggauwuu
+^L_erasa_OR_Lost_Prairie_5200      umaraaaaaa xxaaauggax ccggawuwu
+^L_erasa_OR_Lost_Prairie_5201      uaaaawaxax xxaaauggrx ccgkawuww
+684 1 5 2 1 1 1 11 1 1 13 1 1 34 4 13 23 3 1 1 1 1 1 1 1 1 1 1 1
+
+14 30 P
+^L_erasa_AK_Thompson_Pass_4059     agcgaaaccg ggxxxxxxxx xxxxxxxxxx
+^L_erasa_BC_Cherryville_4002       agcumrwsyg rkcagcaaaa uccuuuyxxx
+^L_erasa_OR_Marys_Peak_2575        axxxaxaccr ggcagcxxxx xxxxxxuxxx
+^L_erasa_OR_Prairie_Peak_2580      axxxaxaccg ggcagcaaaa uxxxxxuxxx
+^L_erasa_OR_Marys_Peak_2586        axxxaxaccg ggcagcaaxx xxxxxxuxxx
+^L_erasa_OR_Marys_Peak_2615        axxxaxaccg ggcagcaaxx xxxxxxuxxx
+^L_erasa_OR_Marys_Peak_2616        axxxaxaccg ggcagcaaax xxxxxxuxxx
+^L_erasa_OR_Mount_Hebo_3013        axxxaxaccr ggcagcaaaa ucxxxxuxxx
+^L_erasa_OR_Mount_Hebo_3016        axxxaxaccg ggcagcaaaa xxxxxxuxxx
+^L_erasa_OR_Mt_Hood_4144           agxuaxaccg ggcxxxxxxx xxxxxxuaxx
+^L_erasa_OR_Lost_Prairie_5197      agcuaaaccg ggcaxxxxxx xxcuuxuxxx
+^L_erasa_OR_Lost_Prairie_5199      agcuaaaccg ggcagcaaxx xxcuuxuxxx
+^L_erasa_OR_Lost_Prairie_5200      agcuaaaccg ggcaxxxxxx xxcxxxuxxx
+^L_erasa_OR_Lost_Prairie_5201      agcuaaaccg ggcaggaxxx xxcuxxuxux
+960 5 3 3 1 1 2 1 2 1 1 1 15 1 10 1 1 1 1 7 17 1 5 1 1 53 1 2 1 92
+
+COMPRESSED ALIGNMENTS AFTER PHASING OF DIPLOID SEQUENCES
+
+28 9 P
+^L_erasa_AK_Thompson_Pass_4059.1     uucaguuxx
+^L_erasa_AK_Thompson_Pass_4059.2     uucaguuxx
+^L_erasa_BC_Cherryville_4002.1       uucagugxx
+^L_erasa_BC_Cherryville_4002.2       uucagguxx
+^L_erasa_OR_Marys_Peak_2575.1        uucaguuxx
+^L_erasa_OR_Marys_Peak_2575.2        uucaguuxx
+^L_erasa_OR_Prairie_Peak_2580.1      uucaguuxx
+^L_erasa_OR_Prairie_Peak_2580.2      uucaguuxx
+^L_erasa_OR_Marys_Peak_2586.1        uucaguuxx
+^L_erasa_OR_Marys_Peak_2586.2        uucaguuxx
+^L_erasa_OR_Marys_Peak_2615.1        uucaauuxx
+^L_erasa_OR_Marys_Peak_2615.2        uucaauuxx
+^L_erasa_OR_Marys_Peak_2616.1        uucgguuxx
+^L_erasa_OR_Marys_Peak_2616.2        uucgguuxx
+^L_erasa_OR_Mount_Hebo_3013.1        uucaguugx
+^L_erasa_OR_Mount_Hebo_3013.2        uucaguugx
+^L_erasa_OR_Mount_Hebo_3016.1        uucaguugx
+^L_erasa_OR_Mount_Hebo_3016.2        uucaguugx
+^L_erasa_OR_Mt_Hood_4144.1           uucaguuxx
+^L_erasa_OR_Mt_Hood_4144.2           uucaguuxx
+^L_erasa_OR_Lost_Prairie_5197.1      uuuaguuxx
+^L_erasa_OR_Lost_Prairie_5197.2      uuuaguuxx
+^L_erasa_OR_Lost_Prairie_5199.1      uccaguuxx
+^L_erasa_OR_Lost_Prairie_5199.2      uccaguuxx
+^L_erasa_OR_Lost_Prairie_5200.1      uccaguuxx
+^L_erasa_OR_Lost_Prairie_5200.2      uccaguuxx
+^L_erasa_OR_Lost_Prairie_5201.1      uccaguuxx
+^L_erasa_OR_Lost_Prairie_5201.2      uccaguuxx
+1 1 1 1 1 4 5 1 1
+
+28 7 P
+^L_erasa_AK_Thompson_Pass_4059.1     acccxxx
+^L_erasa_AK_Thompson_Pass_4059.2     acccxxx
+^L_erasa_BC_Cherryville_4002.1       accuaax
+^L_erasa_BC_Cherryville_4002.2       acgcaax
+^L_erasa_OR_Marys_Peak_2575.1        xxxxxxx
+^L_erasa_OR_Marys_Peak_2575.2        xxxxxxx
+^L_erasa_OR_Prairie_Peak_2580.1      xxxxxxx
+^L_erasa_OR_Prairie_Peak_2580.2      xxxxxxx
+^L_erasa_OR_Marys_Peak_2586.1        xxxxxxx
+^L_erasa_OR_Marys_Peak_2586.2        xxxxxxx
+^L_erasa_OR_Marys_Peak_2615.1        xxxxxxx
+^L_erasa_OR_Marys_Peak_2615.2        xxxxxxx
+^L_erasa_OR_Marys_Peak_2616.1        axccaxx
+^L_erasa_OR_Marys_Peak_2616.2        axccaxx
+^L_erasa_OR_Mount_Hebo_3013.1        xxxxxxx
+^L_erasa_OR_Mount_Hebo_3013.2        xxxxxxx
+^L_erasa_OR_Mount_Hebo_3016.1        xxxxxxx
+^L_erasa_OR_Mount_Hebo_3016.2        xxxxxxx
+^L_erasa_OR_Mt_Hood_4144.1           acccxxx
+^L_erasa_OR_Mt_Hood_4144.2           acccxxx
+^L_erasa_OR_Lost_Prairie_5197.1      xxxxxxx
+^L_erasa_OR_Lost_Prairie_5197.2      xxxxxxx
+^L_erasa_OR_Lost_Prairie_5199.1      xxxxxxx
+^L_erasa_OR_Lost_Prairie_5199.2      xxxxxxx
+^L_erasa_OR_Lost_Prairie_5200.1      xxxxxxx
+^L_erasa_OR_Lost_Prairie_5200.2      xxxxxxx
+^L_erasa_OR_Lost_Prairie_5201.1      xxxxxxx
+^L_erasa_OR_Lost_Prairie_5201.2      xxxxxxx
+1 1 9 8 1 1 1
+
+28 24 P
+^L_erasa_AK_Thompson_Pass_4059.1     uccggguagg acccuagauu cxxx
+^L_erasa_AK_Thompson_Pass_4059.2     uccggguagg acccuagauu cxxx
+^L_erasa_BC_Cherryville_4002.1       uccggguagg acccuagaua uxxx
+^L_erasa_BC_Cherryville_4002.2       uccggguagg acccuagaau uxxx
+^L_erasa_OR_Marys_Peak_2575.1        uccggguagg auaaxxxxuu cugu
+^L_erasa_OR_Marys_Peak_2575.2        uccggguagg uuaaxxxxuu cugu
+^L_erasa_OR_Prairie_Peak_2580.1      uccggguaga auaaxxxxuu cugu
+^L_erasa_OR_Prairie_Peak_2580.2      uccggguaag uuaaxxxxuu cugu
+^L_erasa_OR_Marys_Peak_2586.1        uccggxxxgg auaaxxxxuu cuxx
+^L_erasa_OR_Marys_Peak_2586.2        uccggxxxgg auaaxxxxuu cuxx
+^L_erasa_OR_Marys_Peak_2615.1        uccggguagg auaauaxxuu cxxx
+^L_erasa_OR_Marys_Peak_2615.2        uccggguagg auaauaxxuu cxxx
+^L_erasa_OR_Marys_Peak_2616.1        uccgaguagg auaauagauu cxxx
+^L_erasa_OR_Marys_Peak_2616.2        uccagguagg auaauagauu cxxx
+^L_erasa_OR_Mount_Hebo_3013.1        uccggguxgg auaaxxxxuu cugx
+^L_erasa_OR_Mount_Hebo_3013.2        uccggguxgg auaaxxxxuu cugx
+^L_erasa_OR_Mount_Hebo_3016.1        ucuggguagg auaauagxuu cugx
+^L_erasa_OR_Mount_Hebo_3016.2        uucggguagg uuaauagxuu cugx
+^L_erasa_OR_Mt_Hood_4144.1           uccggguagg acccuagauu cxxx
+^L_erasa_OR_Mt_Hood_4144.2           uccggguagg acccuagauu cxxx
+^L_erasa_OR_Lost_Prairie_5197.1      uccgggxxgg acaaxxxxuu cxxx
+^L_erasa_OR_Lost_Prairie_5197.2      uccgggxxgg auccxxxxuu cxxx
+^L_erasa_OR_Lost_Prairie_5199.1      uccggguagg accauxxxuu cxxx
+^L_erasa_OR_Lost_Prairie_5199.2      uccggguagg auacuxxxuu cxxx
+^L_erasa_OR_Lost_Prairie_5200.1      uccggguagg acccuagauu cxxx
+^L_erasa_OR_Lost_Prairie_5200.2      uccggguagg acccuagauu cxxx
+^L_erasa_OR_Lost_Prairie_5201.1      uccggguagg acccuagauu cxxx
+^L_erasa_OR_Lost_Prairie_5201.2      uccggguagg acccuagauu cxxx
+1 1 1 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1
+
+28 13 P
+^L_erasa_AK_Thompson_Pass_4059.1     uugcccaguc ccx
+^L_erasa_AK_Thompson_Pass_4059.2     uugcccaguc ccx
+^L_erasa_BC_Cherryville_4002.1       uugcguxxxx xxx
+^L_erasa_BC_Cherryville_4002.2       uugcguxxxx xxx
+^L_erasa_OR_Marys_Peak_2575.1        xxxxxxxxxx xxx
+^L_erasa_OR_Marys_Peak_2575.2        xxxxxxxxxx xxx
+^L_erasa_OR_Prairie_Peak_2580.1      uucucuagcx xxx
+^L_erasa_OR_Prairie_Peak_2580.2      uucucuagcx xxx
+^L_erasa_OR_Marys_Peak_2586.1        xxxxxxxxxx xxx
+^L_erasa_OR_Marys_Peak_2586.2        xxxxxxxxxx xxx
+^L_erasa_OR_Marys_Peak_2615.1        uuguccaxuc xxx
+^L_erasa_OR_Marys_Peak_2615.2        uuguccaxuc xxx
+^L_erasa_OR_Marys_Peak_2616.1        ucgcgcagcc cxx
+^L_erasa_OR_Marys_Peak_2616.2        ucgcgcagcc cxx
+^L_erasa_OR_Mount_Hebo_3013.1        xxxxxxxxxx xxx
+^L_erasa_OR_Mount_Hebo_3013.2        xxxxxxxxxx xxx
+^L_erasa_OR_Mount_Hebo_3016.1        xxxxxxxxxx xxx
+^L_erasa_OR_Mount_Hebo_3016.2        xxxxxxxxxx xxx
+^L_erasa_OR_Mt_Hood_4144.1           uuccccagcc ccx
+^L_erasa_OR_Mt_Hood_4144.2           uuccccagcc ccx
+^L_erasa_OR_Lost_Prairie_5197.1      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5197.2      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5199.1      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5199.2      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5200.1      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5200.2      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5201.1      xxxxxxxxxx xxx
+^L_erasa_OR_Lost_Prairie_5201.2      xxxxxxxxxx xxx
+1 1 1 1 1 1 1 1 1 1 1 1 1
+
+28 20 P
+^L_erasa_AK_Thompson_Pass_4059.1     uauuaaacgg aaccguccux
+^L_erasa_AK_Thompson_Pass_4059.2     uauuaaacgg aaccguccux
+^L_erasa_BC_Cherryville_4002.1       uauuaaacgg aguuacggcc
+^L_erasa_BC_Cherryville_4002.2       uauuaaacgg aguuacggcc
+^L_erasa_OR_Marys_Peak_2575.1        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Marys_Peak_2575.2        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Prairie_Peak_2580.1      xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Prairie_Peak_2580.2      xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Marys_Peak_2586.1        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Marys_Peak_2586.2        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Marys_Peak_2615.1        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Marys_Peak_2615.2        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Marys_Peak_2616.1        uauuggguaa xaccgcggcx
+^L_erasa_OR_Marys_Peak_2616.2        uauuggguaa xaccgcggcx
+^L_erasa_OR_Mount_Hebo_3013.1        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Mount_Hebo_3013.2        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Mount_Hebo_3016.1        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Mount_Hebo_3016.2        xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Mt_Hood_4144.1           uaaxaaacga aaccaucgcx
+^L_erasa_OR_Mt_Hood_4144.2           uaaxaaacag aauuaugccx
+^L_erasa_OR_Lost_Prairie_5197.1      xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Lost_Prairie_5197.2      xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Lost_Prairie_5199.1      uxxxaagxaa xacuguggcx
+^L_erasa_OR_Lost_Prairie_5199.2      uxxxagaxgg xaucguggcx
+^L_erasa_OR_Lost_Prairie_5200.1      xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Lost_Prairie_5200.2      xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Lost_Prairie_5201.1      xxxxxxxxxx xxxxxxxxxx
+^L_erasa_OR_Lost_Prairie_5201.2      xxxxxxxxxx xxxxxxxxxx
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+28 32 P
+^L_erasa_AK_Thompson_Pass_4059.1     guccccccga aguuccagcu uccccagccc ux
+^L_erasa_AK_Thompson_Pass_4059.2     guccccccga aguuccagcu uccccgauuu cx
+^L_erasa_BC_Cherryville_4002.1       guccccccga aguuuuxxxx xxxxxaaxxx xx
+^L_erasa_BC_Cherryville_4002.2       guccccccga aguuuuxxxx xxxxxaaxxx xx
+^L_erasa_OR_Marys_Peak_2575.1        xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Marys_Peak_2575.2        xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Prairie_Peak_2580.1      guccccccga agccccagxx xxxxxaaccu cx
+^L_erasa_OR_Prairie_Peak_2580.2      guccccccga aguuccagxx xxxxxaacuc cx
+^L_erasa_OR_Marys_Peak_2586.1        xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Marys_Peak_2586.2        xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Marys_Peak_2615.1        guccccccga aauuccagcu uccccaacuu cx
+^L_erasa_OR_Marys_Peak_2615.2        guccccccau uguuccagcu uccccaacuu cx
+^L_erasa_OR_Marys_Peak_2616.1        guccccccga agccccagcu uggggaacuu cx
+^L_erasa_OR_Marys_Peak_2616.2        guccccccga aguuccagcu uggggaacuu cx
+^L_erasa_OR_Mount_Hebo_3013.1        guccccccga agccccagcc cccggaacuu cx
+^L_erasa_OR_Mount_Hebo_3013.2        guccccccga aguuccagcc cggccaacuu cx
+^L_erasa_OR_Mount_Hebo_3016.1        gucccuaaga ugucccagcu ccgcgaacuu cx
+^L_erasa_OR_Mount_Hebo_3016.2        guccucccgu agcuccagcc ugcgcaacuu cx
+^L_erasa_OR_Mt_Hood_4144.1           gucaccccga aguuccagcc cccccaaccc cx
+^L_erasa_OR_Mt_Hood_4144.2           guacccccga aguuccagcc cccccaacuu cx
+^L_erasa_OR_Lost_Prairie_5197.1      xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Lost_Prairie_5197.2      xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Lost_Prairie_5199.1      gxcccccaga agcccuaxxx xxxxxaaucc ux
+^L_erasa_OR_Lost_Prairie_5199.2      gxccccacga aguucuaxxx xxxxxaaucc ux
+^L_erasa_OR_Lost_Prairie_5200.1      xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Lost_Prairie_5200.2      xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Lost_Prairie_5201.1      xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+^L_erasa_OR_Lost_Prairie_5201.2      xxxxxxxxxx xxxxxxxxxx xxxxxxxxxx xx
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+28 48 P
+^L_erasa_AK_Thompson_Pass_4059.1     uaauuacaac aacauuaaaa uuuuaagagg ggauucaaug gaauaaag
+^L_erasa_AK_Thompson_Pass_4059.2     uaauuacaac aacauuaaaa uuuuaagagg ggauucaaug gaauguua
+^L_erasa_BC_Cherryville_4002.1       uaauuacaac aacauuaaaa uuuuaagagg ggauuaxxxx xxxxauua
+^L_erasa_BC_Cherryville_4002.2       uaauuacaac aacauuaaaa uuuuaagagg ggauuaxxxx xxxxauua
+^L_erasa_OR_Marys_Peak_2575.1        uaauuacaac aacauuaaaa uuuuaagagg ggauxaaaug gaaxauua
+^L_erasa_OR_Marys_Peak_2575.2        uaauuacaac aacauuaaaa uuuuaagagg ggauxaaaug gaaxauua
+^L_erasa_OR_Prairie_Peak_2580.1      uaauuacaac aacauuaaaa uuuuaagauu uuxxxaaaux xxxxauua
+^L_erasa_OR_Prairie_Peak_2580.2      uaauuacaac aacauuaaaa uuuuaagguu uuxxxaaaux xxxxauua
+^L_erasa_OR_Marys_Peak_2586.1        uaauuacaac aacauuaaaa uuuuaagauu uuauxaaaug gggxauua
+^L_erasa_OR_Marys_Peak_2586.2        uaauuacaac aacauuaaaa uuuuaagauu uuauxaaaug gggxauua
+^L_erasa_OR_Marys_Peak_2615.1        uaauuacaac aacauuaaaa uuuuaagagg ggauuaaxxx xxxxauua
+^L_erasa_OR_Marys_Peak_2615.2        uaauuacaac aacauuaaaa uuuuaauagg ggauuaaxxx xxxxauua
+^L_erasa_OR_Marys_Peak_2616.1        uaauuacaac aacauuaauu aaaaxxgxgg uuxxxaaaxx xxxxauua
+^L_erasa_OR_Marys_Peak_2616.2        uaauuacaac aacauuuuaa uuuuxxgxuu ggxxxaaaxx xxxxauua
+^L_erasa_OR_Mount_Hebo_3013.1        uaauuacaac aacauuaaaa uuuuaagauu uuauxaaaug gggxauua
+^L_erasa_OR_Mount_Hebo_3013.2        uaauuacaac aacauuaaaa uuuuaagauu uuauxaaaug gggxauua
+^L_erasa_OR_Mount_Hebo_3016.1        uaauuacaac aacaaaaaaa aaaaaagagg ggauxaaaug gaaxauua
+^L_erasa_OR_Mount_Hebo_3016.2        uaauuacaac aacaaaaaaa aaaaaagagg ggauxaaaug gaaxauua
+^L_erasa_OR_Mt_Hood_4144.1           uaauuacaac aacguuaaaa uuuuxxgxgg ggxxxaaaug gaaxauua
+^L_erasa_OR_Mt_Hood_4144.2           uaauuacaac aauauuaaaa uuuuxxgxgg ggxxxaaaug gggxauua
+^L_erasa_OR_Lost_Prairie_5197.1      uaauuacaau ggcauaaaaa aaaaaxgxgg ggxxxaaaug xaaxauua
+^L_erasa_OR_Lost_Prairie_5197.2      uaauuauggc aacaauaaaa uuuuaxgxgg ggxxxaaaug xaaxauua
+^L_erasa_OR_Lost_Prairie_5199.1      uaauaxcaac aacauuaaaa uuuuxxgxgg ggxxxaaaug gaaxauua
+^L_erasa_OR_Lost_Prairie_5199.2      uaaauxcaac aacauuaaaa uuuuxxgxgg ggxxxaaaug gaaxauua
+^L_erasa_OR_Lost_Prairie_5200.1      uacuuacagc agcaaaaaaa uuaaaagagg ggaxxaaaug gaaxauua
+^L_erasa_OR_Lost_Prairie_5200.2      ucauuacgac gacauuaaaa aauuaagagg ggaxxaaaug gaaxauua
+^L_erasa_OR_Lost_Prairie_5201.1      uaauuacaac aacaaaauau uauaaxgagu guxxxaaaug gagxaaua
+^L_erasa_OR_Lost_Prairie_5201.2      uaauuacaac aacauuuaua auauaxgaug ugxxxaaaug ggaxauaa
+1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+28 28 P
+^L_erasa_AK_Thompson_Pass_4059.1     aggcaaaagx xxxxxxxxxx xxxxxxxx
+^L_erasa_AK_Thompson_Pass_4059.2     aggcaaaagx xxxxxxxxxx xxxxxxxx
+^L_erasa_BC_Cherryville_4002.1       aggcaauguc agcaaaaucc uuuucxxx
+^L_erasa_BC_Cherryville_4002.2       aggccgaauc agcaaaaucc uuucuxxx
+^L_erasa_OR_Marys_Peak_2575.1        aaxxaxaxxc agcxxxxxxx xxxuuxxx
+^L_erasa_OR_Marys_Peak_2575.2        agxxaxaxxc agcxxxxxxx xxxuuxxx
+^L_erasa_OR_Prairie_Peak_2580.1      agxxaxaxxc agcaaaauxx xxxuuxxx
+^L_erasa_OR_Prairie_Peak_2580.2      agxxaxaxxc agcaaaauxx xxxuuxxx
+^L_erasa_OR_Marys_Peak_2586.1        agxxaxaxxc agcaaxxxxx xxxuuxxx
+^L_erasa_OR_Marys_Peak_2586.2        agxxaxaxxc agcaaxxxxx xxxuuxxx
+^L_erasa_OR_Marys_Peak_2615.1        agxxaxaxxc agcaaxxxxx xxxuuxxx
+^L_erasa_OR_Marys_Peak_2615.2        agxxaxaxxc agcaaxxxxx xxxuuxxx
+^L_erasa_OR_Marys_Peak_2616.1        agxxaxaxxc agcaaaxxxx xxxuuxxx
+^L_erasa_OR_Marys_Peak_2616.2        agxxaxaxxc agcaaaxxxx xxxuuxxx
+^L_erasa_OR_Mount_Hebo_3013.1        aaxxaxaxxc agcaaaaucx xxxuuxxx
+^L_erasa_OR_Mount_Hebo_3013.2        agxxaxaxxc agcaaaaucx xxxuuxxx
+^L_erasa_OR_Mount_Hebo_3016.1        agxxaxaxxc agcaaaaxxx xxxuuxxx
+^L_erasa_OR_Mount_Hebo_3016.2        agxxaxaxxc agcaaaaxxx xxxuuxxx
+^L_erasa_OR_Mt_Hood_4144.1           aggxaxaxuc xxxxxxxxxx xxxuuaxx
+^L_erasa_OR_Mt_Hood_4144.2           aggxaxaxuc xxxxxxxxxx xxxuuaxx
+^L_erasa_OR_Lost_Prairie_5197.1      aggcaaaauc axxxxxxxxc uuxuuxxx
+^L_erasa_OR_Lost_Prairie_5197.2      aggcaaaauc axxxxxxxxc uuxuuxxx
+^L_erasa_OR_Lost_Prairie_5199.1      aggcaaaauc agcaaxxxxc uuxuuxxx
+^L_erasa_OR_Lost_Prairie_5199.2      aggcaaaauc agcaaxxxxc uuxuuxxx
+^L_erasa_OR_Lost_Prairie_5200.1      aggcaaaauc axxxxxxxxc xxxuuxxx
+^L_erasa_OR_Lost_Prairie_5200.2      aggcaaaauc axxxxxxxxc xxxuuxxx
+^L_erasa_OR_Lost_Prairie_5201.1      aggcaaaauc aggaxxxxxc uxxuuxux
+^L_erasa_OR_Lost_Prairie_5201.2      aggcaaaauc aggaxxxxxc uxxuuxux
+1 1 1 1 6 1 5 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+
+Per-locus sequences in data and 'species&tree' tag:
+C.File | Data |                Status                | Population
+-------+------+--------------------------------------+-----------
+     2 |    2 | [OK]                                 | L_erasa_AK_Thompson_Pass
+     2 |    2 | [OK]                                 | L_erasa_BC_Cherryville
+     8 |    8 | [OK]                                 | L_erasa_OR_Marys_Peak
+     2 |    2 | [OK]                                 | L_erasa_OR_Prairie_Peak
+     4 |    4 | [OK]                                 | L_erasa_OR_Mount_Hebo
+     2 |    2 | [OK]                                 | L_erasa_OR_Mt_Hood
+     8 |    8 | [OK]                                 | L_erasa_OR_Lost_Prairie
+
+
+Current Pjump:      0.64530  0.12581  0.00000  0.28069  0.12550
+Current finetune:   5.00000  0.00100  0.00100  0.00100  0.30000
+New finetune:      15.75103  0.00039  0.00001  0.00093  0.11760
+
+
+Current Pjump:      0.64679  0.29023  0.00000  0.27548  0.52650
+Current finetune:  15.75103  0.00039  0.00001  0.00093  0.11760
+New finetune:      49.87924  0.00038  0.00000  0.00084  0.25086
+
+
+Current Pjump:      0.64478  0.28609  0.00000  0.26881  0.20250
+Current finetune:  49.87924  0.00038  0.00000  0.00084  0.25086
+New finetune:      99.00000  0.00036  0.00000  0.00074  0.16211
+
+
+Current Pjump:      0.64727  0.30174  0.00000  0.24535  0.37200
+Current finetune:  99.00000  0.00036  0.00000  0.00074  0.16211
+New finetune:      99.00000  0.00036  0.00000  0.00059  0.21043
+
+Summarizing the species-delimitation sample in file results.mcmc.txt
+
+Number of species-delimitation models = 13
+
+     model    prior    posterior
+   1 000000   0.076923   0.000000
+   2 100000   0.076923   0.000000
+   3 100010   0.076923   0.000000
+   4 100011   0.076923   0.000000
+   5 110000   0.076923   0.000000
+   6 110010   0.076923   0.000000
+   7 110011   0.076923   0.314000
+   8 111000   0.076923   0.000000
+   9 111010   0.076923   0.001000
+  10 111011   0.076923   0.297000
+  11 111100   0.076923   0.000000
+  12 111110   0.076923   0.001000
+  13 111111   0.076923   0.387000
+
+Order of ancestral nodes:
+  L_erasa_AK_Thompson_PassL_erasa_OR_Mount_HeboL_erasa_OR_Marys_PeakL_erasa_OR_Prairie_PeakL_erasa_OR_Lost_PrairieL_erasa_OR_Mt_HoodL_erasa_BC_Cherryville
+  L_erasa_AK_Thompson_PassL_erasa_OR_Mount_HeboL_erasa_OR_Marys_PeakL_erasa_OR_Prairie_Peak
+  L_erasa_OR_Mount_HeboL_erasa_OR_Marys_PeakL_erasa_OR_Prairie_Peak
+  L_erasa_OR_Marys_PeakL_erasa_OR_Prairie_Peak
+  L_erasa_OR_Lost_PrairieL_erasa_OR_Mt_HoodL_erasa_BC_Cherryville
+  L_erasa_OR_Mt_HoodL_erasa_BC_Cherryville
+
+Guide tree with posterior probability for presence of nodes:
+((L_erasa_AK_Thompson_Pass, (L_erasa_OR_Mount_Hebo, (L_erasa_OR_Marys_Peak, L_erasa_OR_Prairie_Peak)#0.388000)#0.686000)#1.000000, (L_erasa_OR_Lost_Prairie, (L_erasa_OR_Mt_Hood, L_erasa_BC_Cherryville)#0.998000)#1.000000)#1.000000;;

@@ -1,0 +1,16 @@
+L_osculans_CA_Cold_Creek_1387    L_osculans_CA_Cold_Creek
+L_osculans_CA_Cold_Creek_1390    L_osculans_CA_Cold_Creek
+L_osculans_CA_Rainbow_1401    L_osculans_CA_Rainbow
+L_osculans_CA_Stanislaus_NF_3157    L_osculans_CA_Stanislaus_NF
+L_osculans_CA_Warner_Range_3161    L_osculans_CA_Warner_Range
+L_osculans_CA_Los_Padres_NF_3162    L_osculans_CA_Los_Padres_NF
+L_osculans_CA_Strawberry_Creek_3163    L_osculans_CA_Strawberry_Creek
+L_osculans_CA_Carson_Spur_3164    L_osculans_CA_Carson_Spur
+L_osculans_CA_Nanny_Creek_3721    L_osculans_CA_Nanny_Creek
+L_osculans_CA_Pike_County_Gulch_3846    L_osculans_CA_Pike_County_Gulch
+L_osculans_OR_School_Creek_2638    L_osculans_OR_School_Creek
+L_osculans_OR_Middle_Fork_Berry_Creek_3095    L_osculans_OR_Middle_Fork_Berry_Creek
+L_osculans_OR_Goodman_Creek_3158    L_osculans_OR_Goodman_Creek
+L_osculans_OR_Eugene_4593    L_osculans_OR_Eugene
+L_osculans_OR_Walton_Lake_4743    L_osculans_OR_Walton_Lake
+L_osculans_OR_Little_Philips_Creek_5001    L_osculans_OR_Little_Philips_Creek

@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>A Complete Worked Example: Lionepha &#8212; DELINEATE 1.2.3 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/docs.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Quick Start" href="quickstart.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="a-complete-worked-example-lionepha">
+<h1>A Complete Worked Example: <em>Lionepha</em><a class="headerlink" href="#a-complete-worked-example-lionepha" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="software-prerequisites">
+<h2>(Software Prerequisites)<a class="headerlink" href="#software-prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>For this exercise, in addition to DELINEATE you will need the following programs installed on your execution host:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a></p></li>
+<li><p><a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a></p></li>
+<li><p><a class="reference external" href="https://dendropy.org/">DendroPy</a> (which provides <a class="reference external" href="https://dendropy.org/programs/sumtrees.html">SumTrees</a>)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="data-files">
+<h2>(Data Files)<a class="headerlink" href="#data-files" title="Permalink to this headline">¶</a></h2>
+<p>All data files for this exercise are available for download here:</p>
+<p class="framebox center"><a class="reference download internal" download="" href="_downloads/c8d4870a23625b69cbc98b2e2143af01/lionepha.zip"><code class="xref download docutils literal notranslate"><span class="pre">downloads/lionepha.zip</span></code></a></p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>We are going to to carry out a full species delimitation analysis, or, actually, a series of species delimitation analyses.
+We are going to use the the <em>Lionepha</em> system, using a subset of the data published by David R. Maddison and John S. Sproul:</p>
+<ul class="simple">
+<li><p>David R Maddison, John S Sproul. <em>Species delimitation, classical taxonomy and genome skimming: a review of the ground beetle genus Lionepha (Coleoptera: Carabidae)</em>, Zoological Journal of the Linnean Society, , zlz167, <a class="reference external" href="https://doi.org/10.1093/zoolinnean/zlz167">https://doi.org/10.1093/zoolinnean/zlz167</a>.</p></li>
+</ul>
+<p>The original data is available in the following <a class="reference external" href="https://datadryad.org">Dryad</a> repository:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://datadryad.org/stash/dataset/doi:10.5061/dryad.2jm63xsjq">https://datadryad.org/stash/dataset/doi:10.5061/dryad.2jm63xsjq</a></p></li>
+</ul>
+<p>The work by Maddison and Sproul (2020) nicely lays out the basic alpha taxonomy of this system, organizing these 143 lineages into 12 nominal species.
+This alpha taxonomy is based on a thorough analyses integrating morphological as well as genomic information, and thus we already have a very clear understanding of the species boundaries in this group, precluding the need for a species delimitation analysis.</p>
+<p>However, for the purposes of this exercise we are going to pretend that this is not the case.
+Instead, we are going to consider that while the species identities of <em>some</em> of the population lineages are well known, in this sample there are number of lineages for which this is not the case.</p>
+</div>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="study-design">
+<h3>Study Design<a class="headerlink" href="#study-design" title="Permalink to this headline">¶</a></h3>
+<p>We can imagine our study sampled individuals from an extensive range of localities, supplementing it with samples from previous collections, to develop a comprehensive data set spanning a broad taxonomic as well as geographic range.
+Preliminary phylogenetic analysis, which included genomic data from known, stable, species, as well as comparative morphological analyses, has confidentally established the species identities of some of these lineages.
+However, a number of lineages in the sample, while coming out to sister to known species, are sufficiently different in some respects (e.g., genetic distance or morphology), to make us question whether or not we are looking at different populations of the same species or perhaps new species altogether.</p>
+<p>Alternatively, we might imagine a study to delineate species units in a particularly problematic clade.
+Here, in addition to samples from multiple populations from the clade, we would also include populations from a broader range of species in which the focal clade is a nested subtree.
+The analytical workflow for this sort of study will be identical to that discussed here, with only the distribution of population lineages of unknown identity being different — clustered into a single subtree on the larger phylogeny as opposed to scattered into multiple smaller subtrees (or single lineages).</p>
+</div>
+<div class="section" id="data">
+<h3>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h3>
+<p>Here we will focus on just a subset of the data from Maddison and Sproul (2020), focusing only on lineages in the genus <em>Lionepha</em> itself.
+This data consists of 8 gene alignments for 143 samples from multiple individuals from multiple populations from multiple species:</p>
+<ul class="simple">
+<li><p>lionepha/00-alignments/18s.nex</p></li>
+<li><p>lionepha/00-alignments/28s.nex</p></li>
+<li><p>lionepha/00-alignments/argk.nex</p></li>
+<li><p>lionepha/00-alignments/cad.nex</p></li>
+<li><p>lionepha/00-alignments/coi.nex</p></li>
+<li><p>lionepha/00-alignments/msp.nex</p></li>
+<li><p>lionepha/00-alignments/topo.nex</p></li>
+<li><p>lionepha/00-alignments/wg.nex</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="stage-i-identification-of-population-units-using-the-multipopulation-coalescent-model">
+<h2>Stage I: Identification of Population Units using the Multipopulation Coalescent Model<a class="headerlink" href="#stage-i-identification-of-population-units-using-the-multipopulation-coalescent-model" title="Permalink to this headline">¶</a></h2>
+<p>The first stage of our analysis will be delimitation of <em>population</em> units, i.e. assignment of population identities to individual lineages, under the “multipopulation coalescent”.
+This model was first published under the name “censored coalescent”, but has since become more popularly known as the “Multispecies Coalescent” or “MSC” model.
+It is a very powerful and elegant model that allows us to identify structure in genomic data arising from disruptions in Wright-Fisher panmixia due to restrictions in gene flow.</p>
+<p>We will be using <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> to identify our population units, and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to obtain a guide tree for the <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis.
+Note that these programs use the term “species” to reference the higher-level units they analyze rather than populations (as in “species delimitation” or “species tree inference”, rather than “population delimitation” and “population tree inference”).
+This can be correct in some contexts: e.g., where the data sampling does, either coincidentally or by design, indeed represent a 1-to-1 correspondence between populations and species, or, equivalently the species being studied do indeed <em>not</em> have any within-species lineage structure.
+However, more generally, this is, at best, misleading.
+These programs use the MSC as their underlying model.
+From a statistical perspective, it is uncontroversial that the biological units that these programs model through the “censored” coalescent/MSC that model that underlies them are (Wright-Fisher) populations.
+Strictly speaking, when used for species delimitation or model species trees, programs such as <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> are used to identify <em>population</em> units under the MSC, and then these population units are interpreted (with or without justification) by the investigator to correspond on a 1-to-1 basis to species units.
+Thus, when using the MSC for “species delimitation” or “species tree inference”, the difference between “population” and “species” is purely lexical rather than statistical.</p>
+<p>Here, however, we are going to interpret higher-level units of organization as exactly what they are as modeled by the MSC — populations, no more and no less.
+Unfortunately, this may result in some confusion as both <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> refer to the higher-level units they target as “species” at least some of the time in the various program options and documentation.
+(In fact, <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a>, in some of the program documentation as well as n some of the various papers presenting or referencing the theory behind it acutally use the term “species” and “populations” interchangeably).
+This is simply the cost of doing business.</p>
+<div class="section" id="candidate-population-units">
+<h3>Candidate Population Units<a class="headerlink" href="#candidate-population-units" title="Permalink to this headline">¶</a></h3>
+<p>A <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis requires us to identify “population” lineages as input <em>a priori</em>, some of which it will then collapse together to form “species” lineages.
+We will consider these to be “candidate population” and “actual population” lineages respectively.
+That is, we will provide <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> with the finest-grain units that could possibly be distinct populations as input population lineages, then use the power of the MSC model to accurately merge together our candidate populations into distinct populations (“species”, in <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> terminology).
+For this analysis, we will err on the side of caution, not hestitating our over-split our candidate populations, as we can rely on the MSC to collapse them if there is insufficient gene flow restriction between them to form population boundaries.
+As such, we will consider every distinct geographical sample to be a distinct candidate population.</p>
+<table class="small-text compressed-table docutils align-default">
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Individual</p></th>
+<th class="head"><p>Candidate Population Assignment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_australerasa_CA_Carson_Spur_3839</p></li>
+<li><p>L_australerasa_CA_Carson_Spur_3840</p></li>
+<li><p>L_australerasa_CA_Carson_Spur_3841</p></li>
+</ul>
+</td>
+<td><p>L_australerasa_CA_Carson_Spur</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_australerasa_CA_Homewood_Canyon_5214</p></li>
+</ul>
+</td>
+<td><p>L_australerasa_CA_Homewood_Canyon</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_australerasa_CA_Martin_Meadow_3838</p></li>
+</ul>
+</td>
+<td><p>L_australerasa_CA_Martin_Meadow</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_australerasa_CA_Mill_Creek_5212</p></li>
+<li><p>L_australerasa_CA_Mill_Creek_5213</p></li>
+</ul>
+</td>
+<td><p>L_australerasa_CA_Mill_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_australerasa_CA_Nanny_Creek_3864</p></li>
+<li><p>L_australerasa_CA_Nanny_Creek_3896</p></li>
+</ul>
+</td>
+<td><p>L_australerasa_CA_Nanny_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_australerasa_CA_Oyster_Lake_3844</p></li>
+<li><p>L_australerasa_CA_Oyster_Lake_3845</p></li>
+</ul>
+</td>
+<td><p>L_australerasa_CA_Oyster_Lake</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_australerasa_OR_Crater_Lake_4984</p></li>
+<li><p>L_australerasa_OR_Crater_Lake_4986</p></li>
+</ul>
+</td>
+<td><p>L_australerasa_OR_Crater_Lake</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_casta_AK_Ketchikan_4894</p></li>
+</ul>
+</td>
+<td><p>L_casta_AK_Ketchikan</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_casta_AK_Prince_of_Wales_Island_4523</p></li>
+</ul>
+</td>
+<td><p>L_casta_AK_Prince_of_Wales_Island</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_casta_CA_Mt_Tamalpais_3830</p></li>
+</ul>
+</td>
+<td><p>L_casta_CA_Mt_Tamalpais</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_casta_CA_Soda_Creek_4049</p></li>
+</ul>
+</td>
+<td><p>L_casta_CA_Soda_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_casta_CA_West_Branch_Mill_Creek_3703</p></li>
+</ul>
+</td>
+<td><p>L_casta_CA_West_Branch_Mill_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_casta_OR_Lost_Prairie_5204</p></li>
+</ul>
+</td>
+<td><p>L_casta_OR_Lost_Prairie</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_casta_OR_Marys_Peak_2545</p></li>
+</ul>
+</td>
+<td><p>L_casta_OR_Marys_Peak</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_casta_OR_School_Creek_3041</p></li>
+</ul>
+</td>
+<td><p>L_casta_OR_School_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_casta_WA_Taneum_Creek_1400</p></li>
+</ul>
+</td>
+<td><p>L_casta_WA_Taneum_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_BC_Summit_Creek_1896</p></li>
+<li><p>L_disjuncta_BC_Summit_Creek_3090</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_BC_Summit_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_disjuncta_CA_Emerson_Creek_4122</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_CA_Emerson_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_CA_Lily_Lake_3069</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_CA_Lily_Lake</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_disjuncta_CA_Salmon_Creek_4133</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_CA_Salmon_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_CA_Trinity_Alps_4115</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_CA_Trinity_Alps</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_disjuncta_ID_Salmon_River_4780</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_ID_Salmon_River</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_MT_Mill_Creek_4716</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_MT_Mill_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_disjuncta_OR_Lostine_River_3848</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_OR_Lostine_River</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_OR_Mt_Hood_4143</p></li>
+</ul>
+</td>
+<td><p>L_disjuncta_OR_Mt_Hood</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_erasa_AK_Thompson_Pass_4059</p></li>
+</ul>
+</td>
+<td><p>L_erasa_AK_Thompson_Pass</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_erasa_BC_Cherryville_4002</p></li>
+</ul>
+</td>
+<td><p>L_erasa_BC_Cherryville</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_erasa_OR_Lost_Prairie_5197</p></li>
+<li><p>L_erasa_OR_Lost_Prairie_5199</p></li>
+<li><p>L_erasa_OR_Lost_Prairie_5200</p></li>
+<li><p>L_erasa_OR_Lost_Prairie_5201</p></li>
+</ul>
+</td>
+<td><p>L_erasa_OR_Lost_Prairie</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_erasa_OR_Marys_Peak_2575</p></li>
+<li><p>L_erasa_OR_Marys_Peak_2586</p></li>
+<li><p>L_erasa_OR_Marys_Peak_2615</p></li>
+<li><p>L_erasa_OR_Marys_Peak_2616</p></li>
+</ul>
+</td>
+<td><p>L_erasa_OR_Marys_Peak</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_erasa_OR_Mount_Hebo_3013</p></li>
+<li><p>L_erasa_OR_Mount_Hebo_3016</p></li>
+</ul>
+</td>
+<td><p>L_erasa_OR_Mount_Hebo</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_erasa_OR_Mt_Hood_4144</p></li>
+</ul>
+</td>
+<td><p>L_erasa_OR_Mt_Hood</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_erasa_OR_Prairie_Peak_2580</p></li>
+</ul>
+</td>
+<td><p>L_erasa_OR_Prairie_Peak</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_kavanaughi_MT_Bitterroot_River_4646</p></li>
+</ul>
+</td>
+<td><p>L_kavanaughi_MT_Bitterroot_River</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_kavanaughi_MT_Lost_Horse_Creek_4648</p></li>
+</ul>
+</td>
+<td><p>L_kavanaughi_MT_Lost_Horse_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_kavanaughi_OR_Little_Philips_Creek_4998</p></li>
+</ul>
+</td>
+<td><p>L_kavanaughi_OR_Little_Philips_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_kavanaughi_OR_Lostine_River_4996</p></li>
+</ul>
+</td>
+<td><p>L_kavanaughi_OR_Lostine_River</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_kavanaughi_OR_Lostine_River_Valley_4990</p></li>
+<li><p>L_kavanaughi_OR_Lostine_River_Valley_4992</p></li>
+<li><p>L_kavanaughi_OR_Lostine_River_Valley_4993</p></li>
+<li><p>L_kavanaughi_OR_Lostine_River_Valley_5000</p></li>
+<li><p>L_kavanaughi_OR_Lostine_River_Valley_5002</p></li>
+<li><p>L_kavanaughi_OR_Lostine_River_Valley_5006</p></li>
+<li><p>L_kavanaughi_OR_Lostine_River_Valley_5008</p></li>
+<li><p>L_kavanaughi_OR_Lostine_River_Valley_5010</p></li>
+</ul>
+</td>
+<td><p>L_kavanaughi_OR_Lostine_River_Valley</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Deadman_Creek_4140</p></li>
+</ul>
+</td>
+<td><p>L_lindrothi_CA_Deadman_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_lindrothi_CA_East_Fork_Kaweah_River_4120</p></li>
+</ul>
+</td>
+<td><p>L_lindrothi_CA_East_Fork_Kaweah_River</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Emerald_Lake_4116</p></li>
+<li><p>L_lindrothi_CA_Emerald_Lake_4117</p></li>
+<li><p>L_lindrothi_CA_Emerald_Lake_4118</p></li>
+</ul>
+</td>
+<td><p>L_lindrothi_CA_Emerald_Lake</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Kaiser_Pass_4121</p></li>
+</ul>
+</td>
+<td><p>L_lindrothi_CA_Kaiser_Pass</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Long_Valley_Creek_5072</p></li>
+</ul>
+</td>
+<td><p>L_lindrothi_CA_Long_Valley_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Sonora_Pass_4134</p></li>
+</ul>
+</td>
+<td><p>L_lindrothi_CA_Sonora_Pass</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_lindrothi_CA_South_Fork_Bishop_Creek_3568</p></li>
+</ul>
+</td>
+<td><p>L_lindrothi_CA_South_Fork_Bishop_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Tioga_Lake_4132</p></li>
+</ul>
+</td>
+<td><p>L_lindrothi_CA_Tioga_Lake</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_CA_Carson_Spur_3164</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Carson_Spur</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_osculans_CA_Cold_Creek_1387</p></li>
+<li><p>L_osculans_CA_Cold_Creek_1390</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Cold_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_CA_Los_Padres_NF_3162</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Los_Padres_NF</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_osculans_CA_Nanny_Creek_3721</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Nanny_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_CA_Pike_County_Gulch_3846</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Pike_County_Gulch</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_osculans_CA_Rainbow_1401</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Rainbow</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_CA_Stanislaus_NF_3157</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Stanislaus_NF</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_osculans_CA_Strawberry_Creek_3163</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Strawberry_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_CA_Warner_Range_3161</p></li>
+</ul>
+</td>
+<td><p>L_osculans_CA_Warner_Range</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_osculans_OR_Eugene_4593</p></li>
+</ul>
+</td>
+<td><p>L_osculans_OR_Eugene</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_OR_Goodman_Creek_3158</p></li>
+</ul>
+</td>
+<td><p>L_osculans_OR_Goodman_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_osculans_OR_Little_Philips_Creek_5001</p></li>
+</ul>
+</td>
+<td><p>L_osculans_OR_Little_Philips_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_OR_Middle_Fork_Berry_Creek_3095</p></li>
+</ul>
+</td>
+<td><p>L_osculans_OR_Middle_Fork_Berry_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_osculans_OR_School_Creek_2638</p></li>
+</ul>
+</td>
+<td><p>L_osculans_OR_School_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_OR_Walton_Lake_4743</p></li>
+</ul>
+</td>
+<td><p>L_osculans_OR_Walton_Lake</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_BC_Summit_Creek_3720</p></li>
+</ul>
+</td>
+<td><p>L_probata_BC_Summit_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_CA_Algoma_Camp_3855</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Algoma_Camp</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_CA_Ellery_Lake_4138</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Ellery_Lake</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_CA_Middle_Martis_Creek_1161</p></li>
+<li><p>L_probata_CA_Middle_Martis_Creek_1970</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Middle_Martis_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_CA_Nanny_Creek_3895</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Nanny_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_CA_Sherman_Pass_3730</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Sherman_Pass</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_CA_South_Fork_Bishop_Creek_3686</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_South_Fork_Bishop_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_CA_Squaw_Valley_Resort_5211</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Squaw_Valley_Resort</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_CA_Strawberry_Creek_3832</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Strawberry_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_CA_Tamarack_Lake_4137</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Tamarack_Lake</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_CA_Warner_Range_3863</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_Warner_Range</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_CA_White_Mountains_3833</p></li>
+</ul>
+</td>
+<td><p>L_probata_CA_White_Mountains</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_ID_Baker_Creek_3865</p></li>
+</ul>
+</td>
+<td><p>L_probata_ID_Baker_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_ID_Galena_Summit_3722</p></li>
+</ul>
+</td>
+<td><p>L_probata_ID_Galena_Summit</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_ID_Park_Creek_3866</p></li>
+</ul>
+</td>
+<td><p>L_probata_ID_Park_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_MT_Mill_Creek_4713</p></li>
+</ul>
+</td>
+<td><p>L_probata_MT_Mill_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_MT_Prospect_Creek_4645</p></li>
+</ul>
+</td>
+<td><p>L_probata_MT_Prospect_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_NV_Ruby_Mountains_3684</p></li>
+</ul>
+</td>
+<td><p>L_probata_NV_Ruby_Mountains</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_OR_Little_Philips_Creek_4995</p></li>
+</ul>
+</td>
+<td><p>L_probata_OR_Little_Philips_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_OR_Lonesome_Spring_4744</p></li>
+</ul>
+</td>
+<td><p>L_probata_OR_Lonesome_Spring</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_OR_Lost_Prairie_3723</p></li>
+</ul>
+</td>
+<td><p>L_probata_OR_Lost_Prairie</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_OR_Lostine_River_Valley_4991</p></li>
+</ul>
+</td>
+<td><p>L_probata_OR_Lostine_River_Valley</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_OR_Lostine_River_Valley_5004</p></li>
+</ul>
+</td>
+<td><p>L_probata_OR_Lostine_River_Valley</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_OR_Mt_Ashland_3165</p></li>
+</ul>
+</td>
+<td><p>L_probata_OR_Mt_Ashland</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_OR_Odell_Creek_3867</p></li>
+</ul>
+</td>
+<td><p>L_probata_OR_Odell_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_OR_Steens_Mountains_2724</p></li>
+<li><p>L_probata_OR_Steens_Mountains_3717</p></li>
+</ul>
+</td>
+<td><p>L_probata_OR_Steens_Mountains</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_UT_Shingle_Creek_4198</p></li>
+</ul>
+</td>
+<td><p>L_probata_UT_Shingle_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_UT_Stansbury_Mtns_3601</p></li>
+<li><p>L_probata_UT_Stansbury_Mtns_3685</p></li>
+</ul>
+</td>
+<td><p>L_probata_UT_Stansbury_Mtns</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_UT_Tushar_Mountains_5037</p></li>
+</ul>
+</td>
+<td><p>L_probata_UT_Tushar_Mountains</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_WA_Blue_Mountains_3854</p></li>
+</ul>
+</td>
+<td><p>L_probata_WA_Blue_Mountains</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_WA_Taneum_Creek_1320</p></li>
+</ul>
+</td>
+<td><p>L_probata_WA_Taneum_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_pseudoerasa_CA_Kaiser_Pass_4139</p></li>
+</ul>
+</td>
+<td><p>L_pseudoerasa_CA_Kaiser_Pass</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_pseudoerasa_CA_Lily_Lake_3073</p></li>
+</ul>
+</td>
+<td><p>L_pseudoerasa_CA_Lily_Lake</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_pseudoerasa_CA_Sherman_Pass_3599</p></li>
+<li><p>L_pseudoerasa_CA_Sherman_Pass_3688</p></li>
+</ul>
+</td>
+<td><p>L_pseudoerasa_CA_Sherman_Pass</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_pseudoerasa_CA_Strawberry_Creek_3072</p></li>
+<li><p>L_pseudoerasa_CA_Strawberry_Creek_3083</p></li>
+<li><p>L_pseudoerasa_CA_Strawberry_Creek_3086</p></li>
+<li><p>L_pseudoerasa_CA_Strawberry_Creek_3087</p></li>
+</ul>
+</td>
+<td><p>L_pseudoerasa_CA_Strawberry_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_pseudoerasa_CA_Trinity_Alps_4114</p></li>
+</ul>
+</td>
+<td><p>L_pseudoerasa_CA_Trinity_Alps</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_sequoiae_CA_Bridal_Veil_Falls_3078</p></li>
+</ul>
+</td>
+<td><p>L_sequoiae_CA_Bridal_Veil_Falls</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_sequoiae_CA_Nanny_Creek_3702</p></li>
+</ul>
+</td>
+<td><p>L_sequoiae_CA_Nanny_Creek</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_sequoiae_CA_Strawberry_Creek_3075</p></li>
+<li><p>L_sequoiae_CA_Strawberry_Creek_3085</p></li>
+</ul>
+</td>
+<td><p>L_sequoiae_CA_Strawberry_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_sequoiae_OR_Oakridge_2647</p></li>
+</ul>
+</td>
+<td><p>L_sequoiae_OR_Oakridge</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_sequoiae_OR_School_Creek_2614</p></li>
+</ul>
+</td>
+<td><p>L_sequoiae_OR_School_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_tuulukwa_CA_Trinity_Alps_4113</p></li>
+</ul>
+</td>
+<td><p>L_tuulukwa_CA_Trinity_Alps</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_tuulukwa_OR_Knowles_Creek_3700</p></li>
+<li><p>L_tuulukwa_OR_Knowles_Creek_3701</p></li>
+</ul>
+</td>
+<td><p>L_tuulukwa_OR_Knowles_Creek</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_tuulukwa_OR_Marys_Peak_2581</p></li>
+<li><p>L_tuulukwa_OR_Marys_Peak_2635</p></li>
+<li><p>L_tuulukwa_OR_Marys_Peak_2636</p></li>
+<li><p>L_tuulukwa_OR_Marys_Peak_2637</p></li>
+<li><p>L_tuulukwa_OR_Marys_Peak_2642</p></li>
+<li><p>L_tuulukwa_OR_Marys_Peak_2643</p></li>
+<li><p>L_tuulukwa_OR_Marys_Peak_3782</p></li>
+</ul>
+</td>
+<td><p>L_tuulukwa_OR_Marys_Peak</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="iia-generating-a-guide-tree-for-population-delimitation">
+<h3>IIa. Generating a Guide Tree for Population Delimitation<a class="headerlink" href="#iia-generating-a-guide-tree-for-population-delimitation" title="Permalink to this headline">¶</a></h3>
+<p>We will provide <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> with a guide tree for its population delimitation analysis.
+We will use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to generate this guide tree.</p>
+<p>The full <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> configuration file, generated using <code class="docutils literal notranslate"><span class="pre">BEAUTi</span></code>, can be found at in <code class="docutils literal notranslate"><span class="pre">lionepha/01-guidetree-estimation/sb00500M.xml</span></code>.
+The alignments listed above were imported, and the following “traits” file was used to map alignment sequences to canidate population units: <code class="docutils literal notranslate"><span class="pre">lionepha/01-guidetree-estimation/traits.txt</span></code>.</p>
+<p>We used a single strict clock model across all genes, and a HKY+G model of substitution.</p>
+<p>We ran this four replicates of this analysis for 500 million generations each, sampling every 500,000 generations for a total of 1000 samples from each replicates.
+The first 250 samples were discarded from the 100 samples of each replicates.
+Convergence was diagnosed through inspection of traces for each parameter as well as the likelihood and posterior.
+ESS values for each parameter were established to be more than 250, and distributions of parameter values were compared to a “null” run (i.e., a run without data where just the prior was sampled) to confirm that the analysis learned from the data sufficiently to shift the posterior away from the prior.</p>
+<p>The post-burn in samples from the posterior were summarized using <a class="reference external" href="https://dendropy.org/programs/sumtrees.html">SumTrees</a>, with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sumtrees.py -b 250 \
+            -s mcct \
+            -e clear \
+            -l clear \
+            --force-rooted \
+            --suppress-annotations \
+            -r -o summary.guide.tre \
+            run1/species.trees \
+            run2/species.trees \
+            run3/species.trees \
+            run4/species.trees
+</pre></div>
+</div>
+<p>This selects the Maximum Clade Credibility Tree (MCCT) tree for the summary topolgy, stripping all branch lengths and metadata annotations, to result in the following:</p>
+<p class="framebox center"><a class="reference external" href="_static/examples/lionepha/01-guidetree-estimation/guidetree.nex">examples/lionepha/01-guidetree-estimation/guidetree.nex</a></p>
+</div>
+<div class="section" id="iib-delimitation-of-population-units">
+<h3>IIb. Delimitation of Population Units<a class="headerlink" href="#iib-delimitation-of-population-units" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have a guide tree that treats each distinct geographical lineage as a candidate distinct Wright-Fisher population, we will run <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> in “A10” mode to delimit the true population units under the “multipopulation coalescent” (i.e., the MSC).</p>
+<div class="section" id="iib-i-the-pooled-approach">
+<h4>IIb(i). The Pooled Approach<a class="headerlink" href="#iib-i-the-pooled-approach" title="Permalink to this headline">¶</a></h4>
+<p>The files provided in the “<code class="docutils literal notranslate"><span class="pre">lionepha/02a-population-delimitation-pooled</span></code>” directory set up a fairly straightforward <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> “A10” analyses using the data that we have collected and the guide tree we have estimated:</p>
+<table class="colwidths-given compressed-table docutils align-default" id="id1">
+<caption><span class="caption-text">Pooled <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> Population Delimitation Analysis</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bpprun.input.ctl</p></td>
+<td><p>Control file</p></td>
+</tr>
+<tr class="row-odd"><td><p>bpprun.input.chars.txt</p></td>
+<td><p>Character data</p></td>
+</tr>
+<tr class="row-even"><td><p>bpprun.input.imap.txt</p></td>
+<td><p>Sequence to population map</p></td>
+</tr>
+<tr class="row-odd"><td><p>bpp00.job</p></td>
+<td><p>Execution job</p></td>
+</tr>
+</tbody>
+</table>
+<p>The problem is that, when executing the analysis by either running the job file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bash bpp00.job
+</pre></div>
+</div>
+<p>or submitting it to an execution host:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ qsub bpp00.job
+</pre></div>
+</div>
+<p>or simply running the command directly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bpp --cfile bpprun.input.ctl
+</pre></div>
+</div>
+<p>we might find that the data set is too large to analyze:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bpp</span> <span class="n">v4</span><span class="o">.</span><span class="mf">1.4</span><span class="n">_linux_x86_64</span><span class="p">,</span> <span class="mi">31</span><span class="n">GB</span> <span class="n">RAM</span><span class="p">,</span> <span class="mi">12</span> <span class="n">cores</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bpp</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="o">.</span>
+<span class="n">Total</span> <span class="n">species</span> <span class="n">delimitations</span><span class="p">:</span> <span class="mi">23958541050464777</span>
+<span class="n">Unable</span> <span class="n">to</span> <span class="n">allocate</span> <span class="n">enough</span> <span class="n">memory</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="iib-ii-the-subtree-approach">
+<h4>IIb(ii). The Subtree Approach<a class="headerlink" href="#iib-ii-the-subtree-approach" title="Permalink to this headline">¶</a></h4>
+<p>The solution is to break the data set up into subtrees and carry out a separate population delimitation analysis on each subtree.
+While designing a decomposition scheme, it is important to note that we should <em>not</em> separate out candidate population lineages that might potentially belong to the same (actual) population into separate subtrees, thereby preventing <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> from being able to collapse them if it does not detect any gene flow restriction between them.
+In most studies, this should not be too difficult to identify.
+Even in cases where we might not know where the <em>species</em> boundaries are, with reference to the guide tree phylogeny we should be able to identify subtree clusters that do not disrupt population boundaries.
+In this case of this <em>Lionepha</em> study, the nominal species clades provide very nice granularity — small enough to be analyzed by <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a>, yet with no danger of breaking up an actual population.</p>
+<div class="figure align-default">
+<a class="figure-image reference internal image-reference" href="_images/lionepha-guidetree.png"><img alt="Guide tree for Lionepha population delimitation, showing subtrees used when decomposing into separate analyses." class="figure-image" src="_images/lionepha-guidetree.png" style="width: 100%;" /></a>
+</div>
+<p class="figure-caption"><strong>Figure</strong>:  We cannot delimit populations for the entire data set simulatneously in <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> due to the number of lineages. Instead, we decompose the analysis into a set of smaller analyses based on subtrees.</p>
+<p>The set up for this set of analyses can be found at:</p>
+<p class="framebox center"><code class="docutils literal notranslate"><span class="pre">lionepha/02b-population-delimitation-subtrees</span></code></p>
+<p>with each subdirectory containing a stand-alone analysis.</p>
+</div>
+<div class="section" id="iic-collating-results-of-the-subtree-approach">
+<h4>IIc. Collating Results of the Subtree Approach<a class="headerlink" href="#iic-collating-results-of-the-subtree-approach" title="Permalink to this headline">¶</a></h4>
+<p>Each of the subtree analysis now has the populations delimited under the MSC model.
+Having identified these population units, we now pool them.</p>
+</div>
+</div>
+</div>
+<div class="section" id="stage-iii-generating-the-phylogeny-of-populations">
+<h2>Stage III. Generating the Phylogeny of Populations<a class="headerlink" href="#stage-iii-generating-the-phylogeny-of-populations" title="Permalink to this headline">¶</a></h2>
+<p>We use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to estimate an ultrametric phylogeny of population lineages.
+We use the original set of alignments (found <a class="reference external" href="_static/examples/lionepha/00-alignments">here</a>) for as the input data for this, and a “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.</p>
+</div>
+<div class="section" id="stage-iv-assignment-of-known-vs-unknown-species-identities">
+<h2>Stage IV. Assignment of Known vs. Unknown Species Identities<a class="headerlink" href="#stage-iv-assignment-of-known-vs-unknown-species-identities" title="Permalink to this headline">¶</a></h2>
+<p>We now inspect out phylogeny and determine <em>a priori</em> species assignments for as many population lineages as we can.</p>
+</div>
+<div class="section" id="stage-v-delimitation-of-species-units">
+<h2>Stage V. Delimitation of Species Units<a class="headerlink" href="#stage-v-delimitation-of-species-units" title="Permalink to this headline">¶</a></h2>
+<p>We are now ready to run DELINEATE, using the phylogeny obtained in Stage III and the constraints table in Stage IV.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">DELINEATE</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Basic Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">A Complete Worked Example: <em>Lionepha</em></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#software-prerequisites">(Software Prerequisites)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-files">(Data Files)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#background">Background</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#study-design">Study Design</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data">Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stage-i-identification-of-population-units-using-the-multipopulation-coalescent-model">Stage I: Identification of Population Units using the Multipopulation Coalescent Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#candidate-population-units">Candidate Population Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iia-generating-a-guide-tree-for-population-delimitation">IIa. Generating a Guide Tree for Population Delimitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iib-delimitation-of-population-units">IIb. Delimitation of Population Units</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#stage-iii-generating-the-phylogeny-of-populations">Stage III. Generating the Phylogeny of Populations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stage-iv-assignment-of-known-vs-unknown-species-identities">Stage IV. Assignment of Known vs. Unknown Species Identities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stage-v-delimitation-of-species-units">Stage V. Delimitation of Species Units</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="quickstart.html" title="previous chapter">Quick Start</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Jeet Sukumaran and Mark T. Holder.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/workflow1.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

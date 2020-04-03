@@ -1,0 +1,9 @@
+L_casta_AK_Prince_of_Wales_Island_4523    L_casta_AK_Prince_of_Wales_Island
+L_casta_AK_Ketchikan_4894    L_casta_AK_Ketchikan
+L_casta_CA_West_Branch_Mill_Creek_3703    L_casta_CA_West_Branch_Mill_Creek
+L_casta_CA_Mt_Tamalpais_3830    L_casta_CA_Mt_Tamalpais
+L_casta_CA_Soda_Creek_4049    L_casta_CA_Soda_Creek
+L_casta_OR_Marys_Peak_2545    L_casta_OR_Marys_Peak
+L_casta_OR_School_Creek_3041    L_casta_OR_School_Creek
+L_casta_OR_Lost_Prairie_5204    L_casta_OR_Lost_Prairie
+L_casta_WA_Taneum_Creek_1400    L_casta_WA_Taneum_Creek

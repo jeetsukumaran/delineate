@@ -1,0 +1,6 @@
+L_sequoiae_CA_Strawberry_Creek_3075    L_sequoiae_CA_Strawberry_Creek
+L_sequoiae_CA_Bridal_Veil_Falls_3078    L_sequoiae_CA_Bridal_Veil_Falls
+L_sequoiae_CA_Strawberry_Creek_3085    L_sequoiae_CA_Strawberry_Creek
+L_sequoiae_CA_Nanny_Creek_3702    L_sequoiae_CA_Nanny_Creek
+L_sequoiae_OR_School_Creek_2614    L_sequoiae_OR_School_Creek
+L_sequoiae_OR_Oakridge_2647    L_sequoiae_OR_Oakridge

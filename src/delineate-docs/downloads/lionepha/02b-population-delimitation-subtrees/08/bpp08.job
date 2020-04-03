@@ -1,0 +1,4 @@
+#! /bin/bash
+set -e -o pipefail
+cd ${PBS_O_WORKDIR:-$PWD}
+bpp --cfile bpprun.input.ctl

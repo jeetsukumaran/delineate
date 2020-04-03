@@ -24,6 +24,7 @@ Documentation
     install.rst
     concepts.rst
     quickstart.rst
+    workflow1.rst
 
 
 

@@ -1,0 +1,10 @@
+L_tuulukwa_CA_Trinity_Alps_4113    L_tuulukwa_CA_Trinity_Alps
+L_tuulukwa_OR_Marys_Peak_2581    L_tuulukwa_OR_Marys_Peak
+L_tuulukwa_OR_Marys_Peak_2635    L_tuulukwa_OR_Marys_Peak
+L_tuulukwa_OR_Marys_Peak_2636    L_tuulukwa_OR_Marys_Peak
+L_tuulukwa_OR_Marys_Peak_2637    L_tuulukwa_OR_Marys_Peak
+L_tuulukwa_OR_Marys_Peak_2642    L_tuulukwa_OR_Marys_Peak
+L_tuulukwa_OR_Marys_Peak_2643    L_tuulukwa_OR_Marys_Peak
+L_tuulukwa_OR_Knowles_Creek_3700    L_tuulukwa_OR_Knowles_Creek
+L_tuulukwa_OR_Knowles_Creek_3701    L_tuulukwa_OR_Knowles_Creek
+L_tuulukwa_OR_Marys_Peak_3782    L_tuulukwa_OR_Marys_Peak

@@ -70,4 +70,8 @@ rst_epilog = """
 .. _Python: https://www.python.org/
 .. |StarBeast2| replace:: StarBeast2
 .. _StarBeast2: https://taming-the-beast.org/tutorials/starbeast2-tutorial/
+.. |SumTrees| replace:: SumTrees
+.. _SumTrees: https://dendropy.org/programs/sumtrees.html
+.. |DendroPy| replace:: DendroPy
+.. _DendroPy: https://dendropy.org/
 """

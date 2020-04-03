@@ -1,0 +1,251 @@
+Analysis started at: Mon Mar  2 18:45:45 2020
+Using BPP version: 4.1.4
+Command: bpp --cfile bpprun.input.ctl 
+
+COMPRESSED ALIGNMENTS
+
+6 5 P
+^L_sequoiae_CA_Strawberry_Creek_3075      caacx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078     caacx
+^L_sequoiae_CA_Strawberry_Creek_3085      caacx
+^L_sequoiae_CA_Nanny_Creek_3702           cagxx
+^L_sequoiae_OR_School_Creek_2614          cxaxx
+^L_sequoiae_OR_Oakridge_2647              caacx
+652 4 2 108 1
+
+6 2 P
+^L_sequoiae_CA_Strawberry_Creek_3075      xx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078     xx
+^L_sequoiae_CA_Strawberry_Creek_3085      xx
+^L_sequoiae_CA_Nanny_Creek_3702           xx
+^L_sequoiae_OR_School_Creek_2614          ax
+^L_sequoiae_OR_Oakridge_2647              xx
+1960 52
+
+6 16 P
+^L_sequoiae_CA_Strawberry_Creek_3075      augauucguy xxxxxx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078     augaxxcryc xxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085      auaxxxmguc xxxxxx
+^L_sequoiae_CA_Nanny_Creek_3702           aggauumguc aaaxxx
+^L_sequoiae_OR_School_Creek_2614          augauxcguc axxgux
+^L_sequoiae_OR_Oakridge_2647              augauucguc aaxgxx
+686 1 1 15 13 8 1 1 1 1 89 5 6 5 7 3
+
+6 2 P
+^L_sequoiae_CA_Strawberry_Creek_3075      ax
+^L_sequoiae_CA_Bridal_Veil_Falls_3078     xx
+^L_sequoiae_CA_Strawberry_Creek_3085      xx
+^L_sequoiae_CA_Nanny_Creek_3702           xx
+^L_sequoiae_OR_School_Creek_2614          ax
+^L_sequoiae_OR_Oakridge_2647              xx
+718 29
+
+6 10 P
+^L_sequoiae_CA_Strawberry_Creek_3075      uaarruyyyx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078     xxxxxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085      xxxxxxxxxx
+^L_sequoiae_CA_Nanny_Creek_3702           xxxxxxxxxx
+^L_sequoiae_OR_School_Creek_2614          ugxagycuwx
+^L_sequoiae_OR_Oakridge_2647              xxxxxxxxxx
+833 3 55 1 4 1 3 2 1 12
+
+6 8 P
+^L_sequoiae_CA_Strawberry_Creek_3075      acrsuyyx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078     xxxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085      xxxxxxxx
+^L_sequoiae_CA_Nanny_Creek_3702           xxxxxxxx
+^L_sequoiae_OR_School_Creek_2614          ammcycyx
+^L_sequoiae_OR_Oakridge_2647              xxxxxxxx
+481 1 1 1 1 1 1 3
+
+6 37 P
+^L_sequoiae_CA_Strawberry_Creek_3075      uaaaaaacuc ccmggggggg grrrruuuuu uuuwyyx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078     uaaaarxxxc yymggggrrr raggruuuuw yykucux
+^L_sequoiae_CA_Strawberry_Creek_3085      uaaawaacxc cycggrrggr raggruuuyu cuuwuyx
+^L_sequoiae_CA_Nanny_Creek_3702           uaararaxus cccgrgrggg raggruukuu cuuucuu
+^L_sequoiae_OR_School_Creek_2614          uaxaagacxg cccgggggrg gagrauuuuu cuuucux
+^L_sequoiae_OR_Oakridge_2647              uxaaagxxxc cccsgrggrr raggrwyuuw cukuyxx
+732 5 11 1 1 1 12 19 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+
+6 7 P
+^L_sequoiae_CA_Strawberry_Creek_3075      gcaaxxx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078     gcaagxx
+^L_sequoiae_CA_Strawberry_Creek_3085      gcaxxxx
+^L_sequoiae_CA_Nanny_Creek_3702           gxxxxgx
+^L_sequoiae_OR_School_Creek_2614          gcxxxxx
+^L_sequoiae_OR_Oakridge_2647              gcaxxxx
+957 26 1 1 3 7 197
+
+COMPRESSED ALIGNMENTS AFTER PHASING OF DIPLOID SEQUENCES
+
+12 5 P
+^L_sequoiae_CA_Strawberry_Creek_3075.1      caacx
+^L_sequoiae_CA_Strawberry_Creek_3075.2      caacx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.1     caacx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.2     caacx
+^L_sequoiae_CA_Strawberry_Creek_3085.1      caacx
+^L_sequoiae_CA_Strawberry_Creek_3085.2      caacx
+^L_sequoiae_CA_Nanny_Creek_3702.1           cagxx
+^L_sequoiae_CA_Nanny_Creek_3702.2           cagxx
+^L_sequoiae_OR_School_Creek_2614.1          cxaxx
+^L_sequoiae_OR_School_Creek_2614.2          cxaxx
+^L_sequoiae_OR_Oakridge_2647.1              caacx
+^L_sequoiae_OR_Oakridge_2647.2              caacx
+1 1 1 1 1
+
+12 2 P
+^L_sequoiae_CA_Strawberry_Creek_3075.1      xx
+^L_sequoiae_CA_Strawberry_Creek_3075.2      xx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.1     xx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.2     xx
+^L_sequoiae_CA_Strawberry_Creek_3085.1      xx
+^L_sequoiae_CA_Strawberry_Creek_3085.2      xx
+^L_sequoiae_CA_Nanny_Creek_3702.1           xx
+^L_sequoiae_CA_Nanny_Creek_3702.2           xx
+^L_sequoiae_OR_School_Creek_2614.1          ax
+^L_sequoiae_OR_School_Creek_2614.2          ax
+^L_sequoiae_OR_Oakridge_2647.1              xx
+^L_sequoiae_OR_Oakridge_2647.2              xx
+1 1
+
+12 17 P
+^L_sequoiae_CA_Strawberry_Creek_3075.1      aucgauuuuc uxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3075.2      aucgauuuuu cxxxxxx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.1     aucgaucxxc cxxxxxx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.2     aucgacuxxc cxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085.1      auaaxuuxxc cxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085.2      aucaxuuxxc cxxxxxx
+^L_sequoiae_CA_Nanny_Creek_3702.1           agagauuuuc caaaxxx
+^L_sequoiae_CA_Nanny_Creek_3702.2           agcgauuuuc caaaxxx
+^L_sequoiae_OR_School_Creek_2614.1          aucgauuuxc caxxgux
+^L_sequoiae_OR_School_Creek_2614.2          aucgauuuxc caxxgux
+^L_sequoiae_OR_Oakridge_2647.1              aucgauuuuc caaxgxx
+^L_sequoiae_OR_Oakridge_2647.2              aucgauuuuc caaxgxx
+1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1
+
+12 2 P
+^L_sequoiae_CA_Strawberry_Creek_3075.1      ax
+^L_sequoiae_CA_Strawberry_Creek_3075.2      ax
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.1     xx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.2     xx
+^L_sequoiae_CA_Strawberry_Creek_3085.1      xx
+^L_sequoiae_CA_Strawberry_Creek_3085.2      xx
+^L_sequoiae_CA_Nanny_Creek_3702.1           xx
+^L_sequoiae_CA_Nanny_Creek_3702.2           xx
+^L_sequoiae_OR_School_Creek_2614.1          ax
+^L_sequoiae_OR_School_Creek_2614.2          ax
+^L_sequoiae_OR_Oakridge_2647.1              xx
+^L_sequoiae_OR_Oakridge_2647.2              xx
+1 1
+
+12 9 P
+^L_sequoiae_CA_Strawberry_Creek_3075.1      uuuaaugcx
+^L_sequoiae_CA_Strawberry_Creek_3075.2      uuuaacaux
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.1     xxxxxxxxx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.2     xxxxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085.1      xxxxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085.2      xxxxxxxxx
+^L_sequoiae_CA_Nanny_Creek_3702.1           xxxxxxxxx
+^L_sequoiae_CA_Nanny_Creek_3702.2           xxxxxxxxx
+^L_sequoiae_OR_School_Creek_2614.1          uucgxuaax
+^L_sequoiae_OR_School_Creek_2614.2          ucugxuaux
+^L_sequoiae_OR_Oakridge_2647.1              xxxxxxxxx
+^L_sequoiae_OR_Oakridge_2647.2              xxxxxxxxx
+1 1 1 1 1 4 4 1 1
+
+12 10 P
+^L_sequoiae_CA_Strawberry_Creek_3075.1      aucccauuax
+^L_sequoiae_CA_Strawberry_Creek_3075.2      aucuugccgx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.1     xxxxxxxxxx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.2     xxxxxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085.1      xxxxxxxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085.2      xxxxxxxxxx
+^L_sequoiae_CA_Nanny_Creek_3702.1           xxxxxxxxxx
+^L_sequoiae_CA_Nanny_Creek_3702.2           xxxxxxxxxx
+^L_sequoiae_OR_School_Creek_2614.1          auaccacccx
+^L_sequoiae_OR_School_Creek_2614.2          acccucucax
+^L_sequoiae_OR_Oakridge_2647.1              xxxxxxxxxx
+^L_sequoiae_OR_Oakridge_2647.2              xxxxxxxxxx
+1 2 2 2 1 1 1 2 1 1
+
+12 81 P
+^L_sequoiae_CA_Strawberry_Creek_3075.1      uuuaaacucu ggggaggggu uuggaacggc gggguuuugg aacggcgggg uacuagguuu ucccaaaaac auuacacaaa x
+^L_sequoiae_CA_Strawberry_Creek_3075.2      uuuaaacucu ggggaggggu uuggaacggc gggguuuugg aacggcgggg uacugaaaca cuuaggggca cccuuuuggg x
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.1     uuuaaacucu ggggaggggu uuggaacggc ggggucggaa gguaauaaaa cxxxagguuu ucccaaaaaa cccuuuuggg x
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.2     uuuaaacucu ggggaggggc ggaagguaau aaaacuuugg aacggcgggg uxxxagguuu uccaggggcc accuuuuggg x
+^L_sequoiae_CA_Strawberry_Creek_3085.1      uuuaaacucu gggguaaaau uuggaacggu aaaacuuugg aacgguaaaa cacxagguua cuucaaggcc cuuacuuggg x
+^L_sequoiae_CA_Strawberry_Creek_3085.2      uuuaaacucc aaaaaggggu uuggaauaac ggggcuuugg aauaacgggg cacxaggacu uuucggaacc cuuuuacggg x
+^L_sequoiae_CA_Nanny_Creek_3702.1           uuuaaacggu gggaagggau uuggagcggc gggacuuugg agcggcggga caxuagguuu ucccaaaacc cccuuuuggg u
+^L_sequoiae_CA_Nanny_Creek_3702.2           uuuaaggucu ggagaggagu uugggacggc ggagcuuugg gacggcggag caxuagguuu ucccggggcc cccuuuuggg u
+^L_sequoiae_OR_School_Creek_2614.1          uuuaxagugu ggggaggggu uuaaggcggc ggggcuuuaa ggcggcgggg cacxagauuu ucccaaaacc cccuuuuagg x
+^L_sequoiae_OR_School_Creek_2614.2          uuuaxagugu ggggaggggu uuggggcggc ggggcuuugg ggcggcgggg cacxaaguuu ucccaaaacc cccuuuugag x
+^L_sequoiae_OR_Oakridge_2647.1              uucxaacucu gaggagaggu uggaggcgac gaaacuugga ggcgacgaaa cxxxagguxu xcucagagcc cucuxuxggg x
+^L_sequoiae_OR_Oakridge_2647.2              uauxaacucu agggaagggu guagggcagc agggcuguag ggcagcaggg cxxxagguxu xuccgagacc ccuuxuxggg x
+1 3 3 1 1 3 1 3 1 2 1 1 1 1 2 1 1 1 1 3 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 3 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1
+
+12 7 P
+^L_sequoiae_CA_Strawberry_Creek_3075.1      gcaaxxx
+^L_sequoiae_CA_Strawberry_Creek_3075.2      gcaaxxx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.1     gcaagxx
+^L_sequoiae_CA_Bridal_Veil_Falls_3078.2     gcaagxx
+^L_sequoiae_CA_Strawberry_Creek_3085.1      gcaxxxx
+^L_sequoiae_CA_Strawberry_Creek_3085.2      gcaxxxx
+^L_sequoiae_CA_Nanny_Creek_3702.1           gxxxxgx
+^L_sequoiae_CA_Nanny_Creek_3702.2           gxxxxgx
+^L_sequoiae_OR_School_Creek_2614.1          gcxxxxx
+^L_sequoiae_OR_School_Creek_2614.2          gcxxxxx
+^L_sequoiae_OR_Oakridge_2647.1              gcaxxxx
+^L_sequoiae_OR_Oakridge_2647.2              gcaxxxx
+1 1 1 1 1 1 1
+
+
+Per-locus sequences in data and 'species&tree' tag:
+C.File | Data |                Status                | Population
+-------+------+--------------------------------------+-----------
+     4 |    4 | [OK]                                 | L_sequoiae_CA_Strawberry_Creek
+     2 |    2 | [OK]                                 | L_sequoiae_CA_Bridal_Veil_Falls
+     2 |    2 | [OK]                                 | L_sequoiae_CA_Nanny_Creek
+     2 |    2 | [OK]                                 | L_sequoiae_OR_School_Creek
+     2 |    2 | [OK]                                 | L_sequoiae_OR_Oakridge
+
+
+Current Pjump:      0.58660  0.31412  0.00000  0.28087  0.22500
+Current finetune:   5.00000  0.00100  0.00100  0.00100  0.30000
+New finetune:      12.92550  0.00106  0.00001  0.00093  0.21721
+
+
+Current Pjump:      0.58914  0.29720  0.00000  0.25429  0.37350
+Current finetune:  12.92550  0.00106  0.00001  0.00093  0.21721
+New finetune:      33.69136  0.00104  0.00000  0.00077  0.28340
+
+
+Current Pjump:      0.59331  0.29642  0.00000  0.28137  0.26700
+Current finetune:  33.69136  0.00104  0.00000  0.00077  0.28340
+New finetune:      89.02696  0.00103  0.00000  0.00071  0.24798
+
+
+Current Pjump:      0.59308  0.29756  0.00000  0.24083  0.30200
+Current finetune:  89.02696  0.00103  0.00000  0.00071  0.24798
+New finetune:      99.00000  0.00102  0.00000  0.00056  0.24991
+
+Summarizing the species-delimitation sample in file results.mcmc.txt
+
+Number of species-delimitation models = 7
+
+     model    prior    posterior
+   1 0000   0.142857   0.000000
+   2 1000   0.142857   0.008000
+   3 1001   0.142857   0.047000
+   4 1100   0.142857   0.035000
+   5 1101   0.142857   0.308000
+   6 1110   0.142857   0.042000
+   7 1111   0.142857   0.560000
+
+Order of ancestral nodes:
+  L_sequoiae_CA_Strawberry_CreekL_sequoiae_OR_OakridgeL_sequoiae_OR_School_CreekL_sequoiae_CA_Bridal_Veil_FallsL_sequoiae_CA_Nanny_Creek
+  L_sequoiae_CA_Strawberry_CreekL_sequoiae_OR_OakridgeL_sequoiae_OR_School_Creek
+  L_sequoiae_OR_OakridgeL_sequoiae_OR_School_Creek
+  L_sequoiae_CA_Bridal_Veil_FallsL_sequoiae_CA_Nanny_Creek
+
+Guide tree with posterior probability for presence of nodes:
+((L_sequoiae_CA_Strawberry_Creek, (L_sequoiae_OR_Oakridge, L_sequoiae_OR_School_Creek)#0.602000)#0.945000, (L_sequoiae_CA_Bridal_Veil_Falls, L_sequoiae_CA_Nanny_Creek)#0.915000)#1.000000;;
