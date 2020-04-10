@@ -287,7 +287,7 @@ def main():
             help="Delimiter for output columns (default=<TAB>)")
     parser.add_argument("-o", "--output-prefix",
             action="store",
-            default="delimited-populations",
+            default="coalescent-pops",
             help="Prefix for output files (default=%(default)s).")
     parser.add_argument("-l", "--population-label-prefix",
             action="store",
