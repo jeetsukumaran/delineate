@@ -18,7 +18,7 @@ All data files for this exercise are available for download here:
 
 .. rst-class:: framebox center
 
-    :download:`downloads/lionepha.zip`
+    :download:`lionepha.zip </downloads/lionepha.zip>`
 
 
 Introduction
@@ -485,35 +485,25 @@ IIc. Collating Results of the Subtree Approach
 Each of the subtree analysis now has the populations delimited under the MSC model.
 Having identified these population units, we now pool them.
 
-
 Stage III. Generating the Phylogeny of Populations
 ==================================================
 
 We use |StarBeast2|_ to estimate an ultrametric phylogeny of population lineages.
-We use the original set of alignments (found `here <_static/examples/lionepha/00-alignments>`_) for as the input data for this, and a "``traits``" file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.
+We use the original set of alignments (found ``examples/lionepha/00-alignments``) for as the input data for this, and a "``traits``" file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.
+
+
+(INCOMPLETE --- WIP)
 
 Stage IV. Assignment of Known vs. Unknown Species Identities
 ============================================================
 
 We now inspect out phylogeny and determine *a priori* species assignments for as many population lineages as we can.
 
+(INCOMPLETE --- WIP)
+
 Stage V. Delimitation of Species Units
 ======================================
 
 We are now ready to run |delineate|, using the phylogeny obtained in Stage III and the constraints table in Stage IV.
 
-
-
-
-
-
-
-
-
-
-..  The MSC delimits (Wright-Fisher) *population* units, where *any* detectable restriction of gene flow corresponding to a population boundary, and these *population* units are necessarily, with or without justification, taken by the investigator as corresponding on a 1-to-1 basis to species.
-
-
-
-.. ..include:: _static/examples/lionepha/readme.txt
-
+(INCOMPLETE --- WIP)
