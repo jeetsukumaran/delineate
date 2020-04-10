@@ -21,11 +21,27 @@
 ###############################################################################
 
 """
-Summarize the results of a BP&P "A10" analysis (delimitation with a guide tree).
-Produces the labels of populations for each individual sequence under different
-posterior probabilities, as well as a BEAST "traits" file for each of those
-probabilities allowing for a StarBeast2 analysis.
+Summarize the results of a BP&P "A10" analysis (delimitation with a
+guide tree). Produces the labels of populations for each individual
+sequence under different posterior probabilities, as well as a BEAST
+"traits" file for each of those probabilities allowing for a StarBeast2
+analysis.
 """
+
+usage_examples = [
+    "Usage examples:",
+    "",
+    " $ delineate-bppsum -i bpprun*.imap -r bpprun*.out.txt"
+    "",
+    " $ delineate-bppsum --imap \\",
+    "                           subtree1/st1.imap.txt \\",
+    "                           subtree2/st2.imap.txt \\",
+    "                           subtree2/st3.imap.txt \\",
+    "                   --results \\",
+    "                           subtree1/st1.out.txt \\",
+    "                           subtree2/st2.out.txt \\",
+    "                           subtree3/st3.out.txt \\",
+]
 
 import sys
 import os
@@ -56,6 +72,7 @@ class LineageEntry(object):
 class BppSummarizer(object):
 
     def __init__(self,
+            population_label_prefix,
             stderr_logging_level):
         self.logger = utility.RunLogger(
             name="delineate-bppsum",
@@ -66,7 +83,8 @@ class BppSummarizer(object):
             is_log_to_file=False,
             file_logging_level=utility.logging.INFO,
             )
-        self.lineage_map = {}
+        self.population_label_prefix = population_label_prefix
+        self.lineages = {}
         self.candidate_population_map = {}
         self.trees = dendropy.TreeList()
 
@@ -93,11 +111,11 @@ class BppSummarizer(object):
                 lineage_label = parts[0]
                 population = parts[1]
                 num_lineages += 1
-                if lineage_label in self.lineage_map:
+                if lineage_label in self.lineages:
                     sys.exit("Lineage '{}' already registered from file: '{}'\n".format(
                         lineage_label,
-                        self.lineage_map[lineage_label].imap_filepath))
-                self.lineage_map[lineage_label] = LineageEntry(
+                        self.lineages[lineage_label].imap_filepath))
+                self.lineages[lineage_label] = LineageEntry(
                         label=lineage_label,
                         candidate_population_label=population,
                         imap_filepath=imap_filepath,
@@ -126,7 +144,7 @@ class BppSummarizer(object):
                 msg.append("                   - {:3d}: '{}' (defined in '{}')".format(
                     idx+1,
                     lineage,
-                    self.lineage_map[self.candidate_population_map[lineage][0]].imap_filepath))
+                    self.lineages[self.candidate_population_map[lineage][0]].imap_filepath))
             self.logger.error("\n".join(msg))
             sys.exit(1)
 
@@ -188,7 +206,7 @@ class BppSummarizer(object):
             header_row = ["lineage"] + ppkeys
             out.write(field_delimiter.join(header_row))
             out.write("\n")
-            for lineage in sorted(self.lineage_map.keys()):
+            for lineage in sorted(self.lineages.keys()):
                 row = [lineage]
                 for pp in ppkeys:
                     row.append(pp_lineage_maps[pp][lineage])
@@ -209,7 +227,9 @@ class BppSummarizer(object):
                     continue
                 nd.pp = tree.bipartition_edge_map[nd.edge.bipartition].head_node.pp
                 if nd.pp < population_probability_threshold:
-                    new_pop_label = "coalescentpop{:03d}".format(new_pop_idx)
+                    new_pop_label = "{}{:03d}".format(
+                            self.population_label_prefix,
+                            new_pop_idx)
                     new_pop_idx += 1
                     for desc_nd in nd.preorder_iter():
                         if desc_nd.is_leaf():
@@ -241,7 +261,11 @@ def main():
     """
     Main CLI handler.
     """
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(
+            description=__doc__,
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            epilog="\n".join(usage_examples),
+            )
     parser.add_argument("-i", "--imap",
             action="append",
             nargs="+",
@@ -255,6 +279,7 @@ def main():
     parser.add_argument("-p", "--population-probability-threshold",
             action="append",
             type=float,
+            nargs="+",
             default=None,
             help="Probability threshold of population identity.")
     parser.add_argument("--field-delimiter",
@@ -262,8 +287,12 @@ def main():
             help="Delimiter for output columns (default=<TAB>)")
     parser.add_argument("-o", "--output-prefix",
             action="store",
-            default="lineage-population-map",
+            default="delimited-populations",
             help="Prefix for output files (default=%(default)s).")
+    parser.add_argument("-l", "--population-label-prefix",
+            action="store",
+            default="coalescentpop",
+            help="Prefix for delimited (collapsed) population labels (default=%(default)s).")
     parser.add_argument("-q", "--quiet",
             action="store_true",
             default=False,
@@ -274,6 +303,7 @@ def main():
     else:
         stderr_logging_level = utility.logging.INFO
     bppsum = BppSummarizer(
+            population_label_prefix=args.population_label_prefix,
             stderr_logging_level=stderr_logging_level,
             )
     bppsum.read_imap(args.imap)
@@ -281,7 +311,7 @@ def main():
     if args.population_probability_threshold is None:
         population_probability_thresholds = (1.0, 0.95, 0.90, 0.75, 0.50)
     else:
-        population_probability_thresholds = args.population_probability_threshold
+        population_probability_thresholds = flatten(args.population_probability_threshold)
     bppsum.calc_populations(
             output_prefix=args.output_prefix,
             population_probability_thresholds=population_probability_thresholds,
