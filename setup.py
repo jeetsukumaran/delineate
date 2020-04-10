@@ -27,6 +27,7 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     scripts=[
+        "bin/delineate-bppsum",
         "bin/delineate-check",
         "bin/delineate-estimate",
         "bin/delineate-summarize",
