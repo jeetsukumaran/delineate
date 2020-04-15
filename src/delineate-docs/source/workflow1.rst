@@ -367,8 +367,8 @@ As such, we will consider every distinct geographical sample to be a distinct ca
     | - L_tuulukwa_OR_Marys_Peak_3782               |                                        |
     +-----------------------------------------------+----------------------------------------+
 
-IIa. Generating a Guide Tree for Population Delimitation
---------------------------------------------------------
+Generating a Guide Tree for Population Delimitation
+---------------------------------------------------
 
 We will provide |BPP|_ with a guide tree for its population delimitation analysis.
 We will use |StarBeast2|_ to generate this guide tree.
@@ -404,13 +404,13 @@ This selects the Maximum Clade Credibility Tree (MCCT) tree for the summary topo
 `examples/lionepha/01-guidetree-estimation/guidetree.nex <_static/examples/lionepha/01-guidetree-estimation/guidetree.nex>`_
 
 
-IIb. Delimitation of Population Units
--------------------------------------
+Delimitation of Population Units
+--------------------------------
 
 Now that we have a guide tree that treats each distinct geographical lineage as a candidate distinct Wright-Fisher population, we will run |BPP|_ in "A10" mode to delimit the true population units under the "multipopulation coalescent" (i.e., the MSC).
 
-IIb(i). The Pooled Approach
-...........................
+For Small Datasets: the Single-Analysis Approach
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The files provided in the "``lionepha/02a-population-delimitation-pooled``" directory set up a fairly straightforward |BPP|_ "A10" analyses using the data that we have collected and the guide tree we have estimated:
 
@@ -453,8 +453,8 @@ we might find that the data set is too large to analyze::
     Unable to allocate enough memory.
 
 
-IIb(ii). The Subtree Approach
-.............................
+For Larger Datasets: the Subtree Decomposition Approach
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The solution is to break the data set up into subtrees and carry out a separate population delimitation analysis on each subtree.
 While designing a decomposition scheme, it is important to note that we should *not* separate out candidate population lineages that might potentially belong to the same (actual) population into separate subtrees, thereby preventing |BPP|_ from being able to collapse them if it does not detect any gene flow restriction between them.
@@ -479,14 +479,15 @@ The set up for this set of analyses can be found at:
 
 with each subdirectory containing a stand-alone analysis.
 
-IIc. Collating Results of the Subtree Approach
-..............................................
+Collating Results of the Subtree Approach
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Each of the subtree analysis now has the populations delimited under the MSC model.
-Having identified these population units, we now pool them.
+Having identified these population units across various subtrees, we now need to collate and pool them.
+|delineate| helpfully provides a script for you to do this fairly robustly: `delineate-bppsum <https://github.com/jeetsukumaran/delineate/blob/master/bin/delineate-bppsum>`_.
 
-Stage III. Generating the Phylogeny of Populations
-==================================================
+Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations
+===========================================================================================
 
 We use |StarBeast2|_ to estimate an ultrametric phylogeny of population lineages.
 We use the original set of alignments (found ``examples/lionepha/00-alignments``) for as the input data for this, and a "``traits``" file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.
@@ -494,15 +495,15 @@ We use the original set of alignments (found ``examples/lionepha/00-alignments``
 
 (INCOMPLETE --- WIP)
 
-Stage IV. Assignment of Known vs. Unknown Species Identities
-============================================================
+Stage III. Assignment of Known vs. Unknown Species Identities
+=============================================================
 
 We now inspect out phylogeny and determine *a priori* species assignments for as many population lineages as we can.
 
 (INCOMPLETE --- WIP)
 
-Stage V. Delimitation of Species Units
-======================================
+Stage IV. Delimitation of Species Units
+=======================================
 
 We are now ready to run |delineate|, using the phylogeny obtained in Stage III and the constraints table in Stage IV.
 
