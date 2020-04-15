@@ -2,6 +2,8 @@
 A Complete Worked Example: *Lionepha*
 #####################################
 
+.. role:: filepath
+
 (Software Prerequisites)
 ========================
 
@@ -75,14 +77,14 @@ Data
 Here we will focus on just a subset of the data from Maddison and Sproul (2020), focusing only on lineages in the genus *Lionepha* itself.
 This data consists of 8 gene alignments for 143 samples from multiple individuals from multiple populations from multiple species:
 
--   lionepha/00-alignments/18s.nex
--   lionepha/00-alignments/28s.nex
--   lionepha/00-alignments/argk.nex
--   lionepha/00-alignments/cad.nex
--   lionepha/00-alignments/coi.nex
--   lionepha/00-alignments/msp.nex
--   lionepha/00-alignments/topo.nex
--   lionepha/00-alignments/wg.nex
+-   :filepath:`lionepha/00-alignments/18s.nex`
+-   :filepath:`lionepha/00-alignments/28s.nex`
+-   :filepath:`lionepha/00-alignments/argk.nex`
+-   :filepath:`lionepha/00-alignments/cad.nex`
+-   :filepath:`lionepha/00-alignments/coi.nex`
+-   :filepath:`lionepha/00-alignments/msp.nex`
+-   :filepath:`lionepha/00-alignments/topo.nex`
+-   :filepath:`lionepha/00-alignments/wg.nex`
 
 Stage I: Identification of Population Units using the Multipopulation Coalescent Model
 ======================================================================================
@@ -373,8 +375,8 @@ Generating a Guide Tree for Population Delimitation
 We will provide |BPP|_ with a guide tree for its population delimitation analysis.
 We will use |StarBeast2|_ to generate this guide tree.
 
-The full |StarBeast2|_ configuration file, generated using ``BEAUTi``, can be found at in ``lionepha/01-guidetree-estimation/sb00500M.xml``.
-The alignments listed above were imported, and the following "traits" file was used to map alignment sequences to canidate population units: ``lionepha/01-guidetree-estimation/traits.txt``.
+The full |StarBeast2|_ configuration file, generated using ``BEAUTi``, can be found at in :filepath:`lionepha/01-guidetree-estimation/sb00500M.xml`.
+The alignments listed above were imported, and the following "traits" file was used to map alignment sequences to canidate population units: :filepath:`lionepha/01-guidetree-estimation/traits.txt`.
 
 We used a single strict clock model across all genes, and a HKY+G model of substitution.
 
@@ -401,7 +403,7 @@ This selects the Maximum Clade Credibility Tree (MCCT) tree for the summary topo
 
 .. rst-class:: framebox center
 
-`examples/lionepha/01-guidetree-estimation/guidetree.nex <_static/examples/lionepha/01-guidetree-estimation/guidetree.nex>`_
+:filepath:`examples/lionepha/01-guidetree-estimation/guidetree.nex`
 
 
 Delimitation of Population Units
@@ -412,7 +414,7 @@ Now that we have a guide tree that treats each distinct geographical lineage as 
 For Small Datasets: the Single-Analysis Approach
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The files provided in the "``lionepha/02a-population-delimitation-pooled``" directory set up a fairly straightforward |BPP|_ "A10" analyses using the data that we have collected and the guide tree we have estimated:
+The files provided in the :filepath:`lionepha/02a-population-delimitation-pooled` directory set up a fairly straightforward |BPP|_ "A10" analyses using the data that we have collected and the guide tree we have estimated:
 
 .. rst-class:: compressed-table
 .. table:: Pooled |BPP|_ Population Delimitation Analysis
@@ -475,7 +477,7 @@ The set up for this set of analyses can be found at:
 
 .. rst-class:: framebox center
 
-    ``lionepha/02b-population-delimitation-subtrees``
+    :filepath:`lionepha/02b-population-delimitation-subtrees`
 
 with each subdirectory containing a stand-alone analysis.
 
@@ -485,13 +487,31 @@ Collating Results of the Subtree Approach
 Each of the subtree analysis now has the populations delimited under the MSC model.
 Having identified these population units across various subtrees, we now need to collate and pool them.
 |delineate| helpfully provides a script for you to do this fairly robustly: `delineate-bppsum <https://github.com/jeetsukumaran/delineate/blob/master/bin/delineate-bppsum>`_.
+This script takes as its input two sets of files:
+
+-   the "imap" files you provided to |BPP|_ as input, which maps sequences to candidate population lineages
+-   the output log of |BPP|_ analyses (*not* the MCMC log), which provides a tree at the end with posterior probability of internal nodes indicated by labels
+
+These files can be specified in any order, but must collectively span the entire analysis: the set of all candidate population names defined across all "imap" files must be equal to the set of all candidate population names found across all trees in all |BPP|_ output log files.
+
+In this example, we have all the independent subtree analyses packed away in subdirectories, "``01``", "``02``", etc.
+Assuming we are in the |BPP|_ analysis subdirectory, :filepath:`lionepha/02b-population-delimitation-subtrees`, we could just type in all the paths::
+
+    delineate-bppsum \
+        --imap $(find ../runs/ -name "*imap*") --results $(find ../runs/ -name "*out.txt") -p 0.90 0.95 0.99 1.00
+
+but because of judicious naming of the files, we can use some basic shell commands to help::
+
+    delineate-bppsum \
+        --imap $(find . -name "*imap*") \
+        --results $(find . -name "*out.txt")
+
 
 Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations
 ===========================================================================================
 
 We use |StarBeast2|_ to estimate an ultrametric phylogeny of population lineages.
-We use the original set of alignments (found ``examples/lionepha/00-alignments``) for as the input data for this, and a "``traits``" file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.
-
+We use the original set of alignments (found in :filepath:`examples/lionepha/00-alignments`) for as the input data for this, and a "``traits``" file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.
 
 (INCOMPLETE --- WIP)
 

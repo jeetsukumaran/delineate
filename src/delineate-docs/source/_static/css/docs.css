@@ -31,6 +31,25 @@ a.figure-image, a.figure-image:link, a.figure-image:hover {
     text-color: red;
 }
 
+.filepath {
+    font-family: monospace;
+    font-weight: bold;
+    color: darkgreen;
+    background: #eeeeee;
+}
+.filepath:before {
+    /* content: open-quote; */
+    content: "'";
+    color: black;
+    font-weight: normal;
+}
+.filepath:after {
+    /* content: close-quote; */
+    content: "'";
+    color: black;
+    font-weight: normal;
+}
+
 /* usage:
  *
  *      ..  rst-class:: figure-caption
