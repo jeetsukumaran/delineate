@@ -31,6 +31,12 @@ a.figure-image, a.figure-image:link, a.figure-image:hover {
     text-color: red;
 }
 
+.program {
+    font-family: monospace;
+    font-weight: bold;
+    font-style: italic;
+    color: darkcyan;
+}
 .filepath {
     font-family: monospace;
     font-weight: bold;

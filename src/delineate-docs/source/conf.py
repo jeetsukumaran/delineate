@@ -74,4 +74,6 @@ rst_epilog = """
 .. _SumTrees: https://dendropy.org/programs/sumtrees.html
 .. |DendroPy| replace:: DendroPy
 .. _DendroPy: https://dendropy.org/
+.. |bppsum| replace:: :program:`delineate-bppsum`
+.. _bppsum: https://delineate.org/
 """

@@ -3,6 +3,7 @@ A Complete Worked Example: *Lionepha*
 #####################################
 
 .. role:: filepath
+.. role:: program
 
 (Software Prerequisites)
 ========================
@@ -486,7 +487,7 @@ Collating Results of the Subtree Approach
 
 Each of the subtree analysis now has the populations delimited under the MSC model.
 Having identified these population units across various subtrees, we now need to collate and pool them.
-|delineate| helpfully provides a script for you to do this fairly robustly: `delineate-bppsum <https://github.com/jeetsukumaran/delineate/blob/master/bin/delineate-bppsum>`_.
+|delineate| helpfully provides a script for you to do this fairly robustly: |bppsum|_.
 This script takes as its input two sets of files:
 
 -   the "imap" files you provided to |BPP|_ as input, which maps sequences to candidate population lineages
@@ -498,14 +499,90 @@ In this example, we have all the independent subtree analyses packed away in sub
 Assuming we are in the |BPP|_ analysis subdirectory, :filepath:`lionepha/02b-population-delimitation-subtrees`, we could just type in all the paths::
 
     delineate-bppsum \
-        --imap $(find ../runs/ -name "*imap*") --results $(find ../runs/ -name "*out.txt") -p 0.90 0.95 0.99 1.00
+        --imap    01/bpprun.input.imap.txt \
+                  02/bpprun.input.imap.txt \
+                  .
+                  .
+                  (etc.)
+        --results 01/results.out.txt \
+                  02/results.out.txt \
+                  .
+                  .
+                  (etc.)
 
-but because of judicious naming of the files, we can use some basic shell commands to help::
+but because of judicious naming of the files, we can use some basic shell commands to generate the list of input files::
 
     delineate-bppsum \
         --imap $(find . -name "*imap*") \
         --results $(find . -name "*out.txt")
 
+Executing the above command results in::
+
+    [delineate-bppsum] 11 BPP 'imap' files specified
+    [delineate-bppsum] - Reading mapping file   1 of 11: ./00/bpprun.input.imap.txt
+    [delineate-bppsum]   - (13 lineages, 7 candidate populations)
+    [delineate-bppsum] - Reading mapping file   2 of 11: ./01/bpprun.input.imap.txt
+    [delineate-bppsum]   - (9 lineages, 9 candidate populations)
+    [delineate-bppsum] - Reading mapping file   3 of 11: ./02/bpprun.input.imap.txt
+    [delineate-bppsum]   - (10 lineages, 9 candidate populations)
+    [delineate-bppsum] - Reading mapping file   4 of 11: ./03/bpprun.input.imap.txt
+    [delineate-bppsum]   - (14 lineages, 7 candidate populations)
+    [delineate-bppsum] - Reading mapping file   5 of 11: ./04/bpprun.input.imap.txt
+    [delineate-bppsum]   - (12 lineages, 5 candidate populations)
+    [delineate-bppsum] - Reading mapping file   6 of 11: ./05/bpprun.input.imap.txt
+    [delineate-bppsum]   - (10 lineages, 8 candidate populations)
+    [delineate-bppsum] - Reading mapping file   7 of 11: ./06/bpprun.input.imap.txt
+    [delineate-bppsum]   - (16 lineages, 15 candidate populations)
+    [delineate-bppsum] - Reading mapping file   8 of 11: ./07/bpprun.input.imap.txt
+    [delineate-bppsum]   - (34 lineages, 30 candidate populations)
+    [delineate-bppsum] - Reading mapping file   9 of 11: ./08/bpprun.input.imap.txt
+    [delineate-bppsum]   - (9 lineages, 5 candidate populations)
+    [delineate-bppsum] - Reading mapping file  10 of 11: ./09/bpprun.input.imap.txt
+    [delineate-bppsum]   - (6 lineages, 5 candidate populations)
+    [delineate-bppsum] - Reading mapping file  11 of 11: ./10/bpprun.input.imap.txt
+    [delineate-bppsum]   - (10 lineages, 3 candidate populations)
+    [delineate-bppsum] 11 BPP output files specified
+    [delineate-bppsum] - Reading output file   1 of 11: ./00/results.out.txt
+    [delineate-bppsum]   - (7 candidate populations)
+    [delineate-bppsum] - Reading output file   2 of 11: ./01/results.out.txt
+    [delineate-bppsum]   - (9 candidate populations)
+    [delineate-bppsum] - Reading output file   3 of 11: ./02/results.out.txt
+    [delineate-bppsum]   - (9 candidate populations)
+    [delineate-bppsum] - Reading output file   4 of 11: ./03/results.out.txt
+    [delineate-bppsum]   - (7 candidate populations)
+    [delineate-bppsum] - Reading output file   5 of 11: ./04/results.out.txt
+    [delineate-bppsum]   - (5 candidate populations)
+    [delineate-bppsum] - Reading output file   6 of 11: ./05/results.out.txt
+    [delineate-bppsum]   - (8 candidate populations)
+    [delineate-bppsum] - Reading output file   7 of 11: ./06/results.out.txt
+    [delineate-bppsum]   - (15 candidate populations)
+    [delineate-bppsum] - Reading output file   8 of 11: ./07/results.out.txt
+    [delineate-bppsum]   - (30 candidate populations)
+    [delineate-bppsum] - Reading output file   9 of 11: ./08/results.out.txt
+    [delineate-bppsum]   - (5 candidate populations)
+    [delineate-bppsum] - Reading output file  10 of 11: ./09/results.out.txt
+    [delineate-bppsum]   - (5 candidate populations)
+    [delineate-bppsum] - Reading output file  11 of 11: ./10/results.out.txt
+    [delineate-bppsum]   - (3 candidate populations)
+    [delineate-bppsum] Posterior probability threshold of 0.50: 86 populations
+    [delineate-bppsum] Posterior probability threshold of 0.75: 72 populations
+    [delineate-bppsum] Posterior probability threshold of 0.90: 65 populations
+    [delineate-bppsum] Posterior probability threshold of 0.95: 59 populations
+    [delineate-bppsum] Posterior probability threshold of 1.00: 46 populations
+
+and produces the following files:
+
+- :filepath:`coalescent-pops.sb2-traits.p050.txt`
+- :filepath:`coalescent-pops.sb2-traits.p075.txt`
+- :filepath:`coalescent-pops.sb2-traits.p090.txt`
+- :filepath:`coalescent-pops.sb2-traits.p095.txt`
+- :filepath:`coalescent-pops.sb2-traits.p100.txt`
+- :filepath:`coalescent-pops.summary.csv`
+
+The population boundaries and identities of the various individuals are reported at different posterior probabilities (0.50, 0.75, 0.90, 0.95, and 1.00).
+A comprehensive overview of all the identities under the different posterior probabilities is provided in the file: :filepath:`coalescent-pops.summary.csv`.
+The other files (ending with filenames "...sb2-traits.p0xx.txt") are |StarBeast2|_ "``traits``" files at each of those posterior probability thresholds.
+These latter make setting up a |StarBeast2|_ analysis to estimate an ultrametric phylogeny relating the population units delimited at each of the posterior probability thresholds very straightforward.
 
 Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations
 ===========================================================================================
