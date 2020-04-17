@@ -583,6 +583,9 @@ The population boundaries and identities of the various individuals are reported
 A comprehensive overview of all the identities under the different posterior probabilities is provided in the file: :filepath:`coalescent-pops.summary.csv`.
 The other files (ending with filenames "...sb2-traits.p0xx.txt") are |StarBeast2|_ "``traits``" files at each of those posterior probability thresholds.
 These latter make setting up a |StarBeast2|_ analysis to estimate an ultrametric phylogeny relating the population units delimited at each of the posterior probability thresholds very straightforward.
+With the latter, do *not* be confused by the column header "species"!
+Again, this is simply due to the misleading terminology adopted for the higher-level units of organization in |StarBeast2|_ and most other programs that use the MSC.
+What we are working with here are *population units*, some of which *may* also correspond to species while others may not.
 
 Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations
 ===========================================================================================
