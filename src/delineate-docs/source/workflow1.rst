@@ -592,9 +592,80 @@ Interpreting these units as "species" is categorically and unconditionally wrong
 The MSC delimits *populations* not species.
 
 Note that where our candidate populations assignment have indeed turned out to be distinct population lineages under a particular posterior probability threshold, the original population label is retained (e.g., "L_australerasa_CA_Martin_Meadow" or "L_probata_WA_Blue_Mountains").
+
 In cases where multiple candidate population lineages have been "collapsed", because there was insufficient signal for restriction of Wright-Fisher panmixia between them detected at a particular posterior probability threshold, they have been relabeled with synthetic labels (e.g. "coalescentpop001", "coalescentpop002", etc.).
-Thus, for example, we see that we allowed for the possibility that  *L. erasa* from Mary's Peak,Mount Hebo, and Mount Hood might constitute two different populations, at a 0.95 posterior probability threshold there was insufficient evidence to support this, and all individuals from across all these localities were assigned to "coalescentpop007" (see the "p095" column in :filepath:`02b-population-delimitation-subtrees/coalescent-pops.summary.csv` or :filepath:`02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p095.txt`).
-At the 0.50 posterior probability threshold, however, a much weaker threshold for population boundary identification, while the Mary's Peak and Mount Hood candidate population lineages were still collapsed into a single population ("coalescentpop004"), the Mount Hebo individuals were estimated to form a distinct population unto themselves (see the "p050" column in :filepath:`02b-population-delimitation-subtrees/coalescent-pops.summary.csv` or :filepath:`02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p050.txt`).
+Thus, for example, we see that, in the setup to our |BPP|_ analysies, we allowed for the possibility that  *L. erasa* from Mary's Peak, Mount Hebo, Mount Hood, and Prairie Peak might constitute four distinct different populations:
+
+.. rst-class:: small-text compressed-table center
+
+    +------------------------------+---------------------------------------+
+    | sample                       | BP&B Candidate Population ("Species") |
+    +==============================+=======================================+
+    | L_erasa_OR_Marys_Peak_2575   | L_erasa_OR_Marys_Peak                 |
+    +------------------------------+---------------------------------------+
+    | L_erasa_OR_Marys_Peak_2586   | L_erasa_OR_Marys_Peak                 |
+    +------------------------------+---------------------------------------+
+    | L_erasa_OR_Marys_Peak_2615   | L_erasa_OR_Marys_Peak                 |
+    +------------------------------+---------------------------------------+
+    | L_erasa_OR_Marys_Peak_2616   | L_erasa_OR_Marys_Peak                 |
+    +------------------------------+---------------------------------------+
+    | L_erasa_OR_Mount_Hebo_3013   | L_erasa_OR_Mount_Hebo                 |
+    +------------------------------+---------------------------------------+
+    | L_erasa_OR_Mount_Hebo_3016   | L_erasa_OR_Mount_Hebo                 |
+    +------------------------------+---------------------------------------+
+    | L_erasa_OR_Mt_Hood_4144      | L_erasa_OR_Mt_Hood                    |
+    +------------------------------+---------------------------------------+
+    | L_erasa_OR_Prairie_Peak_2580 | L_erasa_OR_Prairie_Peak               |
+    +------------------------------+---------------------------------------+
+
+Following the analysis, we see that a 0.95 posterior probability threshold there was insufficient evidence to support this, and all individuals from across all these localities were assigned to a merged or collapsed population,"coalescentpop007" (see the "p095" column in :filepath:`02b-population-delimitation-subtrees/coalescent-pops.summary.csv` or :filepath:`02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p095.txt`):
+
+.. rst-class:: small-text compressed-table center
+
+    +------------------------------+--------------------+
+    | sample                       | p095               |
+    +==============================+====================+
+    | L_erasa_OR_Marys_Peak_2575   | coalescentpop007   |
+    +------------------------------+--------------------+
+    | L_erasa_OR_Marys_Peak_2586   | coalescentpop007   |
+    +------------------------------+--------------------+
+    | L_erasa_OR_Marys_Peak_2615   | coalescentpop007   |
+    +------------------------------+--------------------+
+    | L_erasa_OR_Marys_Peak_2616   | coalescentpop007   |
+    +------------------------------+--------------------+
+    | L_erasa_OR_Mount_Hebo_3013   | coalescentpop007   |
+    +------------------------------+--------------------+
+    | L_erasa_OR_Mount_Hebo_3016   | coalescentpop007   |
+    +------------------------------+--------------------+
+    | L_erasa_OR_Mt_Hood_4144      | L_erasa_OR_Mt_Hood |
+    +------------------------------+--------------------+
+    | L_erasa_OR_Prairie_Peak_2580 | coalescentpop007   |
+    +------------------------------+--------------------+
+
+On the other hand, however, at the 0.50 posterior probability threshold, while the Mary's Peak and Prairie Peak candidate population lineages were still collapsed into a single population ("coalescentpop004"), the Mount Hebo and Mount Hood individuals were each estimated to form a distinct population unto themselves (see the "p050" column in :filepath:`02b-population-delimitation-subtrees/coalescent-pops.summary.csv` or :filepath:`02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p050.txt`):
+
+.. rst-class:: small-text compressed-table center
+
+    +------------------------------+-----------------------+
+    | sample                       | p050                  |
+    +==============================+=======================+
+    | L_erasa_OR_Marys_Peak_2575   | coalescentpop004      |
+    +------------------------------+-----------------------+
+    | L_erasa_OR_Marys_Peak_2586   | coalescentpop004      |
+    +------------------------------+-----------------------+
+    | L_erasa_OR_Marys_Peak_2615   | coalescentpop004      |
+    +------------------------------+-----------------------+
+    | L_erasa_OR_Marys_Peak_2616   | coalescentpop004      |
+    +------------------------------+-----------------------+
+    | L_erasa_OR_Mount_Hebo_3013   | L_erasa_OR_Mount_Hebo |
+    +------------------------------+-----------------------+
+    | L_erasa_OR_Mount_Hebo_3016   | L_erasa_OR_Mount_Hebo |
+    +------------------------------+-----------------------+
+    | L_erasa_OR_Mt_Hood_4144      | L_erasa_OR_Mt_Hood    |
+    +------------------------------+-----------------------+
+    | L_erasa_OR_Prairie_Peak_2580 | coalescentpop004      |
+    +------------------------------+-----------------------+
+
 
 Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations
 ===========================================================================================
@@ -634,128 +705,129 @@ There will be some population lineages for which the species identity is uncontr
 In the case of the "collapsed" populations (labeled "coalescentpop001", "coalescentpop002", etc.), we would need to examine all individuals in those units, and if *any* one of them can be definitely assigned to an independent species status based on systematic evidence (i.e., distinct species from all others in the system), then the *entire* population lineage would get assigned to a distinct species.
 The reasoning behind this is that, based on previous stages of the analysis using |BPP|_, we have already decided that all individuals in that population constitute a single cohesive population, so the species identity of any one individual in that lineage would necessarily be shared by all other individuals in the same lineage.
 
+.. rst-class:: small-text compressed-table center
 
-+------------------------------------------+--------------+--------+
-| lineage                                  | species      | status |
-+==========================================+==============+========+
-| - coalescentpop001                       | australerasa | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop002                       | australerasa | 1      |
-+------------------------------------------+--------------+--------+
-| - L_australerasa_CA_Martin_Meadow        | australerasa | 1      |
-+------------------------------------------+--------------+--------+
-| - L_casta_CA_West_Branch_Mill_Creek      | casta        | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop005                       | casta        | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop003                       | casta        | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop004                       | casta        | 1      |
-+------------------------------------------+--------------+--------+
-| - L_casta_OR_Lost_Prairie                | casta        | 1      |
-+------------------------------------------+--------------+--------+
-| - L_disjuncta_OR_Mt_Hood                 | disjuncta    | 0      |
-+------------------------------------------+--------------+--------+
-| - L_disjuncta_OR_Lostine_River           | disjuncta    | 1      |
-+------------------------------------------+--------------+--------+
-| - L_disjuncta_CA_Lily_Lake               | disjuncta    | 0      |
-+------------------------------------------+--------------+--------+
-| - L_disjuncta_BC_Summit_Creek            | disjuncta    | 1      |
-+------------------------------------------+--------------+--------+
-| - L_disjuncta_CA_Emerson_Creek           | disjuncta    | 1      |
-+------------------------------------------+--------------+--------+
-| - L_disjuncta_MT_Mill_Creek              | disjuncta    | 1      |
-+------------------------------------------+--------------+--------+
-| - L_disjuncta_ID_Salmon_River            | disjuncta    | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop006                       | disjuncta    | 0      |
-+------------------------------------------+--------------+--------+
-| - L_erasa_BC_Cherryville                 | erasa        | 1      |
-+------------------------------------------+--------------+--------+
-| - L_erasa_OR_Lost_Prairie                | erasa        | 1      |
-+------------------------------------------+--------------+--------+
-| - L_erasa_OR_Mt_Hood                     | erasa        | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop007                       | erasa        | 1      |
-+------------------------------------------+--------------+--------+
-| - L_erasa_AK_Thompson_Pass               | erasa        | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop008                       | kavanaughi   | 0      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop009                       | kavanaughi   | 0      |
-+------------------------------------------+--------------+--------+
-| - L_lindrothi_CA_Emerald_Lake            | lindrothi    | 0      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop011                       | lindrothi    | 0      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop010                       | lindrothi    | 1      |
-+------------------------------------------+--------------+--------+
-| - L_lindrothi_CA_South_Fork_Bishop_Creek | lindrothi    | 0      |
-+------------------------------------------+--------------+--------+
-| - L_lindrothi_CA_Long_Valley_Creek       | lindrothi    | 1      |
-+------------------------------------------+--------------+--------+
-| - L_lindrothi_CA_Tioga_Lake              | lindrothi    | 1      |
-+------------------------------------------+--------------+--------+
-| - L_osculans_CA_Cold_Creek               | osculans     | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop015                       | osculans     | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop014                       | osculans     | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop013                       | osculans     | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop012                       | osculans     | 1      |
-+------------------------------------------+--------------+--------+
-| - L_osculans_OR_Little_Philips_Creek     | osculans     | 1      |
-+------------------------------------------+--------------+--------+
-| - L_osculans_CA_Strawberry_Creek         | osculans     | 1      |
-+------------------------------------------+--------------+--------+
-| - L_probata_MT_Mill_Creek                | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - L_probata_UT_Shingle_Creek             | probata      | 0      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop023                       | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop024                       | probata      | 0      |
-+------------------------------------------+--------------+--------+
-| - L_probata_CA_Warner_Range              | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - L_probata_OR_Lostine_River_Valley      | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - L_probata_CA_Ellery_Lake               | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - L_probata_OR_Mt_Ashland                | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - L_probata_WA_Blue_Mountains            | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop019                       | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop020                       | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop021                       | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop022                       | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop016                       | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop017                       | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop018                       | probata      | 1      |
-+------------------------------------------+--------------+--------+
-| - L_pseudoerasa_CA_Kaiser_Pass           | pseudoerasa  | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop025                       | pseudoerasa  | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop026                       | sequoiae     | 1      |
-+------------------------------------------+--------------+--------+
-| - coalescentpop027                       | sequoiae     | 1      |
-+------------------------------------------+--------------+--------+
-| - L_tuulukwa_CA_Trinity_Alps             | tuulukwa     | 0      |
-+------------------------------------------+--------------+--------+
-| - L_tuulukwa_OR_Knowles_Creek            | tuulukwa     | 0      |
-+------------------------------------------+--------------+--------+
-| - L_tuulukwa_OR_Marys_Peak               | tuulukwa     | 0      |
-+------------------------------------------+--------------+--------+
+    +------------------------------------------+--------------+--------+
+    | lineage                                  | species      | status |
+    +==========================================+==============+========+
+    | - coalescentpop001                       | australerasa | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop002                       | australerasa | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_australerasa_CA_Martin_Meadow        | australerasa | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_casta_CA_West_Branch_Mill_Creek      | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop005                       | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop003                       | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop004                       | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_casta_OR_Lost_Prairie                | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_OR_Mt_Hood                 | disjuncta    | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_OR_Lostine_River           | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_CA_Lily_Lake               | disjuncta    | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_BC_Summit_Creek            | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_CA_Emerson_Creek           | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_MT_Mill_Creek              | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_ID_Salmon_River            | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop006                       | disjuncta    | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_erasa_BC_Cherryville                 | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_erasa_OR_Lost_Prairie                | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_erasa_OR_Mt_Hood                     | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop007                       | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_erasa_AK_Thompson_Pass               | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop008                       | kavanaughi   | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop009                       | kavanaughi   | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_lindrothi_CA_Emerald_Lake            | lindrothi    | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop011                       | lindrothi    | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop010                       | lindrothi    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_lindrothi_CA_South_Fork_Bishop_Creek | lindrothi    | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_lindrothi_CA_Long_Valley_Creek       | lindrothi    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_lindrothi_CA_Tioga_Lake              | lindrothi    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_osculans_CA_Cold_Creek               | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop015                       | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop014                       | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop013                       | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop012                       | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_osculans_OR_Little_Philips_Creek     | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_osculans_CA_Strawberry_Creek         | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_MT_Mill_Creek                | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_UT_Shingle_Creek             | probata      | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop023                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop024                       | probata      | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_CA_Warner_Range              | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_OR_Lostine_River_Valley      | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_CA_Ellery_Lake               | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_OR_Mt_Ashland                | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_WA_Blue_Mountains            | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop019                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop020                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop021                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop022                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop016                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop017                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop018                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_pseudoerasa_CA_Kaiser_Pass           | pseudoerasa  | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop025                       | pseudoerasa  | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop026                       | sequoiae     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop027                       | sequoiae     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_tuulukwa_CA_Trinity_Alps             | tuulukwa     | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_tuulukwa_OR_Knowles_Creek            | tuulukwa     | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_tuulukwa_OR_Marys_Peak               | tuulukwa     | 0      |
+    +------------------------------------------+--------------+--------+
 
 (INCOMPLETE --- WIP)
 

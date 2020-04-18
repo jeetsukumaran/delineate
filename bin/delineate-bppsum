@@ -203,7 +203,7 @@ class BppSummarizer(object):
                     out.write("{:<20}{}{}\n".format(lineage, field_delimiter, lineage_population_map[lineage]))
         with open(output_prefix + ".summary.csv", "w") as out:
             ppkeys = sorted(pp_lineage_maps.keys())
-            header_row = ["lineage"] + ppkeys
+            header_row = ["sample"] + ppkeys
             out.write(field_delimiter.join(header_row))
             out.write("\n")
             for lineage in sorted(self.lineages.keys()):
@@ -246,7 +246,7 @@ class BppSummarizer(object):
                             bpp_input_population_label=nd.taxon.label,
                             bpp_result_population_label=nd.taxon.label,
                             lineage_population_map=lineage_population_map)
-        self.logger.info("Threshold {:0.2f}: Total Populations = {}".format(population_probability_threshold, len(set(lineage_population_map.values()))))
+        self.logger.info("Posterior probability threshold of {:0.2f}: {} populations".format(population_probability_threshold, len(set(lineage_population_map.values()))))
         return lineage_population_map
 
     def map_sequence_to_pop(
