@@ -1,0 +1,136 @@
+[delineate-estimate 2020-04-17 16:48:07] 59 lineages found on population tree:
+    [  1/59 ] 'L_casta_CA_West_Branch_Mill_Creek'
+    [  2/59 ] 'L_lindrothi_CA_Emerald_Lake'
+    [  3/59 ] 'L_erasa_BC_Cherryville'
+    [  4/59 ] 'L_disjuncta_OR_Mt_Hood'
+    [  5/59 ] 'L_probata_MT_Mill_Creek'
+    [  6/59 ] 'L_disjuncta_OR_Lostine_River'
+    [  7/59 ] 'L_probata_UT_Shingle_Creek'
+    [  8/59 ] 'coalescentpop023'
+    [  9/59 ] 'L_osculans_CA_Cold_Creek'
+    [ 10/59 ] 'coalescentpop024'
+    [ 11/59 ] 'coalescentpop001'
+    [ 12/59 ] 'coalescentpop002'
+    [ 13/59 ] 'L_pseudoerasa_CA_Kaiser_Pass'
+    [ 14/59 ] 'L_probata_CA_Warner_Range'
+    [ 15/59 ] 'coalescentpop008'
+    [ 16/59 ] 'coalescentpop009'
+    [ 17/59 ] 'L_erasa_OR_Lost_Prairie'
+    [ 18/59 ] 'L_disjuncta_CA_Lily_Lake'
+    [ 19/59 ] 'coalescentpop005'
+    [ 20/59 ] 'L_probata_OR_Lostine_River_Valley'
+    [ 21/59 ] 'coalescentpop015'
+    [ 22/59 ] 'L_disjuncta_BC_Summit_Creek'
+    [ 23/59 ] 'coalescentpop014'
+    [ 24/59 ] 'coalescentpop003'
+    [ 25/59 ] 'coalescentpop004'
+    [ 26/59 ] 'coalescentpop011'
+    [ 27/59 ] 'L_disjuncta_CA_Emerson_Creek'
+    [ 28/59 ] 'L_casta_OR_Lost_Prairie'
+    [ 29/59 ] 'L_probata_CA_Ellery_Lake'
+    [ 30/59 ] 'coalescentpop010'
+    [ 31/59 ] 'L_disjuncta_MT_Mill_Creek'
+    [ 32/59 ] 'coalescentpop013'
+    [ 33/59 ] 'coalescentpop012'
+    [ 34/59 ] 'L_probata_OR_Mt_Ashland'
+    [ 35/59 ] 'L_disjuncta_ID_Salmon_River'
+    [ 36/59 ] 'L_osculans_OR_Little_Philips_Creek'
+    [ 37/59 ] 'L_lindrothi_CA_South_Fork_Bishop_Creek'
+    [ 38/59 ] 'L_erasa_OR_Mt_Hood'
+    [ 39/59 ] 'L_osculans_CA_Strawberry_Creek'
+    [ 40/59 ] 'coalescentpop007'
+    [ 41/59 ] 'coalescentpop026'
+    [ 42/59 ] 'coalescentpop027'
+    [ 43/59 ] 'L_erasa_AK_Thompson_Pass'
+    [ 44/59 ] 'L_australerasa_CA_Martin_Meadow'
+    [ 45/59 ] 'L_probata_WA_Blue_Mountains'
+    [ 46/59 ] 'L_lindrothi_CA_Long_Valley_Creek'
+    [ 47/59 ] 'coalescentpop019'
+    [ 48/59 ] 'coalescentpop020'
+    [ 49/59 ] 'coalescentpop025'
+    [ 50/59 ] 'coalescentpop021'
+    [ 51/59 ] 'coalescentpop006'
+    [ 52/59 ] 'coalescentpop022'
+    [ 53/59 ] 'coalescentpop016'
+    [ 54/59 ] 'coalescentpop017'
+    [ 55/59 ] 'coalescentpop018'
+    [ 56/59 ] 'L_lindrothi_CA_Tioga_Lake'
+    [ 57/59 ] 'L_tuulukwa_CA_Trinity_Alps'
+    [ 58/59 ] 'L_tuulukwa_OR_Knowles_Creek'
+    [ 59/59 ] 'L_tuulukwa_OR_Marys_Peak'
+[delineate-estimate 2020-04-17 16:48:07] 59 lineages found in configuration file fully concordant with tree lineages
+[delineate-estimate 2020-04-17 16:48:07] 9 species defined in configuration constraints, with 46 lineages assigned:
+    [  1/9  ] 'australerasa'    (3 lineages)
+    [  2/9  ] 'casta'           (5 lineages)
+    [  3/9  ] 'disjuncta'       (5 lineages)
+    [  4/9  ] 'erasa'           (5 lineages)
+    [  5/9  ] 'lindrothi'       (3 lineages)
+    [  6/9  ] 'osculans'        (7 lineages)
+    [  7/9  ] 'probata'         (14 lineages)
+    [  8/9  ] 'pseudoerasa'     (2 lineages)
+    [  9/9  ] 'sequoiae'        (2 lineages)
+[delineate-estimate 2020-04-17 16:48:07] 46 out of 59 lineages assigned by constraints to 9 species:
+    [  1/46 ] 'L_australerasa_CA_Martin_Meadow'       (SPECIES: 'australerasa')
+    [  2/46 ] 'coalescentpop001'                      (SPECIES: 'australerasa')
+    [  3/46 ] 'coalescentpop002'                      (SPECIES: 'australerasa')
+    [  4/46 ] 'L_casta_CA_West_Branch_Mill_Creek'     (SPECIES: 'casta')
+    [  5/46 ] 'L_casta_OR_Lost_Prairie'               (SPECIES: 'casta')
+    [  6/46 ] 'coalescentpop003'                      (SPECIES: 'casta')
+    [  7/46 ] 'coalescentpop004'                      (SPECIES: 'casta')
+    [  8/46 ] 'coalescentpop005'                      (SPECIES: 'casta')
+    [  9/46 ] 'L_disjuncta_BC_Summit_Creek'           (SPECIES: 'disjuncta')
+    [ 10/46 ] 'L_disjuncta_CA_Emerson_Creek'          (SPECIES: 'disjuncta')
+    [ 11/46 ] 'L_disjuncta_ID_Salmon_River'           (SPECIES: 'disjuncta')
+    [ 12/46 ] 'L_disjuncta_MT_Mill_Creek'             (SPECIES: 'disjuncta')
+    [ 13/46 ] 'L_disjuncta_OR_Lostine_River'          (SPECIES: 'disjuncta')
+    [ 14/46 ] 'L_erasa_AK_Thompson_Pass'              (SPECIES: 'erasa')
+    [ 15/46 ] 'L_erasa_BC_Cherryville'                (SPECIES: 'erasa')
+    [ 16/46 ] 'L_erasa_OR_Lost_Prairie'               (SPECIES: 'erasa')
+    [ 17/46 ] 'L_erasa_OR_Mt_Hood'                    (SPECIES: 'erasa')
+    [ 18/46 ] 'coalescentpop007'                      (SPECIES: 'erasa')
+    [ 19/46 ] 'L_lindrothi_CA_Long_Valley_Creek'      (SPECIES: 'lindrothi')
+    [ 20/46 ] 'L_lindrothi_CA_Tioga_Lake'             (SPECIES: 'lindrothi')
+    [ 21/46 ] 'coalescentpop010'                      (SPECIES: 'lindrothi')
+    [ 22/46 ] 'L_osculans_CA_Cold_Creek'              (SPECIES: 'osculans')
+    [ 23/46 ] 'L_osculans_CA_Strawberry_Creek'        (SPECIES: 'osculans')
+    [ 24/46 ] 'L_osculans_OR_Little_Philips_Creek'    (SPECIES: 'osculans')
+    [ 25/46 ] 'coalescentpop012'                      (SPECIES: 'osculans')
+    [ 26/46 ] 'coalescentpop013'                      (SPECIES: 'osculans')
+    [ 27/46 ] 'coalescentpop014'                      (SPECIES: 'osculans')
+    [ 28/46 ] 'coalescentpop015'                      (SPECIES: 'osculans')
+    [ 29/46 ] 'L_probata_CA_Ellery_Lake'              (SPECIES: 'probata')
+    [ 30/46 ] 'L_probata_CA_Warner_Range'             (SPECIES: 'probata')
+    [ 31/46 ] 'L_probata_MT_Mill_Creek'               (SPECIES: 'probata')
+    [ 32/46 ] 'L_probata_OR_Lostine_River_Valley'     (SPECIES: 'probata')
+    [ 33/46 ] 'L_probata_OR_Mt_Ashland'               (SPECIES: 'probata')
+    [ 34/46 ] 'L_probata_WA_Blue_Mountains'           (SPECIES: 'probata')
+    [ 35/46 ] 'coalescentpop016'                      (SPECIES: 'probata')
+    [ 36/46 ] 'coalescentpop017'                      (SPECIES: 'probata')
+    [ 37/46 ] 'coalescentpop018'                      (SPECIES: 'probata')
+    [ 38/46 ] 'coalescentpop019'                      (SPECIES: 'probata')
+    [ 39/46 ] 'coalescentpop020'                      (SPECIES: 'probata')
+    [ 40/46 ] 'coalescentpop021'                      (SPECIES: 'probata')
+    [ 41/46 ] 'coalescentpop022'                      (SPECIES: 'probata')
+    [ 42/46 ] 'coalescentpop023'                      (SPECIES: 'probata')
+    [ 43/46 ] 'L_pseudoerasa_CA_Kaiser_Pass'          (SPECIES: 'pseudoerasa')
+    [ 44/46 ] 'coalescentpop025'                      (SPECIES: 'pseudoerasa')
+    [ 45/46 ] 'coalescentpop026'                      (SPECIES: 'sequoiae')
+    [ 46/46 ] 'coalescentpop027'                      (SPECIES: 'sequoiae')
+[delineate-estimate 2020-04-17 16:48:07] 13 out of 59 lineages not constrained by species assignments:
+    [  1/13 ] 'L_disjuncta_CA_Lily_Lake'
+    [  2/13 ] 'L_disjuncta_OR_Mt_Hood'
+    [  3/13 ] 'L_lindrothi_CA_Emerald_Lake'
+    [  4/13 ] 'L_lindrothi_CA_South_Fork_Bishop_Creek'
+    [  5/13 ] 'L_probata_UT_Shingle_Creek'
+    [  6/13 ] 'L_tuulukwa_CA_Trinity_Alps'
+    [  7/13 ] 'L_tuulukwa_OR_Knowles_Creek'
+    [  8/13 ] 'L_tuulukwa_OR_Marys_Peak'
+    [  9/13 ] 'coalescentpop006'
+    [ 10/13 ] 'coalescentpop008'
+    [ 11/13 ] 'coalescentpop009'
+    [ 12/13 ] 'coalescentpop011'
+    [ 13/13 ] 'coalescentpop024'
+[delineate-estimate 2020-04-17 17:21:33] JSON-formatted results written to: 'lionepha.run1.delimitation-results.json'
+[delineate-estimate 2020-04-17 17:21:34] Operation complete
+[delineate-estimate 2020-04-17 17:21:34] Terminating normally
+[?1034h

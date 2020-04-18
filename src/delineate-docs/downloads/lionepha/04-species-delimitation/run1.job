@@ -1,0 +1,12 @@
+#! /bin/bash
+#PBS -l nodes=ram512
+
+set -e -o pipefail
+cd ${PBS_O_WORKDIR:-$PWD}
+source /home/jeet/Environment/workhost-ecology/service/bin/anacondactl.sh
+anaconda-attach && conda activate dev0
+delineate-estimate partitions \
+    -P 0.99 \
+    -t lionepha-p095-hkyg.mcct-mean-age.tree.nex \
+    -c lionepha.run1.tsv
+
