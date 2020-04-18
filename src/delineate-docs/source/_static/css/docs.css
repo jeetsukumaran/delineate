@@ -1,3 +1,37 @@
+/* Override Elements */
+li.toctree-l1 {
+    font-weight: bold;
+    /* background: #ddeeff; */
+}
+li.toctree-l1::before {
+    content: "‣";
+    color: #6666ff;
+    display: inline-block;
+    width: 1em;
+    font-size: 115%;
+    /* margin-left: -1em; */
+}
+li.current::before {
+    content: "▼";
+    color: #6666ff;
+    display: inline-block;
+    width: 1em;
+    font-size: 70%;
+    margin-left: 0.1em;
+    margin-right: 0.4em;
+    /* margin-left: -1em; */
+}
+li.current ul {
+    font-weight: normal;
+    background: #eeeeff;
+    padding: 0;
+    margin: 0;
+}
+li.toctree-l2, li.toctree-l3, li.toctree-l5, li.toctree-l5 {
+}
+
+/* Custom Elements */
+
 .figure-image {
     border: solid 1px black;
     padding: 10px;

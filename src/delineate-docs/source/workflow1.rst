@@ -112,8 +112,9 @@ Candidate Population Units
 --------------------------
 
 A |BPP|_ analysis requires us to identify "population" lineages as input *a priori*, some of which it will then collapse together to form "species" lineages.
-We will consider these to be "candidate population" and "actual population" lineages respectively.
-That is, we will provide |BPP|_ with the finest-grain units that could possibly be distinct populations as input population lineages, then use the power of the MSC model to accurately merge together our candidate populations into distinct populations ("species", in |BPP|_ terminology).
+As we have noted (and as we will note again!), this terminological choice is not generally correct (it *may* apply in some special cases, such as single-population species systems, single-population-sample-per-species datasets, or where the data are too weak to detect population structure).
+We will instead consider these to be "candidate population" and "actual population" lineages respectively.
+That is, we will provide |BPP|_ with the finest-grain units that could possibly be distinct populations as candidate population lineages, then use the power of the MSC model to accurately merge together our candidate populations into distinct populations ("species", in |BPP|_ terminology).
 For this analysis, we will err on the side of caution, not hestitating our over-split our candidate populations, as we can rely on the MSC to collapse them if there is insufficient gene flow restriction between them to form population boundaries.
 As such, we will consider every distinct geographical sample to be a distinct candidate population.
 
@@ -700,6 +701,7 @@ We can again use |SumTrees|_ to summarize the results with the following command
         *.species.trees
 
 This will discard the first 250 of the 1000 samples from each replicate as burn-in, merge the results, and select the Maximum Clade Credibility Tree (MCCT) as the summary topology, with branch lengths set such that the internal node ages are the mean of the the corresponding node ages across all post-burnin samples.
+The result of this can be found here: :filepath:`lionepha/03-population-tree-estimation/lionepha-p095-hkyg.mcct-mean-age.tree.nex`.
 This population-level phylogeny will be one of the two primary inputs to |delineate|.
 
 Stage III. Assignment of Known vs. Unknown Species Identities
@@ -707,11 +709,155 @@ Stage III. Assignment of Known vs. Unknown Species Identities
 
 We now inspect our phylogeny and determine *a priori* species assignments for as many population lineages as we can.
 These assignments will be made with reference to our integrative understanding of the system in conjunction with the evolutionary relationships between population lineages shown in the phylogeny.
+
 There will be some population lineages for which the species identity is uncontroversial --- i.e., they can be unambiguously assigned to known species (or even new ones) based on morphological evidence of individuals in that population.
 In the case of the "collapsed" populations (labeled "coalescentpop001", "coalescentpop002", etc.), we would need to examine all individuals in those units, and if *any* one of them can be definitely assigned to an independent species status based on systematic evidence (i.e., distinct species from all others in the system), then the *entire* population lineage would get assigned to a distinct species.
 The reasoning behind this is that, based on previous stages of the analysis using |BPP|_, we have already decided that all individuals in that population constitute a single cohesive population, so the species identity of any one individual in that lineage would necessarily be shared by all other individuals in the same lineage.
 
-(INCOMPLETE --- WIP)
+There will, of course, be population units for which we will *not* be able to confidentally assign to a distinct species status --- either a known, existing one, or to a new one.
+These population lineages *could* be distinct species unto themselves, or could be populations of other species in the system (named or otherwise).
+These are the actual targets of delimitation --- we would to determine whether or not the boundaries between them and other lineages are species boundaries or population boundaries.
+
+The first set of population lineages --- the ones for which we can confidently assign species identities, and, hence, boundaries --- constitute our "constrained" lineages.
+We set them as constraints when we configure the |delineate| analysis by setting their status to "1" in the constraints table.
+This can be seen with, for e.g., "coalescentpop001", "coalescentpop002", and "L_australerasa_CA_Martin_Meadow" in the example constraints file (:filepath:`04-species-delimitation/lionepha.run1.tsv`; see below), which all have been assigned to "*australerasa*" (as can be seen in the "species" column), with the "status" set to 1.
+This will indicate to |delineate| that the assignment of these populations to species is fixed, and we should not consider any partition that violates this.
+
+.. rst-class:: small-text compressed-table center
+
+    +------------------------------------------+--------------+--------+
+    | lineage                                  | species      | status |
+    +==========================================+==============+========+
+    | - coalescentpop001                       | australerasa | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop002                       | australerasa | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_australerasa_CA_Martin_Meadow        | australerasa | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_casta_CA_West_Branch_Mill_Creek      | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop005                       | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop003                       | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop004                       | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_casta_OR_Lost_Prairie                | casta        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_OR_Lostine_River           | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_BC_Summit_Creek            | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_CA_Emerson_Creek           | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_MT_Mill_Creek              | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_ID_Salmon_River            | disjuncta    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_erasa_BC_Cherryville                 | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_erasa_OR_Lost_Prairie                | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_erasa_OR_Mt_Hood                     | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop007                       | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_erasa_AK_Thompson_Pass               | erasa        | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_lindrothi_CA_Long_Valley_Creek       | lindrothi    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_lindrothi_CA_Tioga_Lake              | lindrothi    | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_osculans_CA_Cold_Creek               | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop015                       | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop014                       | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop013                       | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop012                       | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_osculans_OR_Little_Philips_Creek     | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_osculans_CA_Strawberry_Creek         | osculans     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_MT_Mill_Creek                | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop023                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_CA_Warner_Range              | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_OR_Lostine_River_Valley      | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_CA_Ellery_Lake               | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_OR_Mt_Ashland                | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_WA_Blue_Mountains            | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop019                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop020                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop021                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop022                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop016                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop017                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop018                       | probata      | 1      |
+    +------------------------------------------+--------------+--------+
+    | - L_pseudoerasa_CA_Kaiser_Pass           | pseudoerasa  | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop025                       | pseudoerasa  | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop026                       | sequoiae     | 1      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop027                       | sequoiae     | 1      |
+    +------------------------------------------+--------------+--------+
+
+Conversely, there remain a number of population lineages that we are *not* sure about (we are going to pretend, for the purposes of this exercise).
+These populations *could* be populations of existing species *OR* they could be independent species (either as a single lineage or clusters of lineages).
+These are the lineages that are the (remaining) primary focus of the species delimitation analysis.
+In the constraints table, we set the status of these lineages to "0", indicating that we want the |delineate| analysis to explore all possible partitions that vary in the species assignments  of these populations.
+Note that we still have entries in the "species" field for this "unconstrained" lineages.
+This is purely for our own book-keeping and will be ignored entirely by |delineate|.
+We could, in principle, replace them with any text or level them blank, and they will have no difference in the program running or output.
+
+.. rst-class:: small-text compressed-table center
+
+    +------------------------------------------+--------------+--------+
+    | lineage                                  | species      | status |
+    +==========================================+==============+========+
+    | - L_disjuncta_OR_Mt_Hood                 | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_disjuncta_CA_Lily_Lake               | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop006                       | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop008                       | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop009                       | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_lindrothi_CA_Emerald_Lake            | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop011                       | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_lindrothi_CA_South_Fork_Bishop_Creek | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_probata_UT_Shingle_Creek             | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - coalescentpop024                       | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_tuulukwa_CA_Trinity_Alps             | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_tuulukwa_OR_Knowles_Creek            | ?            | 0      |
+    +------------------------------------------+--------------+--------+
+    | - L_tuulukwa_OR_Marys_Peak               | ?            | 0      |
+    +------------------------------------------+--------------+--------+
 
 Stage IV. Delimitation of Species Units
 =======================================

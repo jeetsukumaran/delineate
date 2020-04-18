@@ -96,7 +96,7 @@ command will run a |delineate| analysis on the data:
 
 ::
 
-    delineate-estimate partitions --tree-file population-tree.nex --config-file data1.tsv
+    delineate-estimate partitions --tree-file population-tree.nex --constraints data1.tsv
 
 or, using the short-form options:
 
@@ -118,9 +118,9 @@ This command has the following components:
    could be
    */home/bilbo/projects/orc-species-delimitation/data1/population-tree.nex*,
    for example.
--  ``--config-file data1.tsv`` or ``-c data1.tsv`` The ``--config-file``
+-  ``--constraints data1.tsv`` or ``-c data1.tsv`` The ``--constraints``
    flag, or its short-form synonym, ``-c``, specifies that the next
-   element will be the path to species assignment configuration file. In
+   element will be the path to species assignment constraints file. In
    this example, the file is located in the current working directory,
    i.e., *delineate-species.tsv*. Again, if it was in another directory,
    then the path could be
@@ -139,7 +139,7 @@ the following output files:
 More generally, unless the ``-o`` or ``--output-prefix`` flag (see
 below) is used to explicity specify an alternate output prefix for all
 results generated, the files will take on a prefix given by the file
-stemname of the configuration file, "*data1*" in the this example.
+stemname of the constraints file, "*data1*" in the this example.
 
 The first file, with the general name of
 "*<output-prefix>.delimitation-results.json*", is the primary results
@@ -220,17 +220,17 @@ which results in:
     Command Options:
       -h, --help            show this help message and exit
       --underscores-to-spaces, --no-preserve-underscores
-                            Convert underscores to spaces in tree lineage labels (if
-                            not proected by quotes). in the configuration file will
-                            not be modified either way. You should ensure consistency
-                            in labels between the tree file and the configuration
-                            file.
+                            Convert underscores to spaces in tree lineage
+                            labels (if not proected by quotes). Labels in the
+                            constraints file will not be modified either way.
+                            You should ensure consistency in labels between the
+                            tree file and the constraints file.
 
     Source Options:
       -t TREE_FILE, --tree-file TREE_FILE
                             Path to tree file.
-      -c CONFIG_FILE, --config-file CONFIG_FILE
-                            Path to configuration file.
+      -c CONSTRAINTS_FILE, --constraints CONSTRAINTS_FILE
+                            Path to constraints file.
       -f {nexus,newick}, --tree-format {nexus,newick}
                             Tree file data format (default='nexus').
 
@@ -292,7 +292,7 @@ Some of these options are explained in detail below:
 
    By default ``delineate-estimate`` will create output files in the
    current (working) directory with a filename stem given by the
-   filename stem of the configuration file. If you out want to specify a
+   filename stem of the constraints file. If you out want to specify a
    different path and/or directory, you would use this option. For e.g.,
 
    ::
@@ -308,7 +308,7 @@ Some of these options are explained in detail below:
 
        delineate-estimate partitions \
            --tree-file poptree.nex \
-           --config-file data1.tsv \
+           --constraints-file data1.tsv \
            --output-preifx /arrakis/workspace/results/run1
 
    will result in output being written to the following locations:
@@ -341,7 +341,7 @@ Some of these options are explained in detail below:
 
    ::
 
-       delineate-estimate partitions --tree-file poptree.nex --config-file data1.tsv --report-cumulative-probability-threshold 0.95
+       delineate-estimate partitions --tree-file poptree.nex --constraints-file data1.tsv --report-cumulative-probability-threshold 0.95
 
    Note that one issue that might result from this restriction is that,
    when summing up the marginal probabilities of the statues of a
@@ -384,7 +384,7 @@ Some of these options are explained in detail below:
 
    ::
 
-       delineate-estimate partitions --tree-file poptree.nex --config-file data1.tsv --underflow-protection
+       delineate-estimate partitions --tree-file poptree.nex --constraints-file data1.tsv --underflow-protection
 
 Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa
 --------------------------------------------------------------------------------------------------
@@ -447,7 +447,7 @@ which might result in something like this: :sub:`~`
 'DhlCO1', 'DhlP7', 'DhmB2Br', 'DhpB1Br', 'DhrM1', 'DhrSL5', 'DhsG1',
 'DhsH3', 'DhsP1', 'DhtT9', 'Dhy3Br', 'Dhy6', 'Dhym5', 'Dma2', 'DtTN1',
 'ERVL2', 'YSNE1' [delineate-summarize] 5 species defined in
-configuration constraints, with 12 lineages assigned: [ 1/5 ] 'ecu' (3
+constraints, with 12 lineages assigned: [ 1/5 ] 'ecu' (3
 lineages) [ 2/5 ] 'hy' (2 lineages) [ 3/5 ] 'lic' (3 lineages) [ 4/5 ]
 'ma' (1 lineages) [ 5/5 ] 'sep' (3 lineages) [delineate-summarize] 12
 out of 25 lineages assigned by constraints to 5 species: [ 1/12 ]
@@ -490,7 +490,7 @@ considered as accurate. { "lineages": ["DHHG2", "DhhD1", "DhrM1"],
 0.05232352098265284 } :sub:`~`
 
 As can be seen, the complete report includes details on the
-configuration constraints etc. as well as the various summarized
+constraints etc. as well as the various summarized
 marginal probabilities. The final result is written (by default) in JSON
 format to the standard output. The output format and details can be
 changed by specifying different options to the ``delineate-summarize``

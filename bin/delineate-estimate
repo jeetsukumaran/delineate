@@ -137,7 +137,7 @@ def execute_species_partition_estimation(args):
         constrained_tree = None
         species_constraints_desc = None
     if speciation_completion_rate is None and not controller.has_species_constraints:
-        controller.logger.error("ERROR: With no constraints given, speciation completion rate must be specified either in configuration file or by command argument '--speciation-completion-rate'")
+        controller.logger.error("ERROR: With no constraints given, speciation completion rate must be specified either by command argument '--speciation-completion-rate'")
         controller.logger.critical("Terminating due to error")
         sys.exit(1)
     elif speciation_completion_rate is not None and not controller.has_species_constraints:
@@ -415,8 +415,9 @@ def add_source_options(parser, source_options=None):
     source_options.add_argument("-t", "--tree-file",
             required=True,
             help="Path to tree file.")
-    source_options.add_argument("-c", "--config-file",
-            help="Path to configuration file.")
+    source_options.add_argument("-c", "--constraints",
+            dest="constraints_file",
+            help="Path to constraints file.")
     source_options.add_argument("-f", "--tree-format",
             dest="tree_format",
             type=str,
@@ -429,9 +430,9 @@ def add_source_options(parser, source_options=None):
             action="store_false",
             dest="preserve_underscores",
             default=True,
-            help="Convert underscores to spaces in tree lineage labels (if not proected by quotes). "
-                 "in the configuration file will not be modified either way. You should ensure "
-                 "consistency in labels between the tree file and the configuration file."
+            help="Convert underscores to spaces in tree lineage labels (if not protected by quotes). "
+                 "in the constraints file will not be modified either way. You should ensure "
+                 "consistency in labels between the tree file and the constraints file."
             )
     parser._source_options = source_options
     return parser
