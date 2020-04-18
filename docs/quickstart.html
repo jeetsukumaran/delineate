@@ -43,23 +43,26 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Quick Start</a><ul>
-<li><a class="reference internal" href="#data-requirements">Data Requirements</a><ul>
-<li><a class="reference internal" href="#input-data-population-tree">Input Data: Population Tree</a></li>
-<li><a class="reference internal" href="#input-data-species-assignment-table">Input Data: Species Assignment Table</a></li>
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Basic Concepts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-requirements">Data Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#input-data-population-tree">Input Data: Population Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-data-species-assignment-table">Input Data: Species Assignment Table</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#running-a-species-delimitation-analysis">Running a Species Delimitation Analysis</a><ul>
-<li><a class="reference internal" href="#basic-run">Basic Run</a></li>
-<li><a class="reference internal" href="#basic-run-output">Basic Run Output</a></li>
-<li><a class="reference internal" href="#more-options">More Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-a-species-delimitation-analysis">Running a Species Delimitation Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-run">Basic Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-run-output">Basic Run Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#more-options">More Options</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#summarizing-the-marginal-probability-of-conspecificity-and-new-species-status-for-a-subset-of-taxa">Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#summarizing-the-marginal-probability-of-conspecificity-and-new-species-status-for-a-subset-of-taxa">Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="workflow1.html">A Complete Worked Example: <em>Lionepha</em></a></li>
 </ul>
 
   <h4>Previous topic</h4>
@@ -210,7 +213,7 @@ book-keeping or reference.</p>
 <p>Given a population lineage tree file, “population-tree.nex”, and a
 species assignment table file “species-mappings.tsv”, then the following
 command will run a DELINEATE analysis on the data:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">file</span> <span class="n">population</span><span class="o">-</span><span class="n">tree</span><span class="o">.</span><span class="n">nex</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">file</span> <span class="n">data1</span><span class="o">.</span><span class="n">tsv</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">file</span> <span class="n">population</span><span class="o">-</span><span class="n">tree</span><span class="o">.</span><span class="n">nex</span> <span class="o">--</span><span class="n">constraints</span> <span class="n">data1</span><span class="o">.</span><span class="n">tsv</span>
 </pre></div>
 </div>
 <p>or, using the short-form options:</p>
@@ -231,9 +234,9 @@ located in the current working directory, i.e.,
 could be
 <em>/home/bilbo/projects/orc-species-delimitation/data1/population-tree.nex</em>,
 for example.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--config-file</span> <span class="pre">data1.tsv</span></code> or <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">data1.tsv</span></code> The <code class="docutils literal notranslate"><span class="pre">--config-file</span></code>
+<li><p><code class="docutils literal notranslate"><span class="pre">--constraints</span> <span class="pre">data1.tsv</span></code> or <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">data1.tsv</span></code> The <code class="docutils literal notranslate"><span class="pre">--constraints</span></code>
 flag, or its short-form synonym, <code class="docutils literal notranslate"><span class="pre">-c</span></code>, specifies that the next
-element will be the path to species assignment configuration file. In
+element will be the path to species assignment constraints file. In
 this example, the file is located in the current working directory,
 i.e., <em>delineate-species.tsv</em>. Again, if it was in another directory,
 then the path could be
@@ -252,7 +255,7 @@ the following output files:</p>
 <p>More generally, unless the <code class="docutils literal notranslate"><span class="pre">-o</span></code> or <code class="docutils literal notranslate"><span class="pre">--output-prefix</span></code> flag (see
 below) is used to explicity specify an alternate output prefix for all
 results generated, the files will take on a prefix given by the file
-stemname of the configuration file, “<em>data1</em>” in the this example.</p>
+stemname of the constraints file, “<em>data1</em>” in the this example.</p>
 <p>The first file, with the general name of
 “<em>&lt;output-prefix&gt;.delimitation-results.json</em>”, is the primary results
 file. As can be inferred from its extension, it is a
@@ -323,17 +326,17 @@ option:</p>
 <span class="n">Command</span> <span class="n">Options</span><span class="p">:</span>
   <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
   <span class="o">--</span><span class="n">underscores</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">spaces</span><span class="p">,</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">preserve</span><span class="o">-</span><span class="n">underscores</span>
-                        <span class="n">Convert</span> <span class="n">underscores</span> <span class="n">to</span> <span class="n">spaces</span> <span class="ow">in</span> <span class="n">tree</span> <span class="n">lineage</span> <span class="n">labels</span> <span class="p">(</span><span class="k">if</span>
-                        <span class="ow">not</span> <span class="n">proected</span> <span class="n">by</span> <span class="n">quotes</span><span class="p">)</span><span class="o">.</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">file</span> <span class="n">will</span>
-                        <span class="ow">not</span> <span class="n">be</span> <span class="n">modified</span> <span class="n">either</span> <span class="n">way</span><span class="o">.</span> <span class="n">You</span> <span class="n">should</span> <span class="n">ensure</span> <span class="n">consistency</span>
-                        <span class="ow">in</span> <span class="n">labels</span> <span class="n">between</span> <span class="n">the</span> <span class="n">tree</span> <span class="n">file</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">configuration</span>
-                        <span class="n">file</span><span class="o">.</span>
+                        <span class="n">Convert</span> <span class="n">underscores</span> <span class="n">to</span> <span class="n">spaces</span> <span class="ow">in</span> <span class="n">tree</span> <span class="n">lineage</span>
+                        <span class="n">labels</span> <span class="p">(</span><span class="k">if</span> <span class="ow">not</span> <span class="n">proected</span> <span class="n">by</span> <span class="n">quotes</span><span class="p">)</span><span class="o">.</span> <span class="n">Labels</span> <span class="ow">in</span> <span class="n">the</span>
+                        <span class="n">constraints</span> <span class="n">file</span> <span class="n">will</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">modified</span> <span class="n">either</span> <span class="n">way</span><span class="o">.</span>
+                        <span class="n">You</span> <span class="n">should</span> <span class="n">ensure</span> <span class="n">consistency</span> <span class="ow">in</span> <span class="n">labels</span> <span class="n">between</span> <span class="n">the</span>
+                        <span class="n">tree</span> <span class="n">file</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">constraints</span> <span class="n">file</span><span class="o">.</span>
 
 <span class="n">Source</span> <span class="n">Options</span><span class="p">:</span>
   <span class="o">-</span><span class="n">t</span> <span class="n">TREE_FILE</span><span class="p">,</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">file</span> <span class="n">TREE_FILE</span>
                         <span class="n">Path</span> <span class="n">to</span> <span class="n">tree</span> <span class="n">file</span><span class="o">.</span>
-  <span class="o">-</span><span class="n">c</span> <span class="n">CONFIG_FILE</span><span class="p">,</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">file</span> <span class="n">CONFIG_FILE</span>
-                        <span class="n">Path</span> <span class="n">to</span> <span class="n">configuration</span> <span class="n">file</span><span class="o">.</span>
+  <span class="o">-</span><span class="n">c</span> <span class="n">CONSTRAINTS_FILE</span><span class="p">,</span> <span class="o">--</span><span class="n">constraints</span> <span class="n">CONSTRAINTS_FILE</span>
+                        <span class="n">Path</span> <span class="n">to</span> <span class="n">constraints</span> <span class="n">file</span><span class="o">.</span>
   <span class="o">-</span><span class="n">f</span> <span class="p">{</span><span class="n">nexus</span><span class="p">,</span><span class="n">newick</span><span class="p">},</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="nb">format</span> <span class="p">{</span><span class="n">nexus</span><span class="p">,</span><span class="n">newick</span><span class="p">}</span>
                         <span class="n">Tree</span> <span class="n">file</span> <span class="n">data</span> <span class="nb">format</span> <span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;nexus&#39;</span><span class="p">)</span><span class="o">.</span>
 
@@ -395,7 +398,7 @@ option:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">-o</span></code> or <code class="docutils literal notranslate"><span class="pre">--output-prefix</span></code></p>
 <p>By default <code class="docutils literal notranslate"><span class="pre">delineate-estimate</span></code> will create output files in the
 current (working) directory with a filename stem given by the
-filename stem of the configuration file. If you out want to specify a
+filename stem of the constraints file. If you out want to specify a
 different path and/or directory, you would use this option. For e.g.,</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> \
     <span class="o">-</span><span class="n">t</span> <span class="n">poptree</span><span class="o">.</span><span class="n">nex</span> \
@@ -406,7 +409,7 @@ different path and/or directory, you would use this option. For e.g.,</p>
 <p>or</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> \
     <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">file</span> <span class="n">poptree</span><span class="o">.</span><span class="n">nex</span> \
-    <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">file</span> <span class="n">data1</span><span class="o">.</span><span class="n">tsv</span> \
+    <span class="o">--</span><span class="n">constraints</span><span class="o">-</span><span class="n">file</span> <span class="n">data1</span><span class="o">.</span><span class="n">tsv</span> \
     <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">preifx</span> <span class="o">/</span><span class="n">arrakis</span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">run1</span>
 </pre></div>
 </div>
@@ -435,7 +438,7 @@ result in a cumulative probability of 0.95, for e.g.,</p>
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">file</span> <span class="n">poptree</span><span class="o">.</span><span class="n">nex</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">file</span> <span class="n">data1</span><span class="o">.</span><span class="n">tsv</span> <span class="o">--</span><span class="n">report</span><span class="o">-</span><span class="n">cumulative</span><span class="o">-</span><span class="n">probability</span><span class="o">-</span><span class="n">threshold</span> <span class="mf">0.95</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">file</span> <span class="n">poptree</span><span class="o">.</span><span class="n">nex</span> <span class="o">--</span><span class="n">constraints</span><span class="o">-</span><span class="n">file</span> <span class="n">data1</span><span class="o">.</span><span class="n">tsv</span> <span class="o">--</span><span class="n">report</span><span class="o">-</span><span class="n">cumulative</span><span class="o">-</span><span class="n">probability</span><span class="o">-</span><span class="n">threshold</span> <span class="mf">0.95</span>
 </pre></div>
 </div>
 <p>Note that one issue that might result from this restriction is that,
@@ -473,7 +476,7 @@ robust albeit slower road.</p>
 </pre></div>
 </div>
 <p>or</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">file</span> <span class="n">poptree</span><span class="o">.</span><span class="n">nex</span> <span class="o">--</span><span class="n">config</span><span class="o">-</span><span class="n">file</span> <span class="n">data1</span><span class="o">.</span><span class="n">tsv</span> <span class="o">--</span><span class="n">underflow</span><span class="o">-</span><span class="n">protection</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> <span class="o">--</span><span class="n">tree</span><span class="o">-</span><span class="n">file</span> <span class="n">poptree</span><span class="o">.</span><span class="n">nex</span> <span class="o">--</span><span class="n">constraints</span><span class="o">-</span><span class="n">file</span> <span class="n">data1</span><span class="o">.</span><span class="n">tsv</span> <span class="o">--</span><span class="n">underflow</span><span class="o">-</span><span class="n">protection</span>
 </pre></div>
 </div>
 </li>
@@ -537,7 +540,7 @@ new species you would run the following command:</p>
 ‘DhlCO1’, ‘DhlP7’, ‘DhmB2Br’, ‘DhpB1Br’, ‘DhrM1’, ‘DhrSL5’, ‘DhsG1’,
 ‘DhsH3’, ‘DhsP1’, ‘DhtT9’, ‘Dhy3Br’, ‘Dhy6’, ‘Dhym5’, ‘Dma2’, ‘DtTN1’,
 ‘ERVL2’, ‘YSNE1’ [delineate-summarize] 5 species defined in
-configuration constraints, with 12 lineages assigned: [ 1/5 ] ‘ecu’ (3
+constraints, with 12 lineages assigned: [ 1/5 ] ‘ecu’ (3
 lineages) [ 2/5 ] ‘hy’ (2 lineages) [ 3/5 ] ‘lic’ (3 lineages) [ 4/5 ]
 ‘ma’ (1 lineages) [ 5/5 ] ‘sep’ (3 lineages) [delineate-summarize] 12
 out of 25 lineages assigned by constraints to 5 species: [ 1/12 ]
@@ -579,7 +582,7 @@ considered as accurate. { “lineages”: [“DHHG2”, “DhhD1”, “DhrM1”
 “marginal_probability_of_exclusive_new_species”:
 0.05232352098265284 } <sub>~</sub></p>
 <p>As can be seen, the complete report includes details on the
-configuration constraints etc. as well as the various summarized
+constraints etc. as well as the various summarized
 marginal probabilities. The final result is written (by default) in JSON
 format to the standard output. The output format and details can be
 changed by specifying different options to the <code class="docutils literal notranslate"><span class="pre">delineate-summarize</span></code>
