@@ -666,6 +666,8 @@ On the other hand, however, at the 0.50 posterior probability threshold, while t
     | L_erasa_OR_Prairie_Peak_2580 | coalescentpop004      |
     +------------------------------+-----------------------+
 
+Going forward to the next stage of analysis, we have to decide the posterior probability threshold at which we want to determine our population units.
+For this example, we will (somewhat arbitrarily) decide on 0.95.
 
 Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations
 ===========================================================================================
