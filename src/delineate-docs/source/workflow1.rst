@@ -898,3 +898,7 @@ The analysis will produce two files:
 There are included in the example archive in compressed form: :filepath:`04-species-delimitation/lionepha-delimitation-results.zip`.
 They are pretty large (even though we restricted results to the 99% credibility interval), and so we provide a smaller tree file with just the 10 most probable partitions in :filepath:`04-species-delimitation/lionepha.run1.delimitation-results.trunc.trees`.
 
+Examination and Interpretation of the Results
+=============================================
+
+(WIP --- TO BE CONTINUED)

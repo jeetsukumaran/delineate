@@ -862,7 +862,43 @@ We could, in principle, replace them with any text or level them blank, and they
 Stage IV. Delimitation of Species Units
 =======================================
 
-We are now ready to run |delineate|, using the phylogeny obtained in Stage II and the constraints table in Stage III.
+We are now ready to run |delineate| to carry out the species delimitation analysis.
+This will target the population lineages of unknown ("0") status, and calculate the probabilities of all possible partitions that vary in their placement with respect to species identities.
+The full analytical setup can be found in the subdirectory :filepath:`04-species-delimitation/`.
+For input data, we will use the phylogeny obtained in Stage II (:filepath:`lionepha/03-population-tree-estimation/lionepha-p095-hkyg.mcct-mean-age.tree.nex`) and the constraints table in Stage III (:filepath:`04-species-delimitation/lionepha.run1.tsv`) as inputs to the program :program:`delineate-estimate`.
+To execute the analysis, we run the following command::
 
-(INCOMPLETE --- WIP)
+    delineate-estimate partitions \
+        -P 0.99 \
+        -t lionepha-p095-hkyg.mcct-mean-age.tree.nex \
+        -c lionepha.run1.tsv
 
+The "-P 0.99" flag says to only report the probabilities of all partitions that contribute collectively to over 0.99 of the probabilities.
+There could be thousands (or billions, depending on the number of unconstrained lineages you set) of other partitions in the 0.01 remaining tail that we choose to ignore to save disk space and time.
+
+.. note:: Analysis Size and Computational Requirements
+
+    Note that this analysis has 13 unconstrained lineages out of 56.
+    The former (i.e., the number of unconstrained lineages) is the primary factor driving computational requirements, both in terms of time as well as memory: an analysis of 10,000 populations of which only 5 unconstrained will run faster (almost instantaneously) than one with 100 populations with 10 unconstrained.
+    An analysis with 50 unconstrained lineages will probably never complete even with the most powerful computers thrown at it, regardless of how few or many the contrained lineages are.
+    With this example of 13 unconstrained population lineages, we require 115 GB of computer memory and took about 35 mins to run on a fairly current (as of 2019) high-performance computing cluster.
+    If you find that this might be too demanding for your hardware (especially the memory requirement), you can reduce the complexity of the analysis by "fixing" the status of a few more species to be constraints by changing some "0's" to "1's" in the status columns of the constraint file (:filepath:`04-species-delimitation/lionepha.run1.tsv`).
+
+.. +------------------------------+---------+----------+----------+
+.. | Log                          | Mem (%) | RSS (GB) | VM (GB)  |
+.. +------------------------------+---------+----------+----------+
+.. | syrupy_20200418095810.ps.log | 22.5    | 113.7754 | 114.1045 |
+.. +------------------------------+---------+----------+----------+
+
+The analysis will produce two files:
+
+-   :filepath:`lionepha.run1.delimitation-results.json`
+-   :filepath:`lionepha.run1.delimitation-results.trees`
+
+There are included in the example archive in compressed form: :filepath:`04-species-delimitation/lionepha-delimitation-results.zip`.
+They are pretty large (even though we restricted results to the 99% credibility interval), and so we provide a smaller tree file with just the 10 most probable partitions in :filepath:`04-species-delimitation/lionepha.run1.delimitation-results.trunc.trees`.
+
+Examination and Interpretation of the Results
+=============================================
+
+(WIP --- TO BE CONTINUED)

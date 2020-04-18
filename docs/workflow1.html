@@ -62,6 +62,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#stage-ii-generating-the-multipopulation-coalescent-ultrametric-phylogeny-of-populations">Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stage-iii-assignment-of-known-vs-unknown-species-identities">Stage III. Assignment of Known vs. Unknown Species Identities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stage-iv-delimitation-of-species-units">Stage IV. Delimitation of Species Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examination-and-interpretation-of-the-results">Examination and Interpretation of the Results</a></li>
 </ul>
 </li>
 </ul>
@@ -1671,8 +1672,39 @@ We could, in principle, replace them with any text or level them blank, and they
 </div>
 <div class="section" id="stage-iv-delimitation-of-species-units">
 <h2>Stage IV. Delimitation of Species Units<a class="headerlink" href="#stage-iv-delimitation-of-species-units" title="Permalink to this headline">¶</a></h2>
-<p>We are now ready to run DELINEATE, using the phylogeny obtained in Stage II and the constraints table in Stage III.</p>
-<p>(INCOMPLETE — WIP)</p>
+<p>We are now ready to run DELINEATE to carry out the species delimitation analysis.
+This will target the population lineages of unknown (“0”) status, and calculate the probabilities of all possible partitions that vary in their placement with respect to species identities.
+The full analytical setup can be found in the subdirectory <span class="filepath">04-species-delimitation/</span>.
+For input data, we will use the phylogeny obtained in Stage II (<span class="filepath">lionepha/03-population-tree-estimation/lionepha-p095-hkyg.mcct-mean-age.tree.nex</span>) and the constraints table in Stage III (<span class="filepath">04-species-delimitation/lionepha.run1.tsv</span>) as inputs to the program <span class="program">delineate-estimate</span>.
+To execute the analysis, we run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">estimate</span> <span class="n">partitions</span> \
+    <span class="o">-</span><span class="n">P</span> <span class="mf">0.99</span> \
+    <span class="o">-</span><span class="n">t</span> <span class="n">lionepha</span><span class="o">-</span><span class="n">p095</span><span class="o">-</span><span class="n">hkyg</span><span class="o">.</span><span class="n">mcct</span><span class="o">-</span><span class="n">mean</span><span class="o">-</span><span class="n">age</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">nex</span> \
+    <span class="o">-</span><span class="n">c</span> <span class="n">lionepha</span><span class="o">.</span><span class="n">run1</span><span class="o">.</span><span class="n">tsv</span>
+</pre></div>
+</div>
+<p>The “-P 0.99” flag says to only report the probabilities of all partitions that contribute collectively to over 0.99 of the probabilities.
+There could be thousands (or billions, depending on the number of unconstrained lineages you set) of other partitions in the 0.01 remaining tail that we choose to ignore to save disk space and time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Analysis Size and Computational Requirements</p>
+<p>Note that this analysis has 13 unconstrained lineages out of 56.
+The former (i.e., the number of unconstrained lineages) is the primary factor driving computational requirements, both in terms of time as well as memory: an analysis of 10,000 populations of which only 5 unconstrained will run faster (almost instantaneously) than one with 100 populations with 10 unconstrained.
+An analysis with 50 unconstrained lineages will probably never complete even with the most powerful computers thrown at it, regardless of how few or many the contrained lineages are.
+With this example of 13 unconstrained population lineages, we require 115 GB of computer memory and took about 35 mins to run on a fairly current (as of 2019) high-performance computing cluster.
+If you find that this might be too demanding for your hardware (especially the memory requirement), you can reduce the complexity of the analysis by “fixing” the status of a few more species to be constraints by changing some “0’s” to “1’s” in the status columns of the constraint file (<span class="filepath">04-species-delimitation/lionepha.run1.tsv</span>).</p>
+</div>
+<p>The analysis will produce two files:</p>
+<ul class="simple">
+<li><p><span class="filepath">lionepha.run1.delimitation-results.json</span></p></li>
+<li><p><span class="filepath">lionepha.run1.delimitation-results.trees</span></p></li>
+</ul>
+<p>There are included in the example archive in compressed form: <span class="filepath">04-species-delimitation/lionepha-delimitation-results.zip</span>.
+They are pretty large (even though we restricted results to the 99% credibility interval), and so we provide a smaller tree file with just the 10 most probable partitions in <span class="filepath">04-species-delimitation/lionepha.run1.delimitation-results.trunc.trees</span>.</p>
+</div>
+<div class="section" id="examination-and-interpretation-of-the-results">
+<h2>Examination and Interpretation of the Results<a class="headerlink" href="#examination-and-interpretation-of-the-results" title="Permalink to this headline">¶</a></h2>
+<p>(WIP — TO BE CONTINUED)</p>
 </div>
 </div>
 
