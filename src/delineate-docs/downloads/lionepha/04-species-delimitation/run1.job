@@ -1,10 +1,16 @@
 #! /bin/bash
 #PBS -l nodes=ram512
 
+# stop execution of script immediately on any errors
 set -e -o pipefail
+
+# if running on an HPC using a job scheduler, change to job directory
 cd ${PBS_O_WORKDIR:-$PWD}
-source /home/jeet/Environment/workhost-ecology/service/bin/anacondactl.sh
-anaconda-attach && conda activate dev0
+
+# if you have installed delineate in an Anaconda environment, activate it here
+# conda activate dev0
+
+# execute the analysis
 delineate-estimate partitions \
     -P 0.99 \
     -t lionepha-p095-hkyg.mcct-mean-age.tree.nex \
