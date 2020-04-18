@@ -1,36 +1,79 @@
 
-<!DOCTYPE html>
+
+<!doctype html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
     <title>DELINEATE: Species Delimitation &#8212; DELINEATE 1.2.3 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/docs.css" />
+    
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installation" href="install.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
   </head><body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">DELINEATE 1.2.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">DELINEATE: Species Delimitation</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install.html"
+                        title="next chapter">Installation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="delineate-species-delimitation">
@@ -92,13 +135,13 @@ Package and dependency management is greatly simplified if <a class="reference e
 </li>
 <li class="toctree-l2"><a class="reference internal" href="workflow1.html#stage-i-identification-of-population-units-using-the-multipopulation-coalescent-model">Stage I: Identification of Population Units using the Multipopulation Coalescent Model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="workflow1.html#candidate-population-units">Candidate Population Units</a></li>
-<li class="toctree-l3"><a class="reference internal" href="workflow1.html#iia-generating-a-guide-tree-for-population-delimitation">IIa. Generating a Guide Tree for Population Delimitation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="workflow1.html#iib-delimitation-of-population-units">IIb. Delimitation of Population Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow1.html#generating-a-guide-tree-for-population-delimitation">Generating a Guide Tree for Population Delimitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="workflow1.html#delimitation-of-population-units">Delimitation of Population Units</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="workflow1.html#stage-iii-generating-the-phylogeny-of-populations">Stage III. Generating the Phylogeny of Populations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workflow1.html#stage-iv-assignment-of-known-vs-unknown-species-identities">Stage IV. Assignment of Known vs. Unknown Species Identities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="workflow1.html#stage-v-delimitation-of-species-units">Stage V. Delimitation of Species Units</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflow1.html#stage-ii-generating-the-multipopulation-coalescent-ultrametric-phylogeny-of-populations">Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflow1.html#stage-iii-assignment-of-known-vs-unknown-species-identities">Stage III. Assignment of Known vs. Unknown Species Identities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflow1.html#stage-iv-delimitation-of-species-units">Stage IV. Delimitation of Species Units</a></li>
 </ul>
 </li>
 </ul>
@@ -108,72 +151,25 @@ Package and dependency management is greatly simplified if <a class="reference e
 
 
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">DELINEATE</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="concepts.html">Basic Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="workflow1.html">A Complete Worked Example: <em>Lionepha</em></a></li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="install.html" title="next chapter">Installation</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2020, Jeet Sukumaran and Mark T. Holder.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="install.html" title="Installation"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">DELINEATE 1.2.3 documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Jeet Sukumaran and Mark T. Holder.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+    </div>
   </body>
 </html>

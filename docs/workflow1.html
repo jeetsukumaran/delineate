@@ -1,36 +1,99 @@
 
-<!DOCTYPE html>
+
+<!doctype html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
     <title>A Complete Worked Example: Lionepha &#8212; DELINEATE 1.2.3 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/css/docs.css" />
+    
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Quick Start" href="quickstart.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
   </head><body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quick Start"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">A Complete Worked Example: <em>Lionepha</em></a><ul>
+<li><a class="reference internal" href="#software-prerequisites">(Software Prerequisites)</a></li>
+<li><a class="reference internal" href="#data-files">(Data Files)</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#background">Background</a><ul>
+<li><a class="reference internal" href="#study-design">Study Design</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stage-i-identification-of-population-units-using-the-multipopulation-coalescent-model">Stage I: Identification of Population Units using the Multipopulation Coalescent Model</a><ul>
+<li><a class="reference internal" href="#candidate-population-units">Candidate Population Units</a></li>
+<li><a class="reference internal" href="#generating-a-guide-tree-for-population-delimitation">Generating a Guide Tree for Population Delimitation</a></li>
+<li><a class="reference internal" href="#delimitation-of-population-units">Delimitation of Population Units</a><ul>
+<li><a class="reference internal" href="#for-small-datasets-the-single-analysis-approach">For Small Datasets: the Single-Analysis Approach</a></li>
+<li><a class="reference internal" href="#for-larger-datasets-the-subtree-decomposition-approach">For Larger Datasets: the Subtree Decomposition Approach</a></li>
+<li><a class="reference internal" href="#collating-results-of-the-subtree-approach">Collating Results of the Subtree Approach</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stage-ii-generating-the-multipopulation-coalescent-ultrametric-phylogeny-of-populations">Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations</a></li>
+<li><a class="reference internal" href="#stage-iii-assignment-of-known-vs-unknown-species-identities">Stage III. Assignment of Known vs. Unknown Species Identities</a></li>
+<li><a class="reference internal" href="#stage-iv-delimitation-of-species-units">Stage IV. Delimitation of Species Units</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="quickstart.html"
+                        title="previous chapter">Quick Start</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/workflow1.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <div class="section" id="a-complete-worked-example-lionepha">
@@ -83,14 +146,14 @@ The analytical workflow for this sort of study will be identical to that discuss
 <p>Here we will focus on just a subset of the data from Maddison and Sproul (2020), focusing only on lineages in the genus <em>Lionepha</em> itself.
 This data consists of 8 gene alignments for 143 samples from multiple individuals from multiple populations from multiple species:</p>
 <ul class="simple">
-<li><p>lionepha/00-alignments/18s.nex</p></li>
-<li><p>lionepha/00-alignments/28s.nex</p></li>
-<li><p>lionepha/00-alignments/argk.nex</p></li>
-<li><p>lionepha/00-alignments/cad.nex</p></li>
-<li><p>lionepha/00-alignments/coi.nex</p></li>
-<li><p>lionepha/00-alignments/msp.nex</p></li>
-<li><p>lionepha/00-alignments/topo.nex</p></li>
-<li><p>lionepha/00-alignments/wg.nex</p></li>
+<li><p><span class="filepath">lionepha/00-alignments/18s.nex</span></p></li>
+<li><p><span class="filepath">lionepha/00-alignments/28s.nex</span></p></li>
+<li><p><span class="filepath">lionepha/00-alignments/argk.nex</span></p></li>
+<li><p><span class="filepath">lionepha/00-alignments/cad.nex</span></p></li>
+<li><p><span class="filepath">lionepha/00-alignments/coi.nex</span></p></li>
+<li><p><span class="filepath">lionepha/00-alignments/msp.nex</span></p></li>
+<li><p><span class="filepath">lionepha/00-alignments/topo.nex</span></p></li>
+<li><p><span class="filepath">lionepha/00-alignments/wg.nex</span></p></li>
 </ul>
 </div>
 </div>
@@ -795,14 +858,14 @@ As such, we will consider every distinct geographical sample to be a distinct ca
 </tbody>
 </table>
 </div>
-<div class="section" id="iia-generating-a-guide-tree-for-population-delimitation">
-<h3>IIa. Generating a Guide Tree for Population Delimitation<a class="headerlink" href="#iia-generating-a-guide-tree-for-population-delimitation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="generating-a-guide-tree-for-population-delimitation">
+<h3>Generating a Guide Tree for Population Delimitation<a class="headerlink" href="#generating-a-guide-tree-for-population-delimitation" title="Permalink to this headline">¶</a></h3>
 <p>We will provide <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> with a guide tree for its population delimitation analysis.
 We will use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to generate this guide tree.</p>
-<p>The full <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> configuration file, generated using <code class="docutils literal notranslate"><span class="pre">BEAUTi</span></code>, can be found at in <code class="docutils literal notranslate"><span class="pre">lionepha/01-guidetree-estimation/sb00500M.xml</span></code>.
-The alignments listed above were imported, and the following “traits” file was used to map alignment sequences to canidate population units: <code class="docutils literal notranslate"><span class="pre">lionepha/01-guidetree-estimation/traits.txt</span></code>.</p>
+<p>The full <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> configuration file, generated using <code class="docutils literal notranslate"><span class="pre">BEAUTi</span></code>, can be found at in <span class="filepath">lionepha/01-guidetree-estimation/sb00500M.xml</span>.
+The alignments listed above were imported, and the following “traits” file was used to map alignment sequences to canidate population units: <span class="filepath">lionepha/01-guidetree-estimation/traits.txt</span>.</p>
 <p>We used a single strict clock model across all genes, and a HKY+G model of substitution.</p>
-<p>We ran this four replicates of this analysis for 500 million generations each, sampling every 500,000 generations for a total of 1000 samples from each replicates.
+<p>We ran four replicates of this analysis for 500 million generations each, sampling every 500,000 generations for a total of 1000 samples from each replicates.
 The first 250 samples were discarded from the 100 samples of each replicates.
 Convergence was diagnosed through inspection of traces for each parameter as well as the likelihood and posterior.
 ESS values for each parameter were established to be more than 250, and distributions of parameter values were compared to a “null” run (i.e., a run without data where just the prior was sampled) to confirm that the analysis learned from the data sufficiently to shift the posterior away from the prior.</p>
@@ -821,14 +884,14 @@ ESS values for each parameter were established to be more than 250, and distribu
 </pre></div>
 </div>
 <p>This selects the Maximum Clade Credibility Tree (MCCT) tree for the summary topolgy, stripping all branch lengths and metadata annotations, to result in the following:</p>
-<p class="framebox center"><a class="reference external" href="_static/examples/lionepha/01-guidetree-estimation/guidetree.nex">examples/lionepha/01-guidetree-estimation/guidetree.nex</a></p>
+<p class="framebox center"><span class="filepath">lionepha/01-guidetree-estimation/guidetree.nex</span></p>
 </div>
-<div class="section" id="iib-delimitation-of-population-units">
-<h3>IIb. Delimitation of Population Units<a class="headerlink" href="#iib-delimitation-of-population-units" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="delimitation-of-population-units">
+<h3>Delimitation of Population Units<a class="headerlink" href="#delimitation-of-population-units" title="Permalink to this headline">¶</a></h3>
 <p>Now that we have a guide tree that treats each distinct geographical lineage as a candidate distinct Wright-Fisher population, we will run <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> in “A10” mode to delimit the true population units under the “multipopulation coalescent” (i.e., the MSC).</p>
-<div class="section" id="iib-i-the-pooled-approach">
-<h4>IIb(i). The Pooled Approach<a class="headerlink" href="#iib-i-the-pooled-approach" title="Permalink to this headline">¶</a></h4>
-<p>The files provided in the “<code class="docutils literal notranslate"><span class="pre">lionepha/02a-population-delimitation-pooled</span></code>” directory set up a fairly straightforward <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> “A10” analyses using the data that we have collected and the guide tree we have estimated:</p>
+<div class="section" id="for-small-datasets-the-single-analysis-approach">
+<h4>For Small Datasets: the Single-Analysis Approach<a class="headerlink" href="#for-small-datasets-the-single-analysis-approach" title="Permalink to this headline">¶</a></h4>
+<p>The files provided in the <span class="filepath">lionepha/02a-population-delimitation-pooled</span> directory set up a fairly straightforward <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> “A10” analyses using the data that we have collected and the guide tree we have estimated:</p>
 <table class="colwidths-given compressed-table docutils align-default" id="id1">
 <caption><span class="caption-text">Pooled <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> Population Delimitation Analysis</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -878,8 +941,8 @@ ESS values for each parameter were established to be more than 250, and distribu
 </pre></div>
 </div>
 </div>
-<div class="section" id="iib-ii-the-subtree-approach">
-<h4>IIb(ii). The Subtree Approach<a class="headerlink" href="#iib-ii-the-subtree-approach" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="for-larger-datasets-the-subtree-decomposition-approach">
+<h4>For Larger Datasets: the Subtree Decomposition Approach<a class="headerlink" href="#for-larger-datasets-the-subtree-decomposition-approach" title="Permalink to this headline">¶</a></h4>
 <p>The solution is to break the data set up into subtrees and carry out a separate population delimitation analysis on each subtree.
 While designing a decomposition scheme, it is important to note that we should <em>not</em> separate out candidate population lineages that might potentially belong to the same (actual) population into separate subtrees, thereby preventing <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> from being able to collapse them if it does not detect any gene flow restriction between them.
 In most studies, this should not be too difficult to identify.
@@ -890,29 +953,701 @@ In this case of this <em>Lionepha</em> study, the nominal species clades provide
 </div>
 <p class="figure-caption"><strong>Figure</strong>:  We cannot delimit populations for the entire data set simulatneously in <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> due to the number of lineages. Instead, we decompose the analysis into a set of smaller analyses based on subtrees.</p>
 <p>The set up for this set of analyses can be found at:</p>
-<p class="framebox center"><code class="docutils literal notranslate"><span class="pre">lionepha/02b-population-delimitation-subtrees</span></code></p>
+<p class="framebox center"><span class="filepath">lionepha/02b-population-delimitation-subtrees</span></p>
 <p>with each subdirectory containing a stand-alone analysis.</p>
 </div>
-<div class="section" id="iic-collating-results-of-the-subtree-approach">
-<h4>IIc. Collating Results of the Subtree Approach<a class="headerlink" href="#iic-collating-results-of-the-subtree-approach" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="collating-results-of-the-subtree-approach">
+<h4>Collating Results of the Subtree Approach<a class="headerlink" href="#collating-results-of-the-subtree-approach" title="Permalink to this headline">¶</a></h4>
 <p>Each of the subtree analysis now has the populations delimited under the MSC model.
-Having identified these population units, we now pool them.</p>
+Having identified these population units across various subtrees, we now need to collate and pool them.
+DELINEATE helpfully provides a script for you to do this fairly robustly: <a class="reference external" href="https://delineate.org/"><span class="program">delineate-bppsum</span></a>.
+This script takes as its input two sets of files:</p>
+<ul class="simple">
+<li><p>the “imap” files you provided to <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> as input, which maps sequences to candidate population lineages</p></li>
+<li><p>the output log of <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analyses (<em>not</em> the MCMC log), which provides a tree at the end with posterior probability of internal nodes indicated by labels</p></li>
+</ul>
+<p>These files can be specified in any order, but must collectively span the entire analysis: the set of all candidate population names defined across all “imap” files must be equal to the set of all candidate population names found across all trees in all <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> output log files.</p>
+<p>In this example, we have all the independent subtree analyses packed away in subdirectories, “<code class="docutils literal notranslate"><span class="pre">01</span></code>”, “<code class="docutils literal notranslate"><span class="pre">02</span></code>”, etc.
+Assuming we are in the <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis subdirectory, <span class="filepath">lionepha/02b-population-delimitation-subtrees</span>, we could just type in all the paths:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span> \
+    <span class="o">--</span><span class="n">imap</span>    <span class="mi">01</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span> \
+              <span class="mi">02</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span> \
+              <span class="o">.</span>
+              <span class="o">.</span>
+              <span class="p">(</span><span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+    <span class="o">--</span><span class="n">results</span> <span class="mi">01</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span> \
+              <span class="mi">02</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span> \
+              <span class="o">.</span>
+              <span class="o">.</span>
+              <span class="p">(</span><span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>but because of judicious naming of the files, we can use some basic shell commands to generate the list of input files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>delineate-bppsum \
+    --imap $(find . -name &quot;*imap*&quot;) \
+    --results $(find . -name &quot;*out.txt&quot;)
+</pre></div>
+</div>
+<p>Executing the above command results in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="mi">11</span> <span class="n">BPP</span> <span class="s1">&#39;imap&#39;</span> <span class="n">files</span> <span class="n">specified</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">1</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">00</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">13</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">7</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">2</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">01</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">9</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">9</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">3</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">02</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">10</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">9</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">4</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">03</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">14</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">7</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">5</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">04</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">12</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">5</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">6</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">05</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">10</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">8</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">7</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">06</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">16</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">15</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">8</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">07</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">34</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">30</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>   <span class="mi">9</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">08</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">9</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">5</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>  <span class="mi">10</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">09</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">6</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">5</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">mapping</span> <span class="n">file</span>  <span class="mi">11</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">10</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">10</span> <span class="n">lineages</span><span class="p">,</span> <span class="mi">3</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="mi">11</span> <span class="n">BPP</span> <span class="n">output</span> <span class="n">files</span> <span class="n">specified</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">1</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">00</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">7</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">2</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">01</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">9</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">3</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">02</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">9</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">4</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">03</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">7</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">5</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">04</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">5</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">6</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">05</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">8</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">7</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">06</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">15</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">8</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">07</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">30</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>   <span class="mi">9</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">08</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">5</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>  <span class="mi">10</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">09</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">5</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="o">-</span> <span class="n">Reading</span> <span class="n">output</span> <span class="n">file</span>  <span class="mi">11</span> <span class="n">of</span> <span class="mi">11</span><span class="p">:</span> <span class="o">./</span><span class="mi">10</span><span class="o">/</span><span class="n">results</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span>   <span class="o">-</span> <span class="p">(</span><span class="mi">3</span> <span class="n">candidate</span> <span class="n">populations</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="n">Posterior</span> <span class="n">probability</span> <span class="n">threshold</span> <span class="n">of</span> <span class="mf">0.50</span><span class="p">:</span> <span class="mi">86</span> <span class="n">populations</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="n">Posterior</span> <span class="n">probability</span> <span class="n">threshold</span> <span class="n">of</span> <span class="mf">0.75</span><span class="p">:</span> <span class="mi">72</span> <span class="n">populations</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="n">Posterior</span> <span class="n">probability</span> <span class="n">threshold</span> <span class="n">of</span> <span class="mf">0.90</span><span class="p">:</span> <span class="mi">65</span> <span class="n">populations</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="n">Posterior</span> <span class="n">probability</span> <span class="n">threshold</span> <span class="n">of</span> <span class="mf">0.95</span><span class="p">:</span> <span class="mi">59</span> <span class="n">populations</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span><span class="p">]</span> <span class="n">Posterior</span> <span class="n">probability</span> <span class="n">threshold</span> <span class="n">of</span> <span class="mf">1.00</span><span class="p">:</span> <span class="mi">46</span> <span class="n">populations</span>
+</pre></div>
+</div>
+<p>and produces the following files:</p>
+<ul class="simple">
+<li><p><span class="filepath">coalescent-pops.sb2-traits.p050.txt</span></p></li>
+<li><p><span class="filepath">coalescent-pops.sb2-traits.p075.txt</span></p></li>
+<li><p><span class="filepath">coalescent-pops.sb2-traits.p090.txt</span></p></li>
+<li><p><span class="filepath">coalescent-pops.sb2-traits.p095.txt</span></p></li>
+<li><p><span class="filepath">coalescent-pops.sb2-traits.p100.txt</span></p></li>
+<li><p><span class="filepath">coalescent-pops.summary.csv</span></p></li>
+</ul>
+<p>The population boundaries and identities of the various individuals are reported at different posterior probabilities (0.50, 0.75, 0.90, 0.95, and 1.00).
+A comprehensive overview of all the identities under the different posterior probabilities is provided in the file: <span class="filepath">coalescent-pops.summary.csv</span>.
+The other files (ending with filenames “…sb2-traits.p0xx.txt”) are <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” files at each of those posterior probability thresholds.
+These latter make setting up a <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> analysis to estimate an ultrametric phylogeny relating the population units delimited at each of the posterior probability thresholds very straightforward.
+With the latter, do <em>not</em> be confused by the column header “species”!
+Again, this is simply due to the misleading terminology adopted for the higher-level units of organization in <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> and most other programs that use the MSC.
+What we are working with here are <em>population units</em>, some of which <em>may</em> also correspond to species while others may not.
+This is abundantly clear by the fact that the 12 nominal species — established with both genomic as well as morphological data contributing toward an understanding of the system over a <em>decade</em> of the study — is split into 46 to 86 units (!) by the MSC analysis, depending on the posterior probability threshold we adopt for those units.
+Interpreting these units as “species” is categorically and unconditionally wrong, and would represent a jettisoning of a basic understanding of speciation, systematics, and biology, due to a complete misunderstanding of the MSC model and misinterpretation of its results.</p>
+<p>The MSC delimits <em>populations</em> not species.</p>
+<p>Note that where our candidate populations assignment have indeed turned out to be distinct population lineages under a particular posterior probability threshold, the original population label is retained (e.g., “L_australerasa_CA_Martin_Meadow” or “L_probata_WA_Blue_Mountains”).</p>
+<p>In cases where multiple candidate population lineages have been “collapsed”, because there was insufficient signal for restriction of Wright-Fisher panmixia between them detected at a particular posterior probability threshold, they have been relabeled with synthetic labels (e.g. “coalescentpop001”, “coalescentpop002”, etc.).
+Thus, for example, we see that, in the setup to our <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysies, we allowed for the possibility that  <em>L. erasa</em> from Mary’s Peak, Mount Hebo, Mount Hood, and Prairie Peak might constitute four distinct different populations:</p>
+<table class="small-text compressed-table center docutils align-default">
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>sample</p></th>
+<th class="head"><p>BP&amp;B Candidate Population (“Species”)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>L_erasa_OR_Marys_Peak_2575</p></td>
+<td><p>L_erasa_OR_Marys_Peak</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Marys_Peak_2586</p></td>
+<td><p>L_erasa_OR_Marys_Peak</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Marys_Peak_2615</p></td>
+<td><p>L_erasa_OR_Marys_Peak</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Marys_Peak_2616</p></td>
+<td><p>L_erasa_OR_Marys_Peak</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Mount_Hebo_3013</p></td>
+<td><p>L_erasa_OR_Mount_Hebo</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Mount_Hebo_3016</p></td>
+<td><p>L_erasa_OR_Mount_Hebo</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Mt_Hood_4144</p></td>
+<td><p>L_erasa_OR_Mt_Hood</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Prairie_Peak_2580</p></td>
+<td><p>L_erasa_OR_Prairie_Peak</p></td>
+</tr>
+</tbody>
+</table>
+<p>Following the analysis, we see that a 0.95 posterior probability threshold there was insufficient evidence to support this, and all individuals from across all these localities were assigned to a merged or collapsed population,”coalescentpop007” (see the “p095” column in <span class="filepath">02b-population-delimitation-subtrees/coalescent-pops.summary.csv</span> or <span class="filepath">02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p095.txt</span>):</p>
+<table class="small-text compressed-table center docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>sample</p></th>
+<th class="head"><p>p095</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>L_erasa_OR_Marys_Peak_2575</p></td>
+<td><p>coalescentpop007</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Marys_Peak_2586</p></td>
+<td><p>coalescentpop007</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Marys_Peak_2615</p></td>
+<td><p>coalescentpop007</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Marys_Peak_2616</p></td>
+<td><p>coalescentpop007</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Mount_Hebo_3013</p></td>
+<td><p>coalescentpop007</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Mount_Hebo_3016</p></td>
+<td><p>coalescentpop007</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Mt_Hood_4144</p></td>
+<td><p>L_erasa_OR_Mt_Hood</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Prairie_Peak_2580</p></td>
+<td><p>coalescentpop007</p></td>
+</tr>
+</tbody>
+</table>
+<p>On the other hand, however, at the 0.50 posterior probability threshold, while the Mary’s Peak and Prairie Peak candidate population lineages were still collapsed into a single population (“coalescentpop004”), the Mount Hebo and Mount Hood individuals were each estimated to form a distinct population unto themselves (see the “p050” column in <span class="filepath">02b-population-delimitation-subtrees/coalescent-pops.summary.csv</span> or <span class="filepath">02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p050.txt</span>):</p>
+<table class="small-text compressed-table center docutils align-default">
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>sample</p></th>
+<th class="head"><p>p050</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>L_erasa_OR_Marys_Peak_2575</p></td>
+<td><p>coalescentpop004</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Marys_Peak_2586</p></td>
+<td><p>coalescentpop004</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Marys_Peak_2615</p></td>
+<td><p>coalescentpop004</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Marys_Peak_2616</p></td>
+<td><p>coalescentpop004</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Mount_Hebo_3013</p></td>
+<td><p>L_erasa_OR_Mount_Hebo</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Mount_Hebo_3016</p></td>
+<td><p>L_erasa_OR_Mount_Hebo</p></td>
+</tr>
+<tr class="row-even"><td><p>L_erasa_OR_Mt_Hood_4144</p></td>
+<td><p>L_erasa_OR_Mt_Hood</p></td>
+</tr>
+<tr class="row-odd"><td><p>L_erasa_OR_Prairie_Peak_2580</p></td>
+<td><p>coalescentpop004</p></td>
+</tr>
+</tbody>
+</table>
+<p>Going forward to the next stage of analysis, we have to decide the posterior probability threshold at which we want to determine our population units.
+For this example, we will (somewhat arbitrarily) decide on 0.95.</p>
 </div>
 </div>
 </div>
-<div class="section" id="stage-iii-generating-the-phylogeny-of-populations">
-<h2>Stage III. Generating the Phylogeny of Populations<a class="headerlink" href="#stage-iii-generating-the-phylogeny-of-populations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="stage-ii-generating-the-multipopulation-coalescent-ultrametric-phylogeny-of-populations">
+<h2>Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations<a class="headerlink" href="#stage-ii-generating-the-multipopulation-coalescent-ultrametric-phylogeny-of-populations" title="Permalink to this headline">¶</a></h2>
 <p>We use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to estimate an ultrametric phylogeny of population lineages.
-We use the original set of alignments (found <code class="docutils literal notranslate"><span class="pre">examples/lionepha/00-alignments</span></code>) for as the input data for this, and a “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.</p>
+We use the original set of alignments (found in <span class="filepath">lionepha/00-alignments</span>) for as the input data for this, and a “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.
+For this exercise, we shall use population units that were delimited with 0.95 posterior probability, and the “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” file corresponding to this is given by <span class="filepath">coalescent-pops.sb2-traits.p095.txt</span>.
+The analysis setup for the StarBeast2 run can be found in the <span class="filepath">lionepha/03-population-tree-estimation/</span> directory.
+There are six StarBeast2 XML configuration files.
+These all set up the same “species tree” analysis, the only difference being the name prefixes of the output files.
+This is so that we can run multiple independent analyses, the <em>sin qua non</em> of MCMC best practices.</p>
+<p>Again, we used a single strict clock model across all genes, and a HKY+G model of substitution.
+Each analysis was run for 400 million generations, with a sampling frequency of 400,000 generations.
+Thus, we obtained 1000 samples from the posterior from each of the six replicates.
+We can again use <a class="reference external" href="https://dendropy.org/programs/sumtrees.html">SumTrees</a> to summarize the results with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sumtrees.py \
+    -b 250 \
+    -s mcct \
+    -e mean-age \
+    -l clear \
+    --force-rooted \
+    --suppress-annotations \
+    -ro lionepha-p095-hkyg.mcct-mean-age.tree \
+    *.species.trees
+</pre></div>
+</div>
+<p>This will discard the first 250 of the 1000 samples from each replicate as burn-in, merge the results, and select the Maximum Clade Credibility Tree (MCCT) as the summary topology, with branch lengths set such that the internal node ages are the mean of the the corresponding node ages across all post-burnin samples.
+This population-level phylogeny will be one of the two primary inputs to DELINEATE.</p>
+</div>
+<div class="section" id="stage-iii-assignment-of-known-vs-unknown-species-identities">
+<h2>Stage III. Assignment of Known vs. Unknown Species Identities<a class="headerlink" href="#stage-iii-assignment-of-known-vs-unknown-species-identities" title="Permalink to this headline">¶</a></h2>
+<p>We now inspect our phylogeny and determine <em>a priori</em> species assignments for as many population lineages as we can.
+These assignments will be made with reference to our integrative understanding of the system in conjunction with the evolutionary relationships between population lineages shown in the phylogeny.
+There will be some population lineages for which the species identity is uncontroversial — i.e., they can be unambiguously assigned to known species (or even new ones) based on morphological evidence of individuals in that population.
+In the case of the “collapsed” populations (labeled “coalescentpop001”, “coalescentpop002”, etc.), we would need to examine all individuals in those units, and if <em>any</em> one of them can be definitely assigned to an independent species status based on systematic evidence (i.e., distinct species from all others in the system), then the <em>entire</em> population lineage would get assigned to a distinct species.
+The reasoning behind this is that, based on previous stages of the analysis using <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a>, we have already decided that all individuals in that population constitute a single cohesive population, so the species identity of any one individual in that lineage would necessarily be shared by all other individuals in the same lineage.</p>
+<table class="small-text compressed-table center docutils align-default">
+<colgroup>
+<col style="width: 66%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>lineage</p></th>
+<th class="head"><p>species</p></th>
+<th class="head"><p>status</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop001</p></li>
+</ul>
+</td>
+<td><p>australerasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop002</p></li>
+</ul>
+</td>
+<td><p>australerasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_australerasa_CA_Martin_Meadow</p></li>
+</ul>
+</td>
+<td><p>australerasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_casta_CA_West_Branch_Mill_Creek</p></li>
+</ul>
+</td>
+<td><p>casta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop005</p></li>
+</ul>
+</td>
+<td><p>casta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop003</p></li>
+</ul>
+</td>
+<td><p>casta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop004</p></li>
+</ul>
+</td>
+<td><p>casta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_casta_OR_Lost_Prairie</p></li>
+</ul>
+</td>
+<td><p>casta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_OR_Mt_Hood</p></li>
+</ul>
+</td>
+<td><p>disjuncta</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_disjuncta_OR_Lostine_River</p></li>
+</ul>
+</td>
+<td><p>disjuncta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_CA_Lily_Lake</p></li>
+</ul>
+</td>
+<td><p>disjuncta</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_disjuncta_BC_Summit_Creek</p></li>
+</ul>
+</td>
+<td><p>disjuncta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_CA_Emerson_Creek</p></li>
+</ul>
+</td>
+<td><p>disjuncta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_disjuncta_MT_Mill_Creek</p></li>
+</ul>
+</td>
+<td><p>disjuncta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_disjuncta_ID_Salmon_River</p></li>
+</ul>
+</td>
+<td><p>disjuncta</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop006</p></li>
+</ul>
+</td>
+<td><p>disjuncta</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_erasa_BC_Cherryville</p></li>
+</ul>
+</td>
+<td><p>erasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_erasa_OR_Lost_Prairie</p></li>
+</ul>
+</td>
+<td><p>erasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_erasa_OR_Mt_Hood</p></li>
+</ul>
+</td>
+<td><p>erasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop007</p></li>
+</ul>
+</td>
+<td><p>erasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_erasa_AK_Thompson_Pass</p></li>
+</ul>
+</td>
+<td><p>erasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop008</p></li>
+</ul>
+</td>
+<td><p>kavanaughi</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop009</p></li>
+</ul>
+</td>
+<td><p>kavanaughi</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Emerald_Lake</p></li>
+</ul>
+</td>
+<td><p>lindrothi</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop011</p></li>
+</ul>
+</td>
+<td><p>lindrothi</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop010</p></li>
+</ul>
+</td>
+<td><p>lindrothi</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_lindrothi_CA_South_Fork_Bishop_Creek</p></li>
+</ul>
+</td>
+<td><p>lindrothi</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Long_Valley_Creek</p></li>
+</ul>
+</td>
+<td><p>lindrothi</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Tioga_Lake</p></li>
+</ul>
+</td>
+<td><p>lindrothi</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_CA_Cold_Creek</p></li>
+</ul>
+</td>
+<td><p>osculans</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop015</p></li>
+</ul>
+</td>
+<td><p>osculans</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop014</p></li>
+</ul>
+</td>
+<td><p>osculans</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop013</p></li>
+</ul>
+</td>
+<td><p>osculans</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop012</p></li>
+</ul>
+</td>
+<td><p>osculans</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_osculans_OR_Little_Philips_Creek</p></li>
+</ul>
+</td>
+<td><p>osculans</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_osculans_CA_Strawberry_Creek</p></li>
+</ul>
+</td>
+<td><p>osculans</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_MT_Mill_Creek</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_UT_Shingle_Creek</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop023</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop024</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_CA_Warner_Range</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_OR_Lostine_River_Valley</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_CA_Ellery_Lake</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_probata_OR_Mt_Ashland</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_WA_Blue_Mountains</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop019</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop020</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop021</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop022</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop016</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop017</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop018</p></li>
+</ul>
+</td>
+<td><p>probata</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_pseudoerasa_CA_Kaiser_Pass</p></li>
+</ul>
+</td>
+<td><p>pseudoerasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop025</p></li>
+</ul>
+</td>
+<td><p>pseudoerasa</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop026</p></li>
+</ul>
+</td>
+<td><p>sequoiae</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>coalescentpop027</p></li>
+</ul>
+</td>
+<td><p>sequoiae</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_tuulukwa_CA_Trinity_Alps</p></li>
+</ul>
+</td>
+<td><p>tuulukwa</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_tuulukwa_OR_Knowles_Creek</p></li>
+</ul>
+</td>
+<td><p>tuulukwa</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_tuulukwa_OR_Marys_Peak</p></li>
+</ul>
+</td>
+<td><p>tuulukwa</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
 <p>(INCOMPLETE — WIP)</p>
 </div>
-<div class="section" id="stage-iv-assignment-of-known-vs-unknown-species-identities">
-<h2>Stage IV. Assignment of Known vs. Unknown Species Identities<a class="headerlink" href="#stage-iv-assignment-of-known-vs-unknown-species-identities" title="Permalink to this headline">¶</a></h2>
-<p>We now inspect out phylogeny and determine <em>a priori</em> species assignments for as many population lineages as we can.</p>
-<p>(INCOMPLETE — WIP)</p>
-</div>
-<div class="section" id="stage-v-delimitation-of-species-units">
-<h2>Stage V. Delimitation of Species Units<a class="headerlink" href="#stage-v-delimitation-of-species-units" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="stage-iv-delimitation-of-species-units">
+<h2>Stage IV. Delimitation of Species Units<a class="headerlink" href="#stage-iv-delimitation-of-species-units" title="Permalink to this headline">¶</a></h2>
 <p>We are now ready to run DELINEATE, using the phylogeny obtained in Stage III and the constraints table in Stage IV.</p>
 <p>(INCOMPLETE — WIP)</p>
 </div>
@@ -920,91 +1655,25 @@ We use the original set of alignments (found <code class="docutils literal notra
 
 
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">DELINEATE</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="concepts.html">Basic Concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">A Complete Worked Example: <em>Lionepha</em></a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#software-prerequisites">(Software Prerequisites)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#data-files">(Data Files)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#background">Background</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#study-design">Study Design</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data">Data</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#stage-i-identification-of-population-units-using-the-multipopulation-coalescent-model">Stage I: Identification of Population Units using the Multipopulation Coalescent Model</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#candidate-population-units">Candidate Population Units</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iia-generating-a-guide-tree-for-population-delimitation">IIa. Generating a Guide Tree for Population Delimitation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#iib-delimitation-of-population-units">IIb. Delimitation of Population Units</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#stage-iii-generating-the-phylogeny-of-populations">Stage III. Generating the Phylogeny of Populations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#stage-iv-assignment-of-known-vs-unknown-species-identities">Stage IV. Assignment of Known vs. Unknown Species Identities</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#stage-v-delimitation-of-species-units">Stage V. Delimitation of Species Units</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="quickstart.html" title="previous chapter">Quick Start</a></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2020, Jeet Sukumaran and Mark T. Holder.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/workflow1.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="quickstart.html" title="Quick Start"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Jeet Sukumaran and Mark T. Holder.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+    </div>
   </body>
 </html>
