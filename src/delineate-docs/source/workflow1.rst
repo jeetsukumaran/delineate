@@ -589,12 +589,14 @@ What we are working with here are *population units*, some of which *may* also c
 This is abundantly clear by the fact that the 12 nominal species --- established with both genomic as well as morphological data contributing toward an understanding of the system over a *decade* of the study --- is split into 46 to 86 units (!) by the MSC analysis, depending on the posterior probability threshold we adopt for those units.
 Interpreting these units as "species" is categorically and unconditionally wrong, and would represent a jettisoning of a basic understanding of speciation, systematics, and biology, due to a complete misunderstanding of the MSC model and misinterpretation of its results.
 
-The MSC delimits *populations* not species.
+.. rst-class:: emphatic
+
+    The MSC delimits *populations*, not species.
 
 Note that where our candidate populations assignment have indeed turned out to be distinct population lineages under a particular posterior probability threshold, the original population label is retained (e.g., "L_australerasa_CA_Martin_Meadow" or "L_probata_WA_Blue_Mountains").
 
 In cases where multiple candidate population lineages have been "collapsed", because there was insufficient signal for restriction of Wright-Fisher panmixia between them detected at a particular posterior probability threshold, they have been relabeled with synthetic labels (e.g. "coalescentpop001", "coalescentpop002", etc.).
-Thus, for example, we see that, in the setup to our |BPP|_ analysies, we allowed for the possibility that  *L. erasa* from Mary's Peak, Mount Hebo, Mount Hood, and Prairie Peak might constitute four distinct different populations:
+Thus, for example, we see that, in the setup to our |BPP|_ analysies, we allowed for the possibility that  *L. erasa* from Mary's Peak, Mount Hebo, Mount Hood, and Prairie Peak might each be a distinct population:
 
 .. rst-class:: small-text compressed-table center
 
@@ -618,7 +620,9 @@ Thus, for example, we see that, in the setup to our |BPP|_ analysies, we allowed
     | L_erasa_OR_Prairie_Peak_2580 | L_erasa_OR_Prairie_Peak               |
     +------------------------------+---------------------------------------+
 
-Following the analysis, we see that a 0.95 posterior probability threshold there was insufficient evidence to support this, and all individuals from across all these localities were assigned to a merged or collapsed population,"coalescentpop007" (see the "p095" column in :filepath:`02b-population-delimitation-subtrees/coalescent-pops.summary.csv` or :filepath:`02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p095.txt`):
+Following the analysis, we see that at a 0.95 posterior probability threshold (see the "p095" column in :filepath:`02b-population-delimitation-subtrees/coalescent-pops.summary.csv` or :filepath:`02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p095.txt`) there was insufficient evidence to support four distinct populations here.
+Population boundaries between Marys Peak, Mount Hebo, and Prairie Peak was were not strong, and all individuals here were assigned to a single merged or collapsed population, "coalescentpop007".
+Only the Mount Hood individuals were separated out to be delimited as a distinct population.
 
 .. rst-class:: small-text compressed-table center
 
@@ -706,7 +710,6 @@ These assignments will be made with reference to our integrative understanding o
 There will be some population lineages for which the species identity is uncontroversial --- i.e., they can be unambiguously assigned to known species (or even new ones) based on morphological evidence of individuals in that population.
 In the case of the "collapsed" populations (labeled "coalescentpop001", "coalescentpop002", etc.), we would need to examine all individuals in those units, and if *any* one of them can be definitely assigned to an independent species status based on systematic evidence (i.e., distinct species from all others in the system), then the *entire* population lineage would get assigned to a distinct species.
 The reasoning behind this is that, based on previous stages of the analysis using |BPP|_, we have already decided that all individuals in that population constitute a single cohesive population, so the species identity of any one individual in that lineage would necessarily be shared by all other individuals in the same lineage.
-
 
 (INCOMPLETE --- WIP)
 

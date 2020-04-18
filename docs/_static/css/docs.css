@@ -91,6 +91,21 @@ a.figure-image, a.figure-image:link, a.figure-image:hover {
     font-size: x-small ;
 }
 
+.emphatic {
+    text-align: center;
+    font-size: x-large;
+    color: blue;
+    background: #aaeeff;
+    font-weight: bold;
+    border: solid 2px blue;
+    /* box-shadow: 2px 2px; */
+    padding: 10px;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 table.compressed-table {
     margin: 0px;
     padding: 0px;

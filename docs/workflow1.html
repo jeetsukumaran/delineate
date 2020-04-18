@@ -1060,10 +1060,10 @@ Again, this is simply due to the misleading terminology adopted for the higher-l
 What we are working with here are <em>population units</em>, some of which <em>may</em> also correspond to species while others may not.
 This is abundantly clear by the fact that the 12 nominal species — established with both genomic as well as morphological data contributing toward an understanding of the system over a <em>decade</em> of the study — is split into 46 to 86 units (!) by the MSC analysis, depending on the posterior probability threshold we adopt for those units.
 Interpreting these units as “species” is categorically and unconditionally wrong, and would represent a jettisoning of a basic understanding of speciation, systematics, and biology, due to a complete misunderstanding of the MSC model and misinterpretation of its results.</p>
-<p>The MSC delimits <em>populations</em> not species.</p>
+<p class="emphatic">The MSC delimits <em>populations</em>, not species.</p>
 <p>Note that where our candidate populations assignment have indeed turned out to be distinct population lineages under a particular posterior probability threshold, the original population label is retained (e.g., “L_australerasa_CA_Martin_Meadow” or “L_probata_WA_Blue_Mountains”).</p>
 <p>In cases where multiple candidate population lineages have been “collapsed”, because there was insufficient signal for restriction of Wright-Fisher panmixia between them detected at a particular posterior probability threshold, they have been relabeled with synthetic labels (e.g. “coalescentpop001”, “coalescentpop002”, etc.).
-Thus, for example, we see that, in the setup to our <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysies, we allowed for the possibility that  <em>L. erasa</em> from Mary’s Peak, Mount Hebo, Mount Hood, and Prairie Peak might constitute four distinct different populations:</p>
+Thus, for example, we see that, in the setup to our <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysies, we allowed for the possibility that  <em>L. erasa</em> from Mary’s Peak, Mount Hebo, Mount Hood, and Prairie Peak might each be a distinct population:</p>
 <table class="small-text compressed-table center docutils align-default">
 <colgroup>
 <col style="width: 43%" />
@@ -1101,7 +1101,9 @@ Thus, for example, we see that, in the setup to our <a class="reference external
 </tr>
 </tbody>
 </table>
-<p>Following the analysis, we see that a 0.95 posterior probability threshold there was insufficient evidence to support this, and all individuals from across all these localities were assigned to a merged or collapsed population,”coalescentpop007” (see the “p095” column in <span class="filepath">02b-population-delimitation-subtrees/coalescent-pops.summary.csv</span> or <span class="filepath">02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p095.txt</span>):</p>
+<p>Following the analysis, we see that at a 0.95 posterior probability threshold (see the “p095” column in <span class="filepath">02b-population-delimitation-subtrees/coalescent-pops.summary.csv</span> or <span class="filepath">02b-population-delimitation-subtrees/coalescent-pops.sb2-traits.p095.txt</span>) there was insufficient evidence to support four distinct populations here.
+Population boundaries between Marys Peak, Mount Hebo, and Prairie Peak was were not strong, and all individuals here were assigned to a single merged or collapsed population, “coalescentpop007”.
+Only the Mount Hood individuals were separated out to be delimited as a distinct population.</p>
 <table class="small-text compressed-table center docutils align-default">
 <colgroup>
 <col style="width: 60%" />
