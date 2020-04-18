@@ -381,7 +381,7 @@ The alignments listed above were imported, and the following "traits" file was u
 
 We used a single strict clock model across all genes, and a HKY+G model of substitution.
 
-We ran this four replicates of this analysis for 500 million generations each, sampling every 500,000 generations for a total of 1000 samples from each replicates.
+We ran four replicates of this analysis for 500 million generations each, sampling every 500,000 generations for a total of 1000 samples from each replicates.
 The first 250 samples were discarded from the 100 samples of each replicates.
 Convergence was diagnosed through inspection of traces for each parameter as well as the likelihood and posterior.
 ESS values for each parameter were established to be more than 250, and distributions of parameter values were compared to a "null" run (i.e., a run without data where just the prior was sampled) to confirm that the analysis learned from the data sufficiently to shift the posterior away from the prior.
@@ -592,13 +592,34 @@ Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of 
 
 We use |StarBeast2|_ to estimate an ultrametric phylogeny of population lineages.
 We use the original set of alignments (found in :filepath:`examples/lionepha/00-alignments`) for as the input data for this, and a "``traits``" file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.
+For this exercise, we shall use population units that were delimited with 0.95 posterior probability, and the "``traits``" file corresponding to this is given by :filepath:`coalescent-pops.sb2-traits.p095.txt`.
+The analysis setup for the |StarBeast2| run can be found in the :filepath:`lionepha/03-population-tree-estimation/` directory.
+There are six |StarBeast2| XML configuration files.
+These all set up the same "species tree" analysis, the only difference being the name prefixes of the output files.
+This is so that we can run multiple independent analyses, the *sin qua non* of MCMC best practices.
 
-(INCOMPLETE --- WIP)
+Again, we used a single strict clock model across all genes, and a HKY+G model of substitution.
+Each analysis was run for 400 million generations, with a sampling frequency of 400,000 generations.
+Thus, we obtained 1000 samples from the posterior from each of the six replicates.
+We can again use |SumTrees|_ to summarize the results with the following command::
+
+    $ sumtrees.py \
+        -b 250 \
+        -s mcct \
+        -e mean-age \
+        -l clear \
+        --force-rooted \
+        --suppress-annotations \
+        -ro lionepha-p095-hkyg.mcct-mean-age.tree \
+        *.species.trees
+
+This will discard the first 250 of the 1000 samples from each replicate as burn-in, merge the results, and select the Maximum Clade Credibility Tree (MCCT) as the summary topology, with branch lengths set such that the internal node ages are the mean of the the corresponding node ages across all post-burnin samples.
+This population-level phylogeny will be one of the two primary inputs to |delineate|.
 
 Stage III. Assignment of Known vs. Unknown Species Identities
 =============================================================
 
-We now inspect out phylogeny and determine *a priori* species assignments for as many population lineages as we can.
+We now inspect our phylogeny and determine *a priori* species assignments for as many population lineages as we can.
 
 (INCOMPLETE --- WIP)
 
