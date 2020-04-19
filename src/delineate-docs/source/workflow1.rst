@@ -977,7 +977,7 @@ For example, opening up the truncated trees result file (:filepath:`lionepha.run
     :class: figure-image
 
 The branches painted in :constrained-branch-color:`blue` (:constrained-branch-color:`▆`) represent the constrained population lineages, i.e., lineages with a fixed species assignment.
-The branches painted in :unconstrained-branch-color:`ochre` (:unconstrained-branch-color:`▆`), on the other hand, represent the unconstrained population lineages, i.e., lineages with known identity and whose species membership was allowed to vary.
+The branches painted in :unconstrained-branch-color:`ochre` (:unconstrained-branch-color:`▆`), on the other hand, represent the unconstrained population lineages, i.e., lineages with unknown species identity and whose species membership was allowed to vary.
 Furthermore the lineage labels are in a special format, showing the species assignment followed by the actual population label in parenthesis.
 
 We interpret the results as follows:

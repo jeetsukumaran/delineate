@@ -80,7 +80,7 @@ Library Dependencies
 -  `NumPy <https://numpy.org/>`__ (1.4.1 or greater)
 
 These dependencies should be installed automatically by running the
-``pip`` command below. In case that does not work, you can manually
+``pip`` command above. In case that does not work, you can manually
 install these dependencies yourself by running:
 
 ::
