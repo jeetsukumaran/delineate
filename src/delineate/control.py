@@ -40,7 +40,7 @@ def get_controller(
             underflow_protection=getattr(args, "underflow_protection", False),
             )
     controller.parse_configuration_file(
-            config_filepath=args.config_file,
+            config_filepath=args.constraints_file,
             delimiter=None)
     for param in (
             "speciation_completion_rate_estimation_initial",
@@ -466,7 +466,7 @@ class Controller(object):
             if required_field not in fieldname_set:
                 utility.error_exit(
                         msg="Required field '{}' not found in configuration source".format(required_field),
-                        logger=logger)
+                        logger=self.logger)
         species_constrained_lineage_map = {}
         lineage_species_map = {}
         known = []

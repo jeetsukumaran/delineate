@@ -498,7 +498,7 @@ def open_output_file(args,
     else:
         if args.output_prefix is None:
             args.output_prefix = utility.compose_output_prefix(
-                    input_filepath=args.config_file,
+                    input_filepath=args.constraints_file,
                     default="delineate",
                     )
         if suffix is None:
