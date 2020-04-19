@@ -40,7 +40,7 @@ def get_controller(
             underflow_protection=getattr(args, "underflow_protection", False),
             )
     controller.parse_configuration_file(
-            config_filepath=args.constraints_file,
+            constraints_filepath=args.constraints_file,
             delimiter=None)
     for param in (
             "speciation_completion_rate_estimation_initial",
@@ -429,12 +429,12 @@ class Controller(object):
         return self.tree
 
     def parse_configuration_file(self,
-            config_filepath,
+            constraints_filepath,
             delimiter=None,
             ):
-        if config_filepath:
-            with open(config_filepath) as src:
-                if config_filepath.endswith("json"):
+        if constraints_filepath:
+            with open(constraints_filepath) as src:
+                if constraints_filepath.endswith("json"):
                     self.config_d = json.load(src)
                 else:
                     self.config_d = self.parse_configuration_table_file(

@@ -23,10 +23,10 @@ __copyright__ = 'Copyright (C) 2019 Jeet Sukumaran and Mark T. Holder.'
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
             parents=[delineate.get_metadata_parser_opts()])
-    parser.add_argument("-c", "--config-file",
+    parser.add_argument("-c", "--constraints-file",
             action="store",
             required=True,
-            help="Path to configuration file; can be JSON for columnar tab/comma-delimited file.")
+            help="Path to constraints configuration file; can be JSON for columnar tab/comma-delimited file.")
     parser.add_argument("-d", "--config-file-delimiter",
             action="store",
             dest="delimiter",
@@ -72,8 +72,8 @@ def main():
     if args.version:
         print(delineate.name())
         sys.exit(0)
-    if not args.config_file:
-        sys.exit("Need to specify path to configuration file using '-c' option")
+    if not args.constraints_file:
+        sys.exit("Need to specify path to constraints configuration file using '-c' option")
     if args.delimiter is not None and (
             args.delimiter.upper() == "TAB"
             or args.delimiter == '\\t'
