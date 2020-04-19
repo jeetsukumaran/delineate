@@ -18,8 +18,8 @@ For this exercise, in addition to |delineate| you will need the following progra
 
 For meta-analysis and visualization, you should have the following installed on your local machine:
 
-    -   |Tracer|
-    -   |FigTree|
+    -   |Tracer|_
+    -   |FigTree|_
 
 in addition, of course (and always), a `*good* text editor <https://sukumaranlab.org/resources/computational-skills/#a-full-featured-developer-s-text-editor-vim-emacs-or-sublime-text>`_.
 
