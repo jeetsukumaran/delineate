@@ -1026,6 +1026,5 @@ We interpret the results as follows:
             That is, the boundaries of the between these three lineages on the one hand, and all other lineages on the other, are *species* boundaries, not population.
 
 
-Conferring with the reference alpha taxonomy as worked out by Maddison and Poul (2020), we see that these are perfectly concordant, with "DelineatedSp001" populations all collectively corresponding to the distinct species *L. tuulukwa* and "DelineatedSp002" populations all collectively corresponding to the distinct species *L. kavanaughi*.
-
-(WIP -- TO BE COMPLETED)
+Conferring with the reference alpha taxonomy as worked out by Maddison and Poul (2020), we see that these are perfectly concordant.
+The "DelineatedSp001" populations all collectively corresponding to the distinct species *L. tuulukwa* and "DelineatedSp002" populations all collectively corresponding to the distinct species *L. kavanaughi*, while the remaining unconstrained population lineages indeed were referred to *probata*, *lindrothi*, and *disjuncta* species.
