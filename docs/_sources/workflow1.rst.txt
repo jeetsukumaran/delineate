@@ -897,14 +897,6 @@ There could be thousands (or billions, depending on the number of unconstrained 
 .. +------------------------------+---------+----------+----------+
 .. | syrupy_20200418095810.ps.log | 22.5    | 113.7754 | 114.1045 |
 .. +------------------------------+---------+----------+----------+
-
-The analysis will produce two files:
-
--   :filepath:`lionepha.run1.delimitation-results.json`
--   :filepath:`lionepha.run1.delimitation-results.trees`
-
-There are included in the example archive in compressed form: :filepath:`04-species-delimitation/lionepha-delimitation-results.zip`.
-
 .. results:
     Metadata:
         -   "speciation_completion_rate": 178.30679590155927,
@@ -947,23 +939,31 @@ There are included in the example archive in compressed form: :filepath:`04-spec
             -   "unconstrained_probability": 4.967059683856657e-05,
             -   "unconstrained_cumulative_probability": 0.00038414713507395153
 
+
+The analysis will produce the following files:
+
+-   :filepath:`lionepha.run1.delimitation-results.json`
+-   :filepath:`lionepha.run1.delimitation-results.trees`
+-   :filepath:`lionepha.run1.delimitation-results.trunc.trees`
+
+The first two are included in the example archive in compressed form: :filepath:`04-species-delimitation/lionepha-delimitation-results.zip`, while the last is given directly.
+
 The JSON-format file (:filepath:`lionepha.run1.delimitation-results.json`) lists some metadata about the analysis, followed by detailed description of all partitions considered.
 The partitions are listed in order of descending probability, i.e., with the partition of highest probability given first.
 Thus, the *maximum likelihood estimate* of the species delimitation is represented by the first partition listed.
 The second partition listed is the species delimitation of the next highest probability, and so on.
 
-The tree file consists of a set of trees, with one tree for each partition considered.
+The tree file :filepath:`lionepha.run1.delimitation-results.trees` consists of a set of trees, with one tree for each partition considered.
 The tree structure itself --- the phylogeny, including both topology and the branch lengths --- are identical across all trees.
 The only difference in the trees is the metadata markup of each tree, with annotations regarding species assignments of the tip (population) lineages.
 Each tree corresponds to the a partition listed in the JSON file, in the same order.
 Thus the trees illustrate the different partitions (and species assignments/boundaries of each partition), with the first tree representing the maximum likelihood estimate of the species delimitation, the second tree listed being the next most probable species delimitation and so on.
 
-.. note::
-
-    The results files are very large which may make viewing them challenging.
-    To facilitate viewing/manipulating of the most probable results, we provide a smaller tree file with just the first 10 trees here: :filepath:`04-species-delimitation/lionepha.run1.delimitation-results.trunc.trees`.
-    As the the result entries (trees and partitions) are given in order of descending probability, the earlier results have a higher probability than the later ones, so truncating the tree file by selecting the first few like this will let you view the most probable results.
-    In fact, the *first* listing in the results will have the highest probablity, and thus is MLE partition/tree.
+The third file :filepath:`lionepha.run1.delimitation-results.trunc.trees` is also a tree file, but contains the just the first 10 trees from the primary results tree file (:filepath:`lionepha.run1.delimitation-results.trees`)
+The results files can very large which may make viewing them challenging.
+To facilitate viewing/manipulating of the most probable results, we provide a smaller tree file with just the first 10 trees.
+As the the result entries (trees and partitions) are given in order of descending probability, the earlier results have a higher probability than the later ones, so truncating the tree file by selecting the first few like this will let you view the most probable results.
+Again, as with the primary tree file, the *first* listing in the results will have the highest probablity, and thus is MLE partition/tree.
 
 Examination and Interpretation of the Results
 =============================================

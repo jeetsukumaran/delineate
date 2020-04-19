@@ -14,7 +14,8 @@ li.toctree-l1  a::before {
 }
 li.current a::before {
     content: "▼";
-    color: #6666ff;
+    /* color: #6666ff; */
+    color: #ff6666;
     display: inline-block;
     width: 1em;
     font-size: 70%;
@@ -27,6 +28,9 @@ li.current ul {
     background: #eeeeff;
     padding: 0;
     margin: 0;
+}
+li.toctree-l2 a::before {
+    content: none;
 }
 li.toctree-l2, li.toctree-l3, li.toctree-l5, li.toctree-l5 {
 }
