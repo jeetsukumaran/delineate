@@ -60,21 +60,25 @@ def setup(app):
 html_static_path = ['_static']
 
 rst_epilog = """
-.. |Anaconda| replace:: Anaconda
+.. |Anaconda| replace:: :program:`Anaconda`
 .. _Anaconda: https://www.anaconda.com/
-.. |BPP| replace:: BP&P
+.. |BPP| replace:: :program:`BP&P`
 .. _BPP: https://github.com/bpp/bpp
 .. |delineate| replace:: DELINEATE
-.. |pip| replace:: pip
+.. |pip| replace:: :program:`pip`
 .. _pip: https://docs.python.org/3/installing/index.html
-.. |Python| replace:: Python
+.. |Python| replace:: :program:`Python`
 .. _Python: https://www.python.org/
-.. |StarBeast2| replace:: StarBeast2
+.. |StarBeast2| replace:: :program:`StarBeast2`
 .. _StarBeast2: https://taming-the-beast.org/tutorials/starbeast2-tutorial/
-.. |SumTrees| replace:: SumTrees
+.. |SumTrees| replace:: :program:`SumTrees`
 .. _SumTrees: https://dendropy.org/programs/sumtrees.html
-.. |DendroPy| replace:: DendroPy
+.. |DendroPy| replace:: :program:`DendroPy`
 .. _DendroPy: https://dendropy.org/
 .. |bppsum| replace:: :program:`delineate-bppsum`
 .. _bppsum: https://delineate.org/
+.. |FigTree| replace:: :program:`FigTree`
+.. _FigTree: http://tree.bio.ed.ac.uk/software/figtree/
+.. |Tracer| replace:: :program:`Tracer`
+.. _Tracer: http://tree.bio.ed.ac.uk/software/tracer/
 """

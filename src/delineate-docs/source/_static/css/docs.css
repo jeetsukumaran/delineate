@@ -1,9 +1,10 @@
 /* Override Elements */
+
 li.toctree-l1 {
     font-weight: bold;
     /* background: #ddeeff; */
 }
-li.toctree-l1::before {
+li.toctree-l1  a::before {
     content: "‣";
     color: #6666ff;
     display: inline-block;
@@ -11,7 +12,7 @@ li.toctree-l1::before {
     font-size: 115%;
     /* margin-left: -1em; */
 }
-li.current::before {
+li.current a::before {
     content: "▼";
     color: #6666ff;
     display: inline-block;
@@ -58,11 +59,20 @@ a.figure-image, a.figure-image:link, a.figure-image:hover {
  *  somewhere in the document and anywhere where
  *  you want to apply this:
  *
- *      The traditional phrase is: red-text:`hello, world'
+ *      The traditional phrase is: :red-text:`hello, world'
  *
  */
 .red-text {
     text-color: red;
+}
+.constrained-branch-color {
+    color: #0c7bdc;
+    text-color: blue;
+    font-weight: bold;
+}
+.unconstrained-branch-color {
+    color: #ffc20a;
+    font-weight: bold;
 }
 
 .program {
@@ -111,10 +121,14 @@ a.figure-image, a.figure-image:link, a.figure-image:hover {
     border: none;
 }
 
-.framebox {
+.downloadbox {
     padding: 5px;
     border: solid 1px black;
+    background: #eeeeff;
     display: block;
+    margin-left: 35%;
+    margin-right: 35%;
+    text-align: center;
 }
 
 .center {

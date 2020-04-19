@@ -4,25 +4,33 @@ A Complete Worked Example: *Lionepha*
 
 .. role:: filepath
 .. role:: program
+.. role:: constrained-branch-color
+.. role:: unconstrained-branch-color
 
 (Software Prerequisites)
 ========================
 
 For this exercise, in addition to |delineate| you will need the following programs installed on your execution host:
 
-    -   |StarBeast2|_
     -   |BPP|_
+    -   |StarBeast2|_
     -   |DendroPy|_ (which provides |SumTrees|_)
+
+For meta-analysis and visualization, you should have the following installed on your local machine:
+
+    -   |Tracer|
+    -   |FigTree|
+
+in addition, of course (and always), a `*good* text editor <https://sukumaranlab.org/resources/computational-skills/#a-full-featured-developer-s-text-editor-vim-emacs-or-sublime-text>`_.
 
 (Data Files)
 ============
 
 All data files for this exercise are available for download here:
 
-.. rst-class:: framebox center
+.. rst-class:: downloadbox
 
     :download:`lionepha.zip </downloads/lionepha.zip>`
-
 
 Introduction
 ============
@@ -876,9 +884,9 @@ To execute the analysis, we run the following command::
 The "-P 0.99" flag says to only report the probabilities of all partitions that contribute collectively to over 0.99 of the probabilities.
 There could be thousands (or billions, depending on the number of unconstrained lineages you set) of other partitions in the 0.01 remaining tail that we choose to ignore to save disk space and time.
 
-.. note:: Analysis Size and Computational Requirements
+.. note:: **Analysis Size and Computational Requirements**
 
-    Note that this analysis has 13 unconstrained lineages out of 56.
+    This analysis has 13 unconstrained lineages out of 56.
     The former (i.e., the number of unconstrained lineages) is the primary factor driving computational requirements, both in terms of time as well as memory: an analysis of 10,000 populations of which only 5 unconstrained will run faster (almost instantaneously) than one with 100 populations with 10 unconstrained.
     An analysis with 50 unconstrained lineages will probably never complete even with the most powerful computers thrown at it, regardless of how few or many the contrained lineages are.
     With this example of 13 unconstrained population lineages, we require 115 GB of computer memory and took about 35 mins to run on a fairly current (as of 2019) high-performance computing cluster.
@@ -896,9 +904,128 @@ The analysis will produce two files:
 -   :filepath:`lionepha.run1.delimitation-results.trees`
 
 There are included in the example archive in compressed form: :filepath:`04-species-delimitation/lionepha-delimitation-results.zip`.
-They are pretty large (even though we restricted results to the 99% credibility interval), and so we provide a smaller tree file with just the 10 most probable partitions in :filepath:`04-species-delimitation/lionepha.run1.delimitation-results.trunc.trees`.
+
+.. results:
+    Metadata:
+        -   "speciation_completion_rate": 178.30679590155927,
+        -   "speciation_completion_rate_source": "estimated",
+        -   "speciation_completion_rate_estimate_lnl": -6.0927675358144056,
+        -   "speciation_completion_rate_estimation_initial": 5.359697288559953,
+        -   "speciation_completion_rate_estimation_min": 1e-08,
+        -   "speciation_completion_rate_estimation_max": 5359.697288559953,
+        -   "lineage_tree_birth_rate": 535.9697288559953,
+        -   "num_partitions": 12918194,
+        -   "num_partitions_in_confidence_interval": 4486,
+    Partition 1:
+            -   "constrained_probability": 0.04722227404793002,
+            -   "constrained_cumulative_probability": 0.04722227404793002,
+            -   "is_in_confidence_interval": true,
+            -   "unconstrained_probability": 0.0001066821051254838,
+            -   "unconstrained_cumulative_probability": 0.0001066821051254838
+    Partition 2:
+            -   "constrained_probability": 0.04408057517908157,
+            -   "constrained_cumulative_probability": 0.0913028492270116,
+            -   "is_in_confidence_interval": true,
+            -   "unconstrained_probability": 9.958454246556368e-05,
+            -   "unconstrained_cumulative_probability": 0.0002062666475910475
+    Partition 3:
+            -   "constrained_probability": 0.029352417158148895,
+            -   "constrained_cumulative_probability": 0.1206552663851605,
+            -   "is_in_confidence_interval": true,
+            -   "unconstrained_probability": 6.631145399254567e-05,
+            -   "unconstrained_cumulative_probability": 0.0002725781015835932
+    Partition 4:
+            -   "constrained_probability": 0.02739901818839452,
+            -   "constrained_cumulative_probability": 0.14805428457355502,
+            -   "is_in_confidence_interval": true,
+            -   "unconstrained_probability": 6.189843665179177e-05,
+            -   "unconstrained_cumulative_probability": 0.000334476538235385
+    Partition 5:
+            -   "constrained_probability": 0.0219864290573953,
+            -   "constrained_cumulative_probability": 0.1700407136309503,
+            -   "is_in_confidence_interval": true,
+            -   "unconstrained_probability": 4.967059683856657e-05,
+            -   "unconstrained_cumulative_probability": 0.00038414713507395153
+
+The JSON-format file (:filepath:`lionepha.run1.delimitation-results.json`) lists some metadata about the analysis, followed by detailed description of all partitions considered.
+The partitions are listed in order of descending probability, i.e., with the partition of highest probability given first.
+Thus, the *maximum likelihood estimate* of the species delimitation is represented by the first partition listed.
+The second partition listed is the species delimitation of the next highest probability, and so on.
+
+The tree file consists of a set of trees, with one tree for each partition considered.
+The tree structure itself --- the phylogeny, including both topology and the branch lengths --- are identical across all trees.
+The only difference in the trees is the metadata markup of each tree, with annotations regarding species assignments of the tip (population) lineages.
+Each tree corresponds to the a partition listed in the JSON file, in the same order.
+Thus the trees illustrate the different partitions (and species assignments/boundaries of each partition), with the first tree representing the maximum likelihood estimate of the species delimitation, the second tree listed being the next most probable species delimitation and so on.
+
+.. note::
+
+    The results files are very large which may make viewing them challenging.
+    To facilitate viewing/manipulating of the most probable results, we provide a smaller tree file with just the first 10 trees here: :filepath:`04-species-delimitation/lionepha.run1.delimitation-results.trunc.trees`.
+    As the the result entries (trees and partitions) are given in order of descending probability, the earlier results have a higher probability than the later ones, so truncating the tree file by selecting the first few like this will let you view the most probable results.
+    In fact, the *first* listing in the results will have the highest probablity, and thus is MLE partition/tree.
 
 Examination and Interpretation of the Results
 =============================================
 
-(WIP --- TO BE CONTINUED)
+The trees generated by |delineate| have some special mark-up such that when opened in |FigTree|_ will show some extra information.
+For example, opening up the truncated trees result file (:filepath:`lionepha.run1.delimitation-results.trunc.trees`) in |FigTree|_ and viewing the first tree, i.e. the maximum likelihood species delimitation shows the following:
+
+.. figure:: images/lionepha.run1.delimitation-results.trunc.trees.jpg
+    :alt: Results of species delimitation analysis.
+    :width: 100%
+    :class: figure-image
+
+The branches painted in :constrained-branch-color:`blue` (:constrained-branch-color:`▆`) represent the constrained population lineages, i.e., lineages with a fixed species assignment.
+The branches painted in :unconstrained-branch-color:`ochre` (:unconstrained-branch-color:`▆`), on the other hand, represent the unconstrained population lineages, i.e., lineages with known identity and whose species membership was allowed to vary.
+Furthermore the lineage labels are in a special format, showing the species assignment followed by the actual population label in parenthesis.
+
+We interpret the results as follows:
+
+.. rst-class:: small-text compressed-table
+
+.. list-table:: Maximum Likelihood Species Delimitation
+    :widths: 15 15 70
+    :header-rows: 1
+
+    *   -   Lineages
+        -   Species Delimitation
+        -   Explanation
+    *   -
+            -   coalescentpop008
+            -   coalescentpop009
+        -   **DelineatedSp002**
+        -   Group together in the same *NEW* and unnamed species, labeled "**DelineatedSp002**".
+            That is, the boundaries of the between these two lineages on the one hand, and all other lineages on the other, are *species* boundaries, not population.
+    *   -
+            - L_lindrothi_CA_Emerald_Lake
+            - coalescentpop011
+            - L_lindrothi_CA_South_Fork_Bishop_Creek
+        -   *lindrothi*
+        -   Group together as populations that are *part* of a pre-defined species, "*L. lindorothi*".
+            That is, the boundaries of the between these three lineages on the one hand, and all other *lindrothi* lineages on the other, are (just) population boundaries, not species.
+    *   -
+            - L_probata_UT_Shingle_Creek
+            - coalescentpop024
+        -   *probata*
+        -   Group together as populations that are *part* of a pre-defined species, "*L. probata*".
+            That is, the boundaries of the between these two lineages on the one hand, and all other *probata* lineages on the other, are (just) population boundaries, not species.
+    *   -
+            - L_disjuncta_OR_Mt_Hood
+            - L_disjuncta_CA_Lily_Lake
+            - coalescentpop006
+        -   *disjuncta*
+        -   Group together as populations that are *part* of a pre-defined species, "*L. disjuncta*".
+            That is, the boundaries of the between these three lineages on the one hand, and all other *disjuncta* lineages on the other, are (just) population boundaries, not species.
+    *   -
+            - L_tuulukwa_CA_Trinity_Alps
+            - L_tuulukwa_OR_Knowles_Creek
+            - L_tuulukwa_OR_Marys_Peak
+        -   **DelineatedSp001**
+        -   Group together in the same *NEW* and unnamed species, labeled "**DelineatedSp001**".
+            That is, the boundaries of the between these three lineages on the one hand, and all other lineages on the other, are *species* boundaries, not population.
+
+
+Conferring with the reference alpha taxonomy as worked out by Maddison and Poul (2020), we see that these are perfectly concordant, with "DelineatedSp001" populations all collectively corresponding to the distinct species *L. tuulukwa* and "DelineatedSp002" populations all collectively corresponding to the distinct species *L. kavanaughi*.
+
+(WIP -- TO BE COMPLETED)

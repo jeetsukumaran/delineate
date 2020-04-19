@@ -102,16 +102,24 @@
 <p>For this exercise, in addition to DELINEATE you will need the following programs installed on your execution host:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a></p></li>
-<li><p><a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a></p></li>
-<li><p><a class="reference external" href="https://dendropy.org/">DendroPy</a> (which provides <a class="reference external" href="https://dendropy.org/programs/sumtrees.html">SumTrees</a>)</p></li>
+<li><p><a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a></p></li>
+<li><p><a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a></p></li>
+<li><p><a class="reference external" href="https://dendropy.org/"><span class="program">DendroPy</span></a> (which provides <a class="reference external" href="https://dendropy.org/programs/sumtrees.html"><span class="program">SumTrees</span></a>)</p></li>
 </ul>
 </div></blockquote>
+<p>For meta-analysis and visualization, you should have the following installed on your local machine:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="program">Tracer</span></p></li>
+<li><p><span class="program">FigTree</span></p></li>
+</ul>
+</div></blockquote>
+<p>in addition, of course (and always), a <a class="reference external" href="https://sukumaranlab.org/resources/computational-skills/#a-full-featured-developer-s-text-editor-vim-emacs-or-sublime-text">*good* text editor</a>.</p>
 </div>
 <div class="section" id="data-files">
 <h2>(Data Files)<a class="headerlink" href="#data-files" title="Permalink to this headline">¶</a></h2>
 <p>All data files for this exercise are available for download here:</p>
-<p class="framebox center"><a class="reference download internal" download="" href="_downloads/c8d4870a23625b69cbc98b2e2143af01/lionepha.zip"><code class="xref download docutils literal notranslate"><span class="pre">lionepha.zip</span></code></a></p>
+<p class="downloadbox"><a class="reference download internal" download="" href="_downloads/c8d4870a23625b69cbc98b2e2143af01/lionepha.zip"><code class="xref download docutils literal notranslate"><span class="pre">lionepha.zip</span></code></a></p>
 </div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
@@ -161,24 +169,24 @@ This data consists of 8 gene alignments for 143 samples from multiple individual
 <p>The first stage of our analysis will be delimitation of <em>population</em> units, i.e. assignment of population identities to individual lineages, under the “multipopulation coalescent”.
 This model was first published under the name “censored coalescent”, but has since become more popularly known as the “Multispecies Coalescent” or “MSC” model.
 It is a very powerful and elegant model that allows us to identify structure in genomic data arising from disruptions in Wright-Fisher panmixia due to restrictions in gene flow.</p>
-<p>We will be using <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> to identify our population units, and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to obtain a guide tree for the <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis.
+<p>We will be using <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> to identify our population units, and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> to obtain a guide tree for the <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> analysis.
 Note that these programs use the term “species” to reference the higher-level units they analyze rather than populations (as in “species delimitation” or “species tree inference”, rather than “population delimitation” and “population tree inference”).
 This can be correct in some contexts: e.g., where the data sampling does, either coincidentally or by design, indeed represent a 1-to-1 correspondence between populations and species, or, equivalently the species being studied do indeed <em>not</em> have any within-species lineage structure.
 However, more generally, this is, at best, misleading.
 These programs use the MSC as their underlying model.
 From a statistical perspective, it is uncontroversial that the biological units that these programs model through the “censored” coalescent/MSC that model that underlies them are (Wright-Fisher) populations.
-Strictly speaking, when used for species delimitation or model species trees, programs such as <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> are used to identify <em>population</em> units under the MSC, and then these population units are interpreted (with or without justification) by the investigator to correspond on a 1-to-1 basis to species units.
+Strictly speaking, when used for species delimitation or model species trees, programs such as <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> are used to identify <em>population</em> units under the MSC, and then these population units are interpreted (with or without justification) by the investigator to correspond on a 1-to-1 basis to species units.
 Thus, when using the MSC for “species delimitation” or “species tree inference”, the difference between “population” and “species” is purely lexical rather than statistical.</p>
 <p>Here, however, we are going to interpret higher-level units of organization as exactly what they are as modeled by the MSC — populations, no more and no less.
-Unfortunately, this may result in some confusion as both <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> refer to the higher-level units they target as “species” at least some of the time in the various program options and documentation.
-(In fact, <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a>, in some of the program documentation as well as n some of the various papers presenting or referencing the theory behind it acutally use the term “species” and “populations” interchangeably).
+Unfortunately, this may result in some confusion as both <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> and <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> refer to the higher-level units they target as “species” at least some of the time in the various program options and documentation.
+(In fact, <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a>, in some of the program documentation as well as n some of the various papers presenting or referencing the theory behind it acutally use the term “species” and “populations” interchangeably).
 This is simply the cost of doing business.</p>
 <div class="section" id="candidate-population-units">
 <h3>Candidate Population Units<a class="headerlink" href="#candidate-population-units" title="Permalink to this headline">¶</a></h3>
-<p>A <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis requires us to identify “population” lineages as input <em>a priori</em>, some of which it will then collapse together to form “species” lineages.
+<p>A <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> analysis requires us to identify “population” lineages as input <em>a priori</em>, some of which it will then collapse together to form “species” lineages.
 As we have noted (and as we will note again!), this terminological choice is not generally correct (it <em>may</em> apply in some special cases, such as single-population species systems, single-population-sample-per-species datasets, or where the data are too weak to detect population structure).
 We will instead consider these to be “candidate population” and “actual population” lineages respectively.
-That is, we will provide <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> with the finest-grain units that could possibly be distinct populations as candidate population lineages, then use the power of the MSC model to accurately merge together our candidate populations into distinct populations (“species”, in <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> terminology).
+That is, we will provide <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> with the finest-grain units that could possibly be distinct populations as candidate population lineages, then use the power of the MSC model to accurately merge together our candidate populations into distinct populations (“species”, in <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> terminology).
 For this analysis, we will err on the side of caution, not hestitating our over-split our candidate populations, as we can rely on the MSC to collapse them if there is insufficient gene flow restriction between them to form population boundaries.
 As such, we will consider every distinct geographical sample to be a distinct candidate population.</p>
 <table class="small-text compressed-table docutils align-default">
@@ -860,16 +868,16 @@ As such, we will consider every distinct geographical sample to be a distinct ca
 </div>
 <div class="section" id="generating-a-guide-tree-for-population-delimitation">
 <h3>Generating a Guide Tree for Population Delimitation<a class="headerlink" href="#generating-a-guide-tree-for-population-delimitation" title="Permalink to this headline">¶</a></h3>
-<p>We will provide <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> with a guide tree for its population delimitation analysis.
-We will use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to generate this guide tree.</p>
-<p>The full <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> configuration file, generated using <code class="docutils literal notranslate"><span class="pre">BEAUTi</span></code>, can be found at in <span class="filepath">lionepha/01-guidetree-estimation/sb00500M.xml</span>.
+<p>We will provide <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> with a guide tree for its population delimitation analysis.
+We will use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> to generate this guide tree.</p>
+<p>The full <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> configuration file, generated using <code class="docutils literal notranslate"><span class="pre">BEAUTi</span></code>, can be found at in <span class="filepath">lionepha/01-guidetree-estimation/sb00500M.xml</span>.
 The alignments listed above were imported, and the following “traits” file was used to map alignment sequences to canidate population units: <span class="filepath">lionepha/01-guidetree-estimation/traits.txt</span>.</p>
 <p>We used a single strict clock model across all genes, and a HKY+G model of substitution.</p>
 <p>We ran four replicates of this analysis for 500 million generations each, sampling every 500,000 generations for a total of 1000 samples from each replicates.
 The first 250 samples were discarded from the 100 samples of each replicates.
 Convergence was diagnosed through inspection of traces for each parameter as well as the likelihood and posterior.
 ESS values for each parameter were established to be more than 250, and distributions of parameter values were compared to a “null” run (i.e., a run without data where just the prior was sampled) to confirm that the analysis learned from the data sufficiently to shift the posterior away from the prior.</p>
-<p>The post-burn in samples from the posterior were summarized using <a class="reference external" href="https://dendropy.org/programs/sumtrees.html">SumTrees</a>, with the following command:</p>
+<p>The post-burn in samples from the posterior were summarized using <a class="reference external" href="https://dendropy.org/programs/sumtrees.html"><span class="program">SumTrees</span></a>, with the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sumtrees.py -b 250 \
             -s mcct \
             -e clear \
@@ -888,12 +896,12 @@ ESS values for each parameter were established to be more than 250, and distribu
 </div>
 <div class="section" id="delimitation-of-population-units">
 <h3>Delimitation of Population Units<a class="headerlink" href="#delimitation-of-population-units" title="Permalink to this headline">¶</a></h3>
-<p>Now that we have a guide tree that treats each distinct geographical lineage as a candidate distinct Wright-Fisher population, we will run <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> in “A10” mode to delimit the true population units under the “multipopulation coalescent” (i.e., the MSC).</p>
+<p>Now that we have a guide tree that treats each distinct geographical lineage as a candidate distinct Wright-Fisher population, we will run <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> in “A10” mode to delimit the true population units under the “multipopulation coalescent” (i.e., the MSC).</p>
 <div class="section" id="for-small-datasets-the-single-analysis-approach">
 <h4>For Small Datasets: the Single-Analysis Approach<a class="headerlink" href="#for-small-datasets-the-single-analysis-approach" title="Permalink to this headline">¶</a></h4>
-<p>The files provided in the <span class="filepath">lionepha/02a-population-delimitation-pooled</span> directory set up a fairly straightforward <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> “A10” analyses using the data that we have collected and the guide tree we have estimated:</p>
+<p>The files provided in the <span class="filepath">lionepha/02a-population-delimitation-pooled</span> directory set up a fairly straightforward <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> “A10” analyses using the data that we have collected and the guide tree we have estimated:</p>
 <table class="colwidths-given compressed-table docutils align-default" id="id1">
-<caption><span class="caption-text">Pooled <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> Population Delimitation Analysis</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-text">Pooled <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> Population Delimitation Analysis</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -944,14 +952,14 @@ ESS values for each parameter were established to be more than 250, and distribu
 <div class="section" id="for-larger-datasets-the-subtree-decomposition-approach">
 <h4>For Larger Datasets: the Subtree Decomposition Approach<a class="headerlink" href="#for-larger-datasets-the-subtree-decomposition-approach" title="Permalink to this headline">¶</a></h4>
 <p>The solution is to break the data set up into subtrees and carry out a separate population delimitation analysis on each subtree.
-While designing a decomposition scheme, it is important to note that we should <em>not</em> separate out candidate population lineages that might potentially belong to the same (actual) population into separate subtrees, thereby preventing <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> from being able to collapse them if it does not detect any gene flow restriction between them.
+While designing a decomposition scheme, it is important to note that we should <em>not</em> separate out candidate population lineages that might potentially belong to the same (actual) population into separate subtrees, thereby preventing <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> from being able to collapse them if it does not detect any gene flow restriction between them.
 In most studies, this should not be too difficult to identify.
 Even in cases where we might not know where the <em>species</em> boundaries are, with reference to the guide tree phylogeny we should be able to identify subtree clusters that do not disrupt population boundaries.
-In this case of this <em>Lionepha</em> study, the nominal species clades provide very nice granularity — small enough to be analyzed by <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a>, yet with no danger of breaking up an actual population.</p>
+In this case of this <em>Lionepha</em> study, the nominal species clades provide very nice granularity — small enough to be analyzed by <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a>, yet with no danger of breaking up an actual population.</p>
 <div class="figure align-default">
 <a class="figure-image reference internal image-reference" href="_images/lionepha-guidetree.png"><img alt="Guide tree for Lionepha population delimitation, showing subtrees used when decomposing into separate analyses." class="figure-image" src="_images/lionepha-guidetree.png" style="width: 100%;" /></a>
 </div>
-<p class="figure-caption"><strong>Figure</strong>:  We cannot delimit populations for the entire data set simulatneously in <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> due to the number of lineages. Instead, we decompose the analysis into a set of smaller analyses based on subtrees.</p>
+<p class="figure-caption"><strong>Figure</strong>:  We cannot delimit populations for the entire data set simulatneously in <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> due to the number of lineages. Instead, we decompose the analysis into a set of smaller analyses based on subtrees.</p>
 <p>The set up for this set of analyses can be found at:</p>
 <p class="framebox center"><span class="filepath">lionepha/02b-population-delimitation-subtrees</span></p>
 <p>with each subdirectory containing a stand-alone analysis.</p>
@@ -963,12 +971,12 @@ Having identified these population units across various subtrees, we now need to
 DELINEATE helpfully provides a script for you to do this fairly robustly: <a class="reference external" href="https://delineate.org/"><span class="program">delineate-bppsum</span></a>.
 This script takes as its input two sets of files:</p>
 <ul class="simple">
-<li><p>the “imap” files you provided to <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> as input, which maps sequences to candidate population lineages</p></li>
-<li><p>the output log of <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analyses (<em>not</em> the MCMC log), which provides a tree at the end with posterior probability of internal nodes indicated by labels</p></li>
+<li><p>the “imap” files you provided to <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> as input, which maps sequences to candidate population lineages</p></li>
+<li><p>the output log of <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> analyses (<em>not</em> the MCMC log), which provides a tree at the end with posterior probability of internal nodes indicated by labels</p></li>
 </ul>
-<p>These files can be specified in any order, but must collectively span the entire analysis: the set of all candidate population names defined across all “imap” files must be equal to the set of all candidate population names found across all trees in all <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> output log files.</p>
+<p>These files can be specified in any order, but must collectively span the entire analysis: the set of all candidate population names defined across all “imap” files must be equal to the set of all candidate population names found across all trees in all <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> output log files.</p>
 <p>In this example, we have all the independent subtree analyses packed away in subdirectories, “<code class="docutils literal notranslate"><span class="pre">01</span></code>”, “<code class="docutils literal notranslate"><span class="pre">02</span></code>”, etc.
-Assuming we are in the <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysis subdirectory, <span class="filepath">lionepha/02b-population-delimitation-subtrees</span>, we could just type in all the paths:</p>
+Assuming we are in the <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> analysis subdirectory, <span class="filepath">lionepha/02b-population-delimitation-subtrees</span>, we could just type in all the paths:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">bppsum</span> \
     <span class="o">--</span><span class="n">imap</span>    <span class="mi">01</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span> \
               <span class="mi">02</span><span class="o">/</span><span class="n">bpprun</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">imap</span><span class="o">.</span><span class="n">txt</span> \
@@ -1053,17 +1061,17 @@ Assuming we are in the <a class="reference external" href="https://github.com/bp
 </ul>
 <p>The population boundaries and identities of the various individuals are reported at different posterior probabilities (0.50, 0.75, 0.90, 0.95, and 1.00).
 A comprehensive overview of all the identities under the different posterior probabilities is provided in the file: <span class="filepath">coalescent-pops.summary.csv</span>.
-The other files (ending with filenames “…sb2-traits.p0xx.txt”) are <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” files at each of those posterior probability thresholds.
-These latter make setting up a <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> analysis to estimate an ultrametric phylogeny relating the population units delimited at each of the posterior probability thresholds very straightforward.
+The other files (ending with filenames “…sb2-traits.p0xx.txt”) are <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” files at each of those posterior probability thresholds.
+These latter make setting up a <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> analysis to estimate an ultrametric phylogeny relating the population units delimited at each of the posterior probability thresholds very straightforward.
 With the latter, do <em>not</em> be confused by the column header “species”!
-Again, this is simply due to the misleading terminology adopted for the higher-level units of organization in <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> and most other programs that use the MSC.
+Again, this is simply due to the misleading terminology adopted for the higher-level units of organization in <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> and most other programs that use the MSC.
 What we are working with here are <em>population units</em>, some of which <em>may</em> also correspond to species while others may not.
 This is abundantly clear by the fact that the 12 nominal species — established with both genomic as well as morphological data contributing toward an understanding of the system over a <em>decade</em> of the study — is split into 46 to 86 units (!) by the MSC analysis, depending on the posterior probability threshold we adopt for those units.
 Interpreting these units as “species” is categorically and unconditionally wrong, and would represent a jettisoning of a basic understanding of speciation, systematics, and biology, due to a complete misunderstanding of the MSC model and misinterpretation of its results.</p>
 <p class="emphatic">The MSC delimits <em>populations</em>, not species.</p>
 <p>Note that where our candidate populations assignment have indeed turned out to be distinct population lineages under a particular posterior probability threshold, the original population label is retained (e.g., “L_australerasa_CA_Martin_Meadow” or “L_probata_WA_Blue_Mountains”).</p>
 <p>In cases where multiple candidate population lineages have been “collapsed”, because there was insufficient signal for restriction of Wright-Fisher panmixia between them detected at a particular posterior probability threshold, they have been relabeled with synthetic labels (e.g. “coalescentpop001”, “coalescentpop002”, etc.).
-Thus, for example, we see that, in the setup to our <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a> analysies, we allowed for the possibility that  <em>L. erasa</em> from Mary’s Peak, Mount Hebo, Mount Hood, and Prairie Peak might each be a distinct population:</p>
+Thus, for example, we see that, in the setup to our <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a> analysies, we allowed for the possibility that  <em>L. erasa</em> from Mary’s Peak, Mount Hebo, Mount Hood, and Prairie Peak might each be a distinct population:</p>
 <table class="small-text compressed-table center docutils align-default">
 <colgroup>
 <col style="width: 43%" />
@@ -1186,17 +1194,17 @@ For this example, we will (somewhat arbitrarily) decide on 0.95.</p>
 </div>
 <div class="section" id="stage-ii-generating-the-multipopulation-coalescent-ultrametric-phylogeny-of-populations">
 <h2>Stage II. Generating the (Multipopulation Coalescent, Ultrametric) Phylogeny of Populations<a class="headerlink" href="#stage-ii-generating-the-multipopulation-coalescent-ultrametric-phylogeny-of-populations" title="Permalink to this headline">¶</a></h2>
-<p>We use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/">StarBeast2</a> to estimate an ultrametric phylogeny of population lineages.
+<p>We use <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><span class="program">StarBeast2</span></a> to estimate an ultrametric phylogeny of population lineages.
 We use the original set of alignments (found in <span class="filepath">lionepha/00-alignments</span>) for as the input data for this, and a “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” file that maps each of the sequence labels in the alignment to population identities assigned in the previous step.
 For this exercise, we shall use population units that were delimited with 0.95 posterior probability, and the “<code class="docutils literal notranslate"><span class="pre">traits</span></code>” file corresponding to this is given by <span class="filepath">coalescent-pops.sb2-traits.p095.txt</span>.
-The analysis setup for the StarBeast2 run can be found in the <span class="filepath">lionepha/03-population-tree-estimation/</span> directory.
-There are six StarBeast2 XML configuration files.
+The analysis setup for the <span class="program">StarBeast2</span> run can be found in the <span class="filepath">lionepha/03-population-tree-estimation/</span> directory.
+There are six <span class="program">StarBeast2</span> XML configuration files.
 These all set up the same “species tree” analysis, the only difference being the name prefixes of the output files.
 This is so that we can run multiple independent analyses, the <em>sin qua non</em> of MCMC best practices.</p>
 <p>Again, we used a single strict clock model across all genes, and a HKY+G model of substitution.
 Each analysis was run for 400 million generations, with a sampling frequency of 400,000 generations.
 Thus, we obtained 1000 samples from the posterior from each of the six replicates.
-We can again use <a class="reference external" href="https://dendropy.org/programs/sumtrees.html">SumTrees</a> to summarize the results with the following command:</p>
+We can again use <a class="reference external" href="https://dendropy.org/programs/sumtrees.html"><span class="program">SumTrees</span></a> to summarize the results with the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sumtrees.py \
     -b 250 \
     -s mcct \
@@ -1218,7 +1226,7 @@ This population-level phylogeny will be one of the two primary inputs to DELINEA
 These assignments will be made with reference to our integrative understanding of the system in conjunction with the evolutionary relationships between population lineages shown in the phylogeny.</p>
 <p>There will be some population lineages for which the species identity is uncontroversial — i.e., they can be unambiguously assigned to known species (or even new ones) based on morphological evidence of individuals in that population.
 In the case of the “collapsed” populations (labeled “coalescentpop001”, “coalescentpop002”, etc.), we would need to examine all individuals in those units, and if <em>any</em> one of them can be definitely assigned to an independent species status based on systematic evidence (i.e., distinct species from all others in the system), then the <em>entire</em> population lineage would get assigned to a distinct species.
-The reasoning behind this is that, based on previous stages of the analysis using <a class="reference external" href="https://github.com/bpp/bpp">BP&amp;P</a>, we have already decided that all individuals in that population constitute a single cohesive population, so the species identity of any one individual in that lineage would necessarily be shared by all other individuals in the same lineage.</p>
+The reasoning behind this is that, based on previous stages of the analysis using <a class="reference external" href="https://github.com/bpp/bpp"><span class="program">BP&amp;P</span></a>, we have already decided that all individuals in that population constitute a single cohesive population, so the species identity of any one individual in that lineage would necessarily be shared by all other individuals in the same lineage.</p>
 <p>There will, of course, be population units for which we will <em>not</em> be able to confidentally assign to a distinct species status — either a known, existing one, or to a new one.
 These population lineages <em>could</em> be distinct species unto themselves, or could be populations of other species in the system (named or otherwise).
 These are the actual targets of delimitation — we would to determine whether or not the boundaries between them and other lineages are species boundaries or population boundaries.</p>
@@ -1687,8 +1695,8 @@ To execute the analysis, we run the following command:</p>
 There could be thousands (or billions, depending on the number of unconstrained lineages you set) of other partitions in the 0.01 remaining tail that we choose to ignore to save disk space and time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Analysis Size and Computational Requirements</p>
-<p>Note that this analysis has 13 unconstrained lineages out of 56.
+<p><strong>Analysis Size and Computational Requirements</strong></p>
+<p>This analysis has 13 unconstrained lineages out of 56.
 The former (i.e., the number of unconstrained lineages) is the primary factor driving computational requirements, both in terms of time as well as memory: an analysis of 10,000 populations of which only 5 unconstrained will run faster (almost instantaneously) than one with 100 populations with 10 unconstrained.
 An analysis with 50 unconstrained lineages will probably never complete even with the most powerful computers thrown at it, regardless of how few or many the contrained lineages are.
 With this example of 13 unconstrained population lineages, we require 115 GB of computer memory and took about 35 mins to run on a fairly current (as of 2019) high-performance computing cluster.
@@ -1699,12 +1707,101 @@ If you find that this might be too demanding for your hardware (especially the m
 <li><p><span class="filepath">lionepha.run1.delimitation-results.json</span></p></li>
 <li><p><span class="filepath">lionepha.run1.delimitation-results.trees</span></p></li>
 </ul>
-<p>There are included in the example archive in compressed form: <span class="filepath">04-species-delimitation/lionepha-delimitation-results.zip</span>.
-They are pretty large (even though we restricted results to the 99% credibility interval), and so we provide a smaller tree file with just the 10 most probable partitions in <span class="filepath">04-species-delimitation/lionepha.run1.delimitation-results.trunc.trees</span>.</p>
+<p>There are included in the example archive in compressed form: <span class="filepath">04-species-delimitation/lionepha-delimitation-results.zip</span>.</p>
+<p>The JSON-format file (<span class="filepath">lionepha.run1.delimitation-results.json</span>) lists some metadata about the analysis, followed by detailed description of all partitions considered.
+The partitions are listed in order of descending probability, i.e., with the partition of highest probability given first.
+Thus, the <em>maximum likelihood estimate</em> of the species delimitation is represented by the first partition listed.
+The second partition listed is the species delimitation of the next highest probability, and so on.</p>
+<p>The tree file consists of a set of trees, with one tree for each partition considered.
+The tree structure itself — the phylogeny, including both topology and the branch lengths — are identical across all trees.
+The only difference in the trees is the metadata markup of each tree, with annotations regarding species assignments of the tip (population) lineages.
+Each tree corresponds to the a partition listed in the JSON file, in the same order.
+Thus the trees illustrate the different partitions (and species assignments/boundaries of each partition), with the first tree representing the maximum likelihood estimate of the species delimitation, the second tree listed being the next most probable species delimitation and so on.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The results files are very large which may make viewing them challenging.
+To facilitate viewing/manipulating of the most probable results, we provide a smaller tree file with just the first 10 trees here: <span class="filepath">04-species-delimitation/lionepha.run1.delimitation-results.trunc.trees</span>.
+As the the result entries (trees and partitions) are given in order of descending probability, the earlier results have a higher probability than the later ones, so truncating the tree file by selecting the first few like this will let you view the most probable results.
+In fact, the <em>first</em> listing in the results will have the highest probablity, and thus is MLE partition/tree.</p>
+</div>
 </div>
 <div class="section" id="examination-and-interpretation-of-the-results">
 <h2>Examination and Interpretation of the Results<a class="headerlink" href="#examination-and-interpretation-of-the-results" title="Permalink to this headline">¶</a></h2>
-<p>(WIP — TO BE CONTINUED)</p>
+<p>The trees generated by DELINEATE have some special mark-up such that when opened in <a class="reference external" href="http://tree.bio.ed.ac.uk/software/figtree/"><span class="program">FigTree</span></a> will show some extra information.
+For example, opening up the truncated trees result file (<span class="filepath">lionepha.run1.delimitation-results.trunc.trees</span>) in <a class="reference external" href="http://tree.bio.ed.ac.uk/software/figtree/"><span class="program">FigTree</span></a> and viewing the first tree, i.e. the maximum likelihood species delimitation shows the following:</p>
+<div class="figure align-default">
+<a class="figure-image reference internal image-reference" href="_images/lionepha.run1.delimitation-results.trunc.trees.jpg"><img alt="Results of species delimitation analysis." class="figure-image" src="_images/lionepha.run1.delimitation-results.trunc.trees.jpg" style="width: 100%;" /></a>
+</div>
+<p>The branches painted in <span class="constrained-branch-color">blue</span> (<span class="constrained-branch-color">▆</span>) represent the constrained population lineages, i.e., lineages with a fixed species assignment.
+The branches painted in <span class="unconstrained-branch-color">ochre</span> (<span class="unconstrained-branch-color">▆</span>), on the other hand, represent the unconstrained population lineages, i.e., lineages with known identity and whose species membership was allowed to vary.
+Furthermore the lineage labels are in a special format, showing the species assignment followed by the actual population label in parenthesis.</p>
+<p>We interpret the results as follows:</p>
+<table class="colwidths-given small-text compressed-table docutils align-default" id="id2">
+<caption><span class="caption-text">Maximum Likelihood Species Delimitation</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Lineages</p></th>
+<th class="head"><p>Species Delimitation</p></th>
+<th class="head"><p>Explanation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><ul class="simple">
+<li><p>coalescentpop008</p></li>
+<li><p>coalescentpop009</p></li>
+</ul>
+</td>
+<td><p><strong>DelineatedSp002</strong></p></td>
+<td><p>Group together in the same <em>NEW</em> and unnamed species, labeled “<strong>DelineatedSp002</strong>”.
+That is, the boundaries of the between these two lineages on the one hand, and all other lineages on the other, are <em>species</em> boundaries, not population.</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_lindrothi_CA_Emerald_Lake</p></li>
+<li><p>coalescentpop011</p></li>
+<li><p>L_lindrothi_CA_South_Fork_Bishop_Creek</p></li>
+</ul>
+</td>
+<td><p><em>lindrothi</em></p></td>
+<td><p>Group together as populations that are <em>part</em> of a pre-defined species, “<em>L. lindorothi</em>”.
+That is, the boundaries of the between these three lineages on the one hand, and all other <em>lindrothi</em> lineages on the other, are (just) population boundaries, not species.</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_probata_UT_Shingle_Creek</p></li>
+<li><p>coalescentpop024</p></li>
+</ul>
+</td>
+<td><p><em>probata</em></p></td>
+<td><p>Group together as populations that are <em>part</em> of a pre-defined species, “<em>L. probata</em>”.
+That is, the boundaries of the between these two lineages on the one hand, and all other <em>probata</em> lineages on the other, are (just) population boundaries, not species.</p></td>
+</tr>
+<tr class="row-odd"><td><ul class="simple">
+<li><p>L_disjuncta_OR_Mt_Hood</p></li>
+<li><p>L_disjuncta_CA_Lily_Lake</p></li>
+<li><p>coalescentpop006</p></li>
+</ul>
+</td>
+<td><p><em>disjuncta</em></p></td>
+<td><p>Group together as populations that are <em>part</em> of a pre-defined species, “<em>L. disjuncta</em>”.
+That is, the boundaries of the between these three lineages on the one hand, and all other <em>disjuncta</em> lineages on the other, are (just) population boundaries, not species.</p></td>
+</tr>
+<tr class="row-even"><td><ul class="simple">
+<li><p>L_tuulukwa_CA_Trinity_Alps</p></li>
+<li><p>L_tuulukwa_OR_Knowles_Creek</p></li>
+<li><p>L_tuulukwa_OR_Marys_Peak</p></li>
+</ul>
+</td>
+<td><p><strong>DelineatedSp001</strong></p></td>
+<td><p>Group together in the same <em>NEW</em> and unnamed species, labeled “<strong>DelineatedSp001</strong>”.
+That is, the boundaries of the between these three lineages on the one hand, and all other lineages on the other, are <em>species</em> boundaries, not population.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Conferring with the reference alpha taxonomy as worked out by Maddison and Poul (2020), we see that these are perfectly concordant, with “DelineatedSp001” populations all collectively corresponding to the distinct species <em>L. tuulukwa</em> and “DelineatedSp002” populations all collectively corresponding to the distinct species <em>L. kavanaughi</em>.</p>
+<p>(WIP – TO BE COMPLETED)</p>
 </div>
 </div>
 
