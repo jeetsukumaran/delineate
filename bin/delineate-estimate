@@ -204,13 +204,12 @@ def execute_species_partition_estimation(args):
         ln_cond_prob = float("nan")
 
     dest_tree_files = []
-    treefile_path, treefile = open_output_file(
-            args=args,
-            suffix=".delimitation-results",
-            extension="trees",)
-    dest_tree_files.append(treefile)
-    ### TODO: allow user to specify these on CLI
-    args.truncated_tree_file_size = 10
+    if not args.no_primary_tree_file:
+        treefile_path, treefile = open_output_file(
+                args=args,
+                suffix=".delimitation-results",
+                extension="trees",)
+        dest_tree_files.append(treefile)
     if args.truncated_tree_file_size > 0:
         trunc_treefile_path, trunc_treefile = open_output_file(
                 args=args,
@@ -631,6 +630,15 @@ def main():
             default=None,
             choices=["lineage-species", "species-lineage"],
             help="Create an additional result file, where trees are written with their labels actually changed to the option selected here.")
+    trees_options.add_argument("--truncated-tree-file-size",
+            default=10,
+            type=int,
+            help="Maximum number of trees to include in truncated tree file (for quick reference with larger datasets); default=%(default)s).")
+    trees_options.add_argument("--no-primary-tree-file",
+            action="store_true",
+            default=False,
+            help="Do not save primary tree file (truncated tree file will still be written if size > 0).")
+
     # output_options.add_argument("--output-format",
     #         default="json-compact",
     #         choices=["json", "json-compact"],
