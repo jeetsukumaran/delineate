@@ -21,7 +21,7 @@ For meta-analysis and visualization, you should have the following installed on 
     -   |Tracer|_
     -   |FigTree|_
 
-in addition, of course (and always), a `*good* text editor <https://sukumaranlab.org/resources/computational-skills/#a-full-featured-developer-s-text-editor-vim-emacs-or-sublime-text>`_.
+In addition, of course (as always, for anything and everything), you will want a `*good* text editor <https://sukumaranlab.org/resources/computational-skills/#a-full-featured-developer-s-text-editor-vim-emacs-or-sublime-text>`_.
 
 (Data Files)
 ============
