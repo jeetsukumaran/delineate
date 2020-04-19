@@ -27,6 +27,7 @@ completion rate parameter as required.
 """
 
 # Imports {{{1
+import contextlib
 import sys
 import os
 import argparse
@@ -202,14 +203,23 @@ def execute_species_partition_estimation(args):
     except ValueError:
         ln_cond_prob = float("nan")
 
+    dest_tree_files = []
     treefile_path, treefile = open_output_file(
             args=args,
             suffix=".delimitation-results",
             extension="trees",)
-    # trunc_treefile_path, trunc_treefile = open_output_file(
-    #         args=args,
-    #         suffix=".delimitation-results",
-    #         extension="trunc.trees",)
+    dest_tree_files.append(treefile)
+    ### TODO: allow user to specify these on CLI
+    args.truncated_tree_file_size = 10
+    if args.truncated_tree_file_size > 0:
+        trunc_treefile_path, trunc_treefile = open_output_file(
+                args=args,
+                suffix=".delimitation-results",
+                extension="trunc.trees",)
+        trunc_treefile_idx = len(dest_tree_files)
+        dest_tree_files.append(trunc_treefile)
+    else:
+        trunc_treefile_idx = None
     leaf_nodes = [nd for nd in tree.leaf_node_iter()]
     if args.store_relabeled_trees is not None:
         relabeled_trees_path, rltf = open_output_file(
@@ -222,9 +232,21 @@ def execute_species_partition_estimation(args):
             relabel_key = "lineage-species"
         else:
             raise ValueError(args.store_relabeled_trees)
-    with treefile:
-        tree.taxon_namespace.write(file=treefile, schema="nexus")
-        treefile.write("BEGIN TREES;\n")
+
+    for d in dest_tree_files:
+        d.is_active = True
+    def _wt(s):
+        for d in dest_tree_files:
+            if d.is_active:
+                d.write(s)
+    # with ExitStack() as stack:
+    #     files = [stack.enter_context(open(fname)) for fname in filenames]
+    #     Do something with "files"
+    with contextlib.ExitStack() as stack:
+        for dest_tree_file in dest_tree_files:
+            stack.enter_context(dest_tree_file)
+            tree.taxon_namespace.write(file=dest_tree_file, schema="nexus")
+        _wt("BEGIN TREES;\n")
         taxon_token_map = {}
         translate_statement = []
         for taxon_idx, taxon in enumerate(tree.taxon_namespace):
@@ -235,11 +257,13 @@ def execute_species_partition_estimation(args):
                     )
             translate_statement.append("             {} {}".format(taxon_token_map[taxon], label))
         if not args.no_translate_tree_tokens:
-            treefile.write("        Translate\n")
-            treefile.write("{}\n             ;\n".format(",\n".join(translate_statement)))
+            _wt("        Translate\n")
+            _wt("{}\n             ;\n".format(",\n".join(translate_statement)))
         for key_idx, (key, key_as_list, prob) in enumerate(species_partition_info):
             if args.report_mle_only and key_idx > 0:
                 break
+            if key_idx == args.truncated_tree_file_size:
+                dest_tree_files[trunc_treefile_idx].is_active = False
             p = collections.OrderedDict()
             lineage_species_name_map = controller.compile_postanalysis_lineage_species_name_map(postanalysis_species_leafset_labels=key_as_list)
             p["lineage_species_name_map"] = sorted_dict(lineage_species_name_map)
@@ -301,7 +325,7 @@ def execute_species_partition_estimation(args):
                     nd.annotations["status"] = "constrained"
                 else:
                     nd.annotations["status"] = "inferred"
-            treefile.write("    Tree {} = {}".format(
+            _wt("    Tree {} = {}".format(
                 key_idx + 1,
                 tree.as_string(
                     schema="newick",
@@ -317,16 +341,17 @@ def execute_species_partition_estimation(args):
             result_dict["partitions"].append(p)
             # print("--")
             # print(lineage_species_name_map)
-        treefile.write("END TREES;\n")
+        dest_tree_files[trunc_treefile_idx].is_active = True
+        _wt("END TREES;\n")
         if args.figtree_display_label != "clear":
-            treefile.write("\n\nbegin figtree;\n")
+            _wt("\n\nbegin figtree;\n")
             if args.figtree_display_label == "species":
-                treefile.write('set tipLabels.displayAttribute="species";\n');
+                _wt('set tipLabels.displayAttribute="species";\n');
             elif args.figtree_display_label == "species-lineage":
-                treefile.write('set tipLabels.displayAttribute="species-lineage";\n');
+                _wt('set tipLabels.displayAttribute="species-lineage";\n');
             elif args.figtree_display_label == "lineage-species":
-                treefile.write('set tipLabels.displayAttribute="lineage-species";\n');
-            treefile.write("end figtree;\n")
+                _wt('set tipLabels.displayAttribute="lineage-species";\n');
+            _wt("end figtree;\n")
 
     result_dict["num_partitions_in_confidence_interval"] = num_partitions_in_confidence_interval
     if True: # args.write_json
