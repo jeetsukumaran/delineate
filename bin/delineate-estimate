@@ -206,10 +206,10 @@ def execute_species_partition_estimation(args):
             args=args,
             suffix=".delimitation-results",
             extension="trees",)
-    trunc_treefile_path, trunc_treefile = open_output_file(
-            args=args,
-            suffix=".delimitation-results",
-            extension="trunc.trees",)
+    # trunc_treefile_path, trunc_treefile = open_output_file(
+    #         args=args,
+    #         suffix=".delimitation-results",
+    #         extension="trunc.trees",)
     leaf_nodes = [nd for nd in tree.leaf_node_iter()]
     if args.store_relabeled_trees is not None:
         relabeled_trees_path, rltf = open_output_file(
