@@ -82,6 +82,8 @@ class SpeciationCompletionRateMaximumLikelihoodEstimator(object):
                     )
             speciation_completion_rate_estimate = x1
             speciation_completion_rate_estimate_prob = -1 * x2
+            if speciation_completion_rate_estimate_prob <= 0:
+                raise ValueError("Failed to Optimize")
         try:
             lprob = math.log(speciation_completion_rate_estimate_prob)
         except ValueError:
