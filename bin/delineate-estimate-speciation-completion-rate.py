@@ -72,7 +72,7 @@ def main():
     tree.is_use_decimal_value_type = args.underflow_protection
     with open(args.config_file) as src:
         config = json.load(src)
-    species_leafset_labels = model._Partition.compile_lookup_key( config["species_leafsets"] )
+    species_leafset_labels = model._Partition.compile_lookup_key( config["species_leafset_constraints"] )
     initial_speciation_rate = config.pop("initial_speciation_rate", 0.01)
     min_speciation_rate = config.pop("min_speciation_rate", 1e-8)
     max_speciation_rate = config.pop("max_speciation_rate", 2.00)
