@@ -41,6 +41,6 @@ setup(
         "numpy>=1.18.1",
         "scipy>=1.4.1",
         #"DendroPy @ git+https://github.com:jeetsukumaran/DendroPy.git#egg=DendroPy",
-        "DendroPy @ git+https://github.com:jeetsukumaran/DendroPy.git@development-master#egg=DendroPy",
+        "DendroPy @ git+https://github.com:jeetsukumaran/DendroPy.git@development-main#egg=DendroPy",
         ]
 )
