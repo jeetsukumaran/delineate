@@ -45,9 +45,7 @@ publish:
 	echo ;\
 	mkdir -p "../../docs"; \
 	rsync -ap --progress --delete $(wildcard $(BUILDDIR)/html/*) "../../docs/"; \
-	else \
-	echo ;\
-	echo "(Not copying non-HTML target)"; \
-	git add source "../../docs"
-	git commit
-	git push
+	# echo === Committing deploy directory ... ;\
+	# git add source "../../docs"
+	# git commit
+	# git push
