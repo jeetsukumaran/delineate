@@ -441,53 +441,54 @@ new species you would run the following command:
 
     delineate-summarize -r biologicalconcept.conf.delimitation-results.json DhrM1 DHHG2 DhhD1
 
-which might result in something like this: :sub:`~`
-[delineate-summarize] 25 lineages defined in results file: 'CCVO1',
-'DGRP1', 'DGRR1', 'DHHG2', 'DhbV2', 'DheCO6', 'DheP8', 'DhhD1',
-'DhlCO1', 'DhlP7', 'DhmB2Br', 'DhpB1Br', 'DhrM1', 'DhrSL5', 'DhsG1',
-'DhsH3', 'DhsP1', 'DhtT9', 'Dhy3Br', 'Dhy6', 'Dhym5', 'Dma2', 'DtTN1',
-'ERVL2', 'YSNE1' [delineate-summarize] 5 species defined in
-constraints, with 12 lineages assigned: [ 1/5 ] 'ecu' (3
-lineages) [ 2/5 ] 'hy' (2 lineages) [ 3/5 ] 'lic' (3 lineages) [ 4/5 ]
-'ma' (1 lineages) [ 5/5 ] 'sep' (3 lineages) [delineate-summarize] 12
-out of 25 lineages assigned by constraints to 5 species: [ 1/12 ]
-'DheCO6' (SPECIES: 'ecu') [ 2/12 ] 'DheP8' (SPECIES: 'ecu') [ 3/12 ]
-'YSNE1' (SPECIES: 'ecu') [ 4/12 ] 'Dhy3Br' (SPECIES: 'hy') [ 5/12 ]
-'Dhy6' (SPECIES: 'hy') [ 6/12 ] 'DhlCO1' (SPECIES: 'lic') [ 7/12 ]
-'DhlP7' (SPECIES: 'lic') [ 8/12 ] 'ERVL2' (SPECIES: 'lic') [ 9/12 ]
-'Dma2' (SPECIES: 'ma') [ 10/12 ] 'DhsG1' (SPECIES: 'sep') [ 11/12 ]
-'DhsH3' (SPECIES: 'sep') [ 12/12 ] 'DhsP1' (SPECIES: 'sep')
-[delineate-summarize] 13 out of 25 lineages not constrained by species
-assignments: [ 1/13 ] 'CCVO1' [ 2/13 ] 'DGRP1' [ 3/13 ] 'DGRR1' [ 4/13 ]
-'DHHG2' [ 5/13 ] 'DhbV2' [ 6/13 ] 'DhhD1' [ 7/13 ] 'DhmB2Br' [ 8/13 ]
-'DhpB1Br' [ 9/13 ] 'DhrM1' [ 10/13 ] 'DhrSL5' [ 11/13 ] 'DhtT9' [ 12/13
-] 'Dhym5' [ 13/13 ] 'DtTN1' [delineate-summarize] 80271 partitions found
-in results file, with total constrained cumulative probability of
-0.9500004131628125 [delineate-summarize] Reading focal lineages from
-arguments [delineate-summarize] 3 focal lineages defined: 'DHHG2',
-'DhhD1', 'DhrM1' [delineate-summarize] 52642 out of 80271 partitions
-found with focal lineages conspecific [delineate-summarize] Marginal
-constrained probability of focal lineages conspecificity:
-0.8314956644192 [delineate-summarize] Marginal constrained probability
-of focal lineages *exclusive* conspecificity: 0.05232352098265284
-[delineate-summarize] Marginal constrained probability of focal lineages
-being collectively an exclusive new species: 0.05232352098265284
-[delineate-summarize] Marginal constrained probability of focal lineages
-being collectively *part* (i.e., non-exclusively) of a new species:
-0.3777092230039129 [delineate-summarize] Marginal constrained
-probability of focal lineages being collectively *part* (i.e.,
-non-exclusively) of a predefined species: 0.4537864414152871
-[delineate-summarize] WARNING: cumulative constrained probability in
-results file is only 0.9500004131628125. Not all partitions might have
-been included, and probability summarizations reported should not be
-considered as accurate. { "lineages": ["DHHG2", "DhhD1", "DhrM1"],
-"marginal\_probability\_of\_conspecificity": 0.8314956644192,
-"marginal\_probability\_of\_exclusive\_conspecificity":
-0.05232352098265284, "marginal\_probability\_of\_new\_species":
-0.3777092230039129, "marginal\_probability\_of\_existing\_species":
-0.4537864414152871,
-"marginal\_probability\_of\_exclusive\_new\_species":
-0.05232352098265284 } :sub:`~`
+which might result in something like this::
+
+    [delineate-summarize] 25 lineages defined in results file: 'CCVO1', 'DGRP1', 'DGRR1', 'DHHG2', 'DhbV2', 'DheCO6', 'DheP8', 'DhhD1', 'DhlCO1', 'DhlP7', 'DhmB2Br', 'DhpB1Br', 'DhrM1', 'DhrSL5', 'DhsG1', 'DhsH3', 'DhsP1', 'DhtT9', 'Dhy3Br', 'Dhy6', 'Dhym5', 'Dma2', 'DtTN1', 'ERVL2', 'YSNE1'
+    [delineate-summarize] 5 species defined in configuration constraints, with 12 lineages assigned:
+        [  1/5  ] 'ecu'    (3 lineages)
+        [  2/5  ] 'hy'     (2 lineages)
+        [  3/5  ] 'lic'    (3 lineages)
+        [  4/5  ] 'ma'     (1 lineages)
+        [  5/5  ] 'sep'    (3 lineages)
+    [delineate-summarize] 12 out of 25 lineages assigned by constraints to 5 species:
+        [  1/12 ] 'DheCO6'    (SPECIES: 'ecu')
+        [  2/12 ] 'DheP8'     (SPECIES: 'ecu')
+        [  3/12 ] 'YSNE1'     (SPECIES: 'ecu')
+        [  4/12 ] 'Dhy3Br'    (SPECIES: 'hy')
+        [  5/12 ] 'Dhy6'      (SPECIES: 'hy')
+        [  6/12 ] 'DhlCO1'    (SPECIES: 'lic')
+        [  7/12 ] 'DhlP7'     (SPECIES: 'lic')
+        [  8/12 ] 'ERVL2'     (SPECIES: 'lic')
+        [  9/12 ] 'Dma2'      (SPECIES: 'ma')
+        [ 10/12 ] 'DhsG1'     (SPECIES: 'sep')
+        [ 11/12 ] 'DhsH3'     (SPECIES: 'sep')
+        [ 12/12 ] 'DhsP1'     (SPECIES: 'sep')
+    [delineate-summarize] 13 out of 25 lineages not constrained by species assignments:
+        [  1/13 ] 'CCVO1'
+        [  2/13 ] 'DGRP1'
+        [  3/13 ] 'DGRR1'
+        [  4/13 ] 'DHHG2'
+        [  5/13 ] 'DhbV2'
+        [  6/13 ] 'DhhD1'
+        [  7/13 ] 'DhmB2Br'
+        [  8/13 ] 'DhpB1Br'
+        [  9/13 ] 'DhrM1'
+        [ 10/13 ] 'DhrSL5'
+        [ 11/13 ] 'DhtT9'
+        [ 12/13 ] 'Dhym5'
+        [ 13/13 ] 'DtTN1'
+    [delineate-summarize] 80271 partitions found in results file, with total constrained cumulative probability of 0.950000360833919
+    [delineate-summarize] Reading focal lineages from arguments
+    [delineate-summarize] 3 focal lineages defined: 'DHHG2', 'DhhD1', 'DhrM1'
+    [delineate-summarize] 52642 out of 80271 partitions found with focal lineages conspecific
+    [delineate-summarize] Marginal constrained probability of focal lineages conspecificity: 0.831495473493848
+    [delineate-summarize] Marginal constrained probability of focal lineages *exclusive* conspecificity: 0.052323596219327514
+    [delineate-summarize] Marginal constrained probability of focal lineages being collectively an exclusive new species: 0.052323596219327514
+    [delineate-summarize] Marginal constrained probability of focal lineages being collectively *part* (i.e., non-exclusively) of a new species: 0.3777095324871036
+    [delineate-summarize] Marginal constrained probability of focal lineages being collectively *part* (i.e., non-exclusively) of a predefined species: 0.4537859410067482
+    [delineate-summarize] WARNING: cumulative constrained probability in results file is only 0.950000360833919. Probability summarizations reported may not be accurate.
+    {"lineages": ["DHHG2", "DhhD1", "DhrM1"], "marginal_probability_of_conspecificity": 0.831495473493848, "marginal_probability_of_exclusive_conspecificity": 0.052323596219327514, "marginal_probability_of_new_species": 0.3777095324871036, "marginal_probability_of_existing_species": 0.4537859410067482, "marginal_probability_of_exclusive_new_species": 0.052323596219327514}
+
 
 As can be seen, the complete report includes details on the
 constraints etc. as well as the various summarized
