@@ -2,26 +2,26 @@
 
 <!doctype html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Basic Concepts &#8212; DELINEATE 1.2.3 documentation</title>
-    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/docs.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Quick Start" href="quickstart.html" />
     <link rel="prev" title="Installation" href="install.html" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
@@ -38,63 +38,19 @@
         <li class="right" >
           <a href="install.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Basic Concepts</a></li> 
       </ul>
-    </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table of Contents</a></h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Concepts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#partitions">“Partitions”</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-diversification-process">The Diversification Process</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#formation-of-new-species">Formation of New Species</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-speciation-completion-rate">The Speciation Completion Rate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#estimating-the-speciation-completion-rate">Estimating the Speciation Completion Rate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#a-different-way-of-doing-business">A Different Way of Doing Business</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sampling-design">Sampling Design</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#workflow-from-individuals-to-populations-to-species">Workflow: From Individuals to Populations to Species</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="workflow1.html">A Complete Worked Example: <em>Lionepha</em></a></li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="install.html"
-                        title="previous chapter">Installation</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="quickstart.html"
-                        title="next chapter">Quick Start</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/concepts.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="basic-concepts">
+  <section id="basic-concepts">
 <h1>Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="partitions">
+<section id="partitions">
 <h2>“Partitions”<a class="headerlink" href="#partitions" title="Permalink to this headline">¶</a></h2>
 <p>The primary output of DELINEATE is calculation of the probabilities of different <em>partitions</em> of the population lineages in the study into distinct species.
 Each partition represents a different combination of assignments of species identities to each of the population lineages.
@@ -144,8 +100,8 @@ Each subset of lineages in a particular partition represents a distinct species,
 Thus, each partition represents a particular delimitation of lineages into species.
 The boundaries between species then simply correspond to the boundaries between the subsets of the preferred partition.
 The goal of our analysis is to identify the partition that best fits our data.</p>
-</div>
-<div class="section" id="the-diversification-process">
+</section>
+<section id="the-diversification-process">
 <h2>The Diversification Process<a class="headerlink" href="#the-diversification-process" title="Permalink to this headline">¶</a></h2>
 <p>How are the probabilities of these different partitions of population lineages calculated?
 To understand that we have to understand how DELINEATE models the diversification process.
@@ -160,8 +116,8 @@ Each of the two daughter lineages proceeds on its own independent trajectory, st
 As modeled by DELINEATE the formation of new independent population lineages (birth events on a tree), the loss of these lineages due to extinction (death events on a tree), and the development of a lineage into a full independent species, are modeled as three independent processes, each with their own distinct rate.
 Birth events on a tree can be considered the (potential) origin of a new species, and the the development of full independent species status as the completion of this phenomenon.
 As such, with DELINEATE speciation is not an instantaneous event (such as that modeled by a simple birth-death branching model underlying a species tree), but an extended process, starting with the lineeage splitting and ending with the speciation completion event.</p>
-</div>
-<div class="section" id="formation-of-new-species">
+</section>
+<section id="formation-of-new-species">
 <h2>Formation of New Species<a class="headerlink" href="#formation-of-new-species" title="Permalink to this headline">¶</a></h2>
 <p>We can consider the speciation completion process to “play out” over a birth-death tree, much in the same way as character evolution might occur on a phylogeny.
 Seen in this way, the tree of population lineages grows through a standard birth-death process, with a fixed birth rate and death rate representing the rate of population lineage splitting and extinction  respectively.
@@ -171,33 +127,33 @@ The splitting event can be considered the initiation of potential speciation, ho
 <p>Development of full independent species status is when a <em>speciation completion event</em> occurs on one of the daughter lineages before it goes extinct or itself split.
 Seen in this way, a “species” in DELINEATE is a set of population lineages on the population tree in which there is <em>no</em> speciation completion event on the edges connecting them on the tree.
 If there is at least one speciation completion event on the edge path between two lineages, then the two lineage are in different species.</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="The diversification process as modeled by |delineate|." class="figure-image" src="_images/diversification.png" />
-</div>
+</figure>
 <p class="figure-caption">Lineage splitting events correspond to the formation of new population lineages, not species, through restrictions in gene flow in an ancestral population (V1).
 These lineages may themselves give rise to other population lineages (V2 through V9), or go extinct (X1 through X3).
 Population lineages develop into an independent species at a fixed background rate, providing they are not otherwise lost  (i.e., there is duration between the initiation and completion of speciation).
 Changes in status from incipient to full or good species are marked by speciation completion events, shown by the blue bars.
 A “species” is thus made up of one or more population lineages not separated from one another by a speciation event.
 In this example, five speciation completion events divide the seven extant populations into four species: {A,B}, {C}, {D,E}, and {F,G}.</p>
-</div>
-<div class="section" id="the-speciation-completion-rate">
+</section>
+<section id="the-speciation-completion-rate">
 <h2>The Speciation Completion Rate<a class="headerlink" href="#the-speciation-completion-rate" title="Permalink to this headline">¶</a></h2>
 <p>Speciation completion, i.e. the transition of an incipient species to full species status, completing a trajectory that started with its original splitting from a parent or sister population, proceeds at a rate given by the <em>speciation completion rate</em>.
 This rate is one of the critical parameters that inform the probability of different species partitions, i.e. the different possible combinations of assignments of species identities to the various population lineages in the system.
 For example, with a high species completion rate, partitions with more species would be more probable than partitions with fewer species as we would expect there to be more speciation completion events to have occured on the tree.
 Conversely, with a low species completion rate, partitions with fewer species would be more probable than partitions with more species.</p>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="figure-image reference internal image-reference" href="_images/delineate-docs-poptree-both.png"><img alt="A higher speciation completion rate results in more species, while a lower speciation completion rate results in fewer species." class="figure-image" src="_images/delineate-docs-poptree-both.png" style="width: 100%;" /></a>
-</div>
+</figure>
 <p class="figure-caption"><strong>Figure</strong>:  A higher speciation completion rate results in more species, as speciation completion events occur on more population lineages (a), while, conversely, a lower speciation completion rate means that fewer population lineages develop into full species status by the present day (b).
 Note that “Species 3” in scenario (b) is paraphyletic due to the population lineage branching off from it developing into full species. Paraphyletic species can arise through a range of natural processes including classic ones such as allopatric speciation. We are not afraid of (and can model quite well) paraphyletic species.</p>
 <p>Of course, other things, such as tree structure and branch lengths, in addition to the speciation completion rate, determine the exact probability of particular partition.
 As membership in one species or another (i.e., the species identity of population lineages) is determined by species boundaries between lineages, and as species boundaries are effectively established by speciation completion events on branches on paths between lineages (see above), we can see how tree structure, branch lengths, <em>and</em> the speciation completion interact to determine the probability of different partitions.
 For example, a higher speciation completion rate will mean that it is more probably that a speciation completion event occurs on a particular branch.
 Similarly, the longer a particular branch, the more probable a speciation completion event will occur on it for a particular speciation completion rate.</p>
-</div>
-<div class="section" id="estimating-the-speciation-completion-rate">
+</section>
+<section id="estimating-the-speciation-completion-rate">
 <h2>Estimating the Speciation Completion Rate<a class="headerlink" href="#estimating-the-speciation-completion-rate" title="Permalink to this headline">¶</a></h2>
 <p>So, we have seen how critical the speciation completion rate is in determining the probability of different partitions, and, consequently, the species identities of our populations.</p>
 <p>Where do we get the speciation completion rate from?</p>
@@ -206,8 +162,8 @@ Similarly, the longer a particular branch, the more probable a speciation comple
 <p>The answer is that, under these circumstances, we <em>cannot</em>.</p>
 <p>We <em>might</em> be able to estimate this rate under the same model on a different but related system and then use the rate over here, analogous to estimating the time-calibrated mutation rate on, say, warblers and using it on finches.
 But a better approach is available, and is the way that we recommend that DELINEATE be used.</p>
-</div>
-<div class="section" id="a-different-way-of-doing-business">
+</section>
+<section id="a-different-way-of-doing-business">
 <h2>A Different Way of Doing Business<a class="headerlink" href="#a-different-way-of-doing-business" title="Permalink to this headline">¶</a></h2>
 <p>DELINEATE requires a fundamentally different way to thinking how we sample data for species delimitation studies.
 When designing a study to use DELINEATE, you should include a broad sampling of populations, including many populations whose species identities that you <em>do</em> know or are reasonably certain of in addition to the population lineages whose species identities you wish to estimate.
@@ -311,13 +267,13 @@ However, the probabilities of all other possible partitions, with all other comb
 </tbody>
 </table>
 </div></blockquote>
-</div>
-<div class="section" id="sampling-design">
+</section>
+<section id="sampling-design">
 <h2>Sampling Design<a class="headerlink" href="#sampling-design" title="Permalink to this headline">¶</a></h2>
 <p>DELINEATE ideally should be provided with data that <em>includes samples from as many populations as possible across the system</em> being studied. This is in contrast from standard practice from other approaches, in which typically one or two examplar population sample per putative species are included. The theoretical ideal would be to include <em>every</em> population of all species in the system, known or unknown, i.e., to capture all population isolation or splitting events. Of course, we do not expect to achieve this theoretical ideal in practice, but it is certainly something to aspire to. The key point is restricting our population/species sampling to a few examplar populations per species is something we want to move away from.</p>
 <p>DELINEATE also requires that we have know the species identities of at least <em>some</em> of our population lineages. This is, again, in contrast to other approaches to species delimitation, which might be quite happy analyzing an entire data set with no known fixed species identities. With DELINEATE we should design our sampling scheme to including a much broader range of species than just the ones we are interested in delimiting, and should include populations belong to species in which we are quite confident regarding their species identities. These other species — or, to be more precise, population lineages for which the species identities are known — are critical to allowing DELINEATE to “learn” about the speciation process.</p>
-</div>
-<div class="section" id="workflow-from-individuals-to-populations-to-species">
+</section>
+<section id="workflow-from-individuals-to-populations-to-species">
 <h2>Workflow: From Individuals to Populations to Species<a class="headerlink" href="#workflow-from-individuals-to-populations-to-species" title="Permalink to this headline">¶</a></h2>
 <p>The DELINEATE package itself represents the final step in an analytical pipeline.
 Starting with a collection of genetic alignments representing multiple genes sampled from multiple individuals from multiple populations, each step of the pipeline groups the data into successively higher levels of organization, from populations to species.</p>
@@ -333,11 +289,61 @@ Once we have decided what our population units are, we will use <a class="refere
 The population tree resulting from <a class="reference external" href="https://taming-the-beast.org/tutorials/starbeast2-tutorial/"><strong class="program">StarBeast2</strong></a> forms the one of the mandatory inputs for DELINEATE. The species identities for the subset of population lineages for which these are known forms the other. Running DELINEATE will then report on the probabilities of different species assignments for the remaining lineages, i.e. for the ones for which we do not know or specifies the species identities.</p></li>
 </ol>
 </div></blockquote>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#partitions">“Partitions”</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-diversification-process">The Diversification Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#formation-of-new-species">Formation of New Species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-speciation-completion-rate">The Speciation Completion Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estimating-the-speciation-completion-rate">Estimating the Speciation Completion Rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-different-way-of-doing-business">A Different Way of Doing Business</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sampling-design">Sampling Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workflow-from-individuals-to-populations-to-species">Workflow: From Individuals to Populations to Species</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow1.html">A Complete Worked Example: <em>Lionepha</em></a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="install.html"
+                          title="previous chapter">Installation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="quickstart.html"
+                          title="next chapter">Quick Start</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/concepts.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -354,12 +360,13 @@ The population tree resulting from <a class="reference external" href="https://t
         <li class="right" >
           <a href="install.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Basic Concepts</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Jeet Sukumaran and Mark T. Holder.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>

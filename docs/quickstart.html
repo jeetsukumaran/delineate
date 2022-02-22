@@ -2,26 +2,27 @@
 
 <!doctype html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Quick Start &#8212; DELINEATE 1.2.3 documentation</title>
-    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/docs.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="A Complete Worked Example: Lionepha" href="workflow1.html" />
     <link rel="prev" title="Basic Concepts" href="concepts.html" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <!--[if lt IE 9]>
     <script src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
@@ -38,82 +39,34 @@
         <li class="right" >
           <a href="concepts.html" title="Basic Concepts"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Quick Start</a></li> 
       </ul>
-    </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table of Contents</a></h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="concepts.html">Basic Concepts</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#data-requirements">Data Requirements</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#input-data-population-tree">Input Data: Population Tree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#input-data-species-assignment-table">Input Data: Species Assignment Table</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#running-a-species-delimitation-analysis">Running a Species Delimitation Analysis</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#basic-run">Basic Run</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#basic-run-output">Basic Run Output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#more-options">More Options</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#summarizing-the-marginal-probability-of-conspecificity-and-new-species-status-for-a-subset-of-taxa">Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="workflow1.html">A Complete Worked Example: <em>Lionepha</em></a></li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="concepts.html"
-                        title="previous chapter">Basic Concepts</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="workflow1.html"
-                        title="next chapter">A Complete Worked Example: <em>Lionepha</em></a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/quickstart.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-        </div>
-      </div>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="quick-start">
+  <section id="quick-start">
 <h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="data-requirements">
+<section id="data-requirements">
 <h2>Data Requirements<a class="headerlink" href="#data-requirements" title="Permalink to this headline">¶</a></h2>
 <p>DELINEATE requires the following input:</p>
 <ul class="simple">
 <li><p>A <em>population tree</em></p></li>
 <li><p>A <em>species assignment table</em></p></li>
 </ul>
-<div class="section" id="input-data-population-tree">
+<section id="input-data-population-tree">
 <h3>Input Data: Population Tree<a class="headerlink" href="#input-data-population-tree" title="Permalink to this headline">¶</a></h3>
 <p>This is rooted ultrametric tree where each tip lineage represents a
 population or deme. This tree is typically obtained through a classical
 “censored” or “multispecies” coalescent analysis, such as results from
 <strong class="program">BP&amp;P</strong> (either mode A01 or A10) or <strong class="program">StarBeast2</strong>. The tree can be be specified
 either in NEXUS or Newick format.</p>
-</div>
-<div class="section" id="input-data-species-assignment-table">
+</section>
+<section id="input-data-species-assignment-table">
 <h3>Input Data: Species Assignment Table<a class="headerlink" href="#input-data-species-assignment-table" title="Permalink to this headline">¶</a></h3>
 <p>This is a tab-delimited plain text file with at least three columns:</p>
 <ul class="simple">
@@ -204,11 +157,11 @@ species identities to these lineages (either existing ones, such as
 for them). Note that the species labels are ignored for population
 lineages with a “0” status — these are just there for user
 book-keeping or reference.</p>
-</div>
-</div>
-<div class="section" id="running-a-species-delimitation-analysis">
+</section>
+</section>
+<section id="running-a-species-delimitation-analysis">
 <h2>Running a Species Delimitation Analysis<a class="headerlink" href="#running-a-species-delimitation-analysis" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="basic-run">
+<section id="basic-run">
 <h3>Basic Run<a class="headerlink" href="#basic-run" title="Permalink to this headline">¶</a></h3>
 <p>Given a population lineage tree file, “population-tree.nex”, and a
 species assignment table file “species-mappings.tsv”, then the following
@@ -243,8 +196,8 @@ then the path could be
 <em>/home/bilbo/projects/orc-species-delimitation/data1/data1.tsv</em>, for
 example.</p></li>
 </ul>
-</div>
-<div class="section" id="basic-run-output">
+</section>
+<section id="basic-run-output">
 <h3>Basic Run Output<a class="headerlink" href="#basic-run-output" title="Permalink to this headline">¶</a></h3>
 <p>Executing this command will run the DELINEATE analysis and will produce
 the following output files:</p>
@@ -291,8 +244,8 @@ choose to have the branches colored by “status”, and this will highlight
 population lineages of (<em>a priori</em>) known vs unknown species affinities,
 and thus quickly identify the assigned species identities of the
 lineages of interest.</p>
-</div>
-<div class="section" id="more-options">
+</section>
+<section id="more-options">
 <h3>More Options<a class="headerlink" href="#more-options" title="Permalink to this headline">¶</a></h3>
 <p>All subcommands for <code class="docutils literal notranslate"><span class="pre">delineate-estimate</span></code> will be shown with <code class="docutils literal notranslate"><span class="pre">--help</span></code>
 option:</p>
@@ -481,9 +434,9 @@ robust albeit slower road.</p>
 </div>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="summarizing-the-marginal-probability-of-conspecificity-and-new-species-status-for-a-subset-of-taxa">
+</section>
+</section>
+<section id="summarizing-the-marginal-probability-of-conspecificity-and-new-species-status-for-a-subset-of-taxa">
 <h2>Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa<a class="headerlink" href="#summarizing-the-marginal-probability-of-conspecificity-and-new-species-status-for-a-subset-of-taxa" title="Permalink to this headline">¶</a></h2>
 <p>An analysis estimating the probabilities of different partition gives
 the <em>joint</em> probability for different organizations
@@ -534,53 +487,54 @@ new species you would run the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span> <span class="o">-</span><span class="n">r</span> <span class="n">biologicalconcept</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">delimitation</span><span class="o">-</span><span class="n">results</span><span class="o">.</span><span class="n">json</span> <span class="n">DhrM1</span> <span class="n">DHHG2</span> <span class="n">DhhD1</span>
 </pre></div>
 </div>
-<p>which might result in something like this: <sub>~</sub>
-[delineate-summarize] 25 lineages defined in results file: ‘CCVO1’,
-‘DGRP1’, ‘DGRR1’, ‘DHHG2’, ‘DhbV2’, ‘DheCO6’, ‘DheP8’, ‘DhhD1’,
-‘DhlCO1’, ‘DhlP7’, ‘DhmB2Br’, ‘DhpB1Br’, ‘DhrM1’, ‘DhrSL5’, ‘DhsG1’,
-‘DhsH3’, ‘DhsP1’, ‘DhtT9’, ‘Dhy3Br’, ‘Dhy6’, ‘Dhym5’, ‘Dma2’, ‘DtTN1’,
-‘ERVL2’, ‘YSNE1’ [delineate-summarize] 5 species defined in
-constraints, with 12 lineages assigned: [ 1/5 ] ‘ecu’ (3
-lineages) [ 2/5 ] ‘hy’ (2 lineages) [ 3/5 ] ‘lic’ (3 lineages) [ 4/5 ]
-‘ma’ (1 lineages) [ 5/5 ] ‘sep’ (3 lineages) [delineate-summarize] 12
-out of 25 lineages assigned by constraints to 5 species: [ 1/12 ]
-‘DheCO6’ (SPECIES: ‘ecu’) [ 2/12 ] ‘DheP8’ (SPECIES: ‘ecu’) [ 3/12 ]
-‘YSNE1’ (SPECIES: ‘ecu’) [ 4/12 ] ‘Dhy3Br’ (SPECIES: ‘hy’) [ 5/12 ]
-‘Dhy6’ (SPECIES: ‘hy’) [ 6/12 ] ‘DhlCO1’ (SPECIES: ‘lic’) [ 7/12 ]
-‘DhlP7’ (SPECIES: ‘lic’) [ 8/12 ] ‘ERVL2’ (SPECIES: ‘lic’) [ 9/12 ]
-‘Dma2’ (SPECIES: ‘ma’) [ 10/12 ] ‘DhsG1’ (SPECIES: ‘sep’) [ 11/12 ]
-‘DhsH3’ (SPECIES: ‘sep’) [ 12/12 ] ‘DhsP1’ (SPECIES: ‘sep’)
-[delineate-summarize] 13 out of 25 lineages not constrained by species
-assignments: [ 1/13 ] ‘CCVO1’ [ 2/13 ] ‘DGRP1’ [ 3/13 ] ‘DGRR1’ [ 4/13 ]
-‘DHHG2’ [ 5/13 ] ‘DhbV2’ [ 6/13 ] ‘DhhD1’ [ 7/13 ] ‘DhmB2Br’ [ 8/13 ]
-‘DhpB1Br’ [ 9/13 ] ‘DhrM1’ [ 10/13 ] ‘DhrSL5’ [ 11/13 ] ‘DhtT9’ [ 12/13
-] ‘Dhym5’ [ 13/13 ] ‘DtTN1’ [delineate-summarize] 80271 partitions found
-in results file, with total constrained cumulative probability of
-0.9500004131628125 [delineate-summarize] Reading focal lineages from
-arguments [delineate-summarize] 3 focal lineages defined: ‘DHHG2’,
-‘DhhD1’, ‘DhrM1’ [delineate-summarize] 52642 out of 80271 partitions
-found with focal lineages conspecific [delineate-summarize] Marginal
-constrained probability of focal lineages conspecificity:
-0.8314956644192 [delineate-summarize] Marginal constrained probability
-of focal lineages <em>exclusive</em> conspecificity: 0.05232352098265284
-[delineate-summarize] Marginal constrained probability of focal lineages
-being collectively an exclusive new species: 0.05232352098265284
-[delineate-summarize] Marginal constrained probability of focal lineages
-being collectively <em>part</em> (i.e., non-exclusively) of a new species:
-0.3777092230039129 [delineate-summarize] Marginal constrained
-probability of focal lineages being collectively <em>part</em> (i.e.,
-non-exclusively) of a predefined species: 0.4537864414152871
-[delineate-summarize] WARNING: cumulative constrained probability in
-results file is only 0.9500004131628125. Not all partitions might have
-been included, and probability summarizations reported should not be
-considered as accurate. { “lineages”: [“DHHG2”, “DhhD1”, “DhrM1”],
-“marginal_probability_of_conspecificity”: 0.8314956644192,
-“marginal_probability_of_exclusive_conspecificity”:
-0.05232352098265284, “marginal_probability_of_new_species”:
-0.3777092230039129, “marginal_probability_of_existing_species”:
-0.4537864414152871,
-“marginal_probability_of_exclusive_new_species”:
-0.05232352098265284 } <sub>~</sub></p>
+<p>which might result in something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="mi">25</span> <span class="n">lineages</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">results</span> <span class="n">file</span><span class="p">:</span> <span class="s1">&#39;CCVO1&#39;</span><span class="p">,</span> <span class="s1">&#39;DGRP1&#39;</span><span class="p">,</span> <span class="s1">&#39;DGRR1&#39;</span><span class="p">,</span> <span class="s1">&#39;DHHG2&#39;</span><span class="p">,</span> <span class="s1">&#39;DhbV2&#39;</span><span class="p">,</span> <span class="s1">&#39;DheCO6&#39;</span><span class="p">,</span> <span class="s1">&#39;DheP8&#39;</span><span class="p">,</span> <span class="s1">&#39;DhhD1&#39;</span><span class="p">,</span> <span class="s1">&#39;DhlCO1&#39;</span><span class="p">,</span> <span class="s1">&#39;DhlP7&#39;</span><span class="p">,</span> <span class="s1">&#39;DhmB2Br&#39;</span><span class="p">,</span> <span class="s1">&#39;DhpB1Br&#39;</span><span class="p">,</span> <span class="s1">&#39;DhrM1&#39;</span><span class="p">,</span> <span class="s1">&#39;DhrSL5&#39;</span><span class="p">,</span> <span class="s1">&#39;DhsG1&#39;</span><span class="p">,</span> <span class="s1">&#39;DhsH3&#39;</span><span class="p">,</span> <span class="s1">&#39;DhsP1&#39;</span><span class="p">,</span> <span class="s1">&#39;DhtT9&#39;</span><span class="p">,</span> <span class="s1">&#39;Dhy3Br&#39;</span><span class="p">,</span> <span class="s1">&#39;Dhy6&#39;</span><span class="p">,</span> <span class="s1">&#39;Dhym5&#39;</span><span class="p">,</span> <span class="s1">&#39;Dma2&#39;</span><span class="p">,</span> <span class="s1">&#39;DtTN1&#39;</span><span class="p">,</span> <span class="s1">&#39;ERVL2&#39;</span><span class="p">,</span> <span class="s1">&#39;YSNE1&#39;</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="mi">5</span> <span class="n">species</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">configuration</span> <span class="n">constraints</span><span class="p">,</span> <span class="k">with</span> <span class="mi">12</span> <span class="n">lineages</span> <span class="n">assigned</span><span class="p">:</span>
+    <span class="p">[</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">5</span>  <span class="p">]</span> <span class="s1">&#39;ecu&#39;</span>    <span class="p">(</span><span class="mi">3</span> <span class="n">lineages</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">2</span><span class="o">/</span><span class="mi">5</span>  <span class="p">]</span> <span class="s1">&#39;hy&#39;</span>     <span class="p">(</span><span class="mi">2</span> <span class="n">lineages</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">3</span><span class="o">/</span><span class="mi">5</span>  <span class="p">]</span> <span class="s1">&#39;lic&#39;</span>    <span class="p">(</span><span class="mi">3</span> <span class="n">lineages</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">4</span><span class="o">/</span><span class="mi">5</span>  <span class="p">]</span> <span class="s1">&#39;ma&#39;</span>     <span class="p">(</span><span class="mi">1</span> <span class="n">lineages</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">5</span><span class="o">/</span><span class="mi">5</span>  <span class="p">]</span> <span class="s1">&#39;sep&#39;</span>    <span class="p">(</span><span class="mi">3</span> <span class="n">lineages</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="mi">12</span> <span class="n">out</span> <span class="n">of</span> <span class="mi">25</span> <span class="n">lineages</span> <span class="n">assigned</span> <span class="n">by</span> <span class="n">constraints</span> <span class="n">to</span> <span class="mi">5</span> <span class="n">species</span><span class="p">:</span>
+    <span class="p">[</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;DheCO6&#39;</span>    <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;ecu&#39;</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">2</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;DheP8&#39;</span>     <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;ecu&#39;</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">3</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;YSNE1&#39;</span>     <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;ecu&#39;</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">4</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;Dhy3Br&#39;</span>    <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;hy&#39;</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">5</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;Dhy6&#39;</span>      <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;hy&#39;</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">6</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;DhlCO1&#39;</span>    <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;lic&#39;</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">7</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;DhlP7&#39;</span>     <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;lic&#39;</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">8</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;ERVL2&#39;</span>     <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;lic&#39;</span><span class="p">)</span>
+    <span class="p">[</span>  <span class="mi">9</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;Dma2&#39;</span>      <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;ma&#39;</span><span class="p">)</span>
+    <span class="p">[</span> <span class="mi">10</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;DhsG1&#39;</span>     <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;sep&#39;</span><span class="p">)</span>
+    <span class="p">[</span> <span class="mi">11</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;DhsH3&#39;</span>     <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;sep&#39;</span><span class="p">)</span>
+    <span class="p">[</span> <span class="mi">12</span><span class="o">/</span><span class="mi">12</span> <span class="p">]</span> <span class="s1">&#39;DhsP1&#39;</span>     <span class="p">(</span><span class="n">SPECIES</span><span class="p">:</span> <span class="s1">&#39;sep&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="mi">13</span> <span class="n">out</span> <span class="n">of</span> <span class="mi">25</span> <span class="n">lineages</span> <span class="ow">not</span> <span class="n">constrained</span> <span class="n">by</span> <span class="n">species</span> <span class="n">assignments</span><span class="p">:</span>
+    <span class="p">[</span>  <span class="mi">1</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;CCVO1&#39;</span>
+    <span class="p">[</span>  <span class="mi">2</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DGRP1&#39;</span>
+    <span class="p">[</span>  <span class="mi">3</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DGRR1&#39;</span>
+    <span class="p">[</span>  <span class="mi">4</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DHHG2&#39;</span>
+    <span class="p">[</span>  <span class="mi">5</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DhbV2&#39;</span>
+    <span class="p">[</span>  <span class="mi">6</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DhhD1&#39;</span>
+    <span class="p">[</span>  <span class="mi">7</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DhmB2Br&#39;</span>
+    <span class="p">[</span>  <span class="mi">8</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DhpB1Br&#39;</span>
+    <span class="p">[</span>  <span class="mi">9</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DhrM1&#39;</span>
+    <span class="p">[</span> <span class="mi">10</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DhrSL5&#39;</span>
+    <span class="p">[</span> <span class="mi">11</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DhtT9&#39;</span>
+    <span class="p">[</span> <span class="mi">12</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;Dhym5&#39;</span>
+    <span class="p">[</span> <span class="mi">13</span><span class="o">/</span><span class="mi">13</span> <span class="p">]</span> <span class="s1">&#39;DtTN1&#39;</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="mi">80271</span> <span class="n">partitions</span> <span class="n">found</span> <span class="ow">in</span> <span class="n">results</span> <span class="n">file</span><span class="p">,</span> <span class="k">with</span> <span class="n">total</span> <span class="n">constrained</span> <span class="n">cumulative</span> <span class="n">probability</span> <span class="n">of</span> <span class="mf">0.950000360833919</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="n">Reading</span> <span class="n">focal</span> <span class="n">lineages</span> <span class="kn">from</span> <span class="nn">arguments</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="mi">3</span> <span class="n">focal</span> <span class="n">lineages</span> <span class="n">defined</span><span class="p">:</span> <span class="s1">&#39;DHHG2&#39;</span><span class="p">,</span> <span class="s1">&#39;DhhD1&#39;</span><span class="p">,</span> <span class="s1">&#39;DhrM1&#39;</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="mi">52642</span> <span class="n">out</span> <span class="n">of</span> <span class="mi">80271</span> <span class="n">partitions</span> <span class="n">found</span> <span class="k">with</span> <span class="n">focal</span> <span class="n">lineages</span> <span class="n">conspecific</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="n">Marginal</span> <span class="n">constrained</span> <span class="n">probability</span> <span class="n">of</span> <span class="n">focal</span> <span class="n">lineages</span> <span class="n">conspecificity</span><span class="p">:</span> <span class="mf">0.831495473493848</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="n">Marginal</span> <span class="n">constrained</span> <span class="n">probability</span> <span class="n">of</span> <span class="n">focal</span> <span class="n">lineages</span> <span class="o">*</span><span class="n">exclusive</span><span class="o">*</span> <span class="n">conspecificity</span><span class="p">:</span> <span class="mf">0.052323596219327514</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="n">Marginal</span> <span class="n">constrained</span> <span class="n">probability</span> <span class="n">of</span> <span class="n">focal</span> <span class="n">lineages</span> <span class="n">being</span> <span class="n">collectively</span> <span class="n">an</span> <span class="n">exclusive</span> <span class="n">new</span> <span class="n">species</span><span class="p">:</span> <span class="mf">0.052323596219327514</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="n">Marginal</span> <span class="n">constrained</span> <span class="n">probability</span> <span class="n">of</span> <span class="n">focal</span> <span class="n">lineages</span> <span class="n">being</span> <span class="n">collectively</span> <span class="o">*</span><span class="n">part</span><span class="o">*</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="p">,</span> <span class="n">non</span><span class="o">-</span><span class="n">exclusively</span><span class="p">)</span> <span class="n">of</span> <span class="n">a</span> <span class="n">new</span> <span class="n">species</span><span class="p">:</span> <span class="mf">0.3777095324871036</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="n">Marginal</span> <span class="n">constrained</span> <span class="n">probability</span> <span class="n">of</span> <span class="n">focal</span> <span class="n">lineages</span> <span class="n">being</span> <span class="n">collectively</span> <span class="o">*</span><span class="n">part</span><span class="o">*</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="p">,</span> <span class="n">non</span><span class="o">-</span><span class="n">exclusively</span><span class="p">)</span> <span class="n">of</span> <span class="n">a</span> <span class="n">predefined</span> <span class="n">species</span><span class="p">:</span> <span class="mf">0.4537859410067482</span>
+<span class="p">[</span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span><span class="p">]</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">cumulative</span> <span class="n">constrained</span> <span class="n">probability</span> <span class="ow">in</span> <span class="n">results</span> <span class="n">file</span> <span class="ow">is</span> <span class="n">only</span> <span class="mf">0.950000360833919</span><span class="o">.</span> <span class="n">Probability</span> <span class="n">summarizations</span> <span class="n">reported</span> <span class="n">may</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">accurate</span><span class="o">.</span>
+<span class="p">{</span><span class="s2">&quot;lineages&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;DHHG2&quot;</span><span class="p">,</span> <span class="s2">&quot;DhhD1&quot;</span><span class="p">,</span> <span class="s2">&quot;DhrM1&quot;</span><span class="p">],</span> <span class="s2">&quot;marginal_probability_of_conspecificity&quot;</span><span class="p">:</span> <span class="mf">0.831495473493848</span><span class="p">,</span> <span class="s2">&quot;marginal_probability_of_exclusive_conspecificity&quot;</span><span class="p">:</span> <span class="mf">0.052323596219327514</span><span class="p">,</span> <span class="s2">&quot;marginal_probability_of_new_species&quot;</span><span class="p">:</span> <span class="mf">0.3777095324871036</span><span class="p">,</span> <span class="s2">&quot;marginal_probability_of_existing_species&quot;</span><span class="p">:</span> <span class="mf">0.4537859410067482</span><span class="p">,</span> <span class="s2">&quot;marginal_probability_of_exclusive_new_species&quot;</span><span class="p">:</span> <span class="mf">0.052323596219327514</span><span class="p">}</span>
+</pre></div>
+</div>
 <p>As can be seen, the complete report includes details on the
 constraints etc. as well as the various summarized
 marginal probabilities. The final result is written (by default) in JSON
@@ -599,11 +553,65 @@ species distinct from any named in the contraints:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">delineate</span><span class="o">-</span><span class="n">summarize</span> <span class="o">-</span><span class="n">r</span> <span class="n">biologicalconcept</span><span class="o">.</span><span class="n">delimitation</span><span class="o">-</span><span class="n">results</span><span class="o">.</span><span class="n">json</span> <span class="n">DhtT9</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Basic Concepts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-requirements">Data Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#input-data-population-tree">Input Data: Population Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-data-species-assignment-table">Input Data: Species Assignment Table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-a-species-delimitation-analysis">Running a Species Delimitation Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-run">Basic Run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-run-output">Basic Run Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#more-options">More Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#summarizing-the-marginal-probability-of-conspecificity-and-new-species-status-for-a-subset-of-taxa">Summarizing the Marginal Probability of Conspecificity and New Species Status for a Subset of Taxa</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workflow1.html">A Complete Worked Example: <em>Lionepha</em></a></li>
+</ul>
+
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="concepts.html"
+                          title="previous chapter">Basic Concepts</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="workflow1.html"
+                          title="next chapter">A Complete Worked Example: <em>Lionepha</em></a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/quickstart.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -620,12 +628,13 @@ species distinct from any named in the contraints:</p>
         <li class="right" >
           <a href="concepts.html" title="Basic Concepts"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">DELINEATE 1.2.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Quick Start</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2020, Jeet Sukumaran and Mark T. Holder.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
     </div>
   </body>
 </html>
