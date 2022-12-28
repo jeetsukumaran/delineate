@@ -1,0 +1,4 @@
+numpy
+scipy
+dendropy @ git+https://github.com/jeetsukumaran/dendropy@development-main
+
