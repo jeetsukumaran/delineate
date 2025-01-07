@@ -105,6 +105,7 @@ class BppSummarizer(object):
         num_pops = 0
         with src:
             for line in src:
+                line = line.strip()
                 if not line:
                     continue
                 parts = line.split()
