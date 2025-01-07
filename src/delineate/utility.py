@@ -9,7 +9,6 @@ import json
 import os
 import sys
 import textwrap
-from delineate import __project__, __version__
 
 _LOGGING_LEVEL_ENVAR = "DELINEATE_LOGGING_LEVEL"
 _LOGGING_FORMAT_ENVAR = "DELINEATE_LOGGING_FORMAT"

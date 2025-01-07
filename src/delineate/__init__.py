@@ -29,8 +29,8 @@
 ##
 ##############################################################################
 
-__project__ = "DELINEATE"
-__version__ = "1.2.2"
+# __project__ = "DELINEATE"
+# __version__ = "1.2.2"
 
 def revision_description():
     import os
@@ -50,8 +50,8 @@ def revision_description():
         revision_text = ""
     return revision_text
 
-def name():
-    return "{} {}{}".format(__project__, __version__, revision_description())
+# def name():
+#     return "{} {}{}".format(__project__, __version__, revision_description())
 
 def homedir():
     import os
@@ -61,26 +61,26 @@ def homedir():
         __homedir__ = None
     return __homedir__
 
-def description(dest=None):
-    import sys
-    import site
-    if dest is None:
-        dest = sys.stdout
-    fields = {}
-    fields["{} version".format(__project__)] = name()
-    fields["{} location".format(__project__)] = homedir()
-    fields["Python version"] = sys.version.replace("\n", "")
-    fields["Python executable"] = sys.executable
-    try:
-        fields["Python site packages"] = site.getsitepackages()
-    except:
-        pass
-    max_fieldname_len = max(len(fieldname) for fieldname in fields)
-    for fieldname, fieldvalue in fields.items():
-        dest.write("{fieldname:{fieldnamewidth}}: {fieldvalue}\n".format(
-            fieldname=fieldname,
-            fieldnamewidth=max_fieldname_len + 2,
-            fieldvalue=fieldvalue))
+# def description(dest=None):
+#     import sys
+#     import site
+#     if dest is None:
+#         dest = sys.stdout
+#     fields = {}
+#     fields["{} version".format(__project__)] = name()
+#     fields["{} location".format(__project__)] = homedir()
+#     fields["Python version"] = sys.version.replace("\n", "")
+#     fields["Python executable"] = sys.executable
+#     try:
+#         fields["Python site packages"] = site.getsitepackages()
+#     except:
+#         pass
+#     max_fieldname_len = max(len(fieldname) for fieldname in fields)
+#     for fieldname, fieldvalue in fields.items():
+#         dest.write("{fieldname:{fieldnamewidth}}: {fieldvalue}\n".format(
+#             fieldname=fieldname,
+#             fieldnamewidth=max_fieldname_len + 2,
+#             fieldvalue=fieldvalue))
 
 def get_metadata_parser_opts():
     # To use in main(), instantiate the parser by:

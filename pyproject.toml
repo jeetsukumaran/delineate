@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=69.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "delineate"
+version = "1.20251206.00"
+description = "Model-based species delimitation"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Jeet Sukumaran", email = "jeetsukumaran@gmail.com"}
+]
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "dendropy",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0"
+]
+dev = [
+    "black>=23.0",
+    "ruff>=0.1.8",
+    "mypy>=1.7"
+]
+
+[project.urls]
+Homepage = "https://github.com/jeetsukumaran/delineate"
+"Bug Tracker" = "https://github.com/jeetsukumaran/delineate/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests*"]
+
+[tool.setuptools.package-data]
+delineate = [
+    "*.json",
+    "*.yaml",
+    "*.txt",
+    "resources/*.json",
+    "resources/config/*.yaml",
+    "templates/*.j2"
+]
+
+[project.scripts]
+delineate-bppsum = "delineate.application.delineate_bppsum:main"
+delineate-check = "delineate.application.delineate_check:main"
+delineate-estimate = "delineate.application.delineate_estimate:main"
+delineate-summarize = "delineate.application.delineate_summarize:main"
